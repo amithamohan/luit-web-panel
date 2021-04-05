@@ -1,7 +1,9 @@
 import './App.css';
-import Home from './Components/Home';
 import SignUp from './Components/SignUp';
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import Home from './Components/Dashboard/Home';
+import TermsOfService from './Components/App Policies/TermsOfService';
+
 
 
 function App() 
@@ -11,6 +13,7 @@ function App()
       <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/signUp" component={SignUp} />
+          <Route path="termsOfService" component={TermsOfService}/>
       </Switch>
     </Router>
   );

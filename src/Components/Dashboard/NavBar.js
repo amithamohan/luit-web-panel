@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import { browserHistory, Router, Route } from 'react-router';
-import Home from './Home';
-import SignUp from './SignUp';
 
 
 class NavigationBar extends Component
@@ -21,7 +18,7 @@ class NavigationBar extends Component
 									<ul className="navbar-nav nav-menu float-none text-center">
 										<li className="nav-item"><a className="nav-link" href="landing.html">Home</a></li>
 										<li className="nav-item"><a className="nav-link" href="/signUp">Movies</a></li>
-										<li className="nav-item"><a className="nav-link" href="single.html">Web Series</a></li>
+										<li className="nav-item"><a className="nav-link" href="/termsOfService">Web Series</a></li>
 										<li className="nav-item"><a className="nav-link" href="search.html">Music</a></li>
 										<li className="nav-item"><a className="nav-link" href="video.html">Short Movies</a></li>
 									</ul>

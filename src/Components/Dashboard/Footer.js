@@ -13,7 +13,7 @@ class Footer extends Component
 							<div className="col-sm-6">
 								<p className="copyright-text">© 2020 copyright. All rights reserved.</p>
 							</div>
-							<div className="col-sm-6 text-right">
+							<div cl	assName="col-sm-6 text-right">
 								<p className="float-right copyright-text">
 								<a href="#">Privacy Policy</a> |
 								<a href="#">Terms of Use</a> |
