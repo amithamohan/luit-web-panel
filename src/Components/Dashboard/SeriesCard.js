@@ -17,7 +17,7 @@ class SeriesCard extends Component
 							<div className="col-sm-12">
 								<div className="slide-slider owl-carousel owl-theme">
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Batman Knight <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
@@ -28,7 +28,7 @@ class SeriesCard extends Component
 										</a>
 									</div>
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Gimini Man <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
@@ -39,7 +39,7 @@ class SeriesCard extends Component
 										</a>
 									</div>
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Create of Shadow <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
@@ -50,7 +50,7 @@ class SeriesCard extends Component
 										</a>
 									</div>
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Jusy Cry yourself <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
@@ -61,7 +61,7 @@ class SeriesCard extends Component
 										</a>
 									</div>
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Create of Shadow <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
@@ -72,7 +72,7 @@ class SeriesCard extends Component
 										</a>
 									</div>
 									<div className="owl-items">
-										<a className="slide-one slide-two" href="#">
+										<a className="slide-one slide-two" href="/">
 											<div className="slide-image" style={{backgroundImage: 'url(https://via.placeholder.com/400x400.png)'}} />
 											<div className="slide-content">
 											<h2>Jusy Cry yourself <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>

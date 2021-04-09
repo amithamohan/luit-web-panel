@@ -2,82 +2,109 @@ import axios from "axios";
 
 class Server
 {
-	// login with otp
-	// static  login()
-	// {
-	// 	let response =  HttpService.postMethod
-	// 	(
-	// 		APIConstanst.login,
-	// 		"login_phone_no" = phoneNumber,
-	// 	);
-	// }
-
-	// facebook login
 	static facebookLogin()
 	{
-		try
-		{
-			let body =
-			{
-				"facebook_id": "facebookId",
-				"name": "username",
-				"email": "email",
-				"dob": "",
-				"age": "",
-				"image": "profilePic",
-				"login_phone_no": "mobile",
-				"token": "tokenId",
-				"device_id": "deviceId"
-			};
+		var bodyFormData = new FormData();
+			bodyFormData.append("facebook_id", "54556555113");
+			bodyFormData.append("name", "username",);
+			bodyFormData.append("email", "email");
+			bodyFormData.append("dob", "");
+			bodyFormData.append("age", "",);
+			bodyFormData.append("image", "",);
+			bodyFormData.append("login_phone_no", "mobile",);
+			bodyFormData.append("token", "tokenId",);
+			bodyFormData.append("device_id", "deviceId");
 
-			let response =  axios.post
-			(
-				// APIConstanst.facebookLogin,
-				"http://release.luit.co.in/api/fb-login",
-				body
-			)
-
-			return response.body;
-		}
-		catch(e)
-		{
-			console.log(e);
-		}
+			axios({
+				method: "post",
+				url: "https://release.luit.co.in/api/fb-login",
+				data: bodyFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			  })
+				.then(function (response) {
+				  //handle success
+				  console.log(response);
+				})
+				.catch(function (response) {
+				  //handle error
+				  console.log(response);
+				});
 	}
 
 	// google login
-	static googleLogin() 
+	static googleLogin()
 	{
-		try
-		{
-			let body =
-			{
-				"google_id": "google_id",
-				"name": "username",
-				"email": "email",
-				"dob": "",
-				"age": "",
-				"image": "profilePic",
-				"login_phone_no": "mobile",
-				"token": "tokenId",
-				"device_id": "deviceId"
-			};
+		var bodyFormData = new FormData();
+			bodyFormData.append("google_id", "54556555113");
+			bodyFormData.append("name", "username",);
+			bodyFormData.append("email", "email");
+			bodyFormData.append("dob", "");
+			bodyFormData.append("age", "",);
+			bodyFormData.append("image", "profilePic",);
+			bodyFormData.append("login_phone_no", "mobile",);
+			bodyFormData.append("token", "tokenId",);
+			bodyFormData.append("device_id", "deviceId");
 
-			let response =  axios.post
-			(
-				// APIConstanst.googleLogin,
-				"http://release.luit.co.in/api/fb-login",
-				body
-			)
+			axios({
+				method: "post",
+				url: "https://release.luit.co.in/api/fb-login",
+				data: bodyFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			  })
+				.then(function (response) {
+				  //handle success
+				  console.log(response);
+				})
+				.catch(function (response) {
+				  //handle error
+				  console.log(response);
+				});
+	}
 
-			console.log(response);
+	// slider
+	static fetchSlider()
+	{
+		// try
+		// {
+			// let request =
+			// {
+			// 	"category": "home"
+			// };
+			var bodyFormData = new FormData();
+			bodyFormData.append('category', 'home');
 
-			return response.body;
-		}
-		catch(e)
-		{
-			console.log(e);
-		}
+			axios({
+				method: "post",
+				url: "https://release.luit.co.in/api/slider",
+				data: bodyFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			  })
+				.then(function (response) {
+				  //handle success
+				  console.log(response);
+				})
+				.catch(function (response) {
+				  //handle error
+				  console.log(response);
+				});
+
+		// 	let response = axios.post
+		// 	(
+		// 		"https://release.luit.co.in/api/slider",
+		// 		{
+		// 			"category": "home"
+		// 		}
+		// 	).then(function(response)
+		// 	{
+		// 		console.log(response.body);
+		// 	})
+
+		// 	return JSON.parse(response.body);
+		// }
+		// catch(e)
+		// {
+		// 	console.log("slider error");
+		// }
 	}
 }
 

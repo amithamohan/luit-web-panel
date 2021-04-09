@@ -1,8 +1,6 @@
 
-
 .App {
   text-align: center;
-  background-color: #1a2236;
 
 }
 
@@ -32,6 +30,9 @@
   color: #61dafb;
 }
 
+.TermsOService-termsOfUse{
+  background-color: white;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -39,4 +40,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sliderimg
+{
+  max-height: 500px;
+  min-width: 100%;
 }

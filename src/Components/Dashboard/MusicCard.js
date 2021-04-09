@@ -18,7 +18,7 @@ class MusicCard extends Component
 								<div className="slide-slider owl-carousel owl-theme">
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="" /></div>
 											<div className="slide-content">
 												<h2>Second Man Earth <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 												<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -30,7 +30,7 @@ class MusicCard extends Component
 									</div>
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="" /></div>
 											<div className="slide-content">
 												<h2>Defective Area <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 												<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -42,7 +42,7 @@ class MusicCard extends Component
 									</div>
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="" /></div>
 											<div className="slide-content">
 												<h2>Law of Order <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 												<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -54,7 +54,7 @@ class MusicCard extends Component
 									</div>
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 												<div className="slide-content">
 													<h2>Ravata of Sky <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 													<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -66,7 +66,7 @@ class MusicCard extends Component
 									</div>
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 											<div className="slide-content">
 												<h2>Inspector <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 												<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -78,7 +78,7 @@ class MusicCard extends Component
 									</div>
 									<div className="owl-items">
 										<a className="slide-one" href="single.html">
-											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+											<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 											<div className="slide-content">
 												<h2>Sky Staar <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 												<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>

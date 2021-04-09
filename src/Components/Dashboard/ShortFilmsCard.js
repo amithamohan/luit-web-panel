@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class ShortFilm extends Component
+class ShortFilmCard extends Component
 {
 	render()
 	{
@@ -18,7 +18,7 @@ class ShortFilm extends Component
 					<div className="slide-slider owl-carousel owl-theme">
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Made in haven <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -30,7 +30,7 @@ class ShortFilm extends Component
 						</div>
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Gravity <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -42,7 +42,7 @@ class ShortFilm extends Component
 						</div>
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Inspector <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -54,7 +54,7 @@ class ShortFilm extends Component
 						</div>
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Sky Staar <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -66,7 +66,7 @@ class ShortFilm extends Component
 						</div>
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Inspector <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -78,7 +78,7 @@ class ShortFilm extends Component
 						</div>
 						<div className="owl-items">
 						<a className="slide-one" href="single.html">
-							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="image" /></div>
+							<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="icon" /></div>
 							<div className="slide-content">
 							<h2>Sky Staar <img src="images/plus.png" className="add-wishlist" alt="icon" /></h2>
 							<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
@@ -98,4 +98,4 @@ class ShortFilm extends Component
 	}
 }
 
-export default ShortFilm;
+export default ShortFilmCard;

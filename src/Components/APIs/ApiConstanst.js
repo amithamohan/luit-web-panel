@@ -6,4 +6,6 @@ class APIConstanst
 	login = baseUrl + "/login-first";
 	facebookLogin = baseUrl + "/fb-login";
 	googleLogin = baseUrl + "/google-login";
+
+	sliderhome = baseUrl = "/slider";
 }
