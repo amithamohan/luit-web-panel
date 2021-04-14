@@ -1,0 +1,22 @@
+li{
+    list-style-type: none;
+    margin-left: 1rem;
+}
+.heading{
+    margin: 2rem 0px;
+    color: white;
+}
+.heading h2{
+    color: white;
+}
+.sub-list{
+    margin: 1rem 2rem;
+}
+.list-agree{
+    margin: 1rem 2rem;
+}
+
+.terms-ul h5, p{
+    color: white;
+}
+.sub-list{color: white;}

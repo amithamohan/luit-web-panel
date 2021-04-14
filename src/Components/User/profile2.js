@@ -67,7 +67,7 @@ class ProfileInfo extends Component
 										<a className="form-btn member-bttn3 text-white inline-flex col-12" href="/" >Submit</a>
 										</div>
 										</div>
-										<p className="sign-up-text">Already have an account?<a href="/signin">Sign in</a></p>
+										<p className="sign-up-text">Already have an account?<a href="/sign_in">Sign in</a></p>
 										</div>
 										
 									</form>

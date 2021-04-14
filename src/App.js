@@ -9,7 +9,10 @@ import ShortFilm from './Components/Short Films/ShortFilm';
 import SignIn from './Components/SignIn';
 import WebSeries from './Components/Web Series/WebSeriesHomePage';
 import ProfileInfo from './Components/User/profile';
-
+import SigninScreen from './Components/SigninScreen';
+import OTPScreen from './Components/OTPScreen';
+import TermsScreen from './Components/TermsScreen';
+import PrivacyScreen from './Components/PrivacyScreen'; 
 
 
 function App() 
@@ -26,6 +29,10 @@ function App()
           <Route path="/web_series" component={WebSeries}/>
           <Route path="/video_player" component={VideoPlayer}/>
           <Route path="/profile" component={ProfileInfo}/>
+          <Route path="/signin" component={SigninScreen} />
+          <Route path="/verifyotp" component={OTPScreen} />
+          <Route path="/terms" component={TermsScreen} />
+          <Route path="/privacy-policy" component={PrivacyScreen} />
       </Switch>
     </Router>
   );
