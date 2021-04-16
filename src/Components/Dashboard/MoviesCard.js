@@ -1,48 +1,53 @@
 import React, {Component} from 'react';
-import { Card, List, Row, Col } from 'antd';
-import Text from 'antd/lib/typography/Text';
-
-
-
-
-const { Meta } = Card;
-
 
 class MoviesCard extends Component
 {
+	constructor(props)
+	{
+		super()
+	}
 	render()
 	{
-		const rows = [];
+		const cards = [];
 
-		for(let i = 0; i < this.props.count; i++)
+		for(let i = 0; i < 10; i++)
 		{
-			rows.push(
-				<Col>
-					<Card hoverable style={{ width: 300, margin: 10}} cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}>
-						<Meta title="Second Man on Earth"  description={[
-							<div>
-								<p>"Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather"</p>
-								<Row>
-									<Text>Hii</Text>
-									<Text>    njh</Text>
-								</Row>
-							</div>
-						]}/>
-					</Card>
-				</Col>
+			cards.push
+			(
+				<div className="owl-items" key={i}>
+					<a className="slide-one" href="/detailed_page">
+						<div className="slide-image"><img src="https://release.luit.co.in/uploads/movie_thumbnail/thumb_1609755203JONBAI%201" alt="" /></div>
+						<div className="slide-content">
+						<h2>Movie<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+						<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
+						<span className="tag">2 h 20 min</span>
+						<span className="tag">2020</span>
+						<span className="tag"><b>16+</b></span>
+						</div>
+					</a>
+				</div>
 			);
 		}
-
 		return(
-			<div style={{marginLeft: "50px", marginBottom: "50px"}}>
-				<Col>
-				<h4 style={{color:"white", fontSize: "25px"}}>Latest Movies</h4>
-					<Row>
-					{
-						rows
-					}
-					</Row>
-				</Col>
+			<div>
+				<div className="slide-wrapper">
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-6 text-left mb-4 mt-4">
+							<h2>Latest Movies</h2>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-sm-12">
+							<div className="slide-slider owl-carousel owl-theme">
+								{
+									cards
+								}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		);
 	}

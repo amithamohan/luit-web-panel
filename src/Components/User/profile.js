@@ -93,7 +93,7 @@ class ProfileInfo extends Component
 										</div>
 										</div>
 										<div className="form-group button-block text-center">
-										<a className="form-btn d-block member-bttn4 text-white">Pay Now</a>
+										<a className="form-btn d-block member-bttn4 text-white" href="/build">Pay Now</a>
 										</div>
 									</form>
 									</div>

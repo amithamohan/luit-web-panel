@@ -1,37 +1,45 @@
-import Avatar from 'antd/lib/avatar/avatar';
 import React, {Component} from 'react';
-import {Navbar, Nav, FormControl, Form} from 'react-bootstrap';
 
-const navbar =
-{
-	color: "white",
-}
 
 class NavigationBar extends Component
 {
 	render()
 	{
 		return(
-			<Navbar expand="lg">
-  				<Navbar.Brand href="/"><img src="images/logo.png"/></Navbar.Brand>
-  				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav" style={{marginRight:"45"}}>
-					<Nav className="ml-auto">
-						<Nav.Link style={navbar} href="/">Home</Nav.Link>
-						<Nav.Link style={navbar} href="/movies">Movies</Nav.Link>
-						<Nav.Link style={navbar} href="/music">Music</Nav.Link>
-						<Nav.Link style={navbar} href="/web_series">Web Series</Nav.Link>
-						<Nav.Link style={navbar} href="/short_film">Short Films</Nav.Link>
-						<Nav.Link style={navbar} href="/sign_in">Short Films</Nav.Link>
-					</Nav>
-					<Form inline>
-					<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-					</Form>
-					<a href="/profile">
-					<Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4rHk-t6N9r-UDu9KB5irEON9DwIWDX3Roig&usqp=CAU"/>
-					</a>
-  				</Navbar.Collapse>
-			</Navbar>
+			<div className="header-wrapper">
+				<div className="container">
+					<div className="row">
+						<div className="col-lg-8 navbar p-0">
+							<a href="index.html" className="logo"><img src="images/logo.png" alt="logo" className="light" /><img src="images/logo.png" alt="logo" className="dark" /></a>
+							<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" 			aria-expanded="false" aria-label="Toggle navigation">
+								<span className="navbar-toggler-icon" />
+							</button>
+							<div className="collapse navbar-collapse" id="navbarNavDropdown">
+									<ul className="navbar-nav nav-menu float-none text-center">
+										<li className="nav-item"><a className="nav-link" href="/">Home</a></li>
+										<li className="nav-item"><a className="nav-link" href="/video_player">Movies</a></li>
+										<li className="nav-item"><a className="nav-link" href="/web_series">Web Series</a></li>
+										<li className="nav-item"><a className="nav-link" href="/music">Music</a></li>
+										<li className="nav-item"><a className="nav-link" href="/short_film">Short Movies</a></li>
+									</ul>
+							</div>
+						</div>
+						<div className="col-lg-4">
+							<div className="user-avater">
+								<img src="https://via.placeholder.com/50x50.png" alt="user" />
+								<div className="user-menu">
+									<ul>
+										<li><a href="/sign_in"><i className="ti-power-off" />Login</a></li>
+									</ul>
+								</div>
+							</div>
+							<div className="search-div">
+								<input type="text" placeholder="Seacrh" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		);
 	}
 }

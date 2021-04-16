@@ -30,7 +30,7 @@
   color: #61dafb;
 }
 
-.TermsOService-termsOfUse{
+.termsOfUse{
   background-color: white;
 }
 @keyframes App-logo-spin {
@@ -46,4 +46,18 @@
 {
   max-height: 500px;
   min-width: 100%;
+}
+
+li{
+  list-style-type: none;
+  margin-left: 1rem;
+}
+.heading{
+  margin: 2rem 0px;
+}
+.sub-list{
+  margin: 1rem 2rem;
+}
+.list-agree{
+  margin: 1rem 2rem;
 }

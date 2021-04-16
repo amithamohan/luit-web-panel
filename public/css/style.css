@@ -11804,7 +11804,6 @@ label.error {
 }
 .header-wrapper .nav-menu {
   display: inline-block;
-  float: left;
   margin-left: 40px;
   margin-top: 3px;
 }
@@ -11818,7 +11817,6 @@ label.error {
 .header-wrapper .nav-menu li {
   padding: 0 20px;
   display: inline-block;
-  float: left;
 }
 @media only screen and (max-width: 992px) {
   .header-wrapper .nav-menu li {
