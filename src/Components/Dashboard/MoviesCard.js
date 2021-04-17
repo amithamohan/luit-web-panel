@@ -3,6 +3,15 @@ import OwlCarousel from 'react-owl-carousel2';
 
 class MoviesCard extends Component
 {
+	options = 
+	{
+		items: 4,
+		margin: 10,
+		nav: true,
+		rewind: true,
+		autoplay: true
+	};
+
 	constructor(props)
 	{
 		super(props);
@@ -18,13 +27,12 @@ class MoviesCard extends Component
 		for (let i = 0; i < 10; i++)
 		{
 			const movie = this.props.moviesList[i];
-			console.log(movie);
 
 			if (movie !== undefined)
 			{
 				cards.push(
-				<div className="owl-items" key={i}>
-					<a className="slide-one" href="/detailed_page">
+				<div key={i}>
+					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
 						<div className="slide-image">
 							<img src={movie["poster"]} alt="" />
 						</div>
@@ -50,7 +58,7 @@ class MoviesCard extends Component
 							<h2>Latest Movies</h2>
 							</div>
 						</div>
-						<OwlCarousel>
+						<OwlCarousel options={this.options}>
 							{
 								cards
 							}
