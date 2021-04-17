@@ -3,6 +3,15 @@ import OwlCarousel from 'react-owl-carousel2';
 
 class MoviesCard extends Component
 {
+	options = 
+	{
+		items: 4,
+		margin: 10,
+		nav: true,
+		loop: true,
+		autoplay: true
+	};
+
 	constructor(props)
 	{
 		super(props);
@@ -12,21 +21,17 @@ class MoviesCard extends Component
 	{
 		const cards = [];
 
-		console.log("PROPS");
-		console.log(this.props.moviesList);
-
 		for (let i = 0; i < this.props.moviesList.length; i++)
 		{
 			const movie = this.props.moviesList[i];
-			console.log(movie);
 
 			if (movie !== undefined)
 			{
 				cards.push(
-				<div className="owl-items" key={i}>
-					<a className="slide-one" href="/detailed_page">
+				<div key={i}>
+					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
 						<div className="slide-image">
-							<img src={movie["poster"]} alt="" />
+							<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 						</div>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
@@ -50,7 +55,7 @@ class MoviesCard extends Component
 							<h2>Latest Movies</h2>
 							</div>
 						</div>
-						<OwlCarousel>
+						<OwlCarousel options={this.options}>
 							{
 								cards
 							}
