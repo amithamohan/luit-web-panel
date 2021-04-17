@@ -18,7 +18,6 @@ class MusicCard extends Component
 		for (let i = 0; i < this.props.musicList.length; i++)
 		{
 			const music = this.props.musicList[i];
-			console.log(music);
 
 			if (music !== undefined)
 			{

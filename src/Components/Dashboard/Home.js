@@ -25,10 +25,12 @@ class Home extends Component
 			moviesSlider: [],
 			musicSlider: [],
 			shortFilmSlider:[],
+			movieLanguages: []
 		}
 
 		this.getSlider = this.getSlider.bind(this);
 		this.getAllMovies = this.getAllMovies.bind(this);
+		this.getAllMoviesByLanguage = this.getAllMoviesByLanguage.bind(this);
 	}
 
 	componentDidMount()
@@ -36,6 +38,7 @@ class Home extends Component
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
+		this.getAllMoviesByLanguage();
 	}
 
 	async getSlider()
@@ -95,8 +98,27 @@ class Home extends Component
 		}
 		
 		this.setState({moviesList: movieList});
+	}
 
-		console.log(this.state.moviesList);
+	async getAllMoviesByLanguage()
+	{
+		let languageList = [];
+		let response = await Server.fetchMoviesByLanguages();
+
+		console.log("getAllMoviesByLanguage");
+		console.log(response);
+
+		if (response["response"] === "success")
+		{
+			let language = response["data"];
+
+			for (let i = 0; i < language.length; i++)
+			{
+				languageList.push(language[i]);
+			}
+		}
+		
+		this.setState({movieLanguages: languageList});
 	}
 
 	// fetch all music
@@ -116,8 +138,6 @@ class Home extends Component
 		}
 		
 		this.setState({musicList: result});
-
-		console.log(this.state.musicList);
 	}
 	// fetch all music
 	// api calls
@@ -130,7 +150,7 @@ class Home extends Component
 					<NavigationBar/>
 					<Slider slider = {this.state.homeSlider}/>
 					<MoviesCard moviesList={this.state.moviesList}/>
-					<MoviesByLanguages/>
+					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist/>
 					<SeriesCard/>
