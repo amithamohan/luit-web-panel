@@ -325,75 +325,25 @@ class Server
 	// 	}
 	// }
 
-	// //5. MOVIES BY LANGUAGES
-	// static async fetchMoviesByLanguages()
-	// {
-	// 	try
-	// 	{
-	// 		let response = axios
-	// 			({
-	// 				method: "GET",
-	// 				url: "https://release.luit.co.in/api/language-movies",
-	// 				headers: { "Content-Type": "multipart/form-data" },
-	// 			});
+	//5. MOVIES BY LANGUAGES
+	static async fetchMoviesByLanguages()
+	{
+		try
+		{
+			let response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/language-movies",
+				headers: { "Content-Type": "application/json" },
+			});
 
-
-	// 		var result = response.body;
-
-	// 		moviesByLanguagesList = [];
-
-	// 		for (let i = 0; i < result["data"].length; i++)
-	// 		{
-	// 			var language =
-	// 			{
-	// 				"lang_id": result["data"][i]["lang_id"],
-	// 				"lang_name": result["data"][i]["lang_name"],
-	// 				"thumbnail_link": result["data"][i]["thumbnail_link"],
-	// 				"data": []
-	// 			};
-
-	// 			for (let j = 0; j < result["data"][i]["data"].length; j++)
-	// 			{
-	// 				var langMovie = result["data"][i]["data"][j];
-
-	// 				var movie =
-	// 				{
-	// 					"type": langMovie["type"],
-	// 					"id": langMovie["movie_id"],
-	// 					"title": langMovie["movie_title"],
-	// 					"description": langMovie["description"],
-	// 					"video_url": langMovie["movie_upload"],
-	// 					"trailer_url": langMovie["trailer_upload"],
-	// 					"audio_languages": langMovie["audio_languages"],
-	// 					"maturity_rating": langMovie["maturity_rating"],
-	// 					"thumbnail": langMovie["thumbnail"],
-	// 					"poster": langMovie["poster"],
-	// 					"free": langMovie["free"],
-	// 					"amount": langMovie["amount"],
-	// 					"meta_keyword": langMovie["meta_keyword"],
-	// 					"meta_description": langMovie["meta_description"],
-	// 					"directors": langMovie["directors"],
-	// 					"actors": langMovie["actors"],
-	// 					"genre": langMovie["genre"],
-	// 					"duration": langMovie["duration"],
-	// 					"ratings": langMovie["ratings"],
-	// 					"publish_year": langMovie["publish_year"],
-	// 					"status": langMovie["status"]
-	// 				};
-
-	// 				language["data"].add(movie);
-	// 			}
-
-	// 			moviesByLanguagesList.add(language);
-	// 		}
-
-	// 		return response.body;
-	// 	}
-	// 	catch(e)
-	// 	{
-	// 		console.log(e);
-	// 	}
-	// }
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
 
 	// // 6. MUSIC DETAILS
 	// static async fetchMusic()

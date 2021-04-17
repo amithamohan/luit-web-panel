@@ -25,11 +25,12 @@ class Home extends Component
 			moviesSlider: [],
 			musicSlider: [],
 			shortFilmSlider:[],
-			trendingArtist: [],
+			movieLanguages: []
 		}
 
 		this.getSlider = this.getSlider.bind(this);
 		this.getAllMovies = this.getAllMovies.bind(this);
+		this.getAllMoviesByLanguage = this.getAllMoviesByLanguage.bind(this);
 	}
 
 	componentDidMount()
@@ -37,7 +38,7 @@ class Home extends Component
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
-		this.getMoviesByActors();
+		this.getAllMoviesByLanguage();
 	}
 
 	async getSlider()
@@ -95,8 +96,29 @@ class Home extends Component
 				movieList.push(movies[i]);
 			}
 		}
-
+		
 		this.setState({moviesList: movieList});
+	}
+
+	async getAllMoviesByLanguage()
+	{
+		let languageList = [];
+		let response = await Server.fetchMoviesByLanguages();
+
+		console.log("getAllMoviesByLanguage");
+		console.log(response);
+
+		if (response["response"] === "success")
+		{
+			let language = response["data"];
+
+			for (let i = 0; i < language.length; i++)
+			{
+				languageList.push(language[i]);
+			}
+		}
+		
+		this.setState({movieLanguages: languageList});
 	}
 
 	// fetch all music
@@ -118,25 +140,6 @@ class Home extends Component
 		this.setState({musicList: result});
 	}
 
-	// movies by actors
-	async getMoviesByActors()
-	{
-		let result = [];
-		let response = await Server.fecthMoviesByActors();
-
-		if (response["response"] === "success")
-		{
-			let data = response["data"];
-
-			for (let i = 0; i < data.length; i++)
-			{
-				result.push(data[i]);
-			}
-		}
-
-		this.setState({trendingArtist: result});
-	}
-
 	render()
 	{
 		return(
@@ -145,7 +148,7 @@ class Home extends Component
 					<NavigationBar/>
 					<Slider slider = {this.state.homeSlider}/>
 					<MoviesCard moviesList={this.state.moviesList}/>
-					<MoviesByLanguages/>
+					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
 					<SeriesCard/>
