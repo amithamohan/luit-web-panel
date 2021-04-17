@@ -13,6 +13,7 @@ import SigninScreen from './Components/SigninScreen';
 import OTPScreen from './Components/OTPScreen';
 import TermsScreen from './Components/TermsScreen';
 import PrivacyScreen from './Components/PrivacyScreen'; 
+import WishList from './Components/wishlist';
 
 
 function App() 
@@ -33,6 +34,7 @@ function App()
           <Route path="/verifyotp" component={OTPScreen} />
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
+          <Route path="/wishlist" component={WishList} />
       </Switch>
     </Router>
   );

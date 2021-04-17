@@ -106,6 +106,24 @@ class Server
 		// 	console.log("slider error");
 		// }
 	}
+
+	// fetch all movies
+	static async fetchAllMovies()
+	{
+		try
+		{
+			return axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/movies",
+				headers: { "Content-Type": "multipart/form-data" },
+			});
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
 }
 
 export default Server;
