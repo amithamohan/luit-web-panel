@@ -15,7 +15,7 @@ class MoviesCard extends Component
 		console.log("PROPS");
 		console.log(this.props.moviesList);
 
-		for (let i = 0; i < 10; i++)
+		for (let i = 0; i < this.props.moviesList.length; i++)
 		{
 			const movie = this.props.moviesList[i];
 			console.log(movie);

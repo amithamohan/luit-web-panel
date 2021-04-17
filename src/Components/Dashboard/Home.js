@@ -35,6 +35,7 @@ class Home extends Component
 	{
 		this.getSlider();
 		this.getAllMovies();
+		this.getAllMusic();
 	}
 
 	async getSlider()
@@ -94,29 +95,29 @@ class Home extends Component
 		}
 		
 		this.setState({moviesList: movieList});
+
+		console.log(this.state.moviesList);
 	}
 
 	// fetch all music
 	async getAllMusic()
 	{
-		let musicList = [];
-		let result;
-
+		let result = [];
 		let response = await Server.fetchAllMusic();
 
-		result = response["data"];
-
-		if(result["response"] === "success")
+		if (response["response"] === "success")
 		{
-			for(let i = 0; i < result["data"].length; i++)
+			let movies = response["data"];
+
+			for (let i = 0; i < movies.length; i++)
 			{
-				musicList.push(result["data"][i]);
+				result.push(movies[i]);
 			}
 		}
-		else
-		{
-			musicList = null;
-		}
+		
+		this.setState({musicList: result});
+
+		console.log(this.state.musicList);
 	}
 	// fetch all music
 	// api calls
@@ -130,7 +131,7 @@ class Home extends Component
 					<Slider slider = {this.state.homeSlider}/>
 					<MoviesCard moviesList={this.state.moviesList}/>
 					<MoviesByLanguages/>
-					<MusicCard />
+					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist/>
 					<SeriesCard/>
 					<ShortFilm count="4"/>

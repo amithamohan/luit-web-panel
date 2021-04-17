@@ -113,14 +113,37 @@ class Server
 		// fetch all movies list
 	static async fetchAllMusic()
 	{
+		let response;
 		try
 		{
-			return axios
+			response = await axios
 			({
-				method: "get",
-				url: "https://release.luit.co.in/api/music",
-				headers: { "Content-Type": "multipart/form-data" },
+				method: "GET",
+				url: "https://release.luit.co.in/api/musics",
+				headers: { "Content-Type": "application/json" },
 			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch top movies
+	static async fetchTopMovies()
+	{
+		try
+		{
+			let response = axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/top_movies",
+					headers: { "Content-Type": "multipart/form-data" },
+				});
+
+			return response.data;
 		}
 		catch(e)
 		{
