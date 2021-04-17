@@ -81,7 +81,6 @@ class Home extends Component
 	async getAllMovies()
 	{
 		let movieList = [];
-		
 		let response = await Server.fetchAllMovies();
 
 		if (response["response"] === "success")
