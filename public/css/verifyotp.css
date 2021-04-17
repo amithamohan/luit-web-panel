@@ -1,0 +1,82 @@
+
+
+
+body {
+    background-color:  #02071a;
+}
+.container-fluid{
+    background-color: #02071a;
+}
+
+.height-100 {
+    height: 100vh;
+}
+.logo{
+    margin-bottom: 2em;
+}
+
+.otp-card {
+    width: 400px;
+    border: none;
+    height: 400px;
+    box-shadow: 0px 0px 10px 0px #d2dae3b7;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2B2D46 !important;
+}
+@media only screen and (max-width:400px){
+    .card{
+        width: 300px !important;
+    }
+}
+
+.card h6 {
+    color: rgb(255, 255, 255);
+    font-size: 18px
+}
+@media only screen and (max-width:400px){
+    .card h6{
+        font-size: 15px;
+    }
+}
+
+.inputs input {
+    width: 40px;
+    height: 40px
+}
+@media only screen and (max-width:400px){
+    .inputs input {
+        width: 30px;
+        height: 30px
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 2px solid #cf2450;
+}
+
+.validate {
+    border-radius: 20px;
+    height: 60px;
+    background-color: #cf2450;
+    border: 1px solid #cf2450;
+    width: 320px;
+}
+@media only screen and (max-width:400px){
+    .validate {
+        background-color: #cf2450;
+        border: 1px solid #cf2450;
+        width: 280px;
+    }
+}

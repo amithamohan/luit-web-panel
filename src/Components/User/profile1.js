@@ -16,11 +16,6 @@ class ProfileInfo extends Component
 								<div className="col-sm-12 text-center">
 									<h2 className="mb-1">My Profile</h2>
 									<p>Create custom landing pages with that converts.</p>
-									<img src="https://via.placeholder.com/100x100.png" alt="user" className="avatar" />
-                                <div className="p-image">
-                                    <i className="ti-camera upload-button"></i>
-                                    <input className="file-upload" type="file" accept="image/*" />
-                                </div>
 								</div>
 							</div>
 						</div>
@@ -46,30 +41,20 @@ class ProfileInfo extends Component
 										<div className="col-sm-6">
 											<div className="form-group mt-4">
 											<input className="form-control" type="text" placeholder="Name" />
-											<input className="form-control" type="tel" placeholder="Phone Number" />
+											<input className="form-control" type="password" placeholder="Password" />
 											</div>
 										</div>
 										<div className="col-sm-6">
 											<div className="form-group mt-4">
 											<input className="form-control" type="email" placeholder="Email address" />
-											<input className="form-control" type="date" placeholder="D.O.B" />
+											<input className="form-control" type="password" placeholder="Confirm Password" />
 											</div>
 										</div>
-										
 										</div>
-										
 										<div className="form-group button-block text-center">
-										<div className="row">
-										<div className="col-4">
-										<a className="form-btn member-bttn3 text-white inline-flex col-12" href="/" >CANCEL</a>
+										<a className="form-btn member-bttn3 text-white d-block" href="/">Get Started</a>
+										<p className="sign-up-text">Already have an account?<a href="/sign_in">Sign in</a></p>
 										</div>
-										<div className="col-8">
-										<a className="form-btn member-bttn3 text-white inline-flex col-12" href="/" >Submit</a>
-										</div>
-										</div>
-										<p className="sign-up-text">Already have an account?<a href="/signin">Sign in</a></p>
-										</div>
-										
 									</form>
 									</div>
 								</div>
@@ -108,7 +93,7 @@ class ProfileInfo extends Component
 										</div>
 										</div>
 										<div className="form-group button-block text-center">
-										<a className="form-btn d-block member-bttn4 text-white" href="/build">Pay Now</a>
+										<a className="form-btn d-block member-bttn4 text-white">Pay Now</a>
 										</div>
 									</form>
 									</div>
