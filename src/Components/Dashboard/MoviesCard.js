@@ -22,11 +22,11 @@ class MoviesCard extends Component
 
 			if (movie !== undefined)
 			{
-			cards.push(
+				cards.push(
 				<div className="owl-items" key={i}>
 					<a className="slide-one" href="/detailed_page">
 						<div className="slide-image">
-							<img src="https://release.luit.co.in/uploads/movie_thumbnail/thumb_1609755203JONBAI%201" alt="" />
+							<img src={movie["poster"]} alt="" />
 						</div>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
