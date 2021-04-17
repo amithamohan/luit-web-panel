@@ -110,6 +110,29 @@ class Server
 		}
 	}
 
+	static async fecthMoviesByActors()
+	{
+		let response;
+		try
+		{
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/actor-movies",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			console.log(response);
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+
 		// fetch all movies list
 	static async fetchAllMusic()
 	{
@@ -612,75 +635,7 @@ class Server
 	// }
 
 	// // 12. MOVIES BY ACTORS
-	// static async fecthMoviesByActors()
-	// {
-	// 	try
-	// 	{
-	// 		let response = axios
-	// 		({
-	// 			method: "GET",
-	// 			url: "https://release.luit.co.in/api/actor-movies",
-	// 			headers: { "Content-Type": "multipart/form-data" },
-	// 		});
-
-	// 		var result = response.body;
-
-	// 		moviesByActors = [];
-
-	// 		for (let i = 0; i < result["data"].length; i++)
-	// 		{
-	// 			var language =
-	// 			{
-	// 				"actor_id": result["data"][i]["actor_id"],
-	// 				"actor_name": result["data"][i]["actor_name"],
-	// 				"actor_image": result["data"][i]["actor_image"],
-	// 				"data": []
-	// 			};
-
-	// 			for (let j = 0; j < result["data"][i]["data"].length; j++)
-	// 			{
-	// 				var movieArtist = result["data"][i]["data"][j];
-
-	// 				var music =
-	// 				{
-	// 					"type": movieArtist["type"],
-	// 					"id": movieArtist["movie_id"],
-	// 					"title": movieArtist["movie_title"],
-	// 					"description": movieArtist["description"],
-	// 					"video_url": movieArtist["movie_upload"],
-	// 					"trailer_url": movieArtist["trailer_upload"],
-	// 					"audio_languages": movieArtist["audio_languages"],
-	// 					"maturity_rating": movieArtist["maturity_rating"],
-	// 					"thumbnail": movieArtist["thumbnail"],
-	// 					"poster": movieArtist["poster"],
-	// 					"free": movieArtist["free"],
-	// 					"amount": movieArtist["amount"],
-	// 					"meta_keyword": movieArtist["meta_keyword"],
-	// 					"meta_description": movieArtist["meta_description"],
-	// 					"genre": movieArtist["genre"],
-	// 					"directors": movieArtist["directors"],
-	// 					"actors": movieArtist["actors"],
-	// 					"duration": movieArtist["duration"],
-	// 					"ratings": movieArtist["ratings"],
-	// 					"publish_year": movieArtist["publish_year"],
-	// 					"status": movieArtist["status"]
-
-	// 				};
-
-	// 				language["data"].add(music);
-	// 			}
-
-	// 			moviesByActors.add(language);
-	// 		}
-
-	// 		return response.body;
-	// 	}
-	// 	catch(e)
-	// 	{
-	// 		console.log(e);
-	// 	}
-	// }
-
+	
 	// // 13. MUSIC BY LANGUAGES
 	// static async fetchMusicByLanguages()
 	// {

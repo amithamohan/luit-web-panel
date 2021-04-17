@@ -1,9 +1,43 @@
 import React, {Component} from 'react';
+import OwlCarousel from 'react-owl-carousel2';
+
 
 class TrendingArtist extends Component
 {
+	options = 
+	{
+		items: 4,
+		margin: 5,
+		nav: true,
+		loop: true,
+		autoplay: true
+	};
+
 	render()
 	{
+		const circularAvatar = [];
+
+		for (let i = 0; i < this.props.trendingArtist.length; i++)
+		{
+			const actors = this.props.trendingArtist[i];
+
+			console.log(actors);
+
+			if (actors !== undefined)
+			{
+				circularAvatar.push
+				(
+					<div key={i}>
+						<div className="team-slider-full owl-carousel owl-theme">
+							<div className="owl-items"><a href="/" className="crew-wrap">
+							<img src={actors["actor_image"]} alt={actors["actor_image"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+							<span>{actors["actor_name"]}</span></a></div>
+						</div>
+					</div>
+				);
+			}
+		}
+
 		return(
 			<div>
 				<div className="slide-wrapper">
@@ -13,21 +47,11 @@ class TrendingArtist extends Component
 							<h2>Trending Artists</h2>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-sm-12">
-								<div className="team-slider-full owl-carousel owl-theme">
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>David Wenham</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Johnny Depp</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Javier Bardem</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Brenton T</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Kaya Scodelario</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Kevin McNally</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>McNally</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Wenham</span></a></div>
-									<div className="owl-items"><a href="/" className="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team" /><span>Kaya Scodelario</span></a></div>
-								</div>
-							</div>
-						</div>
+						<OwlCarousel options={this.options}>
+						{
+							circularAvatar
+						}
+						</OwlCarousel>
 					</div>
 				</div>
 			</div>

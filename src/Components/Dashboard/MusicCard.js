@@ -4,6 +4,15 @@ import OwlCarousel from 'react-owl-carousel2';
 
 class MusicCard extends Component
 {
+	options = 
+	{
+		items: 4,
+		margin: 10,
+		nav: true,
+		loop: true,
+		autoplay: true
+	};
+
 	constructor(props)
 	{
 		super()
@@ -12,13 +21,9 @@ class MusicCard extends Component
 	{
 		const cards = [];
 
-		console.log("PROPS");
-		console.log(this.props.musicList);
-
 		for (let i = 0; i < this.props.musicList.length; i++)
 		{
 			const music = this.props.musicList[i];
-			console.log(music);
 
 			if (music !== undefined)
 			{
@@ -50,7 +55,7 @@ class MusicCard extends Component
 							<h2>Latest Music</h2>
 							</div>
 						</div>
-						<OwlCarousel>
+						<OwlCarousel options={this.options}>
 							{
 								cards
 							}

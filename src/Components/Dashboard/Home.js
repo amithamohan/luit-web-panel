@@ -25,6 +25,7 @@ class Home extends Component
 			moviesSlider: [],
 			musicSlider: [],
 			shortFilmSlider:[],
+			trendingArtist: [],
 		}
 
 		this.getSlider = this.getSlider.bind(this);
@@ -36,6 +37,7 @@ class Home extends Component
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
+		this.getMoviesByActors();
 	}
 
 	async getSlider()
@@ -93,10 +95,8 @@ class Home extends Component
 				movieList.push(movies[i]);
 			}
 		}
-		
-		this.setState({moviesList: movieList});
 
-		console.log(this.state.moviesList);
+		this.setState({moviesList: movieList});
 	}
 
 	// fetch all music
@@ -114,13 +114,28 @@ class Home extends Component
 				result.push(movies[i]);
 			}
 		}
-		
-		this.setState({musicList: result});
 
-		console.log(this.state.musicList);
+		this.setState({musicList: result});
 	}
-	// fetch all music
-	// api calls
+
+	// movies by actors
+	async getMoviesByActors()
+	{
+		let result = [];
+		let response = await Server.fecthMoviesByActors();
+
+		if (response["response"] === "success")
+		{
+			let data = response["data"];
+
+			for (let i = 0; i < data.length; i++)
+			{
+				result.push(data[i]);
+			}
+		}
+
+		this.setState({trendingArtist: result});
+	}
 
 	render()
 	{
@@ -132,7 +147,7 @@ class Home extends Component
 					<MoviesCard moviesList={this.state.moviesList}/>
 					<MoviesByLanguages/>
 					<MusicCard musicList={this.state.musicList}/>
-					<TrendingArtist/>
+					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
 					<SeriesCard/>
 					<ShortFilm count="4"/>
 					<Footer/>
