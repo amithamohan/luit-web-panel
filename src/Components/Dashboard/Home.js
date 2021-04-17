@@ -37,8 +37,6 @@ class Home extends Component
 		this.getAllMovies();
 	}
 
-	// slider
-	// api calls
 	async getSlider()
 	{
 
@@ -80,28 +78,24 @@ class Home extends Component
 	}
 	// slider
 
-	// fetch all movies
 	async getAllMovies()
 	{
-		let result;
-
-		let movies = [];
-
+		let movieList = [];
+		
 		let response = await Server.fetchAllMovies();
 
-		result = response["data"];
-
-		if(result["response"] === "success")
+		if (response["response"] === "success")
 		{
-			for(let i = 0; i < result["data"].length; i++)
+			let movies = response["data"];
+
+			for (let i = 0; i < movies.length; i++)
 			{
-				movies.push(result["data"][i]);
+				movieList.push(movies[i]);
 			}
 		}
 		
-		this.setState({moviesList: movies});
+		this.setState({moviesList: movieList});
 	}
-	// fetch all movies
 
 	// fetch all music
 	async getAllMusic()
@@ -131,46 +125,21 @@ class Home extends Component
 	render()
 	{
 		return(
-	        	<div className="medium-12 columns">
-			   		<div className="main-wrapper">
-				 		{/* header wrapper */}
-				 			<NavigationBar/>
-						{/* header wrapper */}
-
-						{/* banenr wrapper */}
-							<Slider slider = {this.state.homeSlider}/>
-						{/* banenr wrapper */}
-
-						{/* slider wrapper */}
-							<MoviesCard moviesList={this.state.moviesList}/>
-						{/* slider wrapper */}
-
-						{/* slider wrapper */}
-							<MoviesByLanguages/>
-						{/* slider wrapper */}
-
-						{/* slider wrapper */}
-							<MusicCard />
-						{/* slider wrapper */}
-
-						{/* crew wrapper */}
-							<TrendingArtist/>
-						{/* crew wrapper */}
-
-						{/* slider wrapper */}
-							<SeriesCard/>
-						{/* slider wrapper */}
-
-						{/* slider wrapper */}
-							<ShortFilm count="4"/>
-						{/* slider wrapper */}
-
-						{/* footer wrapper */}
-							<Footer/>
-						{/* footer wrapper */}
-			   		</div>
+			<div className="medium-12 columns">
+				<div className="main-wrapper">
+					<NavigationBar/>
+					<Slider slider = {this.state.homeSlider}/>
+					<MoviesCard moviesList={this.state.moviesList}/>
+					<MoviesByLanguages/>
+					<MusicCard />
+					<TrendingArtist/>
+					<SeriesCard/>
+					<ShortFilm count="4"/>
+					<Footer/>
 				</div>
+			</div>
 	     );
     }
 }
+
 export default Home;

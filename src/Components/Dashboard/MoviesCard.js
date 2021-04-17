@@ -1,33 +1,46 @@
 import React, {Component} from 'react';
+import OwlCarousel from 'react-owl-carousel2';
 
 class MoviesCard extends Component
 {
 	constructor(props)
 	{
-		super()
+		super(props);
 	}
+
 	render()
 	{
 		const cards = [];
 
-		for(let i = 0; i < 10; i++)
+		console.log("PROPS");
+		console.log(this.props.moviesList);
+
+		for (let i = 0; i < 10; i++)
 		{
-			cards.push
-			(
+			const movie = this.props.moviesList[i];
+			console.log(movie);
+
+			if (movie !== undefined)
+			{
+			cards.push(
 				<div className="owl-items" key={i}>
 					<a className="slide-one" href="/detailed_page">
-						<div className="slide-image"><img src="https://release.luit.co.in/uploads/movie_thumbnail/thumb_1609755203JONBAI%201" alt="" /></div>
+						<div className="slide-image">
+							<img src="https://release.luit.co.in/uploads/movie_thumbnail/thumb_1609755203JONBAI%201" alt="" />
+						</div>
 						<div className="slide-content">
-						<h2>Movie<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
-						<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
-						<span className="tag">2 h 20 min</span>
-						<span className="tag">2020</span>
-						<span className="tag"><b>16+</b></span>
+							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+							<p>{movie["description"]}</p>
+							<span className="tag">{movie["duration"]}</span>
+							<span className="tag">{movie["publish_year"]}</span>
+							<span className="tag"><b>{movie["maturity_rating"]}</b></span>
 						</div>
 					</a>
 				</div>
 			);
+			}
 		}
+
 		return(
 			<div>
 				<div className="slide-wrapper">
@@ -37,15 +50,11 @@ class MoviesCard extends Component
 							<h2>Latest Movies</h2>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-sm-12">
-							<div className="slide-slider owl-carousel owl-theme">
-								{
-									cards
-								}
-								</div>
-							</div>
-						</div>
+						<OwlCarousel>
+							{
+								cards
+							}
+						</OwlCarousel>
 					</div>
 				</div>
 			</div>

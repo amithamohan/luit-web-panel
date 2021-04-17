@@ -13,7 +13,6 @@ import OTPScreen from './Components/OTPScreen';
 import TermsScreen from './Components/TermsScreen';
 import PrivacyScreen from './Components/PrivacyScreen'; 
 
-
 function App() 
 {
   return (
