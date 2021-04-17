@@ -8,7 +8,7 @@ class MoviesCard extends Component
 		items: 4,
 		margin: 10,
 		nav: true,
-		rewind: true,
+		loop: true,
 		autoplay: true
 	};
 
@@ -21,10 +21,7 @@ class MoviesCard extends Component
 	{
 		const cards = [];
 
-		console.log("PROPS");
-		console.log(this.props.moviesList);
-
-		for (let i = 0; i < 10; i++)
+		for (let i = 0; i < this.props.moviesList.length; i++)
 		{
 			const movie = this.props.moviesList[i];
 
@@ -34,7 +31,7 @@ class MoviesCard extends Component
 				<div key={i}>
 					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
 						<div className="slide-image">
-							<img src={movie["poster"]} alt="" />
+							<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 						</div>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
