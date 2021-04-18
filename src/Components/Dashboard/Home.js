@@ -153,7 +153,6 @@ class Home extends Component
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist/>
-					<SeriesCard/>
 					<ShortFilm count="4"/>
 					<Footer/>
 				</div>
