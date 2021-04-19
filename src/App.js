@@ -12,6 +12,7 @@ import SigninScreen from './Components/SigninScreen';
 import OTPScreen from './Components/OTPScreen';
 import TermsScreen from './Components/TermsScreen';
 import PrivacyScreen from './Components/PrivacyScreen'; 
+import DetailedPage from './Components/Dashboard/DetailedPage';
 
 function App() 
 {
@@ -31,6 +32,7 @@ function App()
           <Route path="/verifyotp" component={OTPScreen} />
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
+          <Route path="/detailed_page" component={DetailedPage} />
       </Switch>
     </Router>
   );

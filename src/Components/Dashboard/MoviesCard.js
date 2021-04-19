@@ -24,7 +24,7 @@ class MoviesCard extends Component
 			{
 				cards.push(
 				<div key={i}>
-					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
+					<a className="slide-one" href="" style={{height: "430px"}}>
 						<div className="slide-image">
 							<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 						</div>

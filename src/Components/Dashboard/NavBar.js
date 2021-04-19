@@ -10,7 +10,7 @@ class NavigationBar extends Component
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-8 navbar p-0">
-							<a href="index.html" className="logo"><img src="images/logo.png" alt="logo" className="light" /><img src="images/logo.png" alt="logo" className="dark" /></a>
+							<a href="/" className="logo"><img src="images/logo.png" alt="logo" className="light" /><img src="images/logo.png" alt="logo" className="dark" /></a>
 							<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" 			aria-expanded="false" aria-label="Toggle navigation">
 								<span className="navbar-toggler-icon" />
 							</button>

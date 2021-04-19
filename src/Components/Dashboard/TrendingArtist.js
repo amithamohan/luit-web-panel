@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 
-
 class TrendingArtist extends Component
 {
 	options = 
@@ -15,24 +14,18 @@ class TrendingArtist extends Component
 
 	render()
 	{
-		const circularAvatar = [];
+		const cards = [];
 
 		for (let i = 0; i < this.props.trendingArtist.length; i++)
 		{
 			const actors = this.props.trendingArtist[i];
 
-			console.log(actors);
-
 			if (actors !== undefined)
 			{
-				circularAvatar.push
-				(
+				cards.push(
 					<div key={i}>
-						<div className="team-slider-full owl-carousel owl-theme">
-							<div className="owl-items"><a href="/" className="crew-wrap">
-							<img src={actors["actor_image"]} alt={actors["actor_image"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
-							<span>{actors["actor_name"]}</span></a></div>
-						</div>
+						<div className="owl-items" style={{display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px" ,borderRadius: "50%", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+						<center><br /><span style={{color: "white"}}>{actors["actor_name"]}</span></center>
 					</div>
 				);
 			}
@@ -40,17 +33,17 @@ class TrendingArtist extends Component
 
 		return(
 			<div>
-				<div className="slide-wrapper">
+				<div className="category-wrapper slide-wrapper">
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-1">
-							<h2>Trending Artists</h2>
+								<h2>Watch in Your Language</h2>
 							</div>
 						</div>
 						<OwlCarousel options={this.options}>
-						{
-							circularAvatar
-						}
+							{
+								cards
+							}
 						</OwlCarousel>
 					</div>
 				</div>

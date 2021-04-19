@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 
-
 class MusicCard extends Component
 {
 	options = 
@@ -13,10 +12,6 @@ class MusicCard extends Component
 		autoplay: true
 	};
 
-	constructor(props)
-	{
-		super()
-	}
 	render()
 	{
 		const cards = [];
@@ -29,9 +24,9 @@ class MusicCard extends Component
 			{
 				cards.push(
 				<div className="owl-items" key={i}>
-					<a className="slide-one" href="/detailed_page">
+					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
 						<div className="slide-image">
-							<img src="http://release.luit.co.in/app-assets/images/portrait/small/avatar-s-19.png" alt="" />
+						<img src={music["poster"]} alt={music["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 						</div>
 						<div className="slide-content">
 							<h2>{music["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>

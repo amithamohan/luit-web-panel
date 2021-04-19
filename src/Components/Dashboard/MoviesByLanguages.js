@@ -12,11 +12,6 @@ class MoviesByLanguages extends Component
 		autoplay: true
 	};
 
-	constructor(props)
-	{
-		super(props);
-	}
-
 	render()
 	{
 		const cards = [];

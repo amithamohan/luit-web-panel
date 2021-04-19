@@ -35,16 +35,16 @@ function SigninScreen(){
                 <div className="row justify-content-center">
                     <div className="col-sm-5">
                         <div className="form-div text-center">
-                            <a href="index.html" className="logo float-none mt-4"><img src="images/logo.png" /></a>
+                            <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                             <h5 className="mt-3">Login with </h5>
                             <form action="/verifyotp">
                                 <div className="col">
-                                    <a href="#" className="col-5 fb btn fb-icon-btn"><span>
+                                    <a href="/" className="col-5 fb btn fb-icon-btn"><span>
                                         <i className="ti-facebook"></i> </span>
                                         Facebook
                                     </a>
-                                    <a href="#" className="col-5 google btn google-icon-btn ">
-                                        <span><img src="images/google.png" /> </span>Google
+                                    <a href="/" className="col-5 google btn google-icon-btn ">
+                                        <span><img src="images/google.png" alt=""/> </span>Google
                                     </a>
                                 </div>
                                 <h5>OR</h5>
@@ -92,10 +92,9 @@ function SigninScreen(){
                     </div>
                     <div className="col-sm-6 text-right">
                         <p className="float-right copyright-text">
-                        <a href="#">Privacy Policy</a> | 
-                        <a href="#">Terms of Use</a> | 
-                        <a href="#">Refund Policy</a> | 
-                        <a href="#">Help</a>
+                        <a href="/privacy-policy">Privacy Policy</a> | 
+                        <a href="/terms">Terms of Use</a> | 
+                        <a href="/">Help</a>
                         </p>
                     </div>
                 </div>

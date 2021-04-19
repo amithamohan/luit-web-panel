@@ -25,11 +25,15 @@ class Home extends Component
 			moviesSlider: [],
 			musicSlider: [],
 			shortFilmSlider:[],
-			movieLanguages: []
+			movieLanguages: [],
+			trendingArtist: [],
+			allVideos: [],
 		}
 
 		this.getSlider = this.getSlider.bind(this);
 		this.getAllMovies = this.getAllMovies.bind(this);
+		this.getAllMusic = this.getAllMusic.bind(this);
+		this.getTrendingArtist = this.getTrendingArtist.bind(this);
 		this.getAllMoviesByLanguage = this.getAllMoviesByLanguage.bind(this);
 	}
 
@@ -38,11 +42,16 @@ class Home extends Component
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
+		this.getTrendingArtist();
 		this.getAllMoviesByLanguage();
 	}
 
 	async getSlider()
 	{
+		let home = [];
+		let movie = [];
+		let music = [];
+		let shortFilm = [];
 
 		let response;
 
@@ -52,26 +61,28 @@ class Home extends Component
 		{
 			response = await Server.fetchSlider(category[j]);
 
-			if(response["data"]["response"] === "success" && response["data"]["slider"] != null)
+			console.log(response);
+
+			if(response["response"] === "success" && response["slider"] != null)
 			{
-				for(let i = 0; i < response["data"]["slider"].length; i++)
+				for(let i = 0; i < response["slider"].length; i++)
 				{
-					switch(response["data"]["message"])
+					switch(response["message"])
 					{
 						case "Home Slider":
-							this.state.homeSlider.push(response["data"]["slider"][i]);
+							home.push(response["slider"][i]);
 							break;
 
 						case "movie slider":
-							this.state.moviesSlider.push(response["data"]["slider"][i]);
+							movie.push(response["slider"][i]);
 							break;
 
 						case "music slider":
-							this.state.musicSlider.push(response["data"]["slider"][i]);
+							music.push(response["slider"][i]);
 							break;
 
 						case "Short Film slider":
-							this.state.shortFilmSlider.push(response["data"]["slider"][i]);
+							shortFilm.push(response["slider"][i]);
 							break;
 						default:
 							break;
@@ -79,9 +90,9 @@ class Home extends Component
 				}
 			}
 		}
+		this.setState({homeSlider: home, moviesSlider: movie, musicSlider: music, shortFilmSlider: shortFilm});
 	}
-	// slider
-
+	
 	async getAllMovies()
 	{
 		let movieList = [];
@@ -96,17 +107,14 @@ class Home extends Component
 				movieList.push(movies[i]);
 			}
 		}
-		
-		this.setState({moviesList: movieList});
+
+		this.setState({moviesList: movieList, allVideos: movieList});
 	}
 
 	async getAllMoviesByLanguage()
 	{
 		let languageList = [];
 		let response = await Server.fetchMoviesByLanguages();
-
-		console.log("getAllMoviesByLanguage");
-		console.log(response);
 
 		if (response["response"] === "success")
 		{
@@ -117,8 +125,28 @@ class Home extends Component
 				languageList.push(language[i]);
 			}
 		}
-		
+
 		this.setState({movieLanguages: languageList});
+	}
+
+	async getTrendingArtist()
+	{
+		let artistList = [];
+		let response = await Server.fecthMoviesByActors();
+
+		console.log(response);
+
+		if (response["response"] === "success")
+		{
+			let artist = response["data"];
+
+			for (let i = 0; i < artist.length; i++)
+			{
+				artistList.push(artist[i]);
+			}
+		}
+
+		this.setState({trendingArtist: artistList});
 	}
 
 	// fetch all music
@@ -137,7 +165,7 @@ class Home extends Component
 			}
 		}
 
-		this.setState({musicList: result});
+		this.setState({musicList: result, allVideos: result});
 	}
 
 	render()
@@ -151,7 +179,6 @@ class Home extends Component
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
-					<SeriesCard/>
 					<ShortFilm count="4"/>
 					<Footer/>
 				</div>

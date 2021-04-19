@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
+import OwlCarousel from 'react-owl-carousel2';
+
 
 class Slider extends Component
 {
-	constructor(props)
-	{
-		super()
-	}
-
 	render()
 	{
+		console.log(this.props.slider);
+
 		const rows = [];
 
 		for(let i = 0; i < 9; i++)
 		{
-			console.log("hiiii");
 			rows.push(
 				<React.Fragment key={i}>
 					<div className="left-wrap">
@@ -40,7 +38,9 @@ class Slider extends Component
 				  				<div className="banner-slider owl-carousel owl-theme">
 									<div className="owl-items">
 									<div className="banner-wrap justify-content-between align-items-center">
+										<OwlCarousel options={this.options}>
 										{rows}
+										</OwlCarousel>
 									</div>
 									</div>
 								</div>

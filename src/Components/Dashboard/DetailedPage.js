@@ -11,34 +11,37 @@ class DetailedPage extends Component
 		return(
 			<div>
 				<NavigationBar/>
-				<Slider/>
-
-				<div class="slide-wrapper">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-6 text-left mb-4 mt-4">
-								<h2>The Crew</h2>
-							</div> 
-						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="team-slider owl-carousel owl-theme">
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>David Wenham</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Johnny Depp</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Javier Bardem</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Brenton T</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Kaya Scodelario</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Kevin McNally</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>McNally</span></a></div>
-									<div class="owl-items"><a href="/" class="crew-wrap"><img src="https://via.placeholder.com/400x400.png" alt="team"/><span>Wenham</span></a></div>
+				<div className="banner-wrapper">
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-12">
+								<div className="banner-wrap justify-content-between align-items-center">
+								<div className="left-wrap">
+									<span className="rnd">IMDb 6.7</span>
+									<h2>Made <br /> in heaven</h2>
+									<span className="tag"><b>SEASON 1</b></span>
+									<span className="tag">2020</span>
+									<span className="tag"><b>HD</b></span>
+									<span className="tag"><b>16+</b></span>
+									<span className="tag">2 h 20 min</span>
+									<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather. Tamanna is a YouTube pop sensation desperate to become .</p>
+									<a href="video.html" className="btn btn-lg"><img src="images/play.png" alt="icn" />Watch now</a>
+									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
+									<div className="icon-bttn">
+									<i className="ti-sharethis text-white mr-4" />
+									<div className="share-icons">
+										<a href="#"><i className="ti-facebook" /></a>
+										<a href="#"><i className="ti-twitter-alt" /></a>
+										<a href="#"><i className="mr-0 ti-pinterest" /></a>
+									</div>
+									</div>
+								</div>
+								<div className="right-wrap" style={{backgroundImage: 'url(https://via.placeholder.com/700x500.png)'}} />
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<MoviesCard/>
-
 				<Footer/>
 			</div>
 		);
