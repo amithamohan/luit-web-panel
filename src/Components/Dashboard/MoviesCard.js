@@ -46,7 +46,7 @@ class MoviesCard extends Component
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-4">
-							<h2>Latest Movies</h2>
+							<h2>{this.props.title}</h2>
 							</div>
 						</div>
 						<OwlCarousel options={this.options}>

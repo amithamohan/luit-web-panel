@@ -38,9 +38,9 @@ class Slider extends Component
 				  				<div className="banner-slider owl-carousel owl-theme">
 									<div className="owl-items">
 									<div className="banner-wrap justify-content-between align-items-center">
-										<OwlCarousel options={this.options}>
+										////<OwlCarousel options={this.options}>
 										{rows}
-										</OwlCarousel>
+										////</OwlCarousel>
 									</div>
 									</div>
 								</div>

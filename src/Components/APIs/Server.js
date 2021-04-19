@@ -202,7 +202,7 @@ class Server
 	{
 		try
 		{
-			let response = axios
+			let response = await axios
 				({
 					method: "GET",
 					url: "https://release.luit.co.in/api/top_movies",

@@ -5,7 +5,6 @@ import MoviesCard from './MoviesCard';
 import MoviesByLanguages from './MoviesByLanguages';
 import MusicCard from './MusicCard';
 import TrendingArtist from './TrendingArtist';
-import SeriesCard from './SeriesCard';
 import ShortFilm from './ShortFilmsCard';
 import Footer from './Footer';
 import Server from '../APIs/Server';
@@ -92,7 +91,7 @@ class Home extends Component
 		}
 		this.setState({homeSlider: home, moviesSlider: movie, musicSlider: music, shortFilmSlider: shortFilm});
 	}
-	
+
 	async getAllMovies()
 	{
 		let movieList = [];
@@ -168,19 +167,41 @@ class Home extends Component
 		this.setState({musicList: result, allVideos: result});
 	}
 
+	async getAllShortFilms()
+	{
+		let shortFilm = [];
+		let response = await Server.fetchAllShortMovies();
+
+		if (response["response"] === "success")
+		{
+			let data = response["data"];
+
+			for (let i = 0; i < data.length; i++)
+			{
+				shortFilm.push(data[i]);
+			}
+
+			this.setState({shortFilmList: shortFilm, allVideos: shortFilm});
+		}
+		else
+		{
+			this.state.shortFilmList = null;
+		}
+	}
+
 	render()
 	{
 		return(
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar/>
+					<NavigationBar  movies = {this.state.moviesList}/>
 					<Slider slider = {this.state.homeSlider}/>
-					<MoviesCard moviesList={this.state.moviesList}/>
+					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
-					<ShortFilm count="4"/>
-					<Footer/>
+					{ this.state.shortFilmList ? <ShortFilm shortFilmList={this.state.shortFilmList}/> : null }
+)					<Footer/>
 				</div>
 			</div>
 	     );
