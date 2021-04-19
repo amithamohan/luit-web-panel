@@ -1,78 +1,109 @@
+import React from 'react';
+import {useState} from 'react';
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
 
-import React, {Component} from 'react';
-import "antd/dist/antd.css";
-import { Button, Row} from "antd";
-import history from './History';
-import Server from './APIs/Server';
 
-class SignUp extends Component
-{
-	constructor(props)
-	{
-		super(props);
 
-		// this.init = this.init.bind(this);
-		this.googleLogin = this.googleLogin.bind(this);
-	}
+function SigninScreen(){
 
-	googleLogin()
-	{
-		console.log("HELLO WORLD");
+    const [value, setValue] = useState();
+    
+    return(
+        <div>
 
-		let response =  Server.googleLogin();
-		console.log(response);
-	}
+        
+        <div className="preloader"></div>
 
-	render()
-	{
-		return(
-			<div>
-				<div className="main-wrapper">
-					<section className="form-wrapper">
-						<div className="container">
-							<div className="row justify-content-center">
-								<div className="col-sm-5">
+    
+    <div className="main-wrapper">
+        {/* <!-- header wrapper --> */}
+        <div className="header-wrapper">
+            <div className="container">
+                <div className="row">
+                    {/*  <div className="col-sm-12 text-center">
+                        <a href="index.html" className="logo float-none mt-4"><img src="images/logo.png" /></a>
+                        
+                    </div>  */}
+                </div>
+            </div>
+        </div>
+        {/* <!-- header wrapper --> */}
 
-									<div className="form-div text-center" style={{backgroundColor: "#2B2D46" }} >
-										<div className="col-sm-12 text-center">
-											<a href="index.html" className="logo float-none mt-4"><img src="images/logo.png" alt="logo" className="light" onClick={this.googleLogin} /></a>
-										</div>
-										<div className="signInText" ><h3 style={{color: "white", fontWeight: "300", fontSize: "25px", lineHeight: "68px" }} >Sign in with</h3></div>
+        <section className="form-wrapper" >
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-sm-5">
+                        <div className="form-div text-center">
+                            <a href="index.html" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
+                            <h5 className="mt-3">Login with </h5>
+                            <form action="/verifyotp">
+                                <div className="col">
+                                    <a href="/" className="col-5 fb btn fb-icon-btn" alt=""><span>
+                                        <i className="ti-facebook"></i> </span>
+                                        Facebook
+                                    </a>
+                                    <a href="/" className="col-5 google btn google-icon-btn ">
+                                        <span><img src="images/google.png" alt=""/> </span>Google
+                                    </a>
+                                </div>
+                                <h5>OR</h5>
+                                <div className="form-group mt-3">
+                                    {/* <select className="drop-down">
+                                        <option selected value="IN">India</option>
+                                        <option value="US">USA</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="UK">UK</option>
+                                    </select> */}
+                                    <PhoneInput
+                                        placeholder="Enter phone number"
+                                        value={value}
+                                        onChange={setValue}
+                                        className="form-control " />
+                                  {/* <input className="form-control" type="tel" placeholder="Enter Mobile Number" /
+                                  > */}
 
-										{/* login buttons */}
-										<div className="col-sm-12 col-lg-12 col-md-12">
-											<Row>
-												<Button type="primary" onClick={this.googleLogin}> Facebook </Button>
-												<div className="col-sm-5"></div>
-										  		<Button type="warning"> Google </Button>
-											</Row>
-										</div>
-										{/* login buttons */}
-
-										<form action="#">
-											<div className="form-group mt-5">
-												<input className="form-control" type="email" placeholder="Country Code" />
-												<input className="form-control" type="text" placeholder="Phone Number" />
-											</div>
-											<div className="form-group form-check-label">
-												<label htmlFor="tarms-check">
-													<input className="d-none" type="checkbox" id="tarms-check" defaultChecked /><span className="checkbox" />
-													<p>I understand and accept the <a href="term.html"> Terms &amp; Condition </a></p>
-												</label>
-											</div>
-											<div className="form-group button-block text-center">
-												<button className="form-btn" onClick={() => history.push('/')}>LOGIN</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-				</div>
-			</div>
-		);
-	}
+                                </div>
+                                <div className="form-group button-block text-center">
+                                  <button className="form-btn">Login with OTP</button>
+                                </div>
+                                <div className="form-group form-check-label">
+                                    <label for="tarms-check">
+                                      
+                                      <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3"/>
+                                      <span class="checkmark"></span>
+                                      <p>I understand and accept the 
+                                          <a href="/terms"> Terms & Condition</a> </p>
+                                    </label>
+                                  </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div className="footer-wrapper">
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-12 lower-footer"></div>
+                    <div className="col-sm-6">
+                        <p className="copyright-text">© 2020 copyright. All rights reserved.</p>
+                    </div>
+                    <div className="col-sm-6 text-right">
+                        <p className="float-right copyright-text">
+                        <a href="/">Privacy Policy</a> | 
+                        <a href="/">Terms of Use</a> | 
+                        <a href="/">Refund Policy</a> | 
+                        <a href="/">Help</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    );
 }
 
-export default SignUp;
+export default SigninScreen;
