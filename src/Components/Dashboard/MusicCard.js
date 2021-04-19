@@ -1,53 +1,63 @@
 import React, {Component} from 'react';
+import OwlCarousel from 'react-owl-carousel2';
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class MusicCard extends Component
 {
-	constructor(props)
+	options = 
 	{
-		super()
-	}
+		items: 4,
+		margin: 10,
+		nav: true,
+		loop: true,
+		autoplay: true
+	};
+
 	render()
 	{
 		const cards = [];
 
-		for(let i = 0; i < 10; i++)
+		for (let i = 0; i < this.props.musicList.length; i++)
 		{
-			cards.push
-			(
+			const music = this.props.musicList[i];
+
+			if (music !== undefined)
+			{
+				cards.push(
 				<div className="owl-items" key={i}>
-					<a className="slide-one" href="single.html">
-						<div className="slide-image"><img src="https://via.placeholder.com/400x400.png" alt="" /></div>
+					<a className="slide-one" href="/detailed_page" style={{height: "430px"}}>
+						<div className="slide-image">
+						<img src={music["poster"]} alt={music["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+						</div>
 						<div className="slide-content">
-						<h2>Made in HAVEN <img src="images/plus.png" className="add-wishlist" alt="" /></h2>
-						<p>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</p>
-						<span className="tag">2 h 20 min</span>
-						<span className="tag">2020</span>
-						<span className="tag"><b>16+</b></span>
+							<h2>{music["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+							<p>{music["description"]}</p>
+							<span className="tag">{music["duration"]}</span>
+							<span className="tag">{music["publish_year"]}</span>
+							<span className="tag"><b>{music["maturity_rating"]}</b></span>
 						</div>
 					</a>
 				</div>
 			);
+			}
 		}
+
 		return(
 			<div>
 				<div className="slide-wrapper">
-				<div className="container">
-				<div className="row">
-					<div className="col-sm-6 text-left mb-4 mt-4">
-					<h2>Latest Music</h2>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-sm-12">
-					<div className="slide-slider owl-carousel owl-theme">
-						{
-							cards
-						}
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-6 text-left mb-4 mt-4">
+							<h2>{this.props.title}</h2>
+							</div>
 						</div>
-					</div>
+						<OwlCarousel options={this.options}>
+							{
+								cards
+							}
+						</OwlCarousel>
 					</div>
 				</div>
-			</div>
 			</div>
 		);
 	}

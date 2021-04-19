@@ -14,6 +14,7 @@ import TermsScreen from './Components/TermsScreen';
 import PrivacyScreen from './Components/PrivacyScreen'; 
 import WishList from './Components/wishlist';
 
+import DetailedPage from './Components/Dashboard/DetailedPage';
 
 function App() 
 {
@@ -34,6 +35,7 @@ function App()
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
           <Route path="/wishlist" component={WishList} />
+          <Route path="/detailed_page" component={DetailedPage} />
       </Switch>
     </Router>
   );

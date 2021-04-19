@@ -7,7 +7,6 @@ class Footer extends Component
 		return(
 			<div>
 			<footer className="footer">
-			<p>Some footer nonsense!</p>
 		  </footer>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
