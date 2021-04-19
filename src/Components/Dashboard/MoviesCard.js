@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import OwlCarousel from 'react-owl-carousel2';
 
 
 // class MoviesCard extends Component
 // {
 // 	constructor(props)
-// 	 
+	 
 // 		{
 // 			cards.push
 // 			(
