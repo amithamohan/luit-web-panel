@@ -7,7 +7,6 @@ class MoviesCard extends Component
 	{
 		items: 4,
 		margin: 10,
-		nav: true,
 		loop: true,
 		autoplay: true
 	};
