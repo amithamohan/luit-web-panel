@@ -42,6 +42,7 @@ class Server
 			let response;
 
 			var bodyFormData = new FormData();
+
 			bodyFormData.append("google_id", googleId);
 			bodyFormData.append("name", username);
 			bodyFormData.append("email", email);
@@ -67,7 +68,7 @@ class Server
 	}
 
 	// user login with phone number
-	static async loginWithOtp(phoneNumber) 
+	static async loginWithOtp(phoneNumber)
 	{
 		try
 		{
@@ -94,7 +95,7 @@ class Server
 	}
 
 	// update user profile
-	static async updateUserProfie(name, email, dob, age, image, phoneNumber) 
+	static async updateUserProfie(name, email, dob, age, image, phoneNumber)
 	{
 		try
 		{
@@ -148,7 +149,7 @@ class Server
 			console.log(e);
 		}
 	}
-	
+
 	// slider
 	static async fetchSlider(category)
 	{
@@ -492,7 +493,7 @@ class Server
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("amount", amount);
 			bodyFormData.append("ref_no", refNo);
-			
+
 			response = await axios
 			({
 				method: "GET",
@@ -567,7 +568,7 @@ class Server
 		}
 	}
 
-	// payment history of monthly payments 
+	// payment history of monthly payments
 	static async displayMonthlySubscription(userId)
 	{
 		try
@@ -619,8 +620,8 @@ class Server
 		}
 	}
 
-	// fetch subscription plans of users 
-	static async subscribedContents(userId) 
+	// fetch subscription plans of users
+	static async subscribedContents(userId)
 	{
 		try
 		{
@@ -807,7 +808,7 @@ class Server
 	}
 
 	// check if user has already done the rating
-	static async checkIfVideoRated(userId, videoId, videoType) 
+	static async checkIfVideoRated(userId, videoId, videoType)
 	{
 		try
 		{
@@ -834,7 +835,7 @@ class Server
 	}
 
 	// fetch all series
-	static async fetchSeries() 
+	static async fetchSeries()
 	{
 		try
 		{

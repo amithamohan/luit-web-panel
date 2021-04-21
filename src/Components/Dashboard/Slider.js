@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import OwlCarousel from 'react-owl-carousel2';
 
 
 class Slider extends Component
 {
 	render()
 	{
-		console.log(this.props.slider);
-
 		const rows = [];
 
 		for(let i = 0; i < 9; i++)
@@ -38,9 +35,7 @@ class Slider extends Component
 				  				<div className="banner-slider owl-carousel owl-theme">
 									<div className="owl-items">
 									<div className="banner-wrap justify-content-between align-items-center">
-										////<OwlCarousel options={this.options}>
 										{rows}
-										////</OwlCarousel>
 									</div>
 									</div>
 								</div>

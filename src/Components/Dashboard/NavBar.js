@@ -26,7 +26,6 @@ class NavigationBar extends Component
                         </div>
                     </div>
                     <div className="col-lg-4">
-
                         <div className="user-avater">
                             <img src="https://via.placeholder.com/50x50.png" alt="user"/>
                             <div className="user-menu">

@@ -24,7 +24,9 @@ class MoviesByLanguages extends Component
 			{
 				cards.push(
 					<div key={i}>
-						<div className="owl-items" style={{border: "2px solid yellow", backgroundColor: "#222", height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+						<a href="/view_all">
+							<div className="owl-items" style={{border: "2px solid yellow", backgroundColor: "#222", height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+						</a>
 						<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
 					</div>
 				);

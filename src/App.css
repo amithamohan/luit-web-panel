@@ -40,8 +40,10 @@ input{
 }
 
 .termsOfUse{
-  background-color: white;
+  background-color:#1A2236;
+  color: white;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

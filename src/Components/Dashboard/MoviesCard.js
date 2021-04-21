@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 class MoviesCard extends Component
 {
-	options = 
+	options =
 	{
-		items: 4,
+		items: 5,
 		margin: 10,
 		loop: true,
 		autoplay: true
@@ -22,21 +24,21 @@ class MoviesCard extends Component
 			if (movie !== undefined)
 			{
 				cards.push(
-				<div key={i}>
-					<a className="slide-one" href="" style={{height: "430px"}}>
-						<div className="slide-image">
-							<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
-						</div>
-						<div className="slide-content">
-							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
-							<p>{movie["description"]}</p>
-							<span className="tag">{movie["duration"]}</span>
-							<span className="tag">{movie["publish_year"]}</span>
-							<span className="tag"><b>{movie["maturity_rating"]}</b></span>
-						</div>
-					</a>
-				</div>
-			);
+					<div key={i}>
+						<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: this.props.moviesList[i]}}} style={{height: "430px"}}>
+							<div className="slide-image">
+								<img src={movie["thumbnail"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+							</div>
+							<div className="slide-content">
+								<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+								<p>{movie["description"]}</p>
+								<span className="tag">{movie["duration"]}</span>
+								<span className="tag">{movie["publish_year"]}</span>
+								<span className="tag"><b>{movie["maturity_rating"]}</b></span>
+							</div>
+						</Link>
+					</div>
+				);
 			}
 		}
 

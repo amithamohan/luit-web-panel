@@ -29,7 +29,7 @@ class MusicPage extends Component
 	componentDidMount()
 	{
 		this.getSlider();
-		this.getAllMusic();
+		this.getAllMusic();	
 		this.getAllMusicByLanguage();
 		this.getNewReleasedMusic();
 	}
