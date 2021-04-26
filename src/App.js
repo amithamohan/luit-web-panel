@@ -11,10 +11,18 @@ import SigninScreen from './Components/SigninScreen';
 import OTPScreen from './Components/OTPScreen';
 import TermsScreen from './Components/TermsScreen';
 import PrivacyScreen from './Components/PrivacyScreen'; 
+<<<<<<< HEAD
+import WishList from './Components/wishlist';
+
+=======
 import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
+<<<<<<< HEAD
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
+=======
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
+>>>>>>> 0acc2aea684ca5fa69c6fed6dad821f1a1f89006
 
 function App() 
 {
@@ -33,10 +41,17 @@ function App()
           <Route path="/verifyotp" component={OTPScreen} />
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
+<<<<<<< HEAD
+          <Route path="/wishlist" component={WishList} />
+=======
           <Route path="/music_detailed_page" component={MusicDetailedPage} />
           <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
           <Route path="/view_all" component={ViewAll} />
+<<<<<<< HEAD
           <Route path="/video_player" component={VideoPlayer}/>
+=======
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
+>>>>>>> 0acc2aea684ca5fa69c6fed6dad821f1a1f89006
       </Switch>
     </Router>
   );
