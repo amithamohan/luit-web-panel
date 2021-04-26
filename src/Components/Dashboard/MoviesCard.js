@@ -8,7 +8,7 @@ class MoviesCard extends Component
 		items: 4,
 		margin: 10,
 		loop: true,
-		autoplay: true
+		autoplay: false
 	};
 
 	render()

@@ -1,6 +1,10 @@
 import React from 'react';
+import firebase from 'firebase';
+
 
 function OTPScreen(){
+
+    
     return(
         <div className="container-fluid height-100 d-flex justify-content-center align-items-center">
             <div className="position-relative">
@@ -26,5 +30,7 @@ function OTPScreen(){
         </div>
     );
 }
+
+
 
 export default OTPScreen;

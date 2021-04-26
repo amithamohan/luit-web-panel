@@ -10,7 +10,7 @@ class VideoPlayer extends Component
 		  <div className="player-container">
 			<a href="/" className="close-video-player"><i className="ti-close" /></a>
 			<div className="player">
-			  <Vide id="video" src="https://release.luit.co.in/uploads/musics/1613476300ASSAM%20DESER.mp4" playsInline />
+			  <video id="video" src="https://release.luit.co.in/uploads/musics/1613476300ASSAM%20DESER.mp4" playsInline />
 			  <div className="play-btn-big" />
 			  <div className="controls">
 				<div className="time"><span className="time-current" /><span className="time-total" /></div>

@@ -1,9 +1,11 @@
 import React from 'react';
+import NavigationBar from './Dashboard/NavBar';
 
 
 function PrivacyScreen() {
     return(
         <div className="container">
+            <NavigationBar />
         <div className="heading">
             <h2>Privacy Policy for Luit Users</h2>
         </div>

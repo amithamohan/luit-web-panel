@@ -35,8 +35,14 @@ class Server
 	}
 
 	// google login
-	static async googleLogin(googleId, username, email, dob, age, image, phoneNumber)
+	
+	
+	static async googleLogin(googleId, username, email, image)
 	{
+		console.log(googleId);
+		console.log(username);
+		console.log(email);
+		console.log(image);
 		try
 		{
 			let response;
@@ -45,19 +51,23 @@ class Server
 			bodyFormData.append("google_id", googleId);
 			bodyFormData.append("name", username);
 			bodyFormData.append("email", email);
-			bodyFormData.append("dob",dob);
-			bodyFormData.append("age", age,);
+			bodyFormData.append("dob", "");
+			bodyFormData.append("age", "");
 			bodyFormData.append("image", image);
-			bodyFormData.append("login_phone_no", phoneNumber);
+			bodyFormData.append("login_phone_no", "");
+			bodyFormData.append("device_id", "");
+			bodyFormData.append("token", "");
 
-
+			console.log("bodyForm", bodyFormData);
 			response = await axios({
 				method: "POST",
-				url: "http://release.luit.co.in/api/google-login",
+				url: "http://release.luit.co.in/api/google-login",  
 				data: bodyFormData,
 				headers: { "Content-Type": "multipart/form-data" },
+				// body: JSON.stringify({ title: 'React POST Request Example' })
 			  });
-
+			
+			console.log(response);
 			return response.data;
 		}
 		catch(e)

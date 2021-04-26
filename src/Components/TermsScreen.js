@@ -1,8 +1,12 @@
 import React from 'react';
+import NavigationBar from './Dashboard/NavBar';
+
 
 function TermsScreen(){
     return(
         <div className="container">
+            
+				<NavigationBar />
         <div className="heading">
             <h2>Luit Terms of use</h2>
         </div>
