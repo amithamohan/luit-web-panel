@@ -10,8 +10,8 @@ class Slider extends Component
 		for(let i = 0; i < 9; i++)
 		{
 			rows.push(
-				<React.Fragment key={i}>
-					<div className="left-wrap">
+				<React.Fragment>
+					<div className="left-wrap" key={i}>
 					<span className="rnd">PREMIUM</span>
 					<h2>Mother of  <br />Brooklyn</h2>
 					<span className="tag"><b>Rating</b></span>

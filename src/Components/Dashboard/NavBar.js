@@ -21,7 +21,7 @@ class NavigationBar extends Component
                                 <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/movies">Movies</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/music">Music</a></li>
-                                <li className="nav-item"><a className="nav-link" href="/short_film">Short Movies</a></li>
+                                <li className="nav-item"><a className="nav-link" href="/video_player">Short Movies</a></li>
                             </ul>
                         </div>
                     </div>

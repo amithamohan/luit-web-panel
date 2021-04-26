@@ -3,6 +3,8 @@ import Footer from "../Dashboard/Footer";
 import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
 import OwlCarousel from 'react-owl-carousel2';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 
 class MoviesDetailedPage extends Component
@@ -56,6 +58,8 @@ class MoviesDetailedPage extends Component
 
 	render()
 	{
+		console.log(this.props.location.params["item"]);
+
 		const crew = [];
 
 		if(this.state.actors !== undefined)
@@ -76,8 +80,15 @@ class MoviesDetailedPage extends Component
 							</div>
 						);
 					}
+					else
+					{
+						console.log("inside else");
+						this.setState({crew: null});
+					}
 				}
 			}
+			console.log("after");
+			console.log(this.state.crew);
 		}
 
 		let data = this.props.location.params["item"];
@@ -104,7 +115,8 @@ class MoviesDetailedPage extends Component
 									<span className="tag">{hour[0]} hr {hour[1]} min</span>
 									<span className="tag">{data["genre"]}</span>
 									<p>{data["description"]}</p>
-									<a href="/video_player" className="btn btn-lg"><img src="images/play.png" alt="" />Watch now</a>
+									<Link className="slide-one" to={{pathname: "/video_player", params:{item: data}}}>
+									<a href="/video_player" className="btn btn-lg"><img src="images/play.png" alt="" />Watch now</a></Link>
 									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
 									<div className="icon-bttn">
 									<i className="ti-sharethis text-white mr-4" />
@@ -122,11 +134,14 @@ class MoviesDetailedPage extends Component
 								<h2>Crew</h2>
 							</div>
 						</div>
-						<OwlCarousel options={this.options}>
+						{
+							crew === null ? null : 
+							<OwlCarousel options={this.options}>
 							{
 								crew
 							}
-						</OwlCarousel>
+							</OwlCarousel>
+						}
 					</div>
 					</div>
 				</div>

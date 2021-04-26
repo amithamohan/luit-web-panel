@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 
 class MoviesByLanguages extends Component
 {
@@ -24,10 +27,10 @@ class MoviesByLanguages extends Component
 			{
 				cards.push(
 					<div key={i}>
-						<a href="/view_all">
-							<div className="owl-items" style={{border: "2px solid yellow", backgroundColor: "#222", height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
-						</a>
-						<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
+							<Link to={{pathname: "/view_all", params:{item: this.props.languages[i]}}}>
+								<div className="owl-items" style={{border: "2px solid yellow", backgroundColor: "#222", height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+							</Link>
+					<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
 					</div>
 				);
 			}

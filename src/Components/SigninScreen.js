@@ -2,8 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
-
-
+// import {signInWithGoogle} from '../config/firebase';
 
 function SigninScreen(){
 
@@ -11,11 +10,6 @@ function SigninScreen(){
     
     return(
         <div>
-
-        
-        <div className="preloader"></div>
-
-    
     <div className="main-wrapper">
         {/* <!-- header wrapper --> */}
         <div className="header-wrapper">

@@ -2,7 +2,7 @@
   "name": "luit_web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://demo.luit.co.in/luitWeb/",
+  "homepage": ".",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -14,6 +14,7 @@
     "antd": "^4.15.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "firebase": "^8.4.1",
     "random-gradient": "0.0.2",
     "react": "^17.0.2",
     "react-alice-carousel": "^2.4.0",
@@ -32,6 +33,7 @@
     "react-social-icons": "^5.0.0",
     "reactjs-media": "^1.5.1",
     "reactstrap": "^8.9.0",
+    "screenfull": "^5.1.0",
     "start": "^5.1.0",
     "web-vitals": "^1.1.1"
   },

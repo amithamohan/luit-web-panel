@@ -650,10 +650,13 @@ class Server
 	// add items to wishlist
 	static async addToWishlist(userId, type, videoId)
 	{
+		console.log(userId);
+		console.log(type);
+		console.log(videoId);
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			let bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("video_id", videoId);
 			bodyFormData.append("video_type", type);
@@ -668,9 +671,9 @@ class Server
 
 			return response.data;
 		}
-		catch(e)
+		catch(Exception)
 		{
-			console.log(e);
+			console.log("e");
 		}
 	}
 

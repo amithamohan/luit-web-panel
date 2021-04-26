@@ -32,6 +32,7 @@ class Home extends Component
 		this.getSlider = this.getSlider.bind(this);
 		this.getAllMovies = this.getAllMovies.bind(this);
 		this.getAllMusic = this.getAllMusic.bind(this);
+		this.getAllShortFilms = this.getAllShortFilms.bind(this);
 		this.getTrendingArtist = this.getTrendingArtist.bind(this);
 		this.getAllMoviesByLanguage = this.getAllMoviesByLanguage.bind(this);
 	}
@@ -41,6 +42,7 @@ class Home extends Component
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
+		this.getAllShortFilms();
 		this.getTrendingArtist();
 		this.getAllMoviesByLanguage();
 	}
@@ -59,8 +61,6 @@ class Home extends Component
 		for(let j = 0; j < category.length; j++)
 		{
 			response = await Server.fetchSlider(category[j]);
-
-			console.log(response);
 
 			if(response["response"] === "success" && response["slider"] != null)
 			{
@@ -172,8 +172,11 @@ class Home extends Component
 		let shortFilm = [];
 		let response = await Server.fetchAllShortMovies();
 
-		if (response["response"] === "success")
+		console.log(response["data"]);
+
+		if (response["response"] === "success" && response["data"] !== null)
 		{
+			console.log("yesss");
 			let data = response["data"];
 
 			for (let i = 0; i < data.length; i++)
@@ -185,7 +188,9 @@ class Home extends Component
 		}
 		else
 		{
-			this.state.shortFilmList = null;
+			this.setState({shortFilmList: null});
+			console.log(this.state.shortFilmList);
+
 		}
 	}
 
@@ -195,12 +200,12 @@ class Home extends Component
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
 					<NavigationBar  movies = {this.state.moviesList}/>
-					<Slider slider = {this.state.homeSlider}/>
+					<Slider/>
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
-					{ this.state.shortFilmList ? <ShortFilm shortFilmList={this.state.shortFilmList}/> : null }
+					{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}
 )					<Footer/>
 				</div>
 			</div>

@@ -14,6 +14,7 @@ import PrivacyScreen from './Components/PrivacyScreen';
 import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
+import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 
 function App() 
 {
@@ -35,6 +36,7 @@ function App()
           <Route path="/music_detailed_page" component={MusicDetailedPage} />
           <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
           <Route path="/view_all" component={ViewAll} />
+          <Route path="/video_player" component={VideoPlayer}/>
       </Switch>
     </Router>
   );

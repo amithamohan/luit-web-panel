@@ -1,21 +1,30 @@
-import firebase from "firebase/app";
-import "firebase/analytics";
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
 
-var firebaseConfig =
-{
-	apiKey: "AIzaSyDoTSS-4AJq1zx-44RfdzPY_R7eARMrNeM",
-	authDomain: "styleade.firebaseapp.com",
-	databaseURL: "https://styleade.firebaseio.com",
-	projectId: "luit-ec7a3",
-	storageBucket: "styleade.appspot.com",
-	messagingSenderId: "32465567518",
-	appId: "1:1043266914152:android:adf870606f7e21718c38dd",
-	measurementId: "G-12EJHC2CC4"
-};
+// var firebaseConfig = 
+// {
+// 	apiKey: "AIzaSyAF4GRQG0N1J_zrI9W8jJkGxGJ4jhveQUU",
+// 	authDomain: "luit-ec7a3.firebaseapp.com",
+// 	databaseURL: "https://luit-ec7a3.firebaseio.com",
+// 	projectId: "luit-ec7a3",
+// 	storageBucket: "luit-ec7a3.appspot.com",
+// 	messagingSenderId: "1043266914152",
+// 	appId: "1:1043266914152:web:69cb706fabd98f0f8c38dd",
+// 	measurementId: "G-W7Q22CXP2J"
+// };
 
-const firebaseClient = firebase.initializeApp(firebaseConfig);
-const firebaseAnalyticsClient = firebase.analytics();
+// export const auth = firebase.auth();
 
-// firebaseAnalyticsClient.logEvent("page_view");
+// const googleProvider = new firebase.auth.GoogleAuthProvider()
 
-export default firebaseClient;
+// export const signInWithGoogle = () => 
+// {
+// 	auth.signInWithPopup(googleProvider).then((res) => 
+// 	{
+//     	console.log(res.user)
+//   	}).catch((error) => 
+// 	{
+//     	console.log(error.message)
+//   	})
+// }

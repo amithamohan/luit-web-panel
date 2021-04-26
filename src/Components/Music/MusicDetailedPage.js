@@ -117,9 +117,9 @@ class MusicDetailedPage extends Component
 				{
 					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"])
 					{
-						console.log(this.props.location.params["item"]["genre"][j]);
-						console.log(this.props.location.params["item"]["genre"].length);
-						console.log(this.state.musicList[i]["genre"][i]);
+						// console.log(this.props.location.params["item"]["genre"][j]);
+						// console.log(this.props.location.params["item"]["genre"].length);
+						// console.log(this.state.musicList[i]["genre"][i]);
 
 						moreLikeThis.push(
 							<div key={i}>
@@ -155,23 +155,28 @@ class MusicDetailedPage extends Component
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
-								<div className="left-wrap">
-									<span className="rnd">{data["ratings"]}</span>
-									<h2>{data["title"]}</h2>
-									<span className="tag"><b>{data["audio_languages"]}</b></span>
-									<span className="tag">{data["publish_year"]}</span>
-									<span className="tag"><b>HD</b></span>
-									<span className="tag"><b>{data["maturity_rating"]}+</b></span>
-									<span className="tag">{hour[0]} mins {hour[1]} sec</span>
-									<span className="tag">{data["genre"]}</span>
-									<p>{data["description"]}</p>
-									<a href="/video_player" className="btn btn-lg"><img src="images/play.png" alt="" />Watch now</a>
-									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
-									<div className="icon-bttn">
-									<i className="ti-sharethis text-white mr-4" />
+									<div className="left-wrap">
+										<span className="rnd">{data["ratings"]}</span>
+										<h2>{data["title"]}</h2>
+
+										<span className="tag"><b>{data["audio_languages"]}</b></span>
+										<span className="tag">{data["publish_year"]}</span>
+										<span className="tag"><b>HD</b></span>
+										<span className="tag"><b>{data["maturity_rating"]}+</b></span>
+										<span className="tag">{hour[0]} mins {hour[1]} sec</span>
+										<span className="tag">{data["genre"]}</span>
+
+										<p>{data["description"]}</p>
+
+										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]["video_url"]}}}><img src="images/play.png" alt="" />Watch now</Link>
+
+										<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
+
+										<div className="icon-bttn">
+											<i className="ti-sharethis text-white mr-4" />
+										</div>
 									</div>
-								</div>
-								<div className="right-wrap" style={{backgroundImage: `url(${data['thumbnail']})`}} />
+									<div className="right-wrap" style={{backgroundImage: `url(${data['thumbnail']})`}} />
 								</div>
 							</div>
 						</div>
@@ -187,7 +192,7 @@ class MusicDetailedPage extends Component
 							{
 								crew
 							}
-						</OwlCarousel>
+						</OwlCarousel>3000
 						</div>
 
 						<div></div>
