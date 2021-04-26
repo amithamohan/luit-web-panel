@@ -7,7 +7,6 @@ class Footer extends Component
 		return(
 			<div>
 			<footer className="footer">
-			<p>Some footer nonsense!</p>
 		  </footer>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
@@ -18,9 +17,8 @@ class Footer extends Component
 							</div>
 							<div className="col-sm-6 text-right">
 								<p className="float-right copyright-text">
-								<a style={{color:"white"}} href="/privacy_policies">Privacy Policy</a> | 
-								<a style={{color:"white"}} href="/terms_of_service">Terms of Use</a> | 
-								<a style={{color:"white"}} href="/">Refund Policy</a> | 
+								<a style={{color:"white"}} href="/privacy-policy">Privacy Policy</a> | 
+								<a style={{color:"white"}} href="/terms">Terms of Use</a> | 
 								<a style={{color:"white"}} href="/">Help</a>
 								</p>
 							</div>

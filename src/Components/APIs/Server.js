@@ -2,9 +2,14 @@ import axios from "axios";
 
 class Server
 {
-	static facebookLogin()
+	// facebook login
+	static async facebookLogin(facebookId, username, email, dob, age, image, phoneNumber)
 	{
+		try
+		{
+			let response;
 
+<<<<<<< HEAD
 
 		var bodyFormData = new FormData();
 			bodyFormData.append("facebook_id", "54556555113");
@@ -34,52 +39,26 @@ class Server
 				  console.log("response");
 				});
 	}
-
-	// google login
-	static googleLogin()
-	{
-		var bodyFormData = new FormData();
-			bodyFormData.append("google_id", "54556555113");
-			bodyFormData.append("name", "username",);
-			bodyFormData.append("email", "email");
-			bodyFormData.append("dob", "");
-			bodyFormData.append("age", "",);
-			bodyFormData.append("image", "profilePic",);
-			bodyFormData.append("login_phone_no", "mobile",);
-			bodyFormData.append("token", "tokenId",);
-			bodyFormData.append("device_id", "deviceId");
-
-			axios({
-				method: "POST",
-				url: "https://release.luit.co.in/api/fb-login",
-				data: bodyFormData,
-				headers: { "Content-Type": "multipart/form-data" },
-			  })
-				.then(function (response) {
-				  //handle success
-				  console.log(response);
-				})
-				.catch(function (response) {
-				  //handle error
-				  console.log(response);
-				});
-	}
-
-	// slider
-	static async fetchSlider(category)
-	{
-		try
-		{
+=======
 			var bodyFormData = new FormData();
-			bodyFormData.append('category', category);
+			bodyFormData.append("facebook_id", facebookId);
+			bodyFormData.append("name", username);
+			bodyFormData.append("email", email);
+			bodyFormData.append("dob",dob);
+			bodyFormData.append("age", age,);
+			bodyFormData.append("image", image);
+			bodyFormData.append("login_phone_no", phoneNumber);
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
 
-			return axios
-			({
+
+			response = await axios({
 				method: "POST",
-				url: "https://release.luit.co.in/api/slider",
+				url: "http://release.luit.co.in/api/fb-login",
 				data: bodyFormData,
 				headers: { "Content-Type": "multipart/form-data" },
-			});
+			  });
+
+			return response.data;
 		}
 		catch(e)
 		{
@@ -87,11 +66,45 @@ class Server
 		}
 	}
 
-	// fetch all movies list
-	static async fetchAllMovies()
+	// google login
+	static async googleLogin(googleId, username, email, dob, age, image, phoneNumber)
 	{
 		try
 		{
+			let response;
+
+			var bodyFormData = new FormData();
+
+			bodyFormData.append("google_id", googleId);
+			bodyFormData.append("name", username);
+			bodyFormData.append("email", email);
+			bodyFormData.append("dob",dob);
+			bodyFormData.append("age", age,);
+			bodyFormData.append("image", image);
+			bodyFormData.append("login_phone_no", phoneNumber);
+
+
+			response = await axios({
+				method: "POST",
+				url: "http://release.luit.co.in/api/google-login",
+				data: bodyFormData,
+				headers: { "Content-Type": "multipart/form-data" },
+			  });
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// user login with phone number
+	static async loginWithOtp(phoneNumber)
+	{
+		try
+		{
+<<<<<<< HEAD
 			const response = await axios
 			({
 				method: "GET",
@@ -101,6 +114,22 @@ class Server
 
 			JSON.parse(JSON.stringify(response))
 		
+=======
+			let response;
+
+			var bodyFormData = new FormData();
+
+			bodyFormData.append("login_phone_no", phoneNumber);
+
+
+			response = await axios({
+				method: "POST",
+				url: "http://release.luit.co.in/api/login-first",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData,
+			  });
+
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
 			return response.data;
 		}
 		catch(e)
@@ -109,17 +138,30 @@ class Server
 		}
 	}
 
-		// fetch all movies list
-	static async fetchAllMusic()
+	// update user profile
+	static async updateUserProfie(name, email, dob, age, image, phoneNumber)
 	{
 		try
 		{
-			return axios
-			({
-				method: "get",
-				url: "https://release.luit.co.in/api/music",
+			let response;
+
+			var bodyFormData = new FormData();
+			bodyFormData.append("name", name);
+			bodyFormData.append("email", email);
+			bodyFormData.append("dob",dob);
+			bodyFormData.append("age", age,);
+			bodyFormData.append("image", image);
+			bodyFormData.append("login_phone_no", phoneNumber);
+
+
+			response = await axios({
+				method: "POST",
+				url: "http://release.luit.co.in/api/profile-update",
+				data: bodyFormData,
 				headers: { "Content-Type": "multipart/form-data" },
-			});
+			  });
+
+			return response.data;
 		}
 		catch(e)
 		{
@@ -127,21 +169,24 @@ class Server
 		}
 	}
 
-			//3. USER PROFILE
+	// fetch user profile
 	static async userProfile(userId)
 	{
-		var bodyFormData = new FormData();
-		bodyFormData.append("id", userId);
-
 		try
 		{
-				return axios
-				({
-					method: "POST",
-					url: "https://release.luit.co.in/api/profile",
-					headers: { "Content-Type": "multipart/form-data" },
-					data: bodyFormData
-				});
+			let response;
+			var bodyFormData = new FormData();
+			bodyFormData.append("id", userId);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/profile",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
 		}
 		catch(e)
 		{
@@ -149,6 +194,7 @@ class Server
 		}
 	}
 
+<<<<<<< HEAD
 	//4. api to fetch only the top movies from exisiting api list of /movies
 	// static async fetchTopMovies()
 	// {
@@ -418,19 +464,26 @@ class Server
 	// 		console.log(e);
 	// 	}
 	// }
-
-	//9. DIRECTORS DETAILS
-	static async fetchDirectors()
+=======
+	// slider
+	static async fetchSlider(category)
 	{
 		try
 		{
-			let response = axios
-				({
-					method: "GET",
-					url: "https://release.luit.co.in/api/director",
-					headers: { "Content-Type": "multipart/form-data" },
-				});
-			return response.body;
+			let response;
+
+			var bodyFormData = new FormData();
+			bodyFormData.append('category', category);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/slider",
+				data: bodyFormData,
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
 		}
 		catch(e)
 		{
@@ -438,6 +491,135 @@ class Server
 		}
 	}
 
+	// fetch all movies list
+	static async fetchAllMovies()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/movies",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch top movies
+	static async fetchTopMovies()
+	{
+		try
+		{
+			let response = await axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/top_movies",
+					headers: { "Content-Type": "multipart/form-data" },
+				});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// movies by actors/ trending atrist
+	static async fecthMoviesByActors()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/actor-movies",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch movies by languages
+	static async fetchMoviesByLanguages()
+	{
+		try
+		{
+			let response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/language-movies",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch new released  movies
+	static async fetchNewReleasedMovies()
+	{
+		try
+		{
+			let response;
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/new_releases_movies",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
+
+	// fetch all movies list
+	static async fetchAllMusic()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/musics",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+<<<<<<< HEAD
 	// //10. SUBSCRIPTION PLANS
 	// static async fetchSubscriptionPlans()
 	// {
@@ -1124,8 +1306,532 @@ class Server
 	// 			headers: { "Content-Type": "multipart/form-data" },
 	// 			data: bodyFormData
 	// 		});
+=======
+	// fetch music by languages
+	static async fetchMusicByLanguages()
+	{
+		try
+		{
+			let response;
 
+			response = await  axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/language_music",
+				headers: { "Content-Type": "application/json" },
+			});
 
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fecth new released music
+	static async fetchNewReleasedMusic()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/new_releases_music",
+				headers: { "Content-Type": "multipart/form-data" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//fetch all short films
+	static async fetchAllShortMovies()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/short_films",
+					headers: { "Content-Type": "application/json" },
+				});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch short films by languages
+	static async fecthShortFilmsByLanguages()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/language-short-film",
+				headers: { "Content-Type": "application/jsom" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch new released short films
+	static async fetchNewReleasedShortFilms()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/short-films-new-releases",
+				headers: { "Content-Type": "application/json" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//fetch all artist list
+	static async fetchArtist()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/actor",
+					headers: { "Content-Type": "multipart/form-data" },
+				});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//fetch all directors
+	static async fetchDirectors()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/director",
+					headers: { "Content-Type": "multipart/form-data" },
+				});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//fetch all subscription plans
+	static async fetchSubscriptionPlans()
+	{
+
+		try
+		{
+			let response;
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/subscription_plan",
+				headers: { "Content-Type": "multipart/form-data" },
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+
+	}
+
+	// payment of videos
+	static async payForVideo(contentType, contentId, amount, refNo, userId)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("content_type", contentType);
+			bodyFormData.append("content_id", contentId);
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("amount", amount);
+			bodyFormData.append("ref_no", refNo);
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/short-films-new-releases",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//monthly payment
+	static async monthlyPayment(userId, days, startDate, endDate, amount, refNumber)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("valid_days", days);
+			bodyFormData.append("start_date", startDate);
+			bodyFormData.append("end_date", endDate);
+			bodyFormData.append("amount", amount);
+			bodyFormData.append("ref_no", refNumber);
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/monthly-payment",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// check if already done the payment
+	static async checkPaymentStatus(contentType, contentId, userId)
+	{
+		try
+		{
+			let response;
+
+			var bodyFormData = FormData();
+			bodyFormData.append("content_type", contentType);
+			bodyFormData.append("content_id", contentId);
+			bodyFormData.append("user_id", userId);
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/checking_content_payment",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// payment history of monthly payments
+	static async displayMonthlySubscription(userId)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/monthly-payments-list",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//fetch payment history of users
+	static async fetchPaymentHistory(userId)
+	{
+		try
+		{
+			let response;
+
+			var bodyFormData = FormData();
+
+			bodyFormData.append("user_id", userId);
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/content-payment-history",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// fetch subscription plans of users
+	static async subscribedContents(userId)
+	{
+		try
+		{
+			let response;
+
+			var bodyFormData = FormData();
+
+			bodyFormData.append("user_id", userId);
+
+			response = await axios
+			({
+				method: "GET",
+				url: "https://release.luit.co.in/api/subscription-payment-history",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// add items to wishlist
+	static async addToWishlist(userId, type, videoId)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("video_id", videoId);
+			bodyFormData.append("video_type", type);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/add_wishlist",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//display wishlist items
+	static async displayWishlist(userId)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/add_wishlist",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// delete from wishlist
+	static async deleteWishlist(userId, wishListId)
+	{
+
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("whishlist_id", wishListId);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/delete_wishlist",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// check if item is alreday added to wishlist
+	static async wishlistIsPresent(contentType, contentId, userId)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("video_id", contentId);
+			bodyFormData.append("video_type", contentType);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/check-wishlist",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	//overall rating given by users to an item
+	static async overallRating(contentId, contentType)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("video_id", contentId);
+			bodyFormData.append("video_type", contentType);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/video-rating",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// rate an item
+	static async rateContent(userId, contentId, contentType, remarks)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("video_id", contentId);
+			bodyFormData.append("video_type", contentType);
+			bodyFormData.append("remarks", remarks);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/rating-submit",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+
+	// check if user has already done the rating
+	static async checkIfVideoRated(userId, videoId, videoType)
+	{
+		try
+		{
+			let response;
+			var bodyFormData = FormData();
+			bodyFormData.append("user_id", userId);
+			bodyFormData.append("video_id", videoId);
+			bodyFormData.append("video_type", videoType);
+
+			response = await axios
+			({
+				method: "POST",
+				url: "https://release.luit.co.in/api/rating-check",
+				headers: { "Content-Type": "multipart/form-data" },
+				data: bodyFormData
+			});
+
+<<<<<<< HEAD
 	// 		return response.body;
 	// 	}
 	// 	catch(e)
@@ -1133,306 +1839,37 @@ class Server
 	// 		console.log(e);
 	// 	}
 	// }
-
-	// // 26. RATE THE CONTENT
-	// static async rateContent(contentId, contentType, remarks) 
-	// {
-	// 	String endPoint = baseUrl + "/rating-submit";
-
-	// 	var map = new Map<String, dynamic>();
-
-	// 	map["user_id"] = userId == null ? luitUser["id"] : userId;
-	// 	map["video_id"] = contentId;
-	// 	map["video_type"] = contentType;
-	// 	map["remarks"] = remarks;
-
-	// 	// print(map);
-	// 	// print(luitUser);
-	// 	var response = await http.post
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 		body: map,
-	// 	);
-
-	// 	// print(response.body);
-
-	// 	return response.body;
-	// }
-
-	// //28. PAYMENT HISTORY
-	// static fetchPaymentHistory() async
-	// {
-	// 	String endPoint = baseUrl + "/content-payment-history";
-
-	// 	var map = Map<String, dynamic>();
-
-	// 	map["user_id"] = userId;
-
-	// 	// print(map);
-
-	// 	var response = await http.post
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 		body: map,
-	// 	);
-
-	// 	var temp = response.body;
-
-	// 	// // print(temp);
-
-	// 	var data = temp["data"];
-
-	// 	paymentHistory = [];
-
-	// 	if(temp["response"] == "success")
-	// 	{
-
-	// 		paymentHistory = List.generate(data.length, (index)
-	// 		{
-	// 			return(
-	// 			{
-	// 				"db_id": data[index]["db_id"],
-	// 				"content_type": data[index]["content_type"],
-	// 				"content_id": data[index]["content_id"],
-	// 				"amount": "0",
-	// 				"ref_no": data[index]["ref_no"],
-	// 				"datetime": data[index]["datetime"],
-	// 				"type": data[index]["array"][0]["type"],
-	// 				"id": data[index]["array"][0]["type"] == "movie" ? data[index]["array"][0]["movie_id"] : data[index]["array"][0]["id"] ,
-	// 				"title": data[index]["array"][0]["type"] == "movie" ? data[index]["array"][0]["movie_title"] : data[index]["array"][0]["title"],
-	// 				"description": data[index]["array"][0]["description"],
-	// 				"video_url": data[index]["array"][0]["type"] == "movie" ? data[index]["array"][0]["movie_upload"] : data[index]["array"][0]["type"] == "music" ? data[index]["array"][0]["upload_music"] : data[index]["array"][0]["upload_sf"],
-	// 				"trailer_url": data[index]["array"][0]["type"] == "movie" ? data[index]["array"][0]["trailer_upload"] : data[index]["array"][0]["upload_trailer"],
-	// 				"audio_languages": data[index]["array"][0]["audio_languages"],
-	// 				"maturity_rating": data[index]["array"][0]["maturity_rating"],
-	// 				"thumbnail": data[index]["array"][0]["thumbnail"],
-	// 				"poster": data[index]["array"][0]["poster"],
-	// 				"metaKeyword": data[index]["array"][0]["meta_keyword"],
-	// 				"metaDescription": data[index]["array"][0]["meta_description"],
-	// 				"directors": data[index]["array"][0]["directors"],
-	// 				"actors": data[index]["array"][0]["actors"],
-	// 				"genre": data[index]["array"][0]["genre"],
-	// 				"duration": data[index]["array"][0]["duration"],
-	// 				"ratings": data[index]["array"][0]["ratings"],
-	// 				"publishYear": data[index]["array"][0]["publish_year"],
-	// 				"status": data[index]["array"][0]["status"]
-	// 			});
-	// 		});
-
-	// 		return response.body;
-	// 	}
-	// 	else
-	// 	{
-	// 		paymentHistory = [];
-
-	// 		return paymentHistory;
-	// 	}
-	// }
-
-	// 29. SUBSCRIPTION PLANS
-	// static subscribedContents() async
-	// {
-	// 	String endPoint = baseUrl + "/subscription-payment-history";
-
-	// 	var map = Map<String, dynamic>();
-
-	// 	map["user_id"] = userId;
-
-	// 	var response = await http.post
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 		body: map,
-	// 	);
-
-	// 	return response.body;
-	// }
-
-	// // 33 login with OTP
-	// static loginWithOtp() async
-	// {
-	// 	String endPoint = baseUrl + "/login-first";
-
-	// 	var map = Map<String, dynamic>();
-
-	// 	map["login_phone_no"] = mobile;
-	// 	map["token"] = tokenId;
-	// 	map["device_id"] = deviceId;
-
-	// 	print(map);
-
-	// 	var response = await http.post
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 		body: map,
-	// 	);
-
-	// 	return response.body;
-	// }
-
-	// // 34. Check if video was already reated or not.
-	// static checkIfVideoRated(var videoId, var videoType) async
-	// {
-	// 	String endPoint = baseUrl + "/rating_check";
-
-	// 	var map = Map<String, dynamic>();
-
-	// 	map["user_id"] = userId;
-	// 	map["video_id"] = videoId;
-	// 	map["video_type"] = videoType;
-
-	// 	var response = await http.post
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 		body: map,
-	// 	);
-
-	// 	sanitize(response);
-
-	// 	// print(response.body);
-
-	// 	return response.body;
-	// }
-
-	// // 35. Fecth series
-	// static fetchSeries() async
-	// {
-	// 	String endPoint = baseUrl + "/webseries";
-
-	// 	var response = await http.get
-	// 	(
-	// 		endPoint,
-	// 		headers:
-	// 		{
-	// 			HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 		},
-	// 	);
-
-	// 	sanitize(response);
-
-	// 	var temp = response.body;
-
-	// 	series.clear();
-
-	// 	for(int i = 0 ; i < temp["data"].length; i ++)
-	// 	{
-	// 		series.add(temp["data"][i]);
-	// 	}
-	// }
-
-	// // 36. slider
-	// static  slider(var category) async
-	// {
-	// 	try
-	// 	{
-	// 		Map body =
-	// 		{
-	// 			"category": category
-	// 		};
-
-	// 		var response = await http.post
-	// 		(
-	// 			APIConstants.sliderApi,
-	// 			headers:
-	// 			{
-	// 				HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded; charset=UTF-8"
-	// 			},
-	// 			body: body
-	// 		);
-
-	// 		sanitize(response);
-
-	// 		var decodedResponse = response.body;
-
-	// 		print(decodedResponse);
-	// 		print("slider images");
-
-	// 		return (decodedResponse == null || decodedResponse["response"] == "failed") ? [] : decodedResponse;
-	// 	}
-	// 	catch(e)
-	// 	{
-	// 		// console.log(e);
-	// 	}
-	// }
-
-
-	// static async sanitize(response)
-	// {
-	// 	try
-	// 	{
-	// 		if (response.statusCode !== 200)
-	// 		{
-	// 			// throw Exception("Server Error: Didn't return 200!");
-	// 		}
-	// 		else if (response.body === null || response.body === "")
-	// 		{
-	// 			// throw Exception("Server Error: Response is empty!");
-	// 		}
-	// 	}
-	// 	catch(e)
-	// 	{
-	// 	}
-	// }
-
-	// // // update user profile
-	// static updateUserProfie() async
-	// {
-	// 	String endPoint = baseUrl + "/profile-update";
-
-	// 	var tempUserData = luitUser;
-
-	// 	print(tempUserData["image64"].runtimeType);
-
-	// 	tempUserData["image"] = tempUserData["image64"] != null && tempUserData["image64"] != "" ? await MultipartFile.fromFile(tempUserData["image64"], filename: 'file.jpg') : luitUser["image"];
-
-
-	// 	print("tempUserdata");
-	// 	print(tempUserData);
-	// 	print("tempUserdata");
-
-	// 	try
-	// 	{
-	// 		var formData = FormData.fromMap(tempUserData);
-
-	// 		var dio = Dio();
-	// 		var response = new Response();
-
-	// 		response = await dio.post(endPoint, data: formData);
-	// 		var responseData = json.decode(response.data);
-
-	// 		luitUser["image"] = responseData["image"];
-
-	// 		setSharedPreference("luitUser", jsonEncode(luitUser));
-
-	// 		print(response.data);
-
-	// 		return responseData;
-	// 	}
-	// 	catch(e)
-	// 	{
-	// 		Fluttertoast.showToast(msg: "Server Error");
-	// 		console.log(e);
-	// 	}
-	// }
+=======
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+>>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
+
+	// fetch all series
+	static async fetchSeries()
+	{
+		try
+		{
+			let response;
+
+			response = await axios
+				({
+					method: "GET",
+					url: "https://release.luit.co.in/api/webseries",
+					headers: { "Content-Type": "application/json" },
+				});
+
+			return response.data;
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
 }
 
 export default Server;
