@@ -56,7 +56,7 @@ class Home extends Component
 
 		let response;
 
-		let category = ["home", "movie", "music", "short-film"];
+		let category = ["home"];
 
 		for(let j = 0; j < category.length; j++)
 		{
@@ -66,26 +66,7 @@ class Home extends Component
 			{
 				for(let i = 0; i < response["slider"].length; i++)
 				{
-					switch(response["message"])
-					{
-						case "Home Slider":
-							home.push(response["slider"][i]);
-							break;
-
-						case "movie slider":
-							movie.push(response["slider"][i]);
-							break;
-
-						case "music slider":
-							music.push(response["slider"][i]);
-							break;
-
-						case "Short Film slider":
-							shortFilm.push(response["slider"][i]);
-							break;
-						default:
-							break;
-					}
+					home.push(response["slider"][i]);
 				}
 			}
 		}
@@ -197,10 +178,11 @@ class Home extends Component
 	render()
 	{
 		return(
+
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
 					<NavigationBar  movies = {this.state.moviesList}/>
-					<Slider/>
+					<Slider data={this.state.homeSlider} />
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>

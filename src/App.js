@@ -16,6 +16,7 @@ import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
+import asd from './Components/asd';
 
 function App() 
 {
@@ -23,6 +24,7 @@ function App()
     <Router>
       <Switch>
           <Route path="/" component={Home} exact />
+          <Route path="/asd" component={asd} exact />
           <Route path="/sign_in" component={SigninScreen} />
           <Route path="/terms_of_service" component={TermsOfService}/>
           <Route path="/movies" component={MoviesPage}/>

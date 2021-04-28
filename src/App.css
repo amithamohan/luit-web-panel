@@ -263,3 +263,10 @@ input{
   font-size: 20px;
 }
 /* Popup style */
+
+
+.ant-carousel .slick-dots li button  {
+  height: 10px !important;
+  width: 10px !important;
+  border-radius: 50% !important;
+}

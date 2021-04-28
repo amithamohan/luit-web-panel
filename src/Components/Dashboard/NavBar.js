@@ -16,7 +16,7 @@ class NavigationBar extends Component
                             aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                        <div id="navbarNavDropdown">
                             <ul className="navbar-nav nav-menu float-none text-center">
                                 <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/movies">Movies</a></li>
