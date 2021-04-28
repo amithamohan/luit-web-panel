@@ -107,9 +107,6 @@ class Home extends Component
 			}
 		}
 
-<<<<<<< HEAD
-		result = response["data"][0];
-=======
 		this.setState({moviesList: movieList, allVideos: movieList});
 	}
 
@@ -117,7 +114,6 @@ class Home extends Component
 	{
 		let languageList = [];
 		let response = await Server.fetchMoviesByLanguages();
->>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
 
 		if (response["response"] === "success")
 		{
@@ -125,13 +121,7 @@ class Home extends Component
 
 			for (let i = 0; i < language.length; i++)
 			{
-<<<<<<< HEAD
-				movies.push(result["data"][i]);
-
-				console.log(movies);
-=======
 				languageList.push(language[i]);
->>>>>>> a6397a38308ffc69a66761b7bc8494ba40d2987d
 			}
 		}
 
@@ -213,7 +203,7 @@ class Home extends Component
 					<Slider/>
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
-					<MusicCard musicList={this.state.musicList}/>
+					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
 					{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}
 )					<Footer/>

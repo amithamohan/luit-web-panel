@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import CloseIcon from '@material-ui/icons/Close';
 import PauseIcon from '@material-ui/icons/Pause';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
 	},
 });
 
-	function ValueLabelComponent(props)
+	function valueLabelComponent(props)
 	{
 		const { children, open, value } = props;
 
@@ -91,6 +92,7 @@ const useStyles = makeStyles({
 
 
 export default forwardRef(({
+	title,
 	onPlayPause,
 	playing,
 	muted,
@@ -134,15 +136,15 @@ export default forwardRef(({
 		<div className={classes.controlsWrapper} ref={ref}>
 			<Grid container direction="row" alignItems="center" justify="space-between" style={{padding: "2"}}>
 				<Grid item>
-					<Typography>
-						Video Title
+					<Typography className="h1"  variant="h5">
+						{title}
 					</Typography>
 				</Grid>
 
 				<Grid item> 
-					<Typography>
-						Video Title
-					</Typography>
+					<IconButton onClick={onRewind} className={classes.controlIcons} aria-label="reqind">
+						<CloseIcon fontSize="inherit" />
+					</IconButton>
 				</Grid>
 			</Grid>
 
@@ -164,7 +166,7 @@ export default forwardRef(({
 
 				{/* bottom controls */}
 			<Grid container direction="row" justify="space-between" align="center" style={{padding: "16"}} 
-				ValueLabelComponent={(props) => <ValueLabelComponent {...props} value = {ellapsedTime}/>}>
+				valueLabelComponent={(props) => <valueLabelComponent {...props} value = {ellapsedTime}/>}>
 				<Grid item xs={12}>
 					<PrettoSlider 
 						min={0} 

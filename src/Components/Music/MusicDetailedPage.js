@@ -115,15 +115,19 @@ class MusicDetailedPage extends Component
 			{
 				for(let i = 0; i < this.state.musicList.length; i++)
 				{
-					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"])
-					{
-						// console.log(this.props.location.params["item"]["genre"][j]);
+					console.log(this.props.location.params["item"]["genre"][j]);
 						// console.log(this.props.location.params["item"]["genre"].length);
-						// console.log(this.state.musicList[i]["genre"][i]);
+					console.log(this.state.musicList[i]["genre"][0]);
+
+					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0])
+					{
+						console.log(this.props.location.params["item"]["genre"][j]);
+						// console.log(this.props.location.params["item"]["genre"].length);
+						console.log(this.state.musicList[i]["genre"][i]);
 
 						moreLikeThis.push(
-							<div key={i}>
-								<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: this.state.musicList[i]}}} style={{height: "430px"}}>
+							<div className="owl-items"  key={i} >
+								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.musicList[i]}}} style={{height: "430px"}}>
 									<div className="slide-image">
 										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 									</div>
@@ -168,7 +172,7 @@ class MusicDetailedPage extends Component
 
 										<p>{data["description"]}</p>
 
-										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]["video_url"]}}}><img src="images/play.png" alt="" />Watch now</Link>
+										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
 
 										<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
 
@@ -183,36 +187,29 @@ class MusicDetailedPage extends Component
 
 						<div></div>
 						<div className="container" style={{paddingTop: "20px"}}>
-						<div className="row">
-							<div className="col-sm-6 text-left mb-4 mt-1">
-								<h2>Crew</h2>
-							</div>
-						</div>
-						<OwlCarousel options={this.options}>
-							{
-								crew
-							}
-						</OwlCarousel>3000
-						</div>
-
-						<div></div>
-						<div className="container" style={{color: "blue"}}>
-						<div>
-							<div className="slide-wrapper">
-								<div className="container">
-									<div className="row">
-										<div className="col-sm-6 text-left mb-4 mt-4">
-										<h2>{this.props.title}</h2>
-										</div>
-									</div>
-									<OwlCarousel options={this.cardOptions}>
-										{
-											moreLikeThis
-										}
-									</OwlCarousel>
+							<div className="row">
+								<div className="col-sm-6 text-left mb-4 mt-1">
+									<h2>Crew</h2>
 								</div>
 							</div>
+							<OwlCarousel options={this.options}>
+								{
+									crew
+								}
+							</OwlCarousel>3000
 						</div>
+
+						<div className="slide-wrapper">
+							<div className="row">
+								<div className="col-sm-6 text-left mb-4 mt-4">
+									<h2>More Like This</h2>
+								</div>
+							</div>
+							<OwlCarousel options={this.options}>
+								{
+									moreLikeThis
+								}
+							</OwlCarousel>
 						</div>
 					</div>
 				</div>
