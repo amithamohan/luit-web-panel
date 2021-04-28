@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 class TrendingArtist extends Component
 {
-	options = 
+	options =
 	{
 		items: 4,
 		margin: 5,
 		nav: true,
 		loop: true,
-		autoplay: true
+		autoplay: true,
+		startPosition: 0,
+		rewind: true
 	};
 
 	render()
@@ -20,11 +24,14 @@ class TrendingArtist extends Component
 		{
 			const actors = this.props.trendingArtist[i];
 
+			console.log(actors);
 			if (actors !== undefined)
 			{
 				cards.push(
 					<div key={i}>
-						<div className="owl-items" style={{display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px" ,borderRadius: "50%", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+						<Link to={{pathname: "/view_all", params:{item: this.props.trendingArtist[i]}}}>
+							<div className="owl-items" style={{display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px" ,borderRadius: "50%", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+							</Link>
 						<center><br /><span style={{color: "white"}}>{actors["actor_name"]}</span></center>
 					</div>
 				);

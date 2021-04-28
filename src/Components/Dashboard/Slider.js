@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
 
-
 class Slider extends Component
 {
+	constructor(props)
+	{
+		super()
+	}
+
 	render()
 	{
 		const rows = [];
 
-		for(let i = 0; i < 9; i++)
+		for(let i = 0; i < 4; i++)
 		{
+			console.log("hiiii");
 			rows.push(
-				<React.Fragment>
-					<div className="left-wrap" key={i}>
+				<React.Fragment key={i}>
+					<div className="left-wrap">
 					<span className="rnd">PREMIUM</span>
 					<h2>Mother of  <br />Brooklyn</h2>
 					<span className="tag"><b>Rating</b></span>

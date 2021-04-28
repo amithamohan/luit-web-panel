@@ -6,13 +6,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class MoviesByLanguages extends Component
 {
-	options = 
+	options =
 	{
-		items: 5,
-		margin: 10,
+		items: 4,
+		margin: 5,
 		nav: true,
 		loop: true,
-		autoplay: true
+		autoplay: true,
+		startPosition: 0,
+		rewind: true
 	};
 
 	render()
@@ -22,7 +24,8 @@ class MoviesByLanguages extends Component
 		for (let i = 0; i < this.props.languages.length; i++)
 		{
 			const language = this.props.languages[i];
-
+			
+			console.log(language);
 			if (language !== undefined)
 			{
 				cards.push(
@@ -41,14 +44,14 @@ class MoviesByLanguages extends Component
 				<div className="category-wrapper slide-wrapper">
 					<div className="container">
 						<div className="row">
-							<div className="col-sm-6 text-left mb-4 mt-1">
+							<div className="col-sm-6 col-lg-12 col-md-6 text-left mb-4 mt-1">
 								<h2>Watch in Your Language</h2>
 							</div>
 						</div>
 						<OwlCarousel options={this.options}>
-							{
-								cards
-							}
+						{
+							cards
+						}
 						</OwlCarousel>
 					</div>
 				</div>

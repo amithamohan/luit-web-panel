@@ -203,7 +203,7 @@ class Home extends Component
 					<Slider/>
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
-					<MusicCard musicList={this.state.musicList}/>
+					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
 					{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}
 )					<Footer/>

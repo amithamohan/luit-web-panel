@@ -39,19 +39,34 @@ function VideoPlayer (props)
 	const classes = useStyles();
 	const [state, setState] = useState({
 		playing: true,
-		muted: true,
+		muted: false,
 		volume: 0.5,
 		playbackRate: 1.0,
 		played: 0,
 		seeking: false
 	})
 
-	let data = props.location.params;
-	let url = props.location.params["item"]["movie_upload"];
+	let data = props.location.params["item"];
+	let title;
+	let url;
+	let x;
 
-	let image = props.location.params["item"]["movie_upload"];
-	let x = image.split(' ').join('%20');
-	console.log(x);
+	console.log(data);
+
+	if(data["type"] === "movie")
+	{
+		url = props.location.params["item"]["movie_upload"];
+		title = props.location.params["item"]["movie_title"];
+		let image = props.location.params["item"]["movie_upload"];
+		x = image.split(' ').join('%20');
+		console.log(x);
+	}
+	else
+	{
+		title = props.location.params["item"]["title"];
+		x = props.location.params["item"]["upload_music"];
+		console.log(x);
+	}
 
 	const [timeDisplayFormat, setTimeDisplayFormat] = useState("normal");
 	const { playing, muted, volume, playbackRate, played, seeking } = state; //pause and play state
@@ -166,14 +181,15 @@ function VideoPlayer (props)
 						width={"100%"}
 						height="100%"
 						url={x}
-						// url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+						// url="https://release.luit.co.in/uploads/movies/1610199429DEMPHOLOR%20COMPANYR%20%20SAKORI%20(%20JONBAI%205%20).mp4"
 						muted={muted}
 						playing={playing}
 						volume={volume}
 						playbackRate={playbackRate}
 						onProgress={handleProgress}
 					/>
-          			<PlayerControls 
+          			<PlayerControls
+					  	title={title}
 					  	ref={controlRef}
 						onPlayPause = {handlePlayPause} 
 						playing={playing}

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, { useState} from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AddIcon from '@material-ui/icons/Add';
@@ -71,31 +71,20 @@ function MoviesCard(props)
 			if (movie !== undefined)
 			{
 				cards.push(
-					<div key={i}>
-						<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: props.moviesList[i]}}} style={{height: "400px"}}>
-							<div className="slide-image">
-								<img src={movie["thumbnail"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{maxWidth:"100%", height: "auto"}} />
-							</div>
-							<div className="slide-content" style={{backgroundColor:"", height:"75px"}}>
-								<h2>{movie["movie_title"]}
-									<IconButton style={{color: "white"}} onClick={()=> showModal()}>
-										<AddIcon></AddIcon>
-									</IconButton>
-								</h2>
-
-								<div className="col">
-									<div className="row">
-										<span className="tag">{hour[0]} hrs {hour[1]} mins</span>
-										<span className="tag">{movie["publish_year"]}</span>
-									</div>
-									<div className="row" style={{paddingTop: "10px"}}>
-										<span className="tag">Rating: {movie["ratings"]}</span>
-										<span className="tag"><b>{movie["maturity_rating"]}+</b></span>
-									</div>
-								</div>
-							</div>
-						</Link>
-					</div>
+					<div className="owl-items" key={i}>
+					<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: props.moviesList[i]}}} style={{height: "430px"}}>
+						<div className="slide-image">
+						<img src={movie["thumbnail"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/movie_thumbnail/default.jpg"}} />
+						</div>
+						<div className="slide-content">
+							<h2>{movie["movie_title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+							<div className="tag"> Duration: {hour[0]} hrs {hour[1]} min</div>
+							<span className="tag">Year: {movie["publish_year"]}</span>
+							<span className="tag">Rating: {movie["ratings"]}</span>
+							<span className="tag"><b>{movie["maturity_rating"]}+</b></span>
+						</div>
+					</Link>
+				</div>
 				);
 			}
 		}

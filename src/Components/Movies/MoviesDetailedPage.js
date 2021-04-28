@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class MoviesDetailedPage extends Component
 {
-	options = 
+	options =
 	{
 		items: 5,
 		margin: 5,
@@ -25,6 +25,7 @@ class MoviesDetailedPage extends Component
 		this.state =
 		{
 			actors: [],
+			moviesList: [],
 			allVideos: [],
 		}
 
@@ -34,6 +35,7 @@ class MoviesDetailedPage extends Component
 	componentDidMount()
 	{
 		this.getActors();
+		this.getAllMovies();
 	}
 
 	async getActors()
@@ -54,6 +56,25 @@ class MoviesDetailedPage extends Component
 		this.setState({actors: actorsList});
 
 		console.log(this.state.actors);
+	}
+
+	// fetch all music
+	async getAllMovies()
+	{
+		let result = [];
+		let response = await Server.fetchAllMovies();
+
+		if (response["response"] === "success")
+		{
+			let movies = response["data"];
+
+			for (let i = 0; i < movies.length; i++)
+			{
+				result.push(movies[i]);
+			}
+		}
+
+		this.setState({moviesList: result});
 	}
 
 	render()
@@ -82,13 +103,45 @@ class MoviesDetailedPage extends Component
 					}
 					else
 					{
-						console.log("inside else");
-						this.setState({crew: null});
+						this.state.crew = null;
 					}
 				}
 			}
 			console.log("after");
 			console.log(this.state.crew);
+		}
+
+
+		const moreLikeThis = [];
+		if(this.state.moviesList !== undefined)
+		{
+			for(let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
+			{
+				for(let i = 0; i < this.state.moviesList.length; i++)
+				{
+					let hour = this.state.moviesList[i]["duration"].split('.');
+
+					if(this.props.location.params["item"]["genre"][j] === this.state.moviesList[i]["genre"][0])
+					{
+						moreLikeThis.push(
+							<div className="owl-items"  key={i} >
+								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.moviesList[i]}}} style={{height: "430px"}}>
+									<div className="slide-image">
+										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+									</div>
+									<div className="slide-content">
+										<h2>{this.state.moviesList[i]["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
+										<p>{this.state.moviesList[i]["description"]}</p>
+										<span className="tag">{hour[0]} hrs {hour[1]} mins</span>
+										<span className="tag">{this.state.moviesList[i]["publish_year"]}</span>
+										<span className="tag"><b>{this.state.moviesList[i]["maturity_rating"]}</b></span>
+									</div>
+								</Link>
+							</div>
+						);
+					}
+				}
+			}
 		}
 
 		let data = this.props.location.params["item"];
@@ -115,8 +168,9 @@ class MoviesDetailedPage extends Component
 									<span className="tag">{hour[0]} hr {hour[1]} min</span>
 									<span className="tag">{data["genre"]}</span>
 									<p>{data["description"]}</p>
-									<Link className="slide-one" to={{pathname: "/video_player", params:{item: data}}}>
-									<a href="/video_player" className="btn btn-lg"><img src="images/play.png" alt="" />Watch now</a></Link>
+
+									<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
+
 									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
 									<div className="icon-bttn">
 									<i className="ti-sharethis text-white mr-4" />
@@ -129,20 +183,36 @@ class MoviesDetailedPage extends Component
 
 						<div></div>
 						<div className="container">
-						<div className="row">
-							<div className="col-sm-6 text-left mb-4 mt-1">
-								<h2>Crew</h2>
+							<div className="row">
+								<div className="col-sm-6 text-left mb-4 mt-1">
+									<h2>Crew</h2>
+								</div>
 							</div>
-						</div>
-						{
-							crew === null ? null : 
-							<OwlCarousel options={this.options}>
 							{
-								crew
+								crew === null ? null :
+								<OwlCarousel options={this.options}>
+								{
+									crew
+								}
+								</OwlCarousel>
 							}
-							</OwlCarousel>
-						}
-					</div>
+						</div>
+
+						<div className="container slide-wrapper">
+							<div className="row">
+								<div className="col-sm-6 text-left mb-4 mt-1">
+									<h2>More Like This</h2>
+								</div>
+							</div>
+							{
+								crew === null ? null :
+								<OwlCarousel options={this.options}>
+								{
+									moreLikeThis
+								}
+								</OwlCarousel>
+							}
+						</div>
 					</div>
 				</div>
 				<Footer/>

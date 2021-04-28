@@ -15,7 +15,7 @@ class Server
 			bodyFormData.append("email", email);
 			bodyFormData.append("dob",dob);
 			bodyFormData.append("age", age,);
-			bodyFormData.append("image", image);
+			// bodyFormData.append("image", image);
 			bodyFormData.append("login_phone_no", phoneNumber);
 
 
@@ -95,7 +95,7 @@ class Server
 	}
 
 	// update user profile
-	static async updateUserProfie(name, email, dob, age, image, phoneNumber)
+	static async updateUserProfie(name, email, phoneNumber, dob, age, image, )
 	{
 		try
 		{
