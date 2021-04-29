@@ -16,6 +16,7 @@ import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
+import History from './Components/History';
 
 function App() 
 {
@@ -39,6 +40,7 @@ function App()
           <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
           <Route path="/view_all" component={ViewAll} />
           <Route path="/video_player" component={VideoPlayer}/>
+          <Route path="/history" component={History}/>
       </Switch>
     </Router>
   );

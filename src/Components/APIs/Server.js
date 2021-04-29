@@ -39,6 +39,8 @@ class Server
 	{
 		try
 		{
+			console.log("inside google login");
+
 			let response;
 
 			var bodyFormData = new FormData();
@@ -46,15 +48,17 @@ class Server
 			bodyFormData.append("google_id", googleId);
 			bodyFormData.append("name", username);
 			bodyFormData.append("email", email);
-			bodyFormData.append("dob",dob);
-			bodyFormData.append("age", age,);
+			bodyFormData.append("dob","");
+			bodyFormData.append("age", "",);
 			bodyFormData.append("image", image);
-			bodyFormData.append("login_phone_no", phoneNumber);
+			bodyFormData.append("login_phone_no", "");
+			bodyFormData.append("device_id", null);
+			bodyFormData.append("token", null);
 
 
 			response = await axios({
 				method: "POST",
-				url: "http://release.luit.co.in/api/google-login",
+				url: "https://release.luit.co.in/api/google-login",
 				data: bodyFormData,
 				headers: { "Content-Type": "multipart/form-data" },
 			  });

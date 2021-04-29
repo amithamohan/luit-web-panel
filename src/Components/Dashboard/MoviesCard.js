@@ -36,7 +36,7 @@ function MoviesCard(props)
 		itemsDesktop: [1000, 5],
 		nav: true,
 		loop: true,
-		autoplay: true
+		autoplay: true,
 	};
 
 	const addToWishlist = async (i) =>

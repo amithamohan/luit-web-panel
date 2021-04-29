@@ -30,10 +30,10 @@ class MoviesByLanguages extends Component
 			{
 				cards.push(
 					<div key={i}>
-							<Link to={{pathname: "/view_all", params:{item: this.props.languages[i]}}}>
-								<div className="owl-items" style={{border: "2px solid yellow", backgroundColor: "#222", height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
-							</Link>
-					<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
+						<Link to={{pathname: "/view_all", params:{item: this.props.languages[i]}}}>
+							<div className="owl-items" style={{border: "4px solid yellow", backgroundColor: "#222",width: "200px" ,height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+						</Link>
+						<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
 					</div>
 				);
 			}
@@ -44,7 +44,7 @@ class MoviesByLanguages extends Component
 				<div className="category-wrapper slide-wrapper">
 					<div className="container">
 						<div className="row">
-							<div className="col-sm-6 col-lg-12 col-md-6 text-left mb-4 mt-1">
+							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6	 mt-1">
 								<h2>Watch in Your Language</h2>
 							</div>
 						</div>
