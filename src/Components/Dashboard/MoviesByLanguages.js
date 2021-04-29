@@ -25,7 +25,6 @@ class MoviesByLanguages extends Component
 		{
 			const language = this.props.languages[i];
 			
-			console.log(language);
 			if (language !== undefined)
 			{
 				cards.push(

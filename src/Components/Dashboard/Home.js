@@ -85,10 +85,11 @@ class Home extends Component
 			for (let i = 0; i < movies.length; i++)
 			{
 				movieList.push(movies[i]);
+				this.state.allVideos.push(movies[i]);
 			}
 		}
 
-		this.setState({moviesList: movieList, allVideos: movieList});
+		this.setState({moviesList: movieList});
 	}
 
 	async getAllMoviesByLanguage()
@@ -137,15 +138,16 @@ class Home extends Component
 
 		if (response["response"] === "success")
 		{
-			let movies = response["data"];
+			let music = response["data"];
 
-			for (let i = 0; i < movies.length; i++)
+			for (let i = 0; i < music.length; i++)
 			{
-				result.push(movies[i]);
+				result.push(music[i]);
+				this.state.allVideos.push(music[i]);
 			}
 		}
 
-		this.setState({musicList: result, allVideos: result});
+		this.setState({musicList: result});
 	}
 
 	async getAllShortFilms()
@@ -163,6 +165,7 @@ class Home extends Component
 			for (let i = 0; i < data.length; i++)
 			{
 				shortFilm.push(data[i]);
+				this.state.allVideos.push(shortFilm);
 			}
 
 			this.setState({shortFilmList: shortFilm, allVideos: shortFilm});
@@ -177,12 +180,13 @@ class Home extends Component
 
 	render()
 	{
+		console.log(this.state.allVideos);
 		return(
 
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
 					<NavigationBar  movies = {this.state.moviesList}/>
-					<Slider data={this.state.homeSlider} />
+					<Slider data={this.state.homeSlider} allVideos = {this.state.allVideos}/>
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
 					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>

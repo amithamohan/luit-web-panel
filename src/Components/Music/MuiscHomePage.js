@@ -18,6 +18,7 @@ class MusicPage extends Component
 			musicSlider: [],
 			musicLanguages: [],
 			newReleasedMusic: [],
+			allVideos: [],
 		}
 
 		this.getSlider = this.getSlider.bind(this);
@@ -149,7 +150,7 @@ class MusicPage extends Component
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
 					<NavigationBar/>
-					<Slider/>
+					<Slider data={this.state.musicSlider} allVideos = {this.state.allVideos}/>
 					<MusicCard title = {"New Released Music"} musicList = {this.state.newReleasedMusic}/>
 					<MusicCard title = {"Top Music"} musicList = {this.state.musicList}/>
 					<div>

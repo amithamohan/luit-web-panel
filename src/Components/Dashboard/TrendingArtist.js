@@ -24,7 +24,6 @@ class TrendingArtist extends Component
 		{
 			const actors = this.props.trendingArtist[i];
 
-			console.log(actors);
 			if (actors !== undefined)
 			{
 				cards.push(
