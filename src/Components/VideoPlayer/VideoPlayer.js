@@ -169,7 +169,7 @@ function VideoPlayer (props)
 
   	return (
     	<div style={{background: "black"}}>
-      		<Container maxWidth="md" style={{background:"black", display: "table", width: "fit-content", height: "fit-content"
+      		<Container maxWidth="lg" style={{background:"black", display: "table", width: "fit-content", height: "fit-content"
 		}}>
         		<div 
 					ref={playerContainerRef} 

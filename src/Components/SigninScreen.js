@@ -8,6 +8,8 @@ import Server from './APIs/Server';
 import { useHistory } from "react-router-dom";
 import Footer from './Dashboard/Footer';
 import { Alert } from 'antd';
+import firebase from '../config/firebase';
+
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
 
@@ -68,9 +70,40 @@ function SigninScreen()
     {
         console.log(response);
     };
+    
+    const setUpRecaptcha = () => {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+            'size': 'invisible',
+            'callback': (response) => {
+            
+            onSignInSubmit();
+            }
+        });
+    }
+    
+    const onSignInSubmit=(e)=>{
+        // e.preventDefault();
+        const phoneNumber = document.getElementById("number");
+        const appVerifier = window.recaptchaVerifier;
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            var coderesult=confirmationResult;
+            console.log("Code Result", coderesult);
+            alert("Message Sent");
+            }).catch((error) => {
+            console.log('Error' , error);
+            });
+    }
 
-    
-    
+    // const handleClick=()=>{
+    //     let recaptcha= new firebase.auth.RecaptchaVerifier('recaptcha');
+    //     let number='+919934019804';
+    //     firebase.auth().signInWithPhoneNumber(number, recaptcha).then(function(e){
+    //         let code = 
+    //     })
+    // }
+     
     return(
         <div>
             <section className="form-wrapper" >
@@ -80,7 +113,7 @@ function SigninScreen()
                             <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
-                                <form action="/verifyotp">
+                                <form action="/verifyotp" onSubmit={onSignInSubmit()}>
                                     <div className="col-lg-12">
                                         <FacebookLogin
                                             className="col-lg-5"
@@ -110,10 +143,10 @@ function SigninScreen()
                                             placeholder="Enter phone number"
                                             value={value}
                                             onChange={setValue}
-                                            className="form-control " />
+                                            className="form-control " id="number"/>
                                     </div>
                                     <div className="form-group button-block text-center">
-                                        <button className="form-btn">Login with OTP</button>
+                                        <button onClick={onSignInSubmit()}className="form-btn">Login with OTP</button>
                                     </div>
                                     <div className="form-group form-check-label">
                                         <label for="tarms-check">

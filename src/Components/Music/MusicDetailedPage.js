@@ -4,10 +4,19 @@ import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
+// import Modal from 'react-bootstrap/Modal';
+// import Button from 'react-bootstrap/Button';
+import StarRating from '../Dashboard/StarRating';
+import star from "react-rating-stars-component/dist/star";
 
-
+const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+  
 class MusicDetailedPage extends Component
 {
+	
 	options = 
 	{
 		items: 5,
@@ -160,7 +169,10 @@ class MusicDetailedPage extends Component
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
-										<span className="rnd">{data["ratings"]}</span>
+										<span className="r1nd">
+											
+											<StarRating />
+											</span>
 										<h2>{data["title"]}</h2>
 
 										<span className="tag"><b>{data["audio_languages"]}</b></span>

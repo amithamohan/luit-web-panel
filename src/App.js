@@ -18,6 +18,7 @@ import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import History from './Components/History';
 import asd from './Components/asd';
+import StarRating from './Components/Dashboard/StarRating';
 
 function App() 
 {
@@ -43,6 +44,7 @@ function App()
           <Route path="/view_all" component={ViewAll} />
           <Route path="/video_player" component={VideoPlayer}/>
           <Route path="/history" component={History}/>
+          <Route path="/rating" component={StarRating} />
       </Switch>
     </Router>
   );
