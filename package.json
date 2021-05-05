@@ -17,6 +17,7 @@
     "firebase": "^8.4.1",
     "local-storage": "^2.0.0",
     "random-gradient": "0.0.2",
+    "razorpay": "^2.0.6",
     "react": "^17.0.2",
     "react-alice-carousel": "^2.4.0",
     "react-banner-slider": "^1.1.1",

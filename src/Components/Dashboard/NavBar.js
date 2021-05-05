@@ -21,7 +21,7 @@ class NavigationBar extends Component
                                 <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/movies">Movies</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/music">Music</a></li>
-                                <li className="nav-item"><a className="nav-link" href="">Short Movies</a></li>
+                                <li className="nav-item"><a className="nav-link" href="/short_film">Short Movies</a></li>
                             </ul>
                         </div>
                     </div>
@@ -33,6 +33,7 @@ class NavigationBar extends Component
                                     <li><a href="/sign_in"><i className="ti-power-off"></i>Login</a></li>
                                     <li><a href="/profile"><i className="ti-user"></i>Profile</a></li>
                                     <li><a href="/sign_in"><i className="ti-menu-alt"></i>Subscription Plans</a></li>
+                                    <li><a href="/wishlist"><i className="ti-heart"></i>My Wishlist</a></li>
                                 </ul>
                             </div>
                         </div>

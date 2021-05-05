@@ -15,7 +15,7 @@ class MoviesDetailedPage extends Component
 		margin: 5,
 		nav: true,
 		loop: false,
-		autoplay: false
+		autoplay: false,
 	};
 
 	constructor(props)
@@ -71,7 +71,7 @@ class MoviesDetailedPage extends Component
 			for (let i = 0; i < movies.length; i++)
 			{
 				result.push(movies[i]);
-			}
+			}	
 		}
 
 		this.setState({moviesList: result});
@@ -79,7 +79,7 @@ class MoviesDetailedPage extends Component
 
 	render()
 	{
-		console.log(this.props.location.params["item"]);
+
 
 		const crew = [];
 
@@ -154,7 +154,7 @@ class MoviesDetailedPage extends Component
 		return(
 			<div>
 				<NavigationBar/>
-				<div className="banner-wrapper">
+				<div className="banner-wrapper" style={{backgroundColor: "transparent"}}>
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
@@ -181,11 +181,10 @@ class MoviesDetailedPage extends Component
 							</div>
 						</div>
 
-						<div></div>
-						<div className="container">
+						<div className="container" style={{backgroundColor: "transparent"}}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2>Crew</h2>
+									<h2 style={{color: "white"}}>Crew</h2>
 								</div>
 							</div>
 							{
@@ -198,7 +197,7 @@ class MoviesDetailedPage extends Component
 							}
 						</div>
 
-						<div className="container slide-wrapper">
+						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>

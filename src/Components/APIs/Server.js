@@ -654,9 +654,6 @@ class Server
 	// add items to wishlist
 	static async addToWishlist(userId, type, videoId)
 	{
-		console.log(userId);
-		console.log(type);
-		console.log(videoId);
 		try
 		{
 			let response;
@@ -687,13 +684,13 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
 			({
 				method: "POST",
-				url: "https://release.luit.co.in/api/add_wishlist",
+				url: "https://release.luit.co.in/api/all_wishlist",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
 			});

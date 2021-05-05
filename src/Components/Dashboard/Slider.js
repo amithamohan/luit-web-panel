@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 // import 'antd/dist/antd.css';
-import { Carousel, Col, Row } from 'antd';
+import { Carousel } from 'antd';
 import { Link } from 'react-router-dom';
-import { ContactSupportOutlined } from '@material-ui/icons';
 import Server from '../APIs/Server';
 
 
@@ -73,7 +72,6 @@ class Slider extends Component
 		let shortFilm = [];
 		let response = await Server.fetchAllShortMovies();
 
-		console.log(response["data"]);
 
 		if (response["response"] === "success" && response["data"] !== null)
 		{
@@ -89,7 +87,6 @@ class Slider extends Component
 		else
 		{
 			this.setState({shortFilmList: null});
-			console.log(this.state.shortFilmList);
 
 		}
 	}
@@ -99,9 +96,6 @@ class Slider extends Component
 	{
 		const rows = [];
 
-		console.log(this.state.allVideos);
-		console.log("this.state.allVideos");
-
 		for(let i = 0; i < this.state.allVideos.length; i++)
 		{
 			for(let j = 0; j < this.props.data.length; j++)
@@ -110,10 +104,8 @@ class Slider extends Component
 				{
 					let data = this.state.allVideos[i];
 
-					console.log(data);
-
 					rows.push(
-						<div className="row">
+						<div className="row" key={i}>
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 								<div className="left-wrap">
@@ -133,7 +125,7 @@ class Slider extends Component
 									<i className="ti-sharethis text-white mr-4" />
 									</div>
 								</div>
-								<div className="right-wrap" style={{backgroundImage: `url('${data["thumbnail"]}')`}} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+								<div className="right-wrap" style={{backgroundImage: `url('${data["poster"]}')`}} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 								</div>
 							</div>
 						</div>

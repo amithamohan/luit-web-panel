@@ -270,3 +270,14 @@ input{
   width: 10px !important;
   border-radius: 50% !important;
 }
+
+.example {
+  background: blue;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.example:hover {
+  background: black;
+}

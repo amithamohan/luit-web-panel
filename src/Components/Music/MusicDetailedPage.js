@@ -4,6 +4,12 @@ import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { message } from 'antd';
+import { Card } from 'antd';
+
+const { Meta } = Card;
 
 
 class MusicDetailedPage extends Component
@@ -86,6 +92,25 @@ class MusicDetailedPage extends Component
 		this.setState({musicList: result, allVideos: result});
 	}
 
+	async addToWishlist(i)
+	{
+		let userId = 4;
+		let type = 2;
+		let itemId = i;
+		let response = await Server.addToWishlist(userId, type, itemId);
+
+		if(response["response"] === "success")
+		{
+			console.log("success");
+			message.success('Added to wishlist');
+		}
+		else
+		{
+			message.info('Already added');
+			// alert("Already added to wishlist");
+		}
+	}
+
 	render()
 	{
 		const crew = [];
@@ -115,16 +140,8 @@ class MusicDetailedPage extends Component
 			{
 				for(let i = 0; i < this.state.musicList.length; i++)
 				{
-					console.log(this.props.location.params["item"]["genre"][j]);
-						// console.log(this.props.location.params["item"]["genre"].length);
-					console.log(this.state.musicList[i]["genre"][0]);
-
 					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0])
 					{
-						console.log(this.props.location.params["item"]["genre"][j]);
-						// console.log(this.props.location.params["item"]["genre"].length);
-						console.log(this.state.musicList[i]["genre"][i]);
-
 						moreLikeThis.push(
 							<div className="owl-items"  key={i} >
 								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.musicList[i]}}} style={{height: "430px"}}>
@@ -174,7 +191,9 @@ class MusicDetailedPage extends Component
 
 										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
 
-										<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
+										<IconButton onClick={this.addToWishlist(data["id"])} style={{color: "white"}}>
+											<AddIcon fontSize="large"></AddIcon>
+										</IconButton>
 
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4" />
@@ -211,6 +230,7 @@ class MusicDetailedPage extends Component
 								}
 							</OwlCarousel>
 						</div>
+
 					</div>
 				</div>
 				<Footer/>

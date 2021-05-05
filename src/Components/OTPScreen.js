@@ -8,12 +8,12 @@ function OTPScreen(){
                     <img src="images/logo.png" className="logo"  alt=""/>
                     <h6>Please enter the OTP to verify your account</h6>
                     <div id="otp" className="inputs d-flex flex-row justify-content-center mt-2"> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" /> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" /> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" /> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" /> 
-                        <input className="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="first" maxLength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="third" maxLength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="fourth" maxLength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
+                        <input className="m-2 text-center form-control rounded" type="text" id="sixth" maxLength="1" /> 
                     </div>
                     <div className="content d-flex justify-content-center align-items-center"> 
                         <span style={{color:'white'}}>Didn't recieve the code?</span> 

@@ -8,6 +8,9 @@ import Server from './APIs/Server';
 import { useHistory } from "react-router-dom";
 import Footer from './Dashboard/Footer';
 import { Alert } from 'antd';
+import firebase from '../config/firebase';
+
+
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
 
@@ -68,9 +71,31 @@ function SigninScreen()
     {
         console.log(response);
     };
+    
 
-    
-    
+    const handleClick = () => 
+    {
+        let recaptcha= new firebase.auth.RecaptchaVerifier('recaptcha');
+        let number='+919497045922';
+        firebase.auth().signInWithPhoneNumber(number, recaptcha).then(function(e)
+        {
+            let code = prompt("Enter otp");
+
+            if(code === null)
+            {
+                return;
+            }
+            e.confirm(code).then(function(result)
+            {
+                console.log(result.user, "user");
+            })
+            .catch((error) => 
+            {
+                console.log(error);
+            })
+        })
+    }
+     
     return(
         <div>
             <section className="form-wrapper" >
@@ -80,7 +105,7 @@ function SigninScreen()
                             <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
-                                <form action="/verifyotp">
+                                <form action="">
                                     <div className="col-lg-12">
                                         <FacebookLogin
                                             className="col-lg-5"
@@ -96,27 +121,27 @@ function SigninScreen()
                                         <GoogleLogin
                                             clientId={clientId}
                                             buttonText="Google"
-                                            onSuccess={null}
+                                            onSuccess={onSuccess}
                                             onFailure={onFailure}
                                             cookiePolicy={'single_host_origin'}
                                             style={{ marginTop: '100px' }}
-                                            isSignedIn={true}
+                                            isSignedIn={false}
                                         />
                                     </div>
 
                                     <h5>OR</h5>
                                     <div className="form-group mt-3">
-                                        <PhoneInput
+                                        <PhoneInput id="recaptcha-container "
                                             placeholder="Enter phone number"
                                             value={value}
                                             onChange={setValue}
-                                            className="form-control " />
+                                            className="form-control " id="number"/>
                                     </div>
                                     <div className="form-group button-block text-center">
-                                        <button className="form-btn">Login with OTP</button>
+                                        <button onClick={handleClick}className="form-btn">Login with OTP</button>
                                     </div>
                                     <div className="form-group form-check-label">
-                                        <label for="tarms-check">
+                                        <label>
                                             <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3"/>
                                             <span className="checkmark"></span>
                                             <p>I understand and accept the 

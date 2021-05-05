@@ -1,7 +1,6 @@
 import './App.css';
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import Home from './Components/Dashboard/Home';
-import TermsOfService from './Components/App Policies/TermsOfService';
 import MoviesPage from './Components/Movies/MoviesHomePage';
 import MusicPage from './Components/Music/MuiscHomePage';
 import ShortFilm from './Components/Short Films/ShortFilm';
@@ -26,8 +25,6 @@ function App()
       <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/asd" component={asd} exact />
-          <Route path="/sign_in" component={SigninScreen} />
-          <Route path="/terms_of_service" component={TermsOfService}/>
           <Route path="/movies" component={MoviesPage}/>
           <Route path="/music" component={MusicPage}/>
           <Route path="/short_film" component={ShortFilm}/>
