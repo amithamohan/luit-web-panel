@@ -133,7 +133,7 @@ class Slider extends Component
 									<i className="ti-sharethis text-white mr-4" />
 									</div>
 								</div>
-								<div className="right-wrap" style={{backgroundImage: `url('${data["thumbnail"]}')`}} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+								<div className="right-wrap" style={{backgroundImage: `url('${data["poster"]}')`}} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 								</div>
 							</div>
 						</div>
