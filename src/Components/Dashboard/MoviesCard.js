@@ -174,11 +174,12 @@ function MoviesCard(props)
 			}
 		}
 
-		for (let i = 0; i < props.moviesList.length; i++)
+		for (let i = 0; i < 5; i++)
 		{
 			const movie = props.moviesList[i];
 
-			let hour = props.moviesList[i]["duration"].split('.');
+			// let hour = props.moviesList[i]["duration"].split('.');
+			let hour = 250;
 
 			if (movie !== undefined)
 			{
