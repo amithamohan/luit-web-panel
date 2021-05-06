@@ -8,13 +8,23 @@ import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
 import { Card } from 'antd';
+import ReactStars from "react-rating-stars-component";
+// import Modal from 'react-bootstrap/Modal';
+// import Button from 'react-bootstrap/Button';
+import StarRating from '../Dashboard/StarRating';
+import star from "react-rating-stars-component/dist/star";
 
 const { Meta } = Card;
 
+const ratingChanged = (newRating) =>
+{
+    console.log(newRating);
+};
 
 class MusicDetailedPage extends Component
 {
-	options = 
+
+	options =
 	{
 		items: 5,
 		margin: 5,
@@ -23,7 +33,7 @@ class MusicDetailedPage extends Component
 		autoplay: false
 	};
 
-	cardOptions = 
+	cardOptions =
 	{
 		items: 5,
 		margin: 5,
@@ -177,7 +187,10 @@ class MusicDetailedPage extends Component
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
-										<span className="rnd">{data["ratings"]}</span>
+										<span className="r1nd">
+
+											<StarRating />
+											</span>
 										<h2>{data["title"]}</h2>
 
 										<span className="tag"><b>{data["audio_languages"]}</b></span>

@@ -67,9 +67,9 @@ class ProfileInfo extends React.Component
 	componentDidMount()
 	{
 		let data = localStorage.getItem("user");
-		console.log(data["name"]);
-		this.setState({username: data["name"]});
-		console.log(this.state.username);;
+		// console.log(data["name"]);
+		// this.setState({username: data["name"]});
+		console.log(this.state.username);
 	}
 
 	onUpdateName = (event) =>

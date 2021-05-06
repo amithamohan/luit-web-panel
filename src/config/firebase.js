@@ -1,6 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import firebase from "firebase";
+// import "firebase/auth";
+// import "firebase/firestore";
 
 var config = 
 {
@@ -16,4 +16,30 @@ var config =
 
 firebase.initializeApp(config);
 
-export default firebase
+// const googleProvider = new firebase.auth.GoogleAuthProvider()
+
+// export const signInWithGoogle = () => 
+// {
+// 	auth.signInWithPopup(googleProvider).then((res) => 
+// 	{
+//     	console.log(res.user)
+//   	}).catch((error) => 
+// 	{
+//     	console.log(error.message)
+//   	})
+// }
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBN4IXuOvrCvHG_UlkSNVJguPrOEfAAXpQ",
+    authDomain: "otp-firebase-de610.firebaseapp.com",
+    projectId: "otp-firebase-de610",
+    storageBucket: "otp-firebase-de610.appspot.com",
+    messagingSenderId: "211468117054",
+    appId: "1:211468117054:web:8a7025ee855a5173535d6f",
+    measurementId: "G-38Y9PWCQGG"
+  }
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+
+  export default firebase;

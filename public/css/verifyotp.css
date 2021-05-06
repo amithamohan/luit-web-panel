@@ -22,7 +22,7 @@ body {
     box-shadow: 0px 0px 10px 0px #d2dae3b7;
     z-index: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     background-color: #2B2D46 !important;
 }
@@ -43,12 +43,12 @@ body {
 }
 
 .inputs input {
-    width: 40px;
+    width: 320px;
     height: 40px
 }
 @media only screen and (max-width:400px){
     .inputs input {
-        width: 30px;
+        width: 320px;
         height: 30px
     }
 }

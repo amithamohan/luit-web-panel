@@ -171,8 +171,9 @@ function VideoPlayer (props)
 	const totalDuration = format(duration);
 
   	return (
-    	<div style={{backgroundColor: "black", width: "100%", height: "75px"}}>
-      		<div style={{background:"black"}}>
+    	<div style={{background: "black"}}>
+      		<Container maxWidth="lg" style={{background:"black", display: "table", width: "fit-content", height: "fit-content"
+		}}>
         		<div 
 					ref={playerContainerRef} 
 					className={classes.playerWrapper}
@@ -215,7 +216,7 @@ function VideoPlayer (props)
 						onBackPress={handleBackPress}
 					/>
         		</div>
-      		</div>
+				</Container>
 	  	</div>
   	);
 }
