@@ -7,7 +7,7 @@ import FacebookLogin from 'react-facebook-login';
 import Server from './APIs/Server';
 import { useHistory } from "react-router-dom";
 import Footer from './Dashboard/Footer';
-import { Alert } from 'antd';
+import { Alert, message } from 'antd';
 import firebase from '../config/firebase';
 
 
@@ -38,6 +38,9 @@ function SigninScreen()
 
         if(response["response"] === "success")
         {
+            
+            message.success("Login Success");
+
             let user = 
             {
                 "name": name,
@@ -52,9 +55,6 @@ function SigninScreen()
         {
             <Alert message="Error" type="error" />
         }
-
-        console.log(response);
-        console.log(response["userdata"]);
     }
 
     const onSuccess = (res) => 
