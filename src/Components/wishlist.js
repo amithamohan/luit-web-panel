@@ -3,6 +3,14 @@ import React, { useEffect, useState } from 'react';
 import {Divider, Col, message, Row } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Container } from '@material-ui/core';
+import {IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { Card} from 'antd';
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from "react-router-dom";
+
+
 
 const useStyles = makeStyles(theme => ({
     root:
@@ -15,6 +23,7 @@ const useStyles = makeStyles(theme => ({
         height: "300px",
         paddingLeft: "40px",
         paddingRight: "40px",
+        // background: "white"
     },
 
     img:
@@ -41,6 +50,8 @@ function WishList()
 {
     const [status, setStatus] = useState(false);
 
+    let history = useHistory();
+
     useEffect(() =>
     {
        displayWishList();
@@ -48,14 +59,12 @@ function WishList()
 
     const displayWishList = async () =>
     {
-        let userId = "4";
+        let userId = 4;
 
         let response = await Server.displayWishlist(userId);
 
         if(response["response"] === "success")
         {
-            message.success("Watch your favourites");
-
             let data = response["data"];
 
             for(let i = 0; i < data.length; i++)
@@ -64,6 +73,8 @@ function WishList()
             }
 
             setStatus(true);
+            message.success("Watch your favourites");
+
         }
         else
         {
@@ -71,9 +82,91 @@ function WishList()
         }
     }
 
+    const deleteFromWishList = async (item) =>
+    {
+        let userId = 4;
+        let id = item["id"];
+
+        console.log(item);
+
+        setStatus(false);
+
+        let response = await Server.deleteWishlist(userId, id);
+
+        console.log(response);
+
+        if(response["response"] === "success")
+        {
+            list.pop(item);
+            setStatus(true);
+            message.success("Removed from wishlist");
+        }
+        else
+        {
+            message.error("Oops something went wrong");
+        }
+    }
+
+    const handleClick = () =>
+    {
+        history.push("/movies_detailed_page");
+    }
+
     const classes = useStyles()
 
+    const text = [];
     const row = [];
+
+    if(status !== undefined)
+    {
+        for(let i = 0; i < list.length; i++)
+        {
+            let movie = list[i]["video_details"][0];
+
+            console.log(movie);
+            // let hour = "2500";
+            let hour = movie["duration"].split('.');
+
+            text.push(
+                <Row gutter={[8, 8]}>
+                    <Col key={i} xs={24} xl={12}>
+                        <div style={{borderRadius: "25px", marginLeft: "25px"}}>
+                            <Link className="owl-items" key={i} to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
+                                <Card className={customCard} hoverable onClick = {() => {handleClick()}}
+                                    style={{ width: "240px", heigth: "600px"}}
+                                    cover={<div style={{background: "white", height: "200px"}}>
+                                    <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}}/>
+                                        </div>}>
+
+                                    <Grid container direction="row" alignItems="center" justify="space-between">
+                                        <Grid item>
+                                            {movie["type"] === "music" ? movie["title"] : movie["movie_title"]}
+                                        </Grid>
+
+                                        <Grid item>
+                                            <IconButton onClick={() => {deleteFromWishList(list[i])}} aria-label="reqind">
+                                                <AddIcon fontSize="inherit" />
+                                            </IconButton>
+                                        </Grid>
+                                    </Grid>
+                                    <span style={{color: "grey"}}>{movie["publish_year"]}</span>
+                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{color: "grey"}}>
+                                        <Grid item>
+                                            <span>{hour[0]} hrs {hour[1]} mins</span>
+                                        </Grid>
+
+                                        <Grid item>
+                                            <span>{movie["ratings"]}</span>
+                                        </Grid>
+                                    </Grid>
+                                </Card>
+                            </Link>
+                        </div>
+                    </Col>
+                </Row>
+            );
+        }
+    }
 
     if(status === true)
     {
@@ -81,13 +174,14 @@ function WishList()
         {
             let movie = list[i];
 
-            console.log(list);
-
             row.push(
                 <Col className="gutter-row" span={6} key={i}>
                      <Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
                             <div className={classes.div}>
-                                 <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}}/>
+                                 <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}}/>
+                                <Container style={{backgroundColor: "white"}}>
+                                    <Row>{movie["movie_title"]}</Row>
+                                </Container>
                             </div>
                      </Link>
                 </Col>
@@ -100,7 +194,7 @@ function WishList()
             <div>
                 <Divider orientation="center"><h3 style={{color: "white"}}>Wishlist</h3></Divider>
                     <Row gutter={[8, 9]} justify="left">
-                {row}
+                {text}
                 </Row>
             </div>
         </div>

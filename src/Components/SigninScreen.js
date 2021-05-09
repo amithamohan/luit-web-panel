@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css';
 import { GoogleLogin } from 'react-google-login';
@@ -8,8 +8,10 @@ import Server from './APIs/Server';
 import { useHistory } from "react-router-dom";
 import Footer from './Dashboard/Footer';
 import { Alert, message } from 'antd';
+// import firebase from '..config/firebase';
+import 'firebase/database';
+import 'firebase/auth';
 import firebase from '../config/firebase';
-
 
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
@@ -20,7 +22,7 @@ function SigninScreen()
 
     const [value, setValue] = useState();
 
-    const onFailure = (res) => 
+    const onFailure = (res) =>
     {
         console.log('Login failed: res:', res);
         alert(
@@ -38,10 +40,10 @@ function SigninScreen()
 
         if(response["response"] === "success")
         {
-            
+
             message.success("Login Success");
 
-            let user = 
+            let user =
             {
                 "name": name,
                 "email": email,
@@ -57,7 +59,7 @@ function SigninScreen()
         }
     }
 
-    const onSuccess = (res) => 
+    const onSuccess = (res) =>
     {
         let email = res.profileObj.email;
         let name = res.profileObj.name;
@@ -67,35 +69,53 @@ function SigninScreen()
         googleLogin(email, name, imageUrl, googleId);
     };
 
-    const responseFacebook = (response) => 
+    const responseFacebook = (response) =>
     {
         console.log(response);
     };
-    
 
-    const handleClick = () => 
+
+    const setUpRecaptcha = () => 
     {
-        let recaptcha= new firebase.auth.RecaptchaVerifier('recaptcha');
-        let number='+919497045922';
-        firebase.auth().signInWithPhoneNumber(number, recaptcha).then(function(e)
-        {
-            let code = prompt("Enter otp");
+        console.log("capatcha code");
+        
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+            "recaptcha-container",
+            {
+                size: "invisible",
+                callback: function (response) 
+                {
+                    console.log("Captcha Resolved");
+                    this.onSignInSubmit();
+                },
+                defaultCountry: "IN",
+            });
+    };
 
-            if(code === null)
-            {
-                return;
-            }
-            e.confirm(code).then(function(result)
-            {
-                console.log(result.user, "user");
-            })
-            .catch((error) => 
-            {
-                console.log(error);
-            })
+    const onSignInSubmit = (e) => 
+    {
+        console.log(value);
+        e.preventDefault();
+        setUpRecaptcha();
+
+        let phoneNumber = value;
+
+        console.log(phoneNumber);
+
+        let appVerifier = window.recaptchaVerifier;
+
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult) 
+        {
+            window.confirmationResult = confirmationResult;
+            history.push("/verifyotp");
         })
-    }
-     
+        .catch(function (error) 
+        {
+            alert(error);
+        });
+    };
+
+
     return(
         <div>
             <section className="form-wrapper" >
@@ -131,20 +151,21 @@ function SigninScreen()
 
                                     <h5>OR</h5>
                                     <div className="form-group mt-3">
-                                        <PhoneInput id="recaptcha-container "
+                                    <div id="recaptcha-container"></div>
+                                        <PhoneInput
                                             placeholder="Enter phone number"
                                             value={value}
                                             onChange={setValue}
-                                            className="form-control " id="number"/>
+                                            className="form-control"/>
                                     </div>
                                     <div className="form-group button-block text-center">
-                                        <button onClick={handleClick}className="form-btn">Login with OTP</button>
+                                        <button onClick={onSignInSubmit} className="form-btn">Login with OTP</button>
                                     </div>
                                     <div className="form-group form-check-label">
                                         <label>
                                             <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3"/>
                                             <span className="checkmark"></span>
-                                            <p>I understand and accept the 
+                                            <p>I understand and accept the
                                                 <a href="/terms"> Terms & Condition</a> </p>
                                         </label>
                                     </div>

@@ -3,6 +3,7 @@ import ReactPlayer from "react-player";
 import { makeStyles, } from "@material-ui/core/styles";
 import PlayerControls from "./PlayerControls";
 import screenfull from 'screenfull';
+import Container from '@material-ui/core/Container';
 
 
 const useStyles = makeStyles({
@@ -182,7 +183,7 @@ function VideoPlayer (props)
           			<ReactPlayer
 					  	ref = {playerRef }
 						width={"100%"}
-						height="100%"
+						height="90%"
 						url={x}
 						// url="https://release.luit.co.in/uploads/movies/1610199429DEMPHOLOR%20COMPANYR%20%20SAKORI%20(%20JONBAI%205%20).mp4"
 						muted={muted}

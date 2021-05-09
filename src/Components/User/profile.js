@@ -13,18 +13,18 @@ function getBase64(img, callback)
   reader.readAsDataURL(img);
 }
 
-function beforeUpload(file) 
+function beforeUpload(file)
 {
 	const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
-  	if (!isJpgOrPng) 
+  	if (!isJpgOrPng)
 	{
     	message.error('You can only upload JPG/PNG file!');
   	}
 
   	const isLt2M = file.size / 1024 / 1024 < 2;
 
-  	if (!isLt2M) 
+  	if (!isLt2M)
 	{
     	message.error('Image must smaller than 2MB!');
   	}
@@ -58,9 +58,13 @@ class ProfileInfo extends React.Component
 
 	async submitForm()
 	{
+		console.log("console");
+
 		let age;
 
 		let response = await Server.updateUserProfie(this.state.username, this.state.email, this.state.phoneNumber, this.state.dob, age, this.state.image);
+
+		console.log(response);
 	}
 
 
@@ -95,24 +99,32 @@ class ProfileInfo extends React.Component
 
 	handleChange = info =>
   	{
-		if (info.file.status === 'uploading') 
+
+		if (info.file.status === 'uploading')
 		{
       		this.setState({ loading: true });
       		return;
     	}
-    	if (info.file.status === 'done') 
+    	if (info.file.status === 'done')
 		{
-      		// Get this url from response in real world.
+			console.log(info.file.name);
+			console.log(info.file);
+			console.log(info.file.uid);
+
       		getBase64(info.file.originFileObj, imageUrl =>
+
 				this.setState({
 					imageUrl,
 					loading: false,
 				}),
       		);
+
+			console.log(this.state.imageUrl);
+
     	}
   	};
 
-  	render() 
+  	render()
 	{
     	const { loading, imageUrl } = this.state;
     	const uploadButton = (

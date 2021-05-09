@@ -31,7 +31,7 @@ function App()
           <Route path="/short_film" component={ShortFilm}/>
           <Route path="/web_series" component={WebSeries}/>
           <Route path="/profile" component={ProfileInfo}/>
-          <Route path="/signin" component={SigninScreen} />
+          <Route path="/sign_in" component={SigninScreen} />
           <Route path="/verifyotp" component={OTPScreen} />
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
@@ -46,4 +46,5 @@ function App()
     </Router>
   );
 }
+
 export default App;

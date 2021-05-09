@@ -178,6 +178,12 @@ class MusicDetailedPage extends Component
 
 		let hour = this.props.location.params["item"]["duration"].split('.');
 
+		let details = {
+			"id": this.props.location.params["item"]["id"],
+			"type": 2,
+			"rating": this.props.location.params["item"]["ratings"],
+		}
+
 		return(
 			<div>
 				<NavigationBar/>
@@ -189,7 +195,7 @@ class MusicDetailedPage extends Component
 									<div className="left-wrap">
 										<span className="r1nd">
 
-											<StarRating />
+											<StarRating details={details}/>
 											</span>
 										<h2>{data["title"]}</h2>
 
@@ -204,7 +210,7 @@ class MusicDetailedPage extends Component
 
 										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
 
-										<IconButton onClick={this.addToWishlist(data["id"])} style={{color: "white"}}>
+										<IconButton  style={{color: "white"}}>
 											<AddIcon fontSize="large"></AddIcon>
 										</IconButton>
 

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 // import 'antd/dist/antd.css';
-import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
 import { Carousel, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';

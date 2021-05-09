@@ -19,13 +19,6 @@ function MoviesCard(props)
 {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
-
-	const showModal = () =>
-	{
-		console.log("show modal called");
-		setIsModalVisible(true);
-	};
-
 	const handleOk = () =>
 	{
 		setIsModalVisible(false);
@@ -97,28 +90,23 @@ function MoviesCard(props)
 		rzp.open();
 	}
 
-	const addToWishlist = (i) =>
+	const addToWishlist = async (i) =>
 	{
 		console.log("done");
 		let userId = 4;
 		let type = 1;
 		let itemId = i;
 
-		console.log("success");
-		// let response = await Server.addToWishlist(userId, type, itemId);
+		let response = await Server.addToWishlist(userId, type, itemId);
 
-		// if(response["response"] === "success")
-		// {
-		// 	console.log("success");
-		// 	message.success('Added to wishlist');
-		// 	// alert("Added to wishlist");
-		// 	showModal();
-		// }
-		// else
-		// {
-		// 	message.info('Already added');
-		// 	// alert("Already added to wishlist");
-		// }
+		if(response["response"] === "success")
+		{
+			message.success('Added to wishlist');
+		}
+		else
+		{
+			message.info('Already added');
+		}
 	}
 
 		const cards = [];
@@ -151,7 +139,7 @@ function MoviesCard(props)
 									</Grid>
 
 									<Grid item> 
-										<IconButton onClick={addToWishlist(movie["movie_id"])} aria-label="reqind">
+										<IconButton onClick={() => {addToWishlist(movie["movie_id"])}} aria-label="reqind">
 											<AddIcon fontSize="inherit" />
 										</IconButton>
 									</Grid>
