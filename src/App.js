@@ -18,6 +18,7 @@ import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import History from './Components/History';
 import asd from './Components/asd';
 import StarRating from './Components/Dashboard/StarRating';
+import Subscribe from './Components/Subscribe';
 
 function App() 
 {
@@ -42,6 +43,7 @@ function App()
           <Route path="/video_player" component={VideoPlayer}/>
           <Route path="/history" component={History}/>
           <Route path="/rating" component={StarRating} />
+          <Route path="/subscribe" component={Subscribe} />
       </Switch>
     </Router>
   );
