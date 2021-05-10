@@ -22,6 +22,8 @@ class MusicCard extends Component
 		{
 			const music = this.props.musicList[i];
 
+			let hour = this.props.musicList[i]["duration"].split('.');
+
 			if (music !== undefined)
 			{
 				cards.push(
@@ -31,13 +33,12 @@ class MusicCard extends Component
 						<img src={music["thumbnail"]} alt={music["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 						</div>
 						<div className="slide-content">
-							<h2>{music["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
-							<p>{music["description"]}</p>
-							<span className="tag">Duration: {music["duration"]}</span>
-							<span className="tag">{music["publish_year"]}</span>
-							<span className="tag">Rating: {music["ratings"]}</span>
-							<span className="tag"><b>{music["maturity_rating"]}+</b></span>
-						</div>
+						<h2>{music["title"]}</h2>
+						<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
+						<span className="tag">Year: {music["publish_year"]}</span>
+						<span className="tag">Rating: {music["ratings"]}</span>
+						<span className="tag"><b>{music["maturity_rating"]}+</b></span>
+					</div>
 					</Link>
 				</div>
 			);

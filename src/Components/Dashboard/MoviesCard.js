@@ -57,39 +57,6 @@ function MoviesCard(props)
 	};
 
 
-	const openCheckout = ()  =>
-	{
-		let options =
-		{
-			"key": "rzp_test_dKDuSXlctyepdF",
-		  	"amount": 2000, // 2000 paise = INR 20, amount in paisa
-		  	"name": "Merchant Name",
-		  	"description": "Purchase Description",
-		  	"image": "/your_logo.png",
-
-		  	"handler": function (response)
-			{
-				alert(response.razorpay_payment_id);
-		  	},
-		  	"prefill": 
-			{
-				"name": "Amitha",
-				"email": "amitha@gmail.com"
-		  	},
-		  	"notes": 
-			{
-				"address": "Hello World"
-		  	},
-		  	"theme": 
-			{
-				"color": "#0a6bfc"
-		  	}
-		};
-	
-		let rzp = new window.Razorpay(options);
-		rzp.open();
-	}
-
 	const addToWishlist = async (i) =>
 	{
 		console.log("done");
@@ -162,17 +129,20 @@ function MoviesCard(props)
 			}
 		}
 
-		for (let i = 0; i < 5; i++)
+		for (let i = 0; i < props.moviesList.length; i++)
 		{
 			const movie = props.moviesList[i];
 
-			// let hour = props.moviesList[i]["duration"].split('.');
-			let hour = 250;
+			let hour = props.moviesList[i]["duration"].split('.');
+
+			// let hour = movie["duration"];
+
+
 
 			if (movie !== undefined)
 			{
 				cards.push(
-					<div className="owl-items" key={i}>
+					<div className="" key={i}>
 							<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: props.moviesList[i]}}} style={{height: "430px"}}>
 								<div className="slide-image">
 								<img src={movie["thumbnail"]} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/movie_thumbnail/default.jpg"}} />
@@ -200,9 +170,9 @@ function MoviesCard(props)
 							</div>
 						</div>
 						<OwlCarousel options={options}>
-							{
-								cards
-							}
+						{
+							cards
+						}
 						</OwlCarousel>
 					</div>
 				</div>

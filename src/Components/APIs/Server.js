@@ -528,7 +528,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("valid_days", days);
 			bodyFormData.append("start_date", startDate);
@@ -538,7 +538,7 @@ class Server
 
 			response = await axios
 			({
-				method: "GET",
+				method: "POST",
 				url: "https://release.luit.co.in/api/monthly-payment",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData

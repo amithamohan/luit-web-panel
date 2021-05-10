@@ -12,10 +12,9 @@ const useStyles = makeStyles(theme => ({
     },
     div:
     {
-        height: "450px",
-        // width: "550px",,
+        height: "200px",
         paddingLeft: "20px",
-        paddingRight: "20px"
+        paddingRight: "20px",
     },
 }))
 
@@ -34,7 +33,7 @@ export default function ViewAll(params)
            <Col className="gutter-row" span={6} key={i}>
                 <Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
                        <div className={classes.div}>
-                            <img src={`${movie["thumbnail"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{width:"85%", height: "55%"}} />
+                            <img src={`${movie["thumbnail"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{width:"100%", height: "100%"}} />
                        </div>
                 </Link>
            </Col>
@@ -43,9 +42,10 @@ export default function ViewAll(params)
 
     return(
         <div>
+            
             <div>
-                <Divider orientation="center" style={{color: "white"}}>Responsive</Divider>
-                    <Row gutter={[8, 8]} justify="center">
+                <Divider orientation="center" style={{color: "white"}}></Divider>
+                    <Row gutter={[8, 8]} justify="left">
                 {row}
                 </Row>
             </div>

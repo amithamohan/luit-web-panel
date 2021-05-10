@@ -194,7 +194,6 @@ class MusicDetailedPage extends Component
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										<span className="r1nd">
-
 											<StarRating details={details}/>
 											</span>
 										<h2>{data["title"]}</h2>
@@ -223,31 +222,40 @@ class MusicDetailedPage extends Component
 							</div>
 						</div>
 
-						<div></div>
-						<div className="container" style={{paddingTop: "20px"}}>
+						<br/>
+
+						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>Crew</h2>
 								</div>
 							</div>
-							<OwlCarousel options={this.options}>
+							{
+								crew === null ? null :
+								<OwlCarousel options={this.options}>
 								{
 									crew
 								}
-							</OwlCarousel>3000
+								</OwlCarousel>
+							}
 						</div>
 
-						<div className="slide-wrapper">
+						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
 							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-4">
+								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>
 								</div>
 							</div>
-							<OwlCarousel options={this.options}>
-								{
-									moreLikeThis
-								}
-							</OwlCarousel>
+							{
+								moreLikeThis === null ? null :
+								<div>
+									<OwlCarousel options={this.options}>
+									{
+										moreLikeThis
+									}
+									</OwlCarousel>
+								</div>
+							}
 						</div>
 
 					</div>

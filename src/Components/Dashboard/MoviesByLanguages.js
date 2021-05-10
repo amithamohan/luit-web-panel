@@ -13,8 +13,8 @@ class MoviesByLanguages extends Component
 		nav: true,
 		loop: true,
 		autoplay: true,
-		startPosition: 0,
-		rewind: true
+		startPosition: 2,
+		rewind: false
 	};
 
 	render()

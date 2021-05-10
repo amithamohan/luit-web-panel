@@ -37,16 +37,17 @@ function OTPScreen()
 
     const onSubmitOtp = (e) =>
     {
-        console.log(otpCode);
+        console.log(this.props.state);
         e.preventDefault();
 
         let otpInput = otpCode;
         let optConfirm = window.confirmationResult;
         // console.log(codee);
+
         optConfirm.confirm(otpInput).then(function (result)
         {
             // User signed in successfully.
-            // console.log("Result" + result.verificationID);
+            console.log("Result" + result.verificationID);
             let user = result.user;
         })
         .catch(function (error)

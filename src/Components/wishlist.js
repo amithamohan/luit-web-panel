@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Card} from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
-
+import CheckIcon from '@material-ui/icons/Check';
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,14 +52,27 @@ function WishList()
 
     let history = useHistory();
 
+    let data;
+    let userId;
+
     useEffect(() =>
     {
+       getUserDetails();
        displayWishList();
     });
 
+    const getUserDetails = async () =>
+    {
+        let user = localStorage.getItem("user");
+		
+		let data = JSON.parse(user);
+		
+        userId = data["id"];
+		console.log(data["id"]);
+    }
+
     const displayWishList = async () =>
     {
-        let userId = 4;
 
         let response = await Server.displayWishlist(userId);
 
@@ -144,8 +157,8 @@ function WishList()
                                         </Grid>
 
                                         <Grid item>
-                                            <IconButton onClick={() => {deleteFromWishList(list[i])}} aria-label="reqind">
-                                                <AddIcon fontSize="inherit" />
+                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={e => this.deleteFromWishList(data["movie_id"])}aria-label="reqind">
+                                            {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
                                             </IconButton>
                                         </Grid>
                                     </Grid>
@@ -156,7 +169,7 @@ function WishList()
                                         </Grid>
 
                                         <Grid item>
-                                            <span>{movie["ratings"]}</span>
+                                            <span>{movie["ratings"]}</span>  <i className="ti-star"></i>
                                         </Grid>
                                     </Grid>
                                 </Card>

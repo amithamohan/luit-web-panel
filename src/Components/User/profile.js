@@ -65,15 +65,36 @@ class ProfileInfo extends React.Component
 		let response = await Server.updateUserProfie(this.state.username, this.state.email, this.state.phoneNumber, this.state.dob, age, this.state.image);
 
 		console.log(response);
+		
+		if(response["response"] === "success")
+		{
+			message.success("Profile Updated Successfully")
+		}
+		else
+		{
+			message.error("Oops, something went wrong");
+		}
 	}
 
 
 	componentDidMount()
 	{
-		let data = localStorage.getItem("user");
-		// console.log(data["name"]);
-		// this.setState({username: data["name"]});
-		console.log(this.state.username);
+		let user = localStorage.getItem("user");
+		
+		let data = JSON.parse(user);
+		
+		console.log(data["image"]);
+
+		this.state.username = data["name"];
+		this.state.email = data["email"];
+		this.state.phoneNumber = data["phoneNumber"];
+		this.state.dob = null;
+		this.state.image = data["image"];
+	
+
+		this.setState({image: data["image"]});
+
+		console.log(this.state.image);
 	}
 
 	onUpdateName = (event) =>
@@ -111,22 +132,26 @@ class ProfileInfo extends React.Component
 			console.log(info.file);
 			console.log(info.file.uid);
 
-      		getBase64(info.file.originFileObj, imageUrl =>
+      		getBase64(info.file.originFileObj, image =>
 
 				this.setState({
-					imageUrl,
+					image,
 					loading: false,
 				}),
       		);
 
-			console.log(this.state.imageUrl);
+			console.log(this.state.image);
 
     	}
   	};
 
   	render()
 	{
+		let user = localStorage.getItem("user");
+		console.log(user);
+
     	const { loading, imageUrl } = this.state;
+
     	const uploadButton = (
       		<div>
         		{loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -152,7 +177,7 @@ class ProfileInfo extends React.Component
 										showUploadList={false}
 										action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
 										onChange={this.handleChange}>
-										{imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+										{this.state.image ? <img src={this.state.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
 									</Upload>
 								</div>
 							</div>
@@ -164,20 +189,20 @@ class ProfileInfo extends React.Component
 							<div className="row justify-content-center">
 								<div className="col-sm-8">
 									<div id="accordion" className="accordion">
-										<div className="card mb-3">
+										<div>
 											<div className="card-body form-div">
 												<form action="#">
 													<div className="row">
 														<div className="col-sm-6">
 															<div className="form-group mt-4">
-																<input className="form-control" type="text" placeholder="Name" onChange = {this.onUpdateName}/>
-																<input className="form-control" type="tel" placeholder="Phone Number" onChange = {this.onUpdatePhoneNumber}/>
+																<input className="form-control" value={this.state.username} type="text" placeholder="Name" onChange = {this.onUpdateName}/>
+																<input className="form-control" value={this.state.phoneNumber} type="tel" placeholder="Phone Number" onChange = {this.onUpdatePhoneNumber}/>
 															</div>
 														</div>
 														<div className="col-sm-6">
 															<div className="form-group mt-4">
-																<input className="form-control" type="email" placeholder="Email address" onChange = {this.onUpdateEmail}/>
-																<input className="form-control" type="date" placeholder="D.O.B" onChange = {this.onUpdateDob} />
+																<input className="form-control" value={this.state.email} type="email" placeholder="Email address" onChange = {this.onUpdateEmail}/>
+																<input className="form-control" value={this.state.dob} type="date" placeholder="D.O.B" onChange = {this.onUpdateDob} />
 															</div>
 														</div>
 													</div>

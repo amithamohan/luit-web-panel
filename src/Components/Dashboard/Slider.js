@@ -123,7 +123,7 @@ class Slider extends Component
 		
 									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
 									<div className="icon-bttn">
-									<i className="ti-sharethis text-white mr-4" />
+								
 									</div>
 								</div>
 								<div className="right-wrap" style={{backgroundImage: `url('${data["poster"]}')`}} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
