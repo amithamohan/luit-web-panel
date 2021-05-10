@@ -20,6 +20,7 @@ import History from './Components/History';
 import asd from './Components/asd';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
+import SuccessPopup from './Components/Dashboard/SuccessPopup';
 
 function App() 
 {
@@ -47,6 +48,7 @@ function App()
           <Route path="/history" component={History}/>
           <Route path="/rating" component={StarRating} />
           <Route path="/subscribe" component={Subscribe} />
+          <Route path="/popup" component={SuccessPopup} />
       </Switch>
     </Router>
   );

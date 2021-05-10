@@ -198,7 +198,7 @@ class MoviesDetailedPage extends Component
 							}
 						</div>
 
-						<div className="container slide-wrapper">
+						<div className="container slide-wrapper slide-wrapper-shadow">
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>

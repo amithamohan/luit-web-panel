@@ -210,8 +210,8 @@ class MusicDetailedPage extends Component
 								}
 							</OwlCarousel>3000
 						</div>
-
-						<div className="slide-wrapper">
+						
+						<div className="slide-wrapper slide-wrapper-shadow">
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-4">
 									<h2>More Like This</h2>

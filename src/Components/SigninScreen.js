@@ -71,30 +71,30 @@ function SigninScreen()
         console.log(response);
     };
     
-    const setUpRecaptcha = () => {
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-            'size': 'invisible',
-            'callback': (response) => {
+    // const setUpRecaptcha = () => {
+    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    //         'size': 'invisible',
+    //         'callback': (response) => {
             
-            onSignInSubmit();
-            }
-        });
-    }
+    //         onSignInSubmit();
+    //         }
+    //     });
+    // }
     
-    const onSignInSubmit=(e)=>{
-        // e.preventDefault();
-        const phoneNumber = document.getElementById("number");
-        const appVerifier = window.recaptchaVerifier;
-        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
-            var coderesult=confirmationResult;
-            console.log("Code Result", coderesult);
-            alert("Message Sent");
-            }).catch((error) => {
-            console.log('Error' , error);
-            });
-    }
+    // const onSignInSubmit=(e)=>{
+    //     // e.preventDefault();
+    //     const phoneNumber = document.getElementById("number");
+    //     const appVerifier = window.recaptchaVerifier;
+    //     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    //         .then((confirmationResult) => {
+    //         window.confirmationResult = confirmationResult;
+    //         var coderesult=confirmationResult;
+    //         console.log("Code Result", coderesult);
+    //         alert("Message Sent");
+    //         }).catch((error) => {
+    //         console.log('Error' , error);
+    //         });
+    // }
 
     // const handleClick=()=>{
     //     let recaptcha= new firebase.auth.RecaptchaVerifier('recaptcha');
@@ -113,10 +113,11 @@ function SigninScreen()
                             <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
-                                <form action="/verifyotp" onSubmit={onSignInSubmit()}>
-                                    <div className="col-lg-12">
+                                <form action="/verifyotp" >
+                                    <div className="row">
+                                    <div className="col-lg-7">
                                         <FacebookLogin
-                                            className="col-lg-5"
+                                            className="col-lg-4"
                                             size="small"
                                             appId=""
                                             textButton="Facebook"
@@ -124,17 +125,20 @@ function SigninScreen()
                                             buttonText="abbb"
                                             callback={responseFacebook}
                                             cssClass="kep-login-facebook"
-                                            style={{marginRight: "5px"}}
+                                            style={{  }}
                                         />
+                                        </div>
+                                        <div className="col-lg-4">
                                         <GoogleLogin
                                             clientId={clientId}
                                             buttonText="Google"
                                             onSuccess={null}
                                             onFailure={onFailure}
                                             cookiePolicy={'single_host_origin'}
-                                            style={{ marginTop: '100px' }}
+                                            style={{ marginTop: '100px', width: 500 }}
                                             isSignedIn={true}
                                         />
+                                    </div>
                                     </div>
 
                                     <h5>OR</h5>
@@ -146,7 +150,7 @@ function SigninScreen()
                                             className="form-control " id="number"/>
                                     </div>
                                     <div className="form-group button-block text-center">
-                                        <button onClick={onSignInSubmit()}className="form-btn">Login with OTP</button>
+                                        <button className="form-btn">Login with OTP</button>
                                     </div>
                                     <div className="form-group form-check-label">
                                         <label for="tarms-check">
