@@ -209,12 +209,12 @@ class MusicDetailedPage extends Component {
 								</div>
 							</div>
 							{
-								crew === null ? null :
+								crew.length && (
 									<OwlCarousel options={this.options}>
 										{
 											crew
 										}
-									</OwlCarousel>
+									</OwlCarousel>)
 							}
 						</div>
 
@@ -225,14 +225,13 @@ class MusicDetailedPage extends Component {
 								</div>
 							</div>
 							{
-								moreLikeThis === null ? null :
-									<div>
-										<OwlCarousel options={this.options}>
-											{
-												moreLikeThis
-											}
-										</OwlCarousel>
-									</div>
+								moreLikeThis.length && (
+									<OwlCarousel options={this.options}>
+										{
+											moreLikeThis
+										}
+									</OwlCarousel>)
+
 							}
 						</div>
 

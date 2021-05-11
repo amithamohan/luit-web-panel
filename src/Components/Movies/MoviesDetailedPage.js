@@ -144,7 +144,7 @@ class MoviesDetailedPage extends Component {
 							<div className="owl-items" key={i} >
 								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
-										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
 									<div className="slide-content">
 										<h2>{this.state.moviesList[i]["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
@@ -219,11 +219,13 @@ class MoviesDetailedPage extends Component {
 								</div>
 							</div>
 							{
-								<OwlCarousel options={this.options}>
-									{
-										crew
-									}
-								</OwlCarousel>
+								crew.length && (
+									<OwlCarousel options={this.options}>
+										{
+											crew
+										}
+									</OwlCarousel>
+								)
 							}
 						</div>}
 
@@ -235,11 +237,13 @@ class MoviesDetailedPage extends Component {
 							</div>
 							{
 								crew === null ? null :
-									<OwlCarousel options={this.options}>
-										{
-											moreLikeThis
-										}
-									</OwlCarousel>
+									moreLikeThis.length && (
+										<OwlCarousel options={this.options}>
+											{
+												moreLikeThis
+											}
+										</OwlCarousel>
+									)
 							}
 						</div>
 					</div>
