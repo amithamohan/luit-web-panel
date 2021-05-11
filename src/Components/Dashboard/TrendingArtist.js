@@ -43,7 +43,7 @@ class TrendingArtist extends Component
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-1">
-								<h2>Watch in Your Language</h2>
+								<h2>Trending Artist</h2>
 							</div>
 						</div>
 						<OwlCarousel options={this.options}>

@@ -13,8 +13,8 @@ class MoviesByLanguages extends Component
 		nav: true,
 		loop: true,
 		autoplay: true,
-		startPosition: 0,
-		rewind: true
+		startPosition: 2,
+		rewind: false
 	};
 
 	render()
@@ -24,14 +24,14 @@ class MoviesByLanguages extends Component
 		for (let i = 0; i < this.props.languages.length; i++)
 		{
 			const language = this.props.languages[i];
-			
+
 			if (language !== undefined)
 			{
 				cards.push(
 					<div key={i}>
-						<Link to={{pathname: "/view_all", params:{item: this.props.languages[i]}}}>
-							<div className="owl-items" style={{border: "4px solid yellow", backgroundColor: "#222",width: "200px" ,height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
-						</Link>
+							<Link to={{pathname: "/view_all", params:{item: this.props.languages[i]}}}>
+								<div className="owl-items" style={{border: "4px solid yellow", backgroundColor: "#222",width: "200px" ,height: "200px",  borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
+							</Link>
 						<center><br /><span style={{color: "white"}}>{language["lang_name"]}</span></center>
 					</div>
 				);
@@ -43,7 +43,7 @@ class MoviesByLanguages extends Component
 				<div className="category-wrapper slide-wrapper">
 					<div className="container">
 						<div className="row">
-							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6	 mt-1">
+							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6 mt-1">
 								<h2>Watch in Your Language</h2>
 							</div>
 						</div>

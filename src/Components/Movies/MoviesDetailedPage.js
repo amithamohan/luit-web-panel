@@ -1,9 +1,17 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 import Footer from "../Dashboard/Footer";
 import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import StarRating from '../Dashboard/StarRating';
+import { IconButton } from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
+import { message } from 'antd';
+import CheckIcon from '@material-ui/icons/Check';
+import SuccessPopup from '../Dashboard/SuccessPopup';
+import { Modal, Button } from 'antd';
+import PayPopup from "./PayPopup";
 
 
 
@@ -15,7 +23,7 @@ class MoviesDetailedPage extends Component
 		margin: 5,
 		nav: true,
 		loop: false,
-		autoplay: false
+		autoplay: false,
 	};
 
 	constructor(props)
@@ -27,6 +35,7 @@ class MoviesDetailedPage extends Component
 			actors: [],
 			moviesList: [],
 			allVideos: [],
+			isAdded: false,
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -36,6 +45,7 @@ class MoviesDetailedPage extends Component
 	{
 		this.getActors();
 		this.getAllMovies();
+		this.isAddedToWishList();
 	}
 
 	async getActors()
@@ -55,8 +65,49 @@ class MoviesDetailedPage extends Component
 
 		this.setState({actors: actorsList});
 
-		console.log(this.state.actors);
 	}
+
+	async isAddedToWishList()
+	{
+		let userId = 4;
+		let type = 1;
+		let id = this.props.location.params["item"]["movie_id"];
+
+		console.log("wish list");
+
+		let response = await Server.wishlistIsPresent(type, id, userId);
+
+		if(response["response"] === "success")
+		{
+			this.setState({isAdded: true});
+		}
+		else
+		{
+			this.setState({isAdded: false});
+		}
+	}
+
+	async addToWishlist(i)
+	{
+		console.log("done");
+		let userId = 4;
+		let type = 1;
+		let itemId = i;
+
+		console.log("success");
+		let response = await Server.addToWishlist(userId, type, itemId);
+
+		if(response["response"] === "success")
+		{
+			console.log("success");
+			message.success('Added to wishlist');
+		}
+		else
+		{
+			message.info('Already added');
+		}
+	}
+
 
 	// fetch all music
 	async getAllMovies()
@@ -71,7 +122,7 @@ class MoviesDetailedPage extends Component
 			for (let i = 0; i < movies.length; i++)
 			{
 				result.push(movies[i]);
-			}
+			}	
 		}
 
 		this.setState({moviesList: result});
@@ -79,7 +130,7 @@ class MoviesDetailedPage extends Component
 
 	render()
 	{
-		console.log(this.props.location.params["item"]);
+		console.log(this.props.location.params);
 
 		const crew = [];
 
@@ -91,9 +142,6 @@ class MoviesDetailedPage extends Component
 				{
 					if(this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"])
 					{
-						console.log(this.props.location.params["item"]["actors"][j]);
-						console.log(this.state.actors[i]["name"]);
-
 						crew.push(
 							<div key={i}>
 								<div className="owl-items" style={{display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px" ,borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
@@ -107,8 +155,6 @@ class MoviesDetailedPage extends Component
 					}
 				}
 			}
-			console.log("after");
-			console.log(this.state.crew);
 		}
 
 
@@ -125,7 +171,7 @@ class MoviesDetailedPage extends Component
 					{
 						moreLikeThis.push(
 							<div className="owl-items"  key={i} >
-								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.moviesList[i]}}} style={{height: "430px"}}>
+								<Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: this.state.moviesList[i]}}} style={{height: "430px"}}>
 									<div className="slide-image">
 										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
 									</div>
@@ -151,27 +197,111 @@ class MoviesDetailedPage extends Component
 		let hour = this.props.location.params["item"]["duration"].split('.');
 
 
+		let details = 
+		{
+			"id": this.props.location.params["item"]["movie_id"],
+			"type": 1,
+			"rating": this.props.location.params["item"]["ratings"],
+			"amount": this.props.location.params["item"]["amount"]
+		}
+
+		console.log("details", details, "details");
+		console.log("amount", details.amount);
+		// let {amount} = this.state;
+		//  const checkPayment=()=>{
+		// 	 if (amount!= 0){
+		// 		 return 
+		// 	 }
+		//  }
+	// 	function checkPaid(){
+	// 	if (data["amount"]!=0){
+	// 		return (
+	// 			<Button className="btn btn-lg" >
+	// 			<img src="images/play.png" alt=""  />Watch now<PayPopup /></Button>
+	// 		)
+	// 	}
+	// 	else{
+	// 		return(
+	// 			<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now
+	
+	// 			</Link>
+	// 		)
+	// 	}
+	// }
+	const checkPaid=()=>{
+		if (data["amount"]===0){
+			return(
+				<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
+			)
+		}
+		else{
+			return(
+				<Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
+				</Link>
+			)
+		}
+	}
+
 		return(
 			<div>
+				{console.log("amount1", data["amount"])}
 				<NavigationBar/>
-				<div className="banner-wrapper">
+				<div className="banner-wrapper" style={{backgroundColor: "transparent"}}>
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 								<div className="left-wrap">
-									<span className="rnd">{data["ratings"]}</span>
+									<span className="r1nd">
+										<StarRating details={details}/>
+										
+									</span>
+									
+									
 									<h2>{data["movie_title"]}</h2>
 									<span className="tag"><b>{data["publish_year"]}</b></span>
 									<span className="tag"><b>HD</b></span>
 									<span className="tag"><b>{data["maturity_rating"]}+</b></span>
+									<span className="tag"><b>{data["ratings"]}</b></span>
 									<span className="tag">{hour[0]} hr {hour[1]} min</span>
 									<span className="tag">{data["genre"]}</span>
 									<p>{data["description"]}</p>
+									{/* <Button className="btn btn-lg" ><PayPopup /><img src="images/play.png" alt=""  />Watch nowss
+									</Button> */}
+									
+										
+									{/* {
+									if (data["amount"]===0){
+										return(
+											<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
+										)
+									}
+									else{
+										return(
+											<Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
+											</Link>
+										)
+									}
+								}
+									{	data["amount"] ? 0 : <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
+									}
+											
+													
+									{
+										data["amount"] ? 200 : <Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
 
-									<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
+										</Link>
+										
+									} */}
+							
+						
+							<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+						
+									{/* <Button ><PayPopup /></Button> */}
 
-									<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
+									<IconButton style={{color: "#fff", fontSize: 30}} onClick={e => this.addToWishlist(data["movie_id"])}aria-label="reqind">
+									{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
+									</IconButton>
 									<div className="icon-bttn">
 									<i className="ti-sharethis text-white mr-4" />
 									</div>
@@ -181,24 +311,23 @@ class MoviesDetailedPage extends Component
 							</div>
 						</div>
 
-						<div></div>
-						<div className="container">
+						{crew === null ? null : <div className="container" style={{backgroundColor: "#1A2236"}}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2>Crew</h2>
+									<h2 style={{color: "white"}}>Crew</h2>
 								</div>
 							</div>
 							{
-								crew === null ? null :
 								<OwlCarousel options={this.options}>
 								{
 									crew
 								}
 								</OwlCarousel>
 							}
-						</div>
+						</div>}
 
 						<div className="container slide-wrapper slide-wrapper-shadow">
+						{/* <div className="container slide-wrapper" style={{backgroundColor: "transparent"}}> */}
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>
@@ -216,6 +345,7 @@ class MoviesDetailedPage extends Component
 					</div>
 				</div>
 				<Footer/>
+			{/* </div> */}
 			</div>
 		);
 	}

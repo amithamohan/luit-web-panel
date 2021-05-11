@@ -1,7 +1,6 @@
 import './App.css';
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import Home from './Components/Dashboard/Home';
-import TermsOfService from './Components/App Policies/TermsOfService';
 import MoviesPage from './Components/Movies/MoviesHomePage';
 import MusicPage from './Components/Music/MuiscHomePage';
 import ShortFilm from './Components/Short Films/ShortFilm';
@@ -21,6 +20,7 @@ import asd from './Components/asd';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 import SuccessPopup from './Components/Dashboard/SuccessPopup';
+import PayPopup from './Components/Movies/PayPopup';
 
 function App() 
 {
@@ -29,14 +29,12 @@ function App()
       <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/asd" component={asd} exact />
-          <Route path="/sign_in" component={SigninScreen} />
-          <Route path="/terms_of_service" component={TermsOfService}/>
           <Route path="/movies" component={MoviesPage}/>
           <Route path="/music" component={MusicPage}/>
           <Route path="/short_film" component={ShortFilm}/>
           <Route path="/web_series" component={WebSeries}/>
           <Route path="/profile" component={ProfileInfo}/>
-          <Route path="/signin" component={SigninScreen} />
+          <Route path="/sign_in" component={SigninScreen} />
           <Route path="/verifyotp" component={OTPScreen} />
           <Route path="/terms" component={TermsScreen} />
           <Route path="/privacy-policy" component={PrivacyScreen} />
@@ -49,8 +47,10 @@ function App()
           <Route path="/rating" component={StarRating} />
           <Route path="/subscribe" component={Subscribe} />
           <Route path="/popup" component={SuccessPopup} />
+          <Route path="/pay" component={PayPopup} />
       </Switch>
     </Router>
   );
 }
+
 export default App;

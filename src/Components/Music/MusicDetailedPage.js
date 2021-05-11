@@ -4,20 +4,27 @@ import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { message } from 'antd';
+import { Card } from 'antd';
 import ReactStars from "react-rating-stars-component";
 // import Modal from 'react-bootstrap/Modal';
 // import Button from 'react-bootstrap/Button';
 import StarRating from '../Dashboard/StarRating';
 import star from "react-rating-stars-component/dist/star";
 
-const ratingChanged = (newRating) => {
+const { Meta } = Card;
+
+const ratingChanged = (newRating) =>
+{
     console.log(newRating);
-  };
-  
+};
+
 class MusicDetailedPage extends Component
 {
-	
-	options = 
+
+	options =
 	{
 		items: 5,
 		margin: 5,
@@ -26,7 +33,7 @@ class MusicDetailedPage extends Component
 		autoplay: false
 	};
 
-	cardOptions = 
+	cardOptions =
 	{
 		items: 5,
 		margin: 5,
@@ -95,6 +102,25 @@ class MusicDetailedPage extends Component
 		this.setState({musicList: result, allVideos: result});
 	}
 
+	async addToWishlist(i)
+	{
+		let userId = 4;
+		let type = 2;
+		let itemId = i;
+		let response = await Server.addToWishlist(userId, type, itemId);
+
+		if(response["response"] === "success")
+		{
+			console.log("success");
+			message.success('Added to wishlist');
+		}
+		else
+		{
+			message.info('Already added');
+			// alert("Already added to wishlist");
+		}
+	}
+
 	render()
 	{
 		const crew = [];
@@ -124,16 +150,8 @@ class MusicDetailedPage extends Component
 			{
 				for(let i = 0; i < this.state.musicList.length; i++)
 				{
-					console.log(this.props.location.params["item"]["genre"][j]);
-						// console.log(this.props.location.params["item"]["genre"].length);
-					console.log(this.state.musicList[i]["genre"][0]);
-
 					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0])
 					{
-						console.log(this.props.location.params["item"]["genre"][j]);
-						// console.log(this.props.location.params["item"]["genre"].length);
-						console.log(this.state.musicList[i]["genre"][i]);
-
 						moreLikeThis.push(
 							<div className="owl-items"  key={i} >
 								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.musicList[i]}}} style={{height: "430px"}}>
@@ -160,6 +178,12 @@ class MusicDetailedPage extends Component
 
 		let hour = this.props.location.params["item"]["duration"].split('.');
 
+		let details = {
+			"id": this.props.location.params["item"]["id"],
+			"type": 2,
+			"rating": this.props.location.params["item"]["ratings"],
+		}
+
 		return(
 			<div>
 				<NavigationBar/>
@@ -170,8 +194,7 @@ class MusicDetailedPage extends Component
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										<span className="r1nd">
-											
-											<StarRating />
+											<StarRating details={details}/>
 											</span>
 										<h2>{data["title"]}</h2>
 
@@ -186,7 +209,9 @@ class MusicDetailedPage extends Component
 
 										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
 
-										<a href="/" className="icon-bttn"><i className="ti-plus text-white" /></a>
+										<IconButton  style={{color: "white"}}>
+											<AddIcon fontSize="large"></AddIcon>
+										</IconButton>
 
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4" />
@@ -197,35 +222,48 @@ class MusicDetailedPage extends Component
 							</div>
 						</div>
 
-						<div></div>
-						<div className="container" style={{paddingTop: "20px"}}>
+						<br/>
+
+						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>Crew</h2>
 								</div>
 							</div>
-							<OwlCarousel options={this.options}>
+							{
+								crew === null ? null :
+								<OwlCarousel options={this.options}>
 								{
 									crew
 								}
-							</OwlCarousel>3000
+								</OwlCarousel>
+							}
 						</div>
 						
 						<div className="slide-wrapper slide-wrapper-shadow">
+
+						{/* <div className="container slide-wrapper" style={{backgroundColor: "transparent"}}> */}
 							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-4">
+								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>
 								</div>
 							</div>
-							<OwlCarousel options={this.options}>
-								{
-									moreLikeThis
-								}
-							</OwlCarousel>
+							{
+								moreLikeThis === null ? null :
+								<div>
+									<OwlCarousel options={this.options}>
+									{
+										moreLikeThis
+									}
+									</OwlCarousel>
+								</div>
+							}
 						</div>
+
 					</div>
 				</div>
 				<Footer/>
+			{/* </div> */}
 			</div>
 		);
 	}

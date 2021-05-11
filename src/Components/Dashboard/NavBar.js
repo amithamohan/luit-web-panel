@@ -3,6 +3,35 @@ import React, {Component} from 'react';
 
 class NavigationBar extends Component
 {
+    constructor(props)
+	{
+		super(props);
+
+		this.state =
+		{
+            image: null,
+            isLoggedIn: false,
+		}   
+
+		this.getUserDetails = this.getUserDetails.bind(this);
+	}
+
+	componentDidMount()
+	{
+		this.getUserDetails();
+	}
+
+    async getUserDetails()
+    {
+        let user = localStorage.getItem("user");
+
+		let data = JSON.parse(user);
+
+        this.setState({image: data["image"], isLoggedIn: true})
+
+        console.log(data);
+
+    }
 	render()
 	{
 		return(
@@ -21,18 +50,20 @@ class NavigationBar extends Component
                                 <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/movies">Movies</a></li>
                                 <li className="nav-item"><a className="nav-link" href="/music">Music</a></li>
-                                <li className="nav-item"><a className="nav-link" href="">Short Movies</a></li>
+                                {/*<li className="nav-item"><a className="nav-link" href="/short_film">Short Movies</a></li>*/}
                             </ul>
                         </div>
                     </div>
                     <div className="col-lg-4">
                         <div className="user-avater">
-                            <img src="https://via.placeholder.com/50x50.png" alt="user"/>
+                            {this.state.image ? <img src={this.state.image} alt="user"/> : <img src="https://via.placeholder.com/50x50.png" alt="user"/>}
                             <div className="user-menu">
                                 <ul>
-                                    <li><a href="/sign_in"><i className="ti-power-off"></i>Login</a></li>
+                                    {!this.state.isLoggedIn ? <li><a href="/sign_in"><i className="ti-power-off"></i>Login</a></li> : 
+                                    <li><a href="/sign_in"><i className="ti-power-off"></i>Logout</a></li>}
                                     <li><a href="/profile"><i className="ti-user"></i>Profile</a></li>
                                     <li><a href="/sign_in"><i className="ti-menu-alt"></i>Subscription Plans</a></li>
+                                    <li><a href="/wishlist"><i className="ti-heart"></i>My Wishlist</a></li>
                                 </ul>
                             </div>
                         </div>

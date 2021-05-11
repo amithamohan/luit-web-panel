@@ -9,6 +9,7 @@ import ShortFilm from './ShortFilmsCard';
 import Footer from './Footer';
 import Server from '../APIs/Server';
 
+
 class Home extends Component
 {
 	constructor(props)
@@ -46,6 +47,17 @@ class Home extends Component
 		this.getTrendingArtist();
 		this.getAllMoviesByLanguage();
 	}
+
+	cardOptions = 
+	{
+		items: 5,
+		itemsDesktop: [1000, 5],
+		nav: true,
+		margin: 15,
+		loop: true,
+		autoplay: true,
+		stagePadding: 5
+	};
 
 	async getSlider()
 	{
@@ -115,8 +127,6 @@ class Home extends Component
 		let artistList = [];
 		let response = await Server.fecthMoviesByActors();
 
-		console.log(response);
-
 		if (response["response"] === "success")
 		{
 			let artist = response["data"];
@@ -155,11 +165,8 @@ class Home extends Component
 		let shortFilm = [];
 		let response = await Server.fetchAllShortMovies();
 
-		console.log(response["data"]);
-
 		if (response["response"] === "success" && response["data"] !== null)
 		{
-			console.log("yesss");
 			let data = response["data"];
 
 			for (let i = 0; i < data.length; i++)
@@ -173,19 +180,16 @@ class Home extends Component
 		else
 		{
 			this.setState({shortFilmList: null});
-			console.log(this.state.shortFilmList);
-
 		}
 	}
 
 	render()
 	{
-		console.log(this.state.allVideos);
 		return(
 
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar  movies = {this.state.moviesList}/>
+					<NavigationBar/>
 					<Slider data={this.state.homeSlider} allVideos = {this.state.allVideos}/>
 					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
 					<MoviesByLanguages languages={this.state.movieLanguages} />
