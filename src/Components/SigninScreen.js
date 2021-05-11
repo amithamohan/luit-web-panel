@@ -42,8 +42,6 @@ function SigninScreen()
 
         let response = await Server.googleLogin(googleId, name, email, dob, age, imageUrl, phoneNumber);
 
-        console.log(response);
-
         if(response["response"] === "success")
         {
             message.success("Login Success");
@@ -104,7 +102,7 @@ function SigninScreen()
 
     const onSignInSubmit = (e) =>
     {
-        console.log(checked);
+        console.log(value);
 
         if(checked === false)
         {
@@ -181,8 +179,9 @@ function SigninScreen()
                                     <div className="form-group mt-3">
                                     <div id="recaptcha-container"></div>
                                         <PhoneInput
+                                            defaultCountry="IN"
                                             placeholder="Enter phone number"
-                                            value="+919497045922"
+                                            value={value}
                                             onChange={setValue}
                                             className="form-control"/>
                                     </div>
@@ -194,7 +193,7 @@ function SigninScreen()
                                             <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3" onClick={isChecked}/>
                                             <span className="checkmark"></span>
                                             <p style={{color: "white"}}>I understand and accept the
-                                                <a href="/terms"> <span style={{color: "#D04050"}}>Terms & Condition</span></a> & 
+                                                <a href="/terms"> <span style={{color: "#D04050"}}>Terms & Condition</span></a> &
                                                 <a href="/privacy-policy"><span style={{color: "#D04050"}}> Privacy Policies</span></a></p>
                                         </label>
                                     </div>
