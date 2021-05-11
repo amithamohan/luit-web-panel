@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import Footer from "../Dashboard/Footer";
 import NavigationBar from "../Dashboard/NavBar";
 import Server from '../APIs/Server';
@@ -16,34 +16,31 @@ import star from "react-rating-stars-component/dist/star";
 
 const { Meta } = Card;
 
-const ratingChanged = (newRating) =>
-{
-    console.log(newRating);
+const ratingChanged = (newRating) => {
+	console.log(newRating);
 };
 
-class MusicDetailedPage extends Component
-{
+class MusicDetailedPage extends Component {
 
 	options =
-	{
-		items: 5,
-		margin: 5,
-		nav: true,
-		loop: false,
-		autoplay: false
-	};
+		{
+			items: 5,
+			margin: 5,
+			nav: true,
+			loop: false,
+			autoplay: false
+		};
 
 	cardOptions =
-	{
-		items: 5,
-		margin: 5,
-		nav: true,
-		loop: true,
-		autoplay: true
-	};
+		{
+			items: 5,
+			margin: 5,
+			nav: true,
+			loop: true,
+			autoplay: true
+		};
 
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
 
 		this.state =
@@ -57,85 +54,70 @@ class MusicDetailedPage extends Component
 		this.getAllMusic = this.getAllMusic.bind(this);
 	}
 
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.getActors();
 		this.getAllMusic();
 	}
 
-	async getActors()
-	{
+	async getActors() {
 		let actorsList = [];
 		let response = await Server.fetchArtist()
 
-		if (response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			let data = response["data"];
 
-			for (let i = 0; i < data.length; i++)
-			{
+			for (let i = 0; i < data.length; i++) {
 				actorsList.push(data[i]);
 			}
 		}
 
-		this.setState({actors: actorsList});
+		this.setState({ actors: actorsList });
 
 		console.log(this.state.actors);
 	}
 
 	// fetch all music
-	async getAllMusic()
-	{
+	async getAllMusic() {
 		let result = [];
 		let response = await Server.fetchAllMusic();
 
-		if (response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			let movies = response["data"];
 
-			for (let i = 0; i < movies.length; i++)
-			{
+			for (let i = 0; i < movies.length; i++) {
 				result.push(movies[i]);
 			}
 		}
 
-		this.setState({musicList: result, allVideos: result});
+		this.setState({ musicList: result, allVideos: result });
 	}
 
-	async addToWishlist(i)
-	{
+	async addToWishlist(i) {
 		let userId = 4;
 		let type = 2;
 		let itemId = i;
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if(response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			console.log("success");
 			message.success('Added to wishlist');
 		}
-		else
-		{
+		else {
 			message.info('Already added');
 			// alert("Already added to wishlist");
 		}
 	}
 
-	render()
-	{
+	render() {
 		const crew = [];
-		if(this.state.actors !== undefined)
-		{
-			for(let j = 0; j < this.props.location.params["item"]["actors"].length; j++)
-			{
-				for(let i = 0; i < this.state.actors.length; i++)
-				{
-					if(this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"])
-					{
+		if (this.state.actors !== undefined) {
+			for (let j = 0; j < this.props.location.params["item"]["actors"].length; j++) {
+				for (let i = 0; i < this.state.actors.length; i++) {
+					if (this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"]) {
 						crew.push(
 							<div key={i}>
-								<div className="owl-items" style={{display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px" ,borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}></div>
-								<center><br /><span style={{color: "white"}}>{this.state.actors[i]["name"]}</span></center>
+								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+								<center><br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span></center>
 							</div>
 						);
 					}
@@ -144,19 +126,15 @@ class MusicDetailedPage extends Component
 		}
 
 		const moreLikeThis = [];
-		if(this.state.musicList !== undefined)
-		{
-			for(let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
-			{
-				for(let i = 0; i < this.state.musicList.length; i++)
-				{
-					if(this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0])
-					{
+		if (this.state.musicList !== undefined) {
+			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++) {
+				for (let i = 0; i < this.state.musicList.length; i++) {
+					if (this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) {
 						moreLikeThis.push(
-							<div className="owl-items"  key={i} >
-								<Link className="slide-one" to={{pathname: "/music_detailed_page", params:{item: this.state.musicList[i]}}} style={{height: "430px"}}>
+							<div className="owl-items" key={i} >
+								<Link className="slide-one" to={{ pathname: "/music_detailed_page", params: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
-										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} />
+										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
 									<div className="slide-content">
 										<h2>{this.state.musicList[i]["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
@@ -184,9 +162,9 @@ class MusicDetailedPage extends Component
 			"rating": this.props.location.params["item"]["ratings"],
 		}
 
-		return(
+		return (
 			<div>
-				<NavigationBar/>
+				<NavigationBar />
 				<div className="banner-wrapper">
 					<div className="container">
 						<div className="row">
@@ -194,8 +172,8 @@ class MusicDetailedPage extends Component
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										<span className="r1nd">
-											<StarRating details={details}/>
-											</span>
+											<StarRating details={details} />
+										</span>
 										<h2>{data["title"]}</h2>
 
 										<span className="tag"><b>{data["audio_languages"]}</b></span>
@@ -207,9 +185,9 @@ class MusicDetailedPage extends Component
 
 										<p>{data["description"]}</p>
 
-										<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt="" />Watch now</Link>
+										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: this.props.location.params["item"] } }}><img src="images/play.png" alt="" />Watch now</Link>
 
-										<IconButton  style={{color: "white"}}>
+										<IconButton style={{ color: "white" }}>
 											<AddIcon fontSize="large"></AddIcon>
 										</IconButton>
 
@@ -217,50 +195,49 @@ class MusicDetailedPage extends Component
 											<i className="ti-sharethis text-white mr-4" />
 										</div>
 									</div>
-									<div className="right-wrap" style={{backgroundImage: `url(${data['thumbnail']})`}} />
+									<div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} />
 								</div>
 							</div>
 						</div>
 
-						<br/>
+						<br />
 
-						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
+						<div className="container slide-wrapper" style={{ backgroundColor: "transparent" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>Crew</h2>
 								</div>
 							</div>
 							{
-								crew === null ? null :
-								<OwlCarousel options={this.options}>
-								{
-									crew
-								}
-								</OwlCarousel>
+								crew.length && (
+									<OwlCarousel options={this.options}>
+										{
+											crew
+										}
+									</OwlCarousel>)
 							}
 						</div>
 
-						<div className="container slide-wrapper" style={{backgroundColor: "transparent"}}>
+						<div className="container slide-wrapper" style={{ backgroundColor: "transparent" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>
 								</div>
 							</div>
 							{
-								moreLikeThis === null ? null :
-								<div>
+								moreLikeThis.length && (
 									<OwlCarousel options={this.options}>
-									{
-										moreLikeThis
-									}
-									</OwlCarousel>
-								</div>
+										{
+											moreLikeThis
+										}
+									</OwlCarousel>)
+
 							}
 						</div>
 
 					</div>
 				</div>
-				<Footer/>
+				<Footer />
 			</div>
 		);
 	}

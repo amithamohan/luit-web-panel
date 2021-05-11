@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css';
 import { GoogleLogin } from 'react-google-login';
@@ -15,8 +15,7 @@ import firebase from '../config/firebase';
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
 
-function SigninScreen()
-{
+function SigninScreen() {
     let history = useHistory();
 
     let checked = false;
@@ -24,8 +23,7 @@ function SigninScreen()
 
     let sendOtp = false;
 
-    const onFailure = (res) =>
-    {
+    const onFailure = (res) => {
         console.log('Login failed: res:', res);
         alert(
             `Failed to login. `
@@ -34,16 +32,16 @@ function SigninScreen()
 
     const style = { background: '#0092ff', padding: '8px 0' };
 
-    const googleLogin = async (email, name, imageUrl, googleId) =>
-    {
+    const googleLogin = async (email, name, imageUrl, googleId) => {
         let age = "";
         let dob = "";
         let phoneNumber = "";
 
         let response = await Server.googleLogin(googleId, name, email, dob, age, imageUrl, phoneNumber);
 
-        if(response["response"] === "success")
-        {
+        console.log(response);
+
+        if (response["response"] === "success") {
             message.success("Login Success");
 
             let user =
@@ -61,14 +59,12 @@ function SigninScreen()
             localStorage.setItem("user", JSON.stringify(user));
             history.push("/");
         }
-        else
-        {
-            <Alert message="Error" type="error" />
+        else {
+            return (<Alert message="Error" type="error" />)
         }
     }
 
-    const onSuccess = (res) =>
-    {
+    const onSuccess = (res) => {
         let email = res.profileObj.email;
         let name = res.profileObj.name;
         let imageUrl = res.profileObj.imageUrl;
@@ -77,22 +73,19 @@ function SigninScreen()
         googleLogin(email, name, imageUrl, googleId);
     };
 
-    const responseFacebook = (response) =>
-    {
+    const responseFacebook = (response) => {
         console.log(response);
     };
 
 
-    const setUpRecaptcha = () =>
-    {
+    const setUpRecaptcha = () => {
         console.log("capatcha code");
 
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
             "recaptcha-container",
             {
                 size: "invisible",
-                callback: function (response)
-                {
+                callback: function (response) {
                     console.log("Captcha Resolved");
                     this.onSignInSubmit();
                 },
@@ -104,12 +97,10 @@ function SigninScreen()
     {
         console.log(value);
 
-        if(checked === false)
-        {
+        if (checked === false) {
             message.warning("Please accept the Privacy Policy and Terms and Conditions");
         }
-        else
-        {
+        else {
             e.preventDefault();
             setUpRecaptcha();
 
@@ -119,30 +110,27 @@ function SigninScreen()
 
             let appVerifier = window.recaptchaVerifier;
 
-            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult)
-            {
+            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult) {
                 window.confirmationResult = confirmationResult;
-                history.push({pathname: "/verifyotp", state: { detail: window.confirmationResult}});
+                history.push({ pathname: "/verifyotp", state: { detail: window.confirmationResult } });
             })
-            .catch(function (error)
-            {
-                alert(error);
-            });
+                .catch(function (error) {
+                    alert(error);
+                });
         }
     };
 
-    const isChecked = () =>
-    {
+    const isChecked = () => {
         checked = true;
     }
 
-    return(
+    return (
         <div>
             <section className="form-wrapper" >
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-sm-5">
-                             <div className="form-div text-center">
+                            <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
                                 <form action="">
@@ -158,7 +146,7 @@ function SigninScreen()
                                                 buttonText="abbb"
                                                 callback={responseFacebook}
                                                 cssClass="kep-login-facebook"
-                                                style={{marginRight: "5px"}}
+                                                style={{ marginRight: "5px" }}
                                             />
                                         </Col>
 
@@ -177,24 +165,24 @@ function SigninScreen()
 
                                     <h5>OR</h5>
                                     <div className="form-group mt-3">
-                                    <div id="recaptcha-container"></div>
+                                        <div id="recaptcha-container"></div>
                                         <PhoneInput
                                             defaultCountry="IN"
                                             placeholder="Enter phone number"
                                             value={value}
                                             onChange={setValue}
-                                            className="form-control"/>
+                                            className="form-control" />
                                     </div>
                                     <div className="form-group button-block text-center">
                                         <button onClick={onSignInSubmit} className="form-btn">Login with OTP</button>
                                     </div>
                                     <div className="form-group form-check-label">
                                         <label htmlFor="tarms-check">
-                                            <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3" onClick={isChecked}/>
+                                            <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3" onClick={isChecked} />
                                             <span className="checkmark"></span>
-                                            <p style={{color: "white"}}>I understand and accept the
-                                                <a href="/terms"> <span style={{color: "#D04050"}}>Terms & Condition</span></a> &
-                                                <a href="/privacy-policy"><span style={{color: "#D04050"}}> Privacy Policies</span></a></p>
+                                            <p style={{ color: "white" }}>I understand and accept the
+                                                <a href="/terms"> <span style={{ color: "#D04050" }}>Terms & Condition</span></a> &
+                                                <a href="/privacy-policy"><span style={{ color: "#D04050" }}> Privacy Policies</span></a></p>
                                         </label>
                                     </div>
                                 </form>
@@ -203,7 +191,7 @@ function SigninScreen()
                     </div>
                 </div>
             </section>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
