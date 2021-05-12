@@ -9,9 +9,11 @@ import { IconButton } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
+import PayPopup from "../Utlities/PopUp";
 
 
-class MoviesDetailedPage extends Component {
+class MoviesDetailedPage extends Component
+{
 	options =
 		{
 			items: 5,
@@ -21,7 +23,8 @@ class MoviesDetailedPage extends Component {
 			autoplay: false,
 		};
 
-	constructor(props) {
+	constructor(props)
+	{
 		super(props);
 
 		this.state =
@@ -35,13 +38,15 @@ class MoviesDetailedPage extends Component {
 		this.getActors = this.getActors.bind(this);
 	}
 
-	componentDidMount() {
+	componentDidMount()
+	{
 		this.getActors();
 		this.getAllMovies();
 		this.isAddedToWishList();
 	}
 
-	async getActors() {
+	async getActors()
+	{
 		let actorsList = [];
 		let response = await Server.fetchArtist()
 
@@ -54,15 +59,13 @@ class MoviesDetailedPage extends Component {
 		}
 
 		this.setState({ actors: actorsList });
-
 	}
 
-	async isAddedToWishList() {
+	async isAddedToWishList()
+	{
 		let userId = 4;
 		let type = 1;
 		let id = this.props.location.params["item"]["movie_id"];
-
-		console.log("wish list");
 
 		let response = await Server.wishlistIsPresent(type, id, userId);
 
@@ -74,7 +77,8 @@ class MoviesDetailedPage extends Component {
 		}
 	}
 
-	async addToWishlist(i) {
+	async addToWishlist(i)
+	{
 		console.log("done");
 		let userId = 4;
 		let type = 1;
@@ -84,7 +88,6 @@ class MoviesDetailedPage extends Component {
 		let response = await Server.addToWishlist(userId, type, itemId);
 
 		if (response["response"] === "success") {
-			console.log("success");
 			message.success('Added to wishlist');
 		}
 		else {
@@ -94,7 +97,8 @@ class MoviesDetailedPage extends Component {
 
 
 	// fetch all music
-	async getAllMovies() {
+	async getAllMovies()
+	{
 		let result = [];
 		let response = await Server.fetchAllMovies();
 
@@ -109,8 +113,8 @@ class MoviesDetailedPage extends Component {
 		this.setState({ moviesList: result });
 	}
 
-	render() {
-		console.log(this.props.location.params);
+	render()
+	{
 
 		const crew = [];
 

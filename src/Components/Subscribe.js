@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { Radio, Card, Button, message } from 'antd';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 import NavigationBar from './Dashboard/NavBar';
 import Server from './APIs/Server';
 
@@ -116,7 +116,7 @@ class Subscribe extends Component
                 message.success("Payment Success " + response.razorpay_payment_id);
                 status = true;
 
-                self.handleSubmit(response.razorpay_payment_id, amount);
+                self.handleSubmit(ref_number, amount);
 		  	},
 		  	"prefill":
 			{

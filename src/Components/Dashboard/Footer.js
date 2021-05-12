@@ -7,7 +7,6 @@ class Footer extends Component
 		return(
 			<div>
 			<footer className="footer">
-		  </footer>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
 						<div className="row">
@@ -25,6 +24,8 @@ class Footer extends Component
 						</div>
 					</div>
 				</div>
+				</footer>
+
 			</div>
 		);
 	}

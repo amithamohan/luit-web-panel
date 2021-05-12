@@ -16,8 +16,6 @@ import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
-import History from './Components/History';
-import asd from './Components/asd';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 
@@ -26,7 +24,6 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/asd" component={asd} exact />
         <Route path="/movies" component={MoviesPage} />
         <Route path="/music" component={MusicPage} />
         <Route path="/short_film" component={ShortFilm} />
@@ -41,7 +38,6 @@ function App() {
         <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
         <Route path="/view_all" component={ViewAll} />
         <Route path="/video_player" component={VideoPlayer} />
-        <Route path="/history" component={History} />
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
       </Switch>
