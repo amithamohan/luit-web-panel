@@ -207,44 +207,12 @@ class MoviesDetailedPage extends Component
 
 		console.log("details", details, "details");
 		console.log("amount", details.amount);
-		// let {amount} = this.state;
-		//  const checkPayment=()=>{
-		// 	 if (amount!= 0){
-		// 		 return 
-		// 	 }
-		//  }
-	// 	function checkPaid(){
-	// 	if (data["amount"]!=0){
-	// 		return (
-	// 			<Button className="btn btn-lg" >
-	// 			<img src="images/play.png" alt=""  />Watch now<PayPopup /></Button>
-	// 		)
-	// 	}
-	// 	else{
-	// 		return(
-	// 			<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now
-	
-	// 			</Link>
-	// 		)
-	// 	}
-	// }
-	const checkPaid=()=>{
-		if (data["amount"]===0){
-			return(
-				<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
-			)
-		}
-		else{
-			return(
-				<Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
-				</Link>
-			)
-		}
-	}
+		
+
 
 		return(
 			<div>
-				{console.log("amount1", data["amount"])}
+				{/* {console.log("amount1", data["amount"])} */}
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{backgroundColor: "transparent"}}>
 					<div className="container">
@@ -266,38 +234,12 @@ class MoviesDetailedPage extends Component
 									<span className="tag">{hour[0]} hr {hour[1]} min</span>
 									<span className="tag">{data["genre"]}</span>
 									<p>{data["description"]}</p>
-									{/* <Button className="btn btn-lg" ><PayPopup /><img src="images/play.png" alt=""  />Watch nowss
-									</Button> */}
-									
-										
-									{/* {
-									if (data["amount"]===0){
-										return(
-											<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
-										)
-									}
-									else{
-										return(
-											<Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
-											</Link>
-										)
-									}
-								}
-									{	data["amount"] ? 0 : <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
-									}
-											
-													
 									{
-										data["amount"] ? 200 : <Link className="btn btn-lg" ><img src="images/play.png" alt=""  />Watch now<PayPopup />
-
-										</Link>
-										
-									} */}
+										data["amount"] === 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup />
+									}
 							
 						
-							<Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-						
-									{/* <Button ><PayPopup /></Button> */}
+									
 
 									<IconButton style={{color: "#fff", fontSize: 30}} onClick={e => this.addToWishlist(data["movie_id"])}aria-label="reqind">
 									{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}

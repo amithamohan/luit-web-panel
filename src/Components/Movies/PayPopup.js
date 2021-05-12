@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
+import { Redirect } from 'react-router';
+import { useHistory } from "react-router-dom";
 
 const PayPopup = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -7,9 +9,9 @@ const PayPopup = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
+const history=useHistory();
   const handleOk = () => {
-    setIsModalVisible(false);
+    history.push("/subscribe");
   };
 
   const handleCancel = () => {
@@ -18,13 +20,12 @@ const PayPopup = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
+      <Button className="btn btn-lg" onClick={showModal} style={{height: 50}}>
+      
+        Pay Now
       </Button>
       <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <h3>Please Subscribe to Watch this Video</h3>
       </Modal>
     </>
   );

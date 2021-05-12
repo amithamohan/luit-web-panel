@@ -83,7 +83,7 @@ class ProfileInfo extends React.Component
 		
 		let data = JSON.parse(user);
 		
-		console.log(data["image"]);
+		// console.log(data["image"]);
 
 		this.state.username = data["name"];
 		this.state.email = data["email"];

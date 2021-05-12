@@ -185,7 +185,7 @@ class Subscribe extends Component
                     <div className="site-card-border-less-wrapper">
                         <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
                         <div>
-                            <input id="0" class="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === "0"} onChange={() => this.handleOnChanged("100", 30)} />
+                            <input id="0" class="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === "1"} onChange={() => this.handleOnChanged("50", 30)} />
                             <label htmlFor="0" class="radio-custom-label">
                                 <b className="heading-font">&#x20B9; 50</b> </label>
                         </div>
