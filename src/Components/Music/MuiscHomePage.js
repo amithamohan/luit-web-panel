@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import NavigationBar from "../Dashboard/NavBar";
 import Slider from "../Dashboard/Slider";
 import Footer from '../Dashboard/Footer';
@@ -6,10 +6,8 @@ import Server from "../APIs/Server";
 import MusicCard from "../Dashboard/MusicCard";
 
 
-class MusicPage extends Component
-{
-	constructor(props)
-	{
+class MusicPage extends Component {
+	constructor(props) {
 		super(props);
 
 		this.state =
@@ -27,16 +25,14 @@ class MusicPage extends Component
 		this.getNewReleasedMusic = this.getNewReleasedMusic.bind(this);
 	}
 
-	componentDidMount()
-	{
+	componentDidMount() {
 		this.getSlider();
-		this.getAllMusic();	
+		this.getAllMusic();
 		this.getAllMusicByLanguage();
 		this.getNewReleasedMusic();
 	}
 
-	async getSlider()
-	{
+	async getSlider() {
 		let home = [];
 		let movie = [];
 		let music = [];
@@ -44,16 +40,13 @@ class MusicPage extends Component
 
 		let response;
 
-			response = await Server.fetchSlider("music");
+		response = await Server.fetchSlider("music");
 
-			console.log(response);
+		console.log(response);
 
-		if(response["response"] === "success" && response["slider"] != null)
-		{
-			for(let i = 0; i < response["slider"].length; i++)
-			{
-				switch(response["message"])
-				{
+		if (response["response"] === "success" && response["slider"] != null) {
+			for (let i = 0; i < response["slider"].length; i++) {
+				switch (response["message"]) {
 					case "Home Slider":
 						home.push(response["slider"][i]);
 						break;
@@ -74,95 +67,84 @@ class MusicPage extends Component
 				}
 			}
 		}
-		this.setState({musicSlider: music});
+		this.setState({ musicSlider: music });
 	}
 
-	async getAllMusic()
-	{
+	async getAllMusic() {
 		let music = [];
 		let response = await Server.fetchAllMusic();
 
-		if (response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			let data = response["data"];
 
-			for (let i = 0; i < data.length; i++)
-			{
+			for (let i = 0; i < data.length; i++) {
 				music.push(data[i]);
 			}
 		}
 
-		this.setState({musicList: music, allVideos: music});
+		this.setState({ musicList: music, allVideos: music });
 	}
 
-	async getAllMusicByLanguage()
-	{
+	async getAllMusicByLanguage() {
 		let languageList = [];
 		let response = await Server.fetchMusicByLanguages();
 
-		if (response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			let language = response["data"];
 
-			for (let i = 0; i < language.length; i++)
-			{
+			for (let i = 0; i < language.length; i++) {
 				languageList.push(language[i]);
 			}
 		}
 
-		this.setState({musicLanguages: languageList});
+		this.setState({ musicLanguages: languageList });
 	}
 
-	async getNewReleasedMusic()
-	{
+	async getNewReleasedMusic() {
 		let newReleasedMusicList = [];
 
 		let response = await Server.fetchNewReleasedMusic();
 
-		if (response["response"] === "success")
-		{
+		if (response["response"] === "success") {
 			let data = response["data"];
 
-			for (let i = 0; i < data.length; i++)
-			{
+			for (let i = 0; i < data.length; i++) {
 				newReleasedMusicList.push(data[i]);
 			}
 		}
 
-		this.setState({newReleasedMusic: newReleasedMusicList});
+		this.setState({ newReleasedMusic: newReleasedMusicList });
 	}
 
 
 
-	render()
-	{
+	render() {
 		const languageList = [];
 
-		for(let i = 0; i < this.state.musicLanguages.length; i++)
-		{
+		for (let i = 0; i < this.state.musicLanguages.length; i++) {
 			languageList.push
-			(
-				<MusicCard key={i} title = {this.state.musicLanguages[i]["lang_name"]} musicList = {this.state.musicLanguages[i]["data"]}/>
-			);
+				(
+					<MusicCard key={i} title={this.state.musicLanguages[i]["lang_name"]} musicList={this.state.musicLanguages[i]["data"]} />
+				);
 		}
 
-		return(
+		return (
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar/>
-					<Slider data={this.state.musicSlider} allVideos = {this.state.allVideos}/>
-					<MusicCard title = {"New Released Music"} musicList = {this.state.newReleasedMusic}/>
-					<MusicCard title = {"Top Music"} musicList = {this.state.musicList}/>
+					<NavigationBar />
+					<Slider data={this.state.musicSlider} allVideos={this.state.allVideos} />
+					<MusicCard title={"New Released Music"} musicList={this.state.newReleasedMusic} />
+					<MusicCard title={"Top Music"} musicList={this.state.musicList} />
 					<div>
 						{
 							languageList
 						}
 					</div>
-					<Footer/>
+					<Footer />
 				</div>
 			</div>
 		);
 	}
 }
 
-export default MusicPage;	
+export default MusicPage;
