@@ -19,33 +19,13 @@ class MusicCard extends Component {
 		}
 	}
 	options =
-	{
-		items: 4,
-		margin: 5,
-		// itemsDesktop: [1000, 5],
-		nav: true,
-		loop: true,
-		dots: false,
-		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
-		autoplay: true,
-	};
-
-	async addToWishlist(i) {
-		console.log("done");
-		let userId = 999;
-		let type = 1;
-		let itemId = i;
-
-		let response = await Server.addToWishlist(userId, type, itemId);
-
-		if (response["response"] === "success") {
-			message.success('Added to wishlist');
-			this.setState({ isAdded: true, selectedId: i });
-		}
-		else {
-			message.info('Already added');
-		}
-	}
+		{
+			items: 5,
+			margin: 10,
+			nav: true,
+			loop: true,
+			autoplay: true
+		};
 
 		
 		componentDidMount() {
@@ -91,7 +71,7 @@ class MusicCard extends Component {
 			this.checkWishList();
 			this.setState({visible:false});	
 		}
-g
+
 	render() {
 		const cards = [];
 
