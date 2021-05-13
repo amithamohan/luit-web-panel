@@ -55,7 +55,6 @@ function WishList()
 
     let history = useHistory();
 
-    let dataList = [];
 
     useEffect(() =>
     {
@@ -69,14 +68,16 @@ function WishList()
 		
 		let data = JSON.parse(user);
 		
-        userId = data["id"];
+        setUserId( data["id"]);
 		console.log(data["id"]);
     }
 
     const displayWishList = async () =>
     {
 
-        let response = await Server.displayWishlist(userId);
+        // it should not be hard coded.
+
+        let response = await Server.displayWishlist("62");
 
         if(response["response"] === "success")
         {
@@ -99,12 +100,10 @@ function WishList()
 
     const deleteFromWishList = async (item) =>
     {
-        let userId = 4;
-        let id = item["id"];
-
+        
         console.log(item);
         console.log(userId);
-        console.log(dataList.length)
+        
         //setStatus(false);
        // setVisible(false);
         let response = await Server.deleteWishlist(userId, item);
@@ -139,8 +138,8 @@ function WishList()
         for(let i = 0; i < list.length; i++)
         {
             let movie = list[i]["video_details"][0];
-
-            // console.log(movie);
+            let id = list[i]["id"];
+            console.log(id);
             // let hour = "2500";
             let hour = movie["duration"].split('.');
 
@@ -162,7 +161,7 @@ function WishList()
                                         </Grid></Link>
 
                                         <Grid item>
-                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={e => this.deleteFromWishList(data["movie_id"])}aria-label="reqind">
+                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
                                             {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
                                             </IconButton>
                                         </Grid>
