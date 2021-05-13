@@ -95,22 +95,30 @@ class ProfileInfo extends React.Component {
 		this.setState({ email: event.target.value });
 	}
 
-	onUpdatePhoneNumber = (event) => {
+	onUpdatePhoneNumber = (event) =>
+	{
 		this.setState({ phoneNumber: event.target.value });
 	}
 
-	onUpdateDob = (event) => {
+	onUpdateDob = (event) =>
+	{
 		this.setState({ dob: event.target.value });
 	}
 
 
-	handleChange = info => {
+	handleChange = info =>
+	{
 
-		if (info.file.status === 'uploading') {
+		console.log(info);
+
+		if (info.file.status === 'uploading')
+		{
 			this.setState({ loading: true });
 			return;
 		}
-		if (info.file.status === 'done') {
+
+		if (info.file.status === 'done')
+		{
 			console.log(info.file.name);
 			console.log(info.file);
 			console.log(info.file.uid);
@@ -128,7 +136,8 @@ class ProfileInfo extends React.Component {
 		}
 	};
 
-	render() {
+	render()
+	{
 		let user = localStorage.getItem("user");
 		console.log(user);
 

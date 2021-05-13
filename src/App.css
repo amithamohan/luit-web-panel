@@ -7,10 +7,9 @@ input{
   color: rgb(255, 255, 255);
 }
 
-
-
 .App {
   text-align: center;
+  font-family: 'FontAwesome';
 
 }
 

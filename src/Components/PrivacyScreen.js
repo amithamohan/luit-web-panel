@@ -4,7 +4,7 @@ import React from 'react';
 
 function PrivacyScreen() {
     return(
-        <div className="container">
+        <div className="container" style={{fontFamily: "Montserrat"}}>
             <div className="heading">
                 <h2>Privacy Policy for Luit Users</h2>
             </div>

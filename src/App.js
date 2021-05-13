@@ -21,6 +21,7 @@ import Subscribe from './Components/Subscribe';
 
 function App() {
   return (
+    // <Router basename={'/demo/luitWeb/build'}>
     <Router>
       <Switch>
         <Route path="/" component={Home} exact />

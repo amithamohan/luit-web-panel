@@ -4,14 +4,18 @@ import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class MusicCard extends Component {
+
 	options =
-		{
-			items: 5,
-			margin: 10,
-			nav: true,
-			loop: true,
-			autoplay: true
-		};
+	{
+		items: 4,
+		margin: 5,
+		// itemsDesktop: [1000, 5],
+		nav: true,
+		loop: true,
+		dots: false,
+		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
+		autoplay: true,
+	};
 
 	render() {
 		const cards = [];
@@ -28,12 +32,12 @@ class MusicCard extends Component {
 							<div className="slide-image">
 								<img src={music["thumbnail"]} alt={music["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 							</div>
-							<div className="slide-content">
+							<div className="slide-content" style={{fontFamily: "Montserrat"}}>
 								<h2>{music["title"]}</h2>
-								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
-								<span className="tag">Year: {music["publish_year"]}</span>
-								<span className="tag">Rating: {music["ratings"]}</span>
-								<span className="tag"><b>{music["maturity_rating"]}+</b></span>
+								<p>{music["description"]} </p>
+								<span class="tag">{hour[0]} mins {hour[1]} sec</span>
+								<span class="tag">{music["publish_year"]}</span>
+								<span class="tag"><b>{music["maturity_rating"]}+</b></span>
 							</div>
 						</Link>
 					</div>

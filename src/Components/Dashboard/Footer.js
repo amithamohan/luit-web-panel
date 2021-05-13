@@ -6,7 +6,7 @@ class Footer extends Component
 	{
 		return(
 			<div>
-			<footer className="footer">
+			<footer className="footer" style={{fontFamily: "Montserrat"}}>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
 						<div className="row">

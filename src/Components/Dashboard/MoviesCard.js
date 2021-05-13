@@ -23,31 +23,15 @@ function MoviesCard(props) {
 
 	const options =
 	{
-		items: 5,
+		items: 4,
 		margin: 5,
-		itemsDesktop: [1000, 5],
+		// itemsDesktop: [1000, 5],
 		nav: true,
 		loop: true,
+		dots: false,
+		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
 		autoplay: true,
 	};
-
-	const customCard =
-	{
-		width: 100,
-		height: 35,
-	}
-
-	const cardOptions =
-	{
-		heigth: 700,
-		items: 5,
-		nav: true,
-		margin: 1,
-		loop: true,
-		autoplay: false,
-		stagePadding: 1,
-	};
-
 
 	const addToWishlist = async (i) => {
 		console.log("done");
@@ -85,10 +69,10 @@ function MoviesCard(props) {
 						</div>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}</h2>
-							<div className="tag"> Duration: {hour[0]} hrs {hour[1]} min</div>
-							<span className="tag">Year: {movie["publish_year"]}</span>
-							<span className="tag">Rating: {movie["ratings"]}</span>
-							<span className="tag"><b>{movie["maturity_rating"]}+</b></span>
+							<p style={{fontFamily: "Montserrat"}}>{movie["description"]}</p>
+							<span class="tag">{hour[0]} h {hour[1]} min</span>
+							<span class="tag">{movie["publish_year"]}</span>
+							<span class="tag"><b>{movie["maturity_rating"]}+</b></span>
 						</div>
 					</Link>
 				</div>
@@ -101,7 +85,7 @@ function MoviesCard(props) {
 			<div className="slide-wrapper">
 				<div className="container">
 					<div className="row">
-						<div className="col-sm-6 text-left mb-4 mt-4">
+						<div className="col-sm-6 col-lg-10 text-left mb-4 mt-4" style={{fontFamily: "Montserrat"}}>
 							<h2>{props.title}</h2>
 						</div>
 					</div>
