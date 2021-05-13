@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Server from '../APIs/Server';
 import Modal from 'antd/lib/modal/Modal';
+import { IconButton } from '@material-ui/core';
 import { message } from 'antd';
+import AddIcon from '@material-ui/icons/Add';
 import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import Text from 'antd/lib/typography/Text';
@@ -29,13 +31,11 @@ function MoviesCard(props) {
 
 	const options =
 	{
-		items: 4,
+		items: 5,
 		margin: 5,
-		// itemsDesktop: [1000, 5],
+		itemsDesktop: [1000, 5],
 		nav: true,
 		loop: true,
-		dots: false,
-		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
 		autoplay: true,
 	};
 
@@ -56,34 +56,10 @@ function MoviesCard(props) {
 		stagePadding: 1,
 	};
 
-	useEffect(()  => {
-		getUserDetails();
-		checkWishList();
-	},[])
-
-	const checkWishList = async () =>{
-		let type = 1;	
-		for (let i = 0; i < props.moviesList.length; i++) {
-		let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
-			if(response["response"] === "success"){
-				props.moviesList[i]["free"] = "Added";	
-			}		
-		}	
-		// After changing all value of "free" it is showing icon
-		setVisible(true);	 
-	};
-
-	const getUserDetails = () => {
-        let user = localStorage.getItem("user");
-        let data = JSON.parse(user);
-        if (data != null) {
-			setUserId(data["id"])
-        }
-        console.log(data);
-    }
 
 	const addToWishlist = async (i) => {
 		console.log("done");
+		let userId = 999;
 		let type = 1;
 		let itemId = i;
 
@@ -97,13 +73,58 @@ function MoviesCard(props) {
 		else {
 			message.info('Already added');
 		}
-		// call again 
-		checkWishList();
-	    setVisible(false)
 	}
 
 	const cards = [];
 	const text = [];
+
+	let list = props.moviesList.length;
+
+	if (list !== undefined) {
+		for (let i = 0; i < list; i++) {
+			const movie = props.moviesList[i];
+
+			let hour = props.moviesList[i]["duration"].split('.');
+
+			text.push(
+				<Row>
+					<Col key={i} xs={24} xl={8}>
+						<div className="owl-items" key={i} style={{ borderRadius: "25px" }}>
+							<Card className={customCard} hoverable
+								style={{ width: "240px", heigth: "600px" }}
+								cover={<div style={{ background: "white", height: "250px" }}>
+									<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} style={{ background: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)" }} />
+								</div>}
+							>
+
+								<Grid container direction="row" alignItems="center" justify="space-between">
+									<Grid item>
+										<h6>{movie["movie_title"]}</h6>
+									</Grid>
+
+									<Grid item>
+										<IconButton onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+											<AddIcon fontSize="inherit" />
+										</IconButton>
+									</Grid>
+								</Grid>
+								<span style={{ color: "grey" }}>{movie["publish_year"]}</span>
+								<Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey" }}>
+									<Grid item>
+										<span>{hour[0]} hrs {hour[1]} mins</span>
+									</Grid>
+
+									<Grid item>
+										<span>{movie["ratings"]}</span>
+									</Grid>
+								</Grid>
+							</Card>
+						</div>
+					</Col>
+				</Row>
+			);
+		}
+	}
 
 	for (let i = 0; i < props.moviesList.length; i++) {
 		const movie = props.moviesList[i];
@@ -112,8 +133,8 @@ function MoviesCard(props) {
 
 		// let hour = movie["duration"];
 
-		console.log(movie)
- 
+
+
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
@@ -123,12 +144,13 @@ function MoviesCard(props) {
 						</Link>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}
-							{/* Adding "visible" to refresh icon */}
-							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+								<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
 									{
-										movie["free"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+										isAdded ? selectedId === movie["movie_id"] ?
+											<CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+											: <AddIcon fontSize="inherit"></AddIcon>
 									}
-								</IconButton> : null}
+								</IconButton>
 							</h2>
 							<div className="tag"> Duration: {hour[0]} hrs {hour[1]} min</div>
 							<span className="tag">Year: {movie["publish_year"]}</span>
@@ -146,7 +168,7 @@ function MoviesCard(props) {
 			<div className="slide-wrapper">
 				<div className="container">
 					<div className="row">
-						<div className="col-sm-6 col-lg-10 text-left mb-4 mt-4" style={{fontFamily: "Montserrat"}}>
+						<div className="col-sm-6 text-left mb-4 mt-4">
 							<h2>{props.title}</h2>
 						</div>
 					</div>
