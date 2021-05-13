@@ -51,8 +51,11 @@ function WishList() {
 
     let history = useHistory();
 
+<<<<<<< HEAD
     let data;
     let userId;
+=======
+>>>>>>> test
 
     useEffect(() => {
         getUserDetails();
@@ -61,6 +64,7 @@ function WishList() {
 
     const getUserDetails = async () => {
         let user = localStorage.getItem("user");
+<<<<<<< HEAD
 
         let data = JSON.parse(user);
 
@@ -69,11 +73,20 @@ function WishList() {
             console.log(data["id"]);
         }
 
+=======
+		
+		let data = JSON.parse(user);
+		
+        setUserId( data["id"]);
+		console.log(data["id"]);
+>>>>>>> test
     }
 
     const displayWishList = async () => {
 
-        let response = await Server.displayWishlist(userId);
+        // it should not be hard coded.
+
+        let response = await Server.displayWishlist("62");
 
         if (response["response"] === "success") {
             let data = response["data"];
@@ -91,6 +104,7 @@ function WishList() {
         }
     }
 
+<<<<<<< HEAD
     const deleteFromWishList = async (item) => {
         let userId = 4;
         let id = item["id"];
@@ -100,6 +114,17 @@ function WishList() {
         setStatus(false);
 
         let response = await Server.deleteWishlist(userId, id);
+=======
+    const deleteFromWishList = async (item) =>
+    {
+        
+        console.log(item);
+        console.log(userId);
+        
+        //setStatus(false);
+       // setVisible(false);
+        let response = await Server.deleteWishlist(userId, item);
+>>>>>>> test
 
         console.log(response);
 
@@ -125,8 +150,13 @@ function WishList() {
     if (status !== undefined) {
         for (let i = 0; i < list.length; i++) {
             let movie = list[i]["video_details"][0];
+<<<<<<< HEAD
 
             console.log(movie);
+=======
+            let id = list[i]["id"];
+            console.log(id);
+>>>>>>> test
             // let hour = "2500";
             let hour = movie["duration"].split('.');
 
@@ -147,8 +177,13 @@ function WishList() {
                                         </Grid>
 
                                         <Grid item>
+<<<<<<< HEAD
                                             <IconButton style={{ color: "grey", fontSize: 30 }} onClick={e => this.deleteFromWishList(data["movie_id"])} aria-label="reqind">
                                                 {status ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+=======
+                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
+                                            {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
+>>>>>>> test
                                             </IconButton>
                                         </Grid>
                                     </Grid>
