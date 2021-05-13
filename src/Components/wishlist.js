@@ -1,12 +1,12 @@
 import Server from './APIs/Server';
 import React, { useEffect, useState } from 'react';
-import {Divider, Col, message, Row } from 'antd';
+import { Divider, Col, message, Row } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Container } from '@material-ui/core';
-import {IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Card} from 'antd';
+import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
 import CheckIcon from '@material-ui/icons/Check';
@@ -40,14 +40,13 @@ const list = [];
 
 
 const customCard =
-	{
-		width: 100,
-		height: 35,
-	}
-
-
-function WishList()
 {
+    width: 100,
+    height: 35,
+}
+
+
+function WishList() {
     const [status, setStatus] = useState(false);
     const [userId, setUserId] = useState();
    //const [visible, setVisible] = useState(true);
@@ -57,33 +56,31 @@ function WishList()
 
     let dataList = [];
 
-    useEffect(() =>
-    {
-       getUserDetails();
-       displayWishList();
+    useEffect(() => {
+        getUserDetails();
+        displayWishList();
     });
 
-    const getUserDetails = async () =>
-    {
+    const getUserDetails = async () => {
         let user = localStorage.getItem("user");
-		
-		let data = JSON.parse(user);
-		
-        userId = data["id"];
-		console.log(data["id"]);
+
+        let data = JSON.parse(user);
+
+        if (data != null) {
+            userId = data["id"];
+            console.log(data["id"]);
+        }
+
     }
 
-    const displayWishList = async () =>
-    {
+    const displayWishList = async () => {
 
         let response = await Server.displayWishlist(userId);
 
-        if(response["response"] === "success")
-        {
+        if (response["response"] === "success") {
             let data = response["data"];
 
-            for(let i = 0; i < data.length; i++)
-            {
+            for (let i = 0; i < data.length; i++) {
                 list.push(data[i]);
             }
 
@@ -91,14 +88,12 @@ function WishList()
             message.success("Watch your favourites");
 
         }
-        else
-        {
+        else {
             message.error("Add items to watchlist");
         }
     }
 
-    const deleteFromWishList = async (item) =>
-    {
+    const deleteFromWishList = async (item) => {
         let userId = 4;
         let id = item["id"];
 
@@ -111,21 +106,18 @@ function WishList()
 
         console.log(response);
 
-        if(response["response"] === "success")
-        {
+        if (response["response"] === "success") {
             list.pop(item);
             //setStatus(true);
             //setVisible(true);
             message.success("Removed from wishlist");
         }
-        else
-        {
+        else {
             message.error("Oops something went wrong");
         }
     }
 
-    const handleClick = () =>
-    {
+    const handleClick = () => {
         history.push("/movies_detailed_page");
     }
 
@@ -134,10 +126,8 @@ function WishList()
     const text = [];
     const row = [];
 
-    if(status !== undefined)
-    {
-        for(let i = 0; i < list.length; i++)
-        {
+    if (status !== undefined) {
+        for (let i = 0; i < list.length; i++) {
             let movie = list[i]["video_details"][0];
 
             // console.log(movie);
@@ -162,13 +152,13 @@ function WishList()
                                         </Grid></Link>
 
                                         <Grid item>
-                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={e => this.deleteFromWishList(data["movie_id"])}aria-label="reqind">
-                                            {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
+                                            <IconButton style={{ color: "grey", fontSize: 30 }} onClick={e => this.deleteFromWishList(data["movie_id"])} aria-label="reqind">
+                                                {status ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
                                             </IconButton>
                                         </Grid>
                                     </Grid>
-                                    <span style={{color: "grey"}}>{movie["publish_year"]}</span>
-                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{color: "grey"}}>
+                                    <span style={{ color: "grey" }}>{movie["publish_year"]}</span>
+                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey" }}>
                                         <Grid item>
                                             <span>{hour[0]} hrs {hour[1]} mins</span>
                                         </Grid>
@@ -186,33 +176,31 @@ function WishList()
         }
     }
 
-    if(status === true)
-    {
-        for(let i = 0; i < list.length; i++)
-        {
+    if (status === true) {
+        for (let i = 0; i < list.length; i++) {
             let movie = list[i];
 
             row.push(
                 <Col className="gutter-row" span={6} key={i}>
-                     <Link className="slide-one" to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
-                            <div className={classes.div}>
-                                 <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}}/>
-                                <Container style={{backgroundColor: "white"}}>
-                                    <Row>{movie["movie_title"]}</Row>
-                                </Container>
-                            </div>
-                     </Link>
+                    <Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
+                        <div className={classes.div}>
+                            <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+                            <Container style={{ backgroundColor: "white" }}>
+                                <Row>{movie["movie_title"]}</Row>
+                            </Container>
+                        </div>
+                    </Link>
                 </Col>
             );
         }
     }
 
-    return(
+    return (
         <div>
             <div>
-                <Divider orientation="center"><h3 style={{color: "white"}}>Wishlist</h3></Divider>
-                    <Row gutter={[8, 9]} justify="left">
-                {text}
+                <Divider orientation="center"><h3 style={{ color: "white" }}>Wishlist</h3></Divider>
+                <Row gutter={[8, 9]} justify="left">
+                    {text}
                 </Row>
             </div>
         </div>

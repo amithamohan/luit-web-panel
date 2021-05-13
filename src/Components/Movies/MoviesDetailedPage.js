@@ -203,6 +203,7 @@ class MoviesDetailedPage extends Component {
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton>
+
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4" />
 										</div>

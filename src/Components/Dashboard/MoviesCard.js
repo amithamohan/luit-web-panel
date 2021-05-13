@@ -11,12 +11,15 @@ import Grid from '@material-ui/core/Grid';
 import Text from 'antd/lib/typography/Text';
 import { Row, Col } from 'antd';
 import MoviesDetailedPage from '../Movies/MoviesDetailedPage';
+import CheckIcon from '@material-ui/icons/Check';
 
 const { Meta } = Card;
 
 
 function MoviesCard(props) {
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isAdded, setIsAdded] = useState(false);
+	const [selectedId, setSelectedId] = useState();
 
 	const handleOk = () => {
 		setIsModalVisible(false);
@@ -88,6 +91,8 @@ function MoviesCard(props) {
 
 		if (response["response"] === "success") {
 			message.success('Added to wishlist');
+			setIsAdded(true);
+			setSelectedId(i);
 		}
 		else {
 			message.info('Already added');
@@ -160,10 +165,10 @@ function MoviesCard(props) {
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
-					<Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ height: "430px" }}>
-						<div className="slide-image">
+					<div className="slide-one" style={{ height: "430px" }}>
+						<Link className="slide-image" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
-						</div>
+						</Link>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}
 							{/* Adding "visible" to refresh icon */}
@@ -178,7 +183,7 @@ function MoviesCard(props) {
 							<span className="tag">Rating: {movie["ratings"]}</span>
 							<span className="tag"><b>{movie["maturity_rating"]}+</b></span>
 						</div>
-					</Link>
+					</div>
 				</div>
 			);
 		}
