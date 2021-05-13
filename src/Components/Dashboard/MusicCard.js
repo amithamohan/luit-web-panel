@@ -62,21 +62,11 @@ class MusicCard extends Component {
 							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}
-<<<<<<< HEAD
 									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
 									{
 										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
 									}
 									</IconButton> : null}</h2>								
-=======
-									<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(music["id"])} aria-label="reqind">
-										{
-											this.state.isAdded ? this.state.selectedId === music["id"] ?
-												<CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
-												: <AddIcon fontSize="inherit"></AddIcon>
-										}
-									</IconButton></h2>
->>>>>>> task/addingWishList
 								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
 								<span className="tag">Year: {music["publish_year"]}</span>
 								<span className="tag">Rating: {music["ratings"]}</span>
