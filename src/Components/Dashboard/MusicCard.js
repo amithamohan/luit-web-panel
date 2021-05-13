@@ -2,8 +2,21 @@
 import React, { Component } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import { IconButton } from '@material-ui/core';
+import { message } from 'antd';
+import AddIcon from '@material-ui/icons/Add';
+import CheckIcon from '@material-ui/icons/Check';
+import Server from '../APIs/Server';
 class MusicCard extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isAdded: false,
+			selectedId: ''
+		}
+	}
 
 	options =
 	{
@@ -17,29 +30,52 @@ class MusicCard extends Component {
 		autoplay: true,
 	};
 
+	async addToWishlist(i) {
+		console.log("done");
+		let userId = 999;
+		let type = 1;
+		let itemId = i;
+
+		let response = await Server.addToWishlist(userId, type, itemId);
+
+		if (response["response"] === "success") {
+			message.success('Added to wishlist');
+			this.setState({ isAdded: true, selectedId: i });
+		}
+		else {
+			message.info('Already added');
+		}
+	}
+
 	render() {
 		const cards = [];
 
 		for (let i = 0; i < this.props.musicList.length; i++) {
 			const music = this.props.musicList[i];
+			//console.log(music)
 
 			let hour = this.props.musicList[i]["duration"].split('.');
 
 			if (music !== undefined) {
 				cards.push(
 					<div className="owl-items" key={i}>
-						<Link className="slide-one" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i] } }} style={{ height: "430px" }}>
-							<div className="slide-image">
+						<div className="slide-one" style={{ height: "430px" }}>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
 								<img src={music["thumbnail"]} alt={music["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+							</Link>
+							<div className="slide-content">
+								<h2>{music["title"]}
+									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
+									{
+										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+									}
+									</IconButton> : null}</h2>								
+								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
+								<span className="tag">Year: {music["publish_year"]}</span>
+								<span className="tag">Rating: {music["ratings"]}</span>
+								<span className="tag"><b>{music["maturity_rating"]}+</b></span>
 							</div>
-							<div className="slide-content" style={{fontFamily: "Montserrat"}}>
-								<h2>{music["title"]}</h2>
-								<p>{music["description"]} </p>
-								<span class="tag">{hour[0]} mins {hour[1]} sec</span>
-								<span class="tag">{music["publish_year"]}</span>
-								<span class="tag"><b>{music["maturity_rating"]}+</b></span>
-							</div>
-						</Link>
+						</div>
 					</div>
 				);
 			}

@@ -214,8 +214,13 @@ class MoviesDetailedPage extends Component
 										<span className="tag"><b>{data["maturity_rating"]}+</b></span>
 										<span className="tag">{hour[0]} hours {hour[1]} min</span>
 										<p>{data["description"]}</p>
-										<a href="video.html" className="btn btn-lg"><img src="images/play.png" alt="icn"/>Watch now</a>
-										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
+
+										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: this.props.location.params["item"] } }}><img src="images/play.png" alt="" />Watch now</Link>
+
+										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
+											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+										</IconButton>
+
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4"></i>
 											<div className="share-icons">

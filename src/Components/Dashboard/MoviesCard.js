@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Server from '../APIs/Server';
 import Modal from 'antd/lib/modal/Modal';
 import { message } from 'antd';
 import { Card } from 'antd';
-
+import Grid from '@material-ui/core/Grid';
+import Text from 'antd/lib/typography/Text';
+import { Row, Col } from 'antd';
+import MoviesDetailedPage from '../Movies/MoviesDetailedPage';
+import CheckIcon from '@material-ui/icons/Check';
 
 const { Meta } = Card;
 
 
 function MoviesCard(props) {
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isAdded, setIsAdded] = useState(false);
+	const [selectedId, setSelectedId] = useState();
 
 	const handleOk = () => {
 		setIsModalVisible(false);
@@ -33,9 +39,51 @@ function MoviesCard(props) {
 		autoplay: true,
 	};
 
+	const customCard =
+	{
+		width: 100,
+		height: 35,
+	}
+
+	const cardOptions =
+	{
+		heigth: 700,
+		items: 5,
+		nav: true,
+		margin: 1,
+		loop: true,
+		autoplay: false,
+		stagePadding: 1,
+	};
+
+	useEffect(()  => {
+		getUserDetails();
+		checkWishList();
+	},[])
+
+	const checkWishList = async () =>{
+		let type = 1;	
+		for (let i = 0; i < props.moviesList.length; i++) {
+		let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
+			if(response["response"] === "success"){
+				props.moviesList[i]["free"] = "Added";	
+			}		
+		}	
+		// After changing all value of "free" it is showing icon
+		setVisible(true);	 
+	};
+
+	const getUserDetails = () => {
+        let user = localStorage.getItem("user");
+        let data = JSON.parse(user);
+        if (data != null) {
+			setUserId(data["id"])
+        }
+        console.log(data);
+    }
+
 	const addToWishlist = async (i) => {
 		console.log("done");
-		let userId = 4;
 		let type = 1;
 		let itemId = i;
 
@@ -43,10 +91,15 @@ function MoviesCard(props) {
 
 		if (response["response"] === "success") {
 			message.success('Added to wishlist');
+			setIsAdded(true);
+			setSelectedId(i);
 		}
 		else {
 			message.info('Already added');
 		}
+		// call again 
+		checkWishList();
+	    setVisible(false)
 	}
 
 	const cards = [];
@@ -59,22 +112,30 @@ function MoviesCard(props) {
 
 		// let hour = movie["duration"];
 
-		if (movie !== undefined) 
-		{
+		console.log(movie)
+ 
+		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
-					<Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ height: "430px" }}>
-						<div className="slide-image">
+					<div className="slide-one" style={{ height: "430px" }}>
+						<Link className="slide-image" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
-						</div>
+						</Link>
 						<div className="slide-content">
-							<h2>{movie["movie_title"]}</h2>
-							<p style={{fontFamily: "Montserrat"}}>{movie["description"]}</p>
-							<span class="tag">{hour[0]} h {hour[1]} min</span>
-							<span class="tag">{movie["publish_year"]}</span>
-							<span class="tag"><b>{movie["maturity_rating"]}+</b></span>
+							<h2>{movie["movie_title"]}
+							{/* Adding "visible" to refresh icon */}
+							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+									{
+										movie["free"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+									}
+								</IconButton> : null}
+							</h2>
+							<div className="tag"> Duration: {hour[0]} hrs {hour[1]} min</div>
+							<span className="tag">Year: {movie["publish_year"]}</span>
+							<span className="tag">Rating: {movie["ratings"]}</span>
+							<span className="tag"><b>{movie["maturity_rating"]}+</b></span>
 						</div>
-					</Link>
+					</div>
 				</div>
 			);
 		}
