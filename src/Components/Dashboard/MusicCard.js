@@ -71,7 +71,7 @@ class MusicCard extends Component {
 			this.checkWishList();
 			this.setState({visible:false});	
 		}
-
+g
 	render() {
 		const cards = [];
 
