@@ -49,11 +49,13 @@ const customCard =
 function WishList()
 {
     const [status, setStatus] = useState(false);
+    const [userId, setUserId] = useState();
+   //const [visible, setVisible] = useState(true);
+    //const [dataList, setDataList] = useState([]);
 
     let history = useHistory();
 
-    let data;
-    let userId;
+    let dataList = [];
 
     useEffect(() =>
     {
@@ -101,17 +103,19 @@ function WishList()
         let id = item["id"];
 
         console.log(item);
-
-        setStatus(false);
-
-        let response = await Server.deleteWishlist(userId, id);
+        console.log(userId);
+        console.log(dataList.length)
+        //setStatus(false);
+       // setVisible(false);
+        let response = await Server.deleteWishlist(userId, item);
 
         console.log(response);
 
         if(response["response"] === "success")
         {
             list.pop(item);
-            setStatus(true);
+            //setStatus(true);
+            //setVisible(true);
             message.success("Removed from wishlist");
         }
         else
@@ -136,7 +140,7 @@ function WishList()
         {
             let movie = list[i]["video_details"][0];
 
-            console.log(movie);
+            // console.log(movie);
             // let hour = "2500";
             let hour = movie["duration"].split('.');
 
@@ -144,17 +148,18 @@ function WishList()
                 <Row gutter={[8, 8]}>
                     <Col key={i} xs={24} xl={12}>
                         <div style={{borderRadius: "25px", marginLeft: "25px"}}>
-                            <Link className="owl-items" key={i} to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
-                                <Card className={customCard} hoverable onClick = {() => {handleClick()}}
+                            <div className="owl-items" key={i} to={{pathname: "/movies_detailed_page", params:{item: movie}}}>
+                                <Card className={customCard} 
                                     style={{ width: "240px", heigth: "600px"}}
                                     cover={<div style={{background: "white", height: "200px"}}>
                                     <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}}/>
                                         </div>}>
 
                                     <Grid container direction="row" alignItems="center" justify="space-between">
+                                        <Link to={{ pathname: "/movies_detailed_page", params: { item: movie } }} >
                                         <Grid item>
                                             {movie["type"] === "music" ? movie["title"] : movie["movie_title"]}
-                                        </Grid>
+                                        </Grid></Link>
 
                                         <Grid item>
                                             <IconButton style={{color: "grey", fontSize: 30}} onClick={e => this.deleteFromWishList(data["movie_id"])}aria-label="reqind">
@@ -173,7 +178,7 @@ function WishList()
                                         </Grid>
                                     </Grid>
                                 </Card>
-                            </Link>
+                            </div>
                         </div>
                     </Col>
                 </Row>

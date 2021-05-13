@@ -18,6 +18,7 @@ class MusicCard extends Component {
 
 		for (let i = 0; i < this.props.musicList.length; i++) {
 			const music = this.props.musicList[i];
+			//console.log(music)
 
 			let hour = this.props.musicList[i]["duration"].split('.');
 
@@ -29,7 +30,12 @@ class MusicCard extends Component {
 								<img src={music["thumbnail"]} alt={music["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 							</div>
 							<div className="slide-content">
-								<h2>{music["title"]}</h2>
+								<h2>{music["title"]}
+									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
+									{
+										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+									}
+									</IconButton> : null}</h2>								
 								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
 								<span className="tag">Year: {music["publish_year"]}</span>
 								<span className="tag">Rating: {music["ratings"]}</span>

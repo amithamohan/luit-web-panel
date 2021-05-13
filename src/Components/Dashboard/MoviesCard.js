@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Server from '../APIs/Server';
@@ -53,10 +53,34 @@ function MoviesCard(props) {
 		stagePadding: 1,
 	};
 
+	useEffect(()  => {
+		getUserDetails();
+		checkWishList();
+	},[])
+
+	const checkWishList = async () =>{
+		let type = 1;	
+		for (let i = 0; i < props.moviesList.length; i++) {
+		let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
+			if(response["response"] === "success"){
+				props.moviesList[i]["free"] = "Added";	
+			}		
+		}	
+		// After changing all value of "free" it is showing icon
+		setVisible(true);	 
+	};
+
+	const getUserDetails = () => {
+        let user = localStorage.getItem("user");
+        let data = JSON.parse(user);
+        if (data != null) {
+			setUserId(data["id"])
+        }
+        console.log(data);
+    }
 
 	const addToWishlist = async (i) => {
 		console.log("done");
-		let userId = 4;
 		let type = 1;
 		let itemId = i;
 
@@ -68,6 +92,9 @@ function MoviesCard(props) {
 		else {
 			message.info('Already added');
 		}
+		// call again 
+		checkWishList();
+	    setVisible(false)
 	}
 
 	const cards = [];
@@ -128,8 +155,8 @@ function MoviesCard(props) {
 
 		// let hour = movie["duration"];
 
-
-
+		console.log(movie)
+ 
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
@@ -138,7 +165,14 @@ function MoviesCard(props) {
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</div>
 						<div className="slide-content">
-							<h2>{movie["movie_title"]}</h2>
+							<h2>{movie["movie_title"]}
+							{/* Adding "visible" to refresh icon */}
+							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+									{
+										movie["free"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
+									}
+								</IconButton> : null}
+							</h2>
 							<div className="tag"> Duration: {hour[0]} hrs {hour[1]} min</div>
 							<span className="tag">Year: {movie["publish_year"]}</span>
 							<span className="tag">Rating: {movie["ratings"]}</span>
