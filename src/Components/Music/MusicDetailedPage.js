@@ -192,7 +192,7 @@ class MusicDetailedPage extends Component {
 										<span className="tag"><b>{data["maturity_rating"]}+</b></span>
 										<span className="tag">{hour[0]} mins {hour[1]} min</span>
 										<p>{data["description"]}</p>
-										<a href="video.html" className="btn btn-lg"><img src="images/play.png" alt="icn"/>Watch now</a>
+										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
 										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4"></i>

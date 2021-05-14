@@ -49,7 +49,6 @@ export default function ViewAll(params)
                 {row}
                 </Row>
             </div>
-            <Footer/>
         </div>
     );
 }
