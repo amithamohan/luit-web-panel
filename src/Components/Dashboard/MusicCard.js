@@ -7,19 +7,12 @@ import { IconButton } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import { message } from 'antd';
 import Server from '../APIs/Server';
-<<<<<<< HEAD
-
-class MusicCard extends Component {
-
-	constructor(props){
-=======
 
 class MusicCard extends Component 
 {
 
 	constructor(props)
 	{
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 		super(props);
 		this.state = 
 		{
@@ -28,15 +21,6 @@ class MusicCard extends Component
 		}
 	}
 	options =
-<<<<<<< HEAD
-		{
-			items: 5,
-			margin: 10,
-			nav: true,
-			loop: true,
-			autoplay: true
-		};
-=======
 	{
 		items: 4,
 		margin: 5,
@@ -46,14 +30,12 @@ class MusicCard extends Component
 		loop: true,
 		autoplay: true,
 	};
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 
 		
 		componentDidMount() {
 			this.getUserDetails();
 			this.checkWishList();
 		}
-<<<<<<< HEAD
 
 	async checkWishList () {
 		let type = 1;	
@@ -76,30 +58,6 @@ class MusicCard extends Component
 		console.log(data);
     }
 
-=======
-
-	async checkWishList () {
-		let type = 1;	
-		for (let i = 0; i < this.props.musicList.length; i++) {
-		let response = await Server.wishlistIsPresent(type, this.props.musicList[i]["id"], this.userId);
-			if(response["response"] === "success"){
-				this.props.musicList[i]["status"] = "Added";	
-			}		
-		}	
-		// After changing all value of "free" it is showing icon
-		this.setState({visible:true});	 
-	};
-
-	async getUserDetails() {
-        let user = localStorage.getItem("user");
-        let data = JSON.parse(user);
-        if (data != null) {
-			this.setState({userId:data["id"]});
-        }
-		console.log(data);
-    }
-
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 		async addToWishlist (i) {
 			console.log("done");
 			let type = 1;
@@ -117,11 +75,7 @@ class MusicCard extends Component
 			this.checkWishList();
 			this.setState({visible:false});	
 		}
-<<<<<<< HEAD
-
-=======
 g
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 	render() {
 		const cards = [];
 
@@ -145,19 +99,11 @@ g
 										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
 									}
 									</IconButton> : null}
-<<<<<<< HEAD
-									</h2>								
-								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
-								<span className="tag">Year: {music["publish_year"]}</span>
-								<span className="tag">Rating: {music["ratings"]}</span>
-								<span className="tag"><b>{music["maturity_rating"]}+</b></span>
-=======
 									</h2>
 									<p>{music["description"]}</p>
 									<span class="tag">{hour[0]} min {hour[1]} sec</span>
 									<span class="tag">{music["publish_year"]}</span>
 									<span class="tag"><b>{music["maturity_rating"]} +</b></span>
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 							</div>
 						</div>
 					</div>

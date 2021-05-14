@@ -52,14 +52,6 @@ function WishList() {
 
     let history = useHistory();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let data;
-    let userId;
-=======
->>>>>>> test
-=======
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 
     useEffect(() => {
         getUserDetails();
@@ -68,28 +60,11 @@ function WishList() {
 
     const getUserDetails = async () => {
         let user = localStorage.getItem("user");
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        let data = JSON.parse(user);
-
-        if (data != null) {
-            userId = data["id"];
-            console.log(data["id"]);
-        }
-
-=======
-=======
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 		
 		let data = JSON.parse(user);
 		
         setUserId( data["id"]);
 		console.log(data["id"]);
-<<<<<<< HEAD
->>>>>>> test
-=======
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
     }
 
     const displayWishList = async () => {
@@ -114,37 +89,15 @@ function WishList() {
         }
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const deleteFromWishList = async (item) => {
-        let userId = 4;
-        let id = item["id"];
-
-        console.log(item);
-
-        setStatus(false);
-
-        let response = await Server.deleteWishlist(userId, id);
-=======
     const deleteFromWishList = async (item) =>
     {
         
         console.log(item);
-=======
-    const deleteFromWishList = async (item) =>
-    {
-        
-        console.log(item);
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
         console.log(userId);
         
         //setStatus(false);
        // setVisible(false);
         let response = await Server.deleteWishlist(userId, item);
-<<<<<<< HEAD
->>>>>>> test
-=======
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
 
         console.log(response);
 
@@ -170,18 +123,8 @@ function WishList() {
     if (status !== undefined) {
         for (let i = 0; i < list.length; i++) {
             let movie = list[i]["video_details"][0];
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-            console.log(movie);
-=======
             let id = list[i]["id"];
             console.log(id);
->>>>>>> test
-=======
-            let id = list[i]["id"];
-            console.log(id);
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
             // let hour = "2500";
             let hour = movie["duration"].split('.');
 
@@ -202,18 +145,8 @@ function WishList() {
                                         </Grid>
 
                                         <Grid item>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                            <IconButton style={{ color: "grey", fontSize: 30 }} onClick={e => this.deleteFromWishList(data["movie_id"])} aria-label="reqind">
-                                                {status ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
-=======
                                             <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
                                             {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
->>>>>>> test
-=======
-                                            <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
-                                            {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
->>>>>>> 5791d0f5125cd79dfb9155b6919215341974683c
                                             </IconButton>
                                         </Grid>
                                     </Grid>
