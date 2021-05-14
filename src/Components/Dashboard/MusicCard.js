@@ -2,19 +2,22 @@
 import React, { Component } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { IconButton } from '@material-ui/core';
-import { message } from 'antd';
 import AddIcon from '@material-ui/icons/Add';
+import { IconButton } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
+import { message } from 'antd';
 import Server from '../APIs/Server';
-class MusicCard extends Component {
 
-	constructor(props) {
+class MusicCard extends Component 
+{
+
+	constructor(props)
+	{
 		super(props);
-
-		this.state = {
-			isAdded: false,
-			selectedId: ''
+		this.state = 
+		{
+			visible:false,
+			userId:''
 		}
 	}
 
@@ -22,31 +25,58 @@ class MusicCard extends Component {
 	{
 		items: 4,
 		margin: 5,
-		// itemsDesktop: [1000, 5],
+		itemsDesktop: [1000, 5],
 		nav: true,
+		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: true,
-		dots: false,
-		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
 		autoplay: true,
 	};
 
-	async addToWishlist(i) {
-		console.log("done");
-		let userId = 999;
-		let type = 1;
-		let itemId = i;
-
-		let response = await Server.addToWishlist(userId, type, itemId);
-
-		if (response["response"] === "success") {
-			message.success('Added to wishlist');
-			this.setState({ isAdded: true, selectedId: i });
+		
+		componentDidMount() {
+			this.getUserDetails();
+			this.checkWishList();
 		}
-		else {
-			message.info('Already added');
-		}
-	}
 
+	async checkWishList () {
+		let type = 1;	
+		for (let i = 0; i < this.props.musicList.length; i++) {
+		let response = await Server.wishlistIsPresent(type, this.props.musicList[i]["id"], this.userId);
+			if(response["response"] === "success"){
+				this.props.musicList[i]["status"] = "Added";	
+			}		
+		}	
+		// After changing all value of "free" it is showing icon
+		this.setState({visible:true});	 
+	};
+
+	async getUserDetails() {
+        let user = localStorage.getItem("user");
+        let data = JSON.parse(user);
+        if (data != null) {
+			this.setState({userId:data["id"]});
+        }
+		console.log(data);
+    }
+
+		async addToWishlist (i) {
+			console.log("done");
+			let type = 1;
+			let itemId = i;
+	
+			let response = await Server.addToWishlist(this.userId, type, itemId);
+	
+			if (response["response"] === "success") {
+				message.success('Added to wishlist');
+			}
+			else {
+				message.info('Already added');
+			}
+			// call again 
+			this.checkWishList();
+			this.setState({visible:false});	
+		}
+g
 	render() {
 		const cards = [];
 
@@ -59,9 +89,9 @@ class MusicCard extends Component {
 			if (music !== undefined) {
 				cards.push(
 					<div className="owl-items" key={i}>
-						<div className="slide-one" style={{ height: "430px" }}>
-							<Link className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
-								<img src={music["thumbnail"]} alt={music["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+						<div className="slide-one"  style={{ height: "430px" }}>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i]}}} style={{ display: "flex", justifyContent: "center" }}>
+								<img src={music["thumbnail"]} alt={music["title"]}style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}
@@ -69,11 +99,12 @@ class MusicCard extends Component {
 									{
 										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
 									}
-									</IconButton> : null}</h2>								
-								<div className="tag"> Duration: {hour[0]} mins {hour[1]} sec</div>
-								<span className="tag">Year: {music["publish_year"]}</span>
-								<span className="tag">Rating: {music["ratings"]}</span>
-								<span className="tag"><b>{music["maturity_rating"]}+</b></span>
+									</IconButton> : null}
+									</h2>
+									<p>{music["description"]}</p>
+									<span class="tag">{hour[0]} min {hour[1]} sec</span>
+									<span class="tag">{music["publish_year"]}</span>
+									<span class="tag"><b>{music["maturity_rating"]} +</b></span>
 							</div>
 						</div>
 					</div>

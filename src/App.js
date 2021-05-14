@@ -21,8 +21,7 @@ import Subscribe from './Components/Subscribe';
 
 function App() {
   return (
-    // <Router basename={'/demo/luitWeb/build'}>
-    <Router>
+    <Router basename={'/demo/luitWeb/build'}>
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/movies" component={MoviesPage} />
@@ -43,6 +42,28 @@ function App() {
         <Route path="/subscribe" component={Subscribe} />
       </Switch>
     </Router>
+
+    // <Router basename={'/demo/luitWeb/build'}>
+    //   <Switch>
+    //     <Route path="/" component={Home} exact />
+    //     <Route path="/movies" component={MoviesPage} />
+    //     <Route path="/music" component={MusicPage} />
+    //     <Route path="/short_film" component={ShortFilm} />
+    //     <Route path="/web_series" component={WebSeries} />
+    //     <Route path="/profile" component={ProfileInfo} />
+    //     <Route path="/sign_in" component={SigninScreen} />
+    //     <Route path="/verifyotp" component={OTPScreen} />
+    //     <Route path="/terms" component={TermsScreen} />
+    //     <Route path="/privacy-policy" component={PrivacyScreen} />
+    //     <Route path="/wishlist" component={WishList} />
+    //     <Route path="/music_detailed_page" component={MusicDetailedPage} />
+    //     <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
+    //     <Route path="/view_all" component={ViewAll} />
+    //     <Route path="/video_player" component={VideoPlayer} />
+    //     <Route path="/rating" component={StarRating} />
+    //     <Route path="/subscribe" component={Subscribe} />
+    //   </Switch>
+    // </Router>
   );
 }
 

@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
-class MoviesByLanguages extends Component {
+class MoviesByLanguages extends Component 
+{
 	options =
 		{
 			items: 4,
@@ -39,7 +40,7 @@ class MoviesByLanguages extends Component {
 
 		return (
 			<div>
-				<div className="category-wrapper slide-wrapper">
+				<div className="category-wrapper slide-wrapper" style={{fontFamily: "Montserrat"}}>
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6 mt-1" style={{fontFamily: "Montserrat"}}>

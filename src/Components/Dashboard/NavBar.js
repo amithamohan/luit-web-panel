@@ -169,7 +169,7 @@ class NavigationBar extends Component
     {
         return(
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: "#1A2236", fontFamily: "Montserrat"}}>
-                <a className="navbar-brand" href="#"><img src="https://release.luit.co.in/app-assets/images/logo/logo.png" alt="logo" className="light" /></a>
+                <a className="navbar-brand" href="/demo/luitWeb/build/"><img src="https://release.luit.co.in/app-assets/images/logo/logo.png" alt="logo" className="light" /></a>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -178,19 +178,19 @@ class NavigationBar extends Component
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/movies">Movies</a>
+                            <a className="nav-link" href="/demo/luitWeb/build/movies">Movies</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/music">Music</a>
+                            <a className="nav-link" href="/demo/luitWeb/build/music">Music</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/short_film">Short Films</a>
+                            <a className="nav-link" href="/demo/luitWeb/build/music">Short Films</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="web_series">Web Series</a>
+                            <a className="nav-link" href="/demo/luitWeb/build/music">Web Series</a>
                         </li>
                     </ul>
 
