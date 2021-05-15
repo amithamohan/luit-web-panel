@@ -46,6 +46,8 @@ function OTPScreen()
             let user = result.user;
             console.log(user);
 
+            loginWithOtp();
+
         })
         .catch(function (error) 
         {

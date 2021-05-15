@@ -98,12 +98,11 @@ function SigninScreen()
 
     const onSignInSubmit = (e) =>
     {
+        console.log(value);
         e.preventDefault();
         setUpRecaptcha();
 
-        let phoneNumber = "+9194970 45922";
-
-        console.log(phoneNumber);
+        let phoneNumber = value;
 
         let appVerifier = window.recaptchaVerifier;firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult)
         {
@@ -195,7 +194,7 @@ function SigninScreen()
                                         <PhoneInput
                                             defaultCountry="IN"
                                             placeholder="Enter phone number"
-                                            value="+919497045922"
+                                            value={value}
                                             onChange={setValue}
                                             className="form-control" />
                                     </div>
