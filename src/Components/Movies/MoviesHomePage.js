@@ -116,6 +116,8 @@ class MoviesPage extends Component {
 		}
 
 		this.setState({ topMovies: topMoviesList });
+
+		console.log(this.state.topMovies);
 	}
 
 	async getNewReleasedMovies() {

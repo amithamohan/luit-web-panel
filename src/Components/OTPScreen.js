@@ -2,31 +2,28 @@ import React from 'react';
 import {useState} from 'react';
 import 'firebase/database';
 import 'firebase/auth';
+import { useLocation, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import Server from './APIs/Server';
+import { message } from 'antd';
 
 
 function OTPScreen()
 {
     const [value, setValue] = useState();
+    const location = useLocation();
+
+    let history = useHistory();
 
     let otpCode;
 
-    function codeVerify()
+
+    useEffect(() => 
     {
-        var coderesult;
-        var code=document.getElementById("first").value;
-
-        coderesult.confirm(code).then((result)=>
-        {
-            alert("Successfully Verified");
-            var user= result.user;
-
-            console.log(user);
-
-        }).catch((error)=>
-        {
-            alert(error.message);
-        })
-    }
+        console.log(location.pathname); // result: '/secondpage'
+        console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+ 
 
     const handleOTP = (event) =>
 	{
@@ -37,25 +34,59 @@ function OTPScreen()
 
     const onSubmitOtp = (e) =>
     {
-        console.log(this.props.state);
         e.preventDefault();
 
         let otpInput = otpCode;
-        let optConfirm = window.confirmationResult;
+        let otpConfirm = window.confirmationResult;
         // console.log(codee);
-
-        optConfirm.confirm(otpInput).then(function (result)
+        otpConfirm.confirm(otpInput).then(function (result)
         {
             // User signed in successfully.
-            console.log("Result" + result.verificationID);
+            console.log("Result" + result);
             let user = result.user;
+            console.log(user);
+
         })
-        .catch(function (error)
+        .catch(function (error) 
         {
             console.log(error);
             alert("Incorrect OTP");
         });
     };
+
+    const loginWithOtp = async () =>
+    {
+        let phoneNumber = location.state.detail;
+
+        let response = await Server.loginWithOtp(phoneNumber);
+
+        console.log(response);
+
+        if(response["response"] === "success")
+        {
+            message.success("Login Success");
+
+            let user =
+            {
+                "id": response["credential"][0]["id"],
+                "name": "",
+                "email": "",
+                "phoneNumber": phoneNumber,
+                "image": "",
+                "isLoggedIn": true
+            };
+
+            console.log(user);
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            history.push("/");
+        }
+        else
+        {
+            message.error("Oops, error in login, try again later");
+        }
+    }
 
     return(
         <div className="container-fluid height-100 d-flex justify-content-center align-items-center">
