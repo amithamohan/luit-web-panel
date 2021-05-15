@@ -98,28 +98,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // export default NavigationBar;
 
 
-
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="/sign_in">
-                Login
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="/wishlist">
-                My Wishlist
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="/profile">
-                Profile
-            </a>
-        </Menu.Item>
-    </Menu>
-);
-  
-
 class NavigationBar extends Component
 {
     constructor(props)
@@ -155,9 +133,11 @@ class NavigationBar extends Component
 
         let data = JSON.parse(user);
 
-        if (data != null) {
+        if (data != null) 
+        {
             this.setState({ image: data["image"], isLoggedIn: true })
-        } else {
+        } else 
+        {
             this.setState({
                 image: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
             })
@@ -196,7 +176,26 @@ class NavigationBar extends Component
 
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <Dropdown overlay={menu}>
+                        <Dropdown overlay = 
+                            {<Menu>
+                                <Menu.Item>
+                                    {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
+                                        Logout
+                                    </a> : <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
+                                        Login
+                                    </a>}
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <a rel="noopener noreferrer" href="/wishlist">
+                                        My Wishlist
+                                    </a>
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
+                                        Profile
+                                    </a>
+                                </Menu.Item>
+                            </Menu>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         <Avatar  src= {this.state.image ? this.state.image : "https://via.placeholder.com/50x50.png"}></Avatar><DownOutlined />
                         </a>

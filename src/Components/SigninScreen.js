@@ -15,7 +15,8 @@ import firebase from '../config/firebase';
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
 
-function SigninScreen() {
+function SigninScreen()
+{
     let history = useHistory();
 
     let checked = false;
@@ -23,16 +24,16 @@ function SigninScreen() {
 
     let sendOtp = false;
 
-    const onFailure = (res) => {
+    const onFailure = (res) =>
+    {
         console.log('Login failed: res:', res);
-        alert(
-            `Failed to login. `
-        );
+        alert(`Failed to login. `);
     };
 
     const style = { background: '#0092ff', padding: '8px 0' };
 
-    const googleLogin = async (email, name, imageUrl, googleId) => {
+    const googleLogin = async (email, name, imageUrl, googleId) =>
+    {
         let age = "";
         let dob = "";
         let phoneNumber = "";
@@ -41,7 +42,8 @@ function SigninScreen() {
 
         console.log(response);
 
-        if (response["response"] === "success") {
+        if (response["response"] === "success") 
+        {
             message.success("Login Success");
 
             let user =
@@ -64,7 +66,8 @@ function SigninScreen() {
         }
     }
 
-    const onSuccess = (res) => {
+    const onSuccess = (res) =>
+    {
         let email = res.profileObj.email;
         let name = res.profileObj.name;
         let imageUrl = res.profileObj.imageUrl;
@@ -73,54 +76,76 @@ function SigninScreen() {
         googleLogin(email, name, imageUrl, googleId);
     };
 
-    const responseFacebook = (response) => {
+    const responseFacebook = (response) =>
+    {
         console.log(response);
     };
 
-
-    const setUpRecaptcha = () => {
-        console.log("capatcha code");
-
+    const setUpRecaptcha = () =>
+    {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
             "recaptcha-container",
             {
                 size: "invisible",
-                callback: function (response) {
+                callback: function (response)
+                {
                     console.log("Captcha Resolved");
                     this.onSignInSubmit();
                 },
                 defaultCountry: "IN",
             });
-    };
+        };
 
     const onSignInSubmit = (e) =>
     {
         console.log(value);
+        e.preventDefault();
+        setUpRecaptcha();
 
-        if (checked === false) {
-            message.warning("Please accept the Privacy Policy and Terms and Conditions");
-        }
-        else {
-            e.preventDefault();
-            setUpRecaptcha();
+        let phoneNumber = value;
 
-            let phoneNumber = value;
-
-            console.log(phoneNumber);
-
-            let appVerifier = window.recaptchaVerifier;
-
-            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult) {
-                window.confirmationResult = confirmationResult;
-                history.push({ pathname: "/verifyotp", state: { detail: window.confirmationResult } });
-            })
-                .catch(function (error) {
-                    alert(error);
-                });
-        }
+        let appVerifier = window.recaptchaVerifier;firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier).then(function (confirmationResult)
+        {
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            window.confirmationResult = confirmationResult;
+            // console.log(confirmationResult);
+            console.log("OTP is sent");
+            
+            history.push({
+                pathname: '/verifyotp',
+                state: { detail: phoneNumber }
+              });
+            // history.push("/verifyotp")
+        })
+        .catch(function (error)
+        {
+            console.log(error);
+        });
     };
 
-    const isChecked = () => {
+    const onSubmitOtp = (e) =>
+    {
+        e.preventDefault();
+
+        let otpInput = this.state.otp;
+        let optConfirm = window.confirmationResult;
+        // console.log(codee);
+        optConfirm.confirm(otpInput).then(function (result) 
+        {
+            // User signed in successfully.
+            // console.log("Result" + result.verificationID);
+            let user = result.user;
+        })
+        .catch(function (error) 
+        {
+            console.log(error);
+            alert("Incorrect OTP");
+        });
+    };
+
+    const isChecked = () =>
+    {
         checked = true;
     }
 
