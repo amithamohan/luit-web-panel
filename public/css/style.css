@@ -12322,8 +12322,7 @@ label.error {
   left: 0;
   top: -50px;
   width: 100%;
-  height: 50px;
-  background: linear-gradient(to top, #211813, transparent);
+  height: 50px; 
 }
 
 .slide-wrapper h2 {

@@ -37,7 +37,7 @@ function MoviesCard(props) {
 		itemsDesktop: [1000, 5],
 		nav: true,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
-		loop: true,
+		loop: false,
 		autoplay: true,
 	};
 

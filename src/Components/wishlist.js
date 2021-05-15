@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     div:
     {
-        height: "300px",
+        //height: "300px",
         paddingLeft: "40px",
         paddingRight: "40px",
         // background: "white"
@@ -129,42 +129,47 @@ function WishList() {
             let hour = movie["duration"].split('.');
 
             text.push(
-                <Row gutter={[8, 8]}>
-                    <Col key={i} xs={24} xl={12}>
-                        <div style={{ borderRadius: "25px", marginLeft: "25px" }}>
-                            <Link className="owl-items" key={i} to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
-                                <Card className={customCard} hoverable onClick={() => { handleClick() }}
-                                    style={{ width: "240px", heigth: "600px" }}
-                                    cover={<div style={{ background: "white", height: "200px" }}>
-                                        <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+               <div className="slide-wrapper">
+                   <div className="owl-items" key={i} to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
+                                <Card hoverable className="slide-one"
+                                    style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
+                                    cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
+                                        <img className={classes.img} style={{width: "100%",height: "320px", borderRadius: "7px"}} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
                                     </div>}>
 
                                     <Grid container direction="row" alignItems="center" justify="space-between">
                                         <Grid item>
-                                            {movie["type"] === "music" ? movie["title"] : movie["movie_title"]}
+                                            <b>{movie["type"] === "music" ? movie["title"] : movie["movie_title"]}</b>
                                         </Grid>
 
                                         <Grid item>
                                             <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
-                                            {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>}
+                                            {/* {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>} */}
+                                            <AddIcon fontSize="inherit"></AddIcon>
                                             </IconButton>
                                         </Grid>
                                     </Grid>
-                                    <span style={{ color: "grey" }}>{movie["publish_year"]}</span>
-                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey" }}>
+                                    <span style={{ color: "grey" }}>Radhe is a singing prodigy determined to follow in the classical footsteps of his grandfather.</span>
+                                    <Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey", marginTop:"15px"  }}>
                                         <Grid item>
                                             <span>{hour[0]} hrs {hour[1]} mins</span>
                                         </Grid>
 
                                         <Grid item>
-                                            <span>{movie["ratings"]}</span>  <i className="ti-star"></i>
+                                        <span>{movie["publish_year"]}</span>
+                                        </Grid>
+
+                                        <Grid item>
+                                        <span><b>HD</b></span>
+                                        </Grid>
+
+                                        <Grid item>
+                                            <span>{movie["ratings"]}+</span>  <i className="ti-star"></i>
                                         </Grid>
                                     </Grid>
                                 </Card>
-                            </Link>
-                        </div>
-                    </Col>
-                </Row>
+                    </div>
+               </div>
             );
         }
     }
@@ -191,10 +196,17 @@ function WishList() {
     return (
         <div>
             <div>
-                <Divider orientation="center"><h3 style={{ color: "white" }}>Wishlist</h3></Divider>
-                <Row gutter={[8, 9]} justify="left">
+                <Divider orientation="center">
+                <div style={{width: "86vw", height:"35vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
+                    <h2 style={{ color: "black", fontSize:"50px", paddingTop:"6%" }}><b>Watchlist</b></h2>
+                    <p>Create custom landing pages with that converts.</p>
+                    </div>
+                </Divider>
+               
+                <Row gutter={[0, 35]} justify="left" style={{marginLeft:"5.4%"}}>
                     {text}
                 </Row>
+        
             </div>
         </div>
     );

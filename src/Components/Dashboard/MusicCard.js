@@ -20,7 +20,6 @@ class MusicCard extends Component
 			userId:''
 		}
 	}
-
 	options =
 	{
 		items: 4,
