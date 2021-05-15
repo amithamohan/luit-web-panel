@@ -11,6 +11,7 @@ const useStyles = makeStyles({
 	{
     	width: "100%",
     	position: "relative",
+		height:"100vh"
   	},
 });
 

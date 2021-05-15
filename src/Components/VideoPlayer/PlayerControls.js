@@ -243,8 +243,8 @@ export default forwardRef(({
 
 					<Grid container direction="column-reverse">
 						{[0.5, 1, 1.5, 2].map((rate) => (
-						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text">
-							<Typography color={rate === playbackRate ? "secondary" : "default"}>{rate}</Typography>
+						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text" >
+							<Typography color={rate === playbackRate ? "secondary" : "primary"}>{rate}</Typography>
 						</Button>
 						))}
 					</Grid>
