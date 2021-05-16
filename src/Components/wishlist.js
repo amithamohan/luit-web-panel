@@ -2,7 +2,7 @@ import Server from './APIs/Server';
 import React, { useEffect, useState } from 'react';
 import { Divider, Col, message, Row } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { Container } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -48,7 +48,8 @@ const customCard =
 
 function WishList() {
     const [status, setStatus] = useState(false);
-    const [userId, setUserId] = useState();
+    const [userId, setUserId] = useState('');
+    const [loggedIn, setLoggedIn] = useState(true);
 
     let history = useHistory();
 
@@ -56,15 +57,21 @@ function WishList() {
     useEffect(() => {
         getUserDetails()
         displayWishList();
+        console.log("abr")
     });
 
     const getUserDetails = async () => {
         let user = localStorage.getItem("user");
 		
 		let data = JSON.parse(user);
-		
-        setUserId( data["id"]);
-		console.log(data["id"]);
+        console.log(data)
+
+        if(data !== null){
+            setUserId( data["id"]); 
+            console.log(data["id"]);
+        } else{
+            setLoggedIn(false)
+        }
     }
 
     const displayWishList = async () => {
@@ -134,7 +141,7 @@ function WishList() {
                                 <Card hoverable className="slide-one"
                                     style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
                                     cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
-                                        <img className={classes.img} style={{width: "100%",height: "320px", borderRadius: "7px"}} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+                                        <img className={classes.img} style={{width: "100%",height: "210px", borderRadius: "7px"}} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
                                     </div>}>
 
                                     <Grid container direction="row" alignItems="center" justify="space-between">
@@ -193,6 +200,11 @@ function WishList() {
         }
     }
 
+    
+    if(loggedIn === false){
+        console.log(userId)
+        return(<Redirect to="/sign_in" />)
+    }
     return (
         <div>
             <div>
