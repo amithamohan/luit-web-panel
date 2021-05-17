@@ -6,8 +6,7 @@ class Footer extends Component
 	{
 		return(
 			<div>
-			<footer className="footer">
-		  </footer>
+			<footer className="footer" style={{fontFamily: "Montserrat"}}>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
 						<div className="row">
@@ -17,14 +16,16 @@ class Footer extends Component
 							</div>
 							<div className="col-sm-6 text-right">
 								<p className="float-right copyright-text">
-								<a style={{color:"white"}} href="/privacy-policy">Privacy Policy</a> | 
-								<a style={{color:"white"}} href="/terms">Terms of Use</a> | 
+								<a style={{color:"white"}} href="/demo/luitWeb/build/privacy-policy">Privacy Policy</a> | 
+								<a style={{color:"white"}} href="/demo/luitWeb/build/terms">Terms of Use</a> | 
 								<a style={{color:"white"}} href="/">Help</a>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
+				</footer>
+
 			</div>
 		);
 	}

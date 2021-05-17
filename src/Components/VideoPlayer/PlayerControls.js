@@ -15,6 +15,7 @@ import FullScreenIcon from '@material-ui/icons/Fullscreen';
 import Button from '@material-ui/core/Button';
 import Popover from "@material-ui/core/Popover";
 import React, {forwardRef} from "react";
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
 
@@ -128,6 +129,13 @@ export default forwardRef(({
 		setAnchorEl(null);
 	};
 
+    let history = useHistory();
+
+	const close = () =>
+	{
+		history.push("/");
+	}
+
 
 	const open = Boolean(anchorEl);
 	const id = open ? "playbackrate-popover" : undefined;
@@ -152,7 +160,7 @@ export default forwardRef(({
 				</Grid>
 
 				<Grid item> 
-					<IconButton onClick={onRewind} className={classes.controlIcons} aria-label="reqind">
+					<IconButton onClick={close} className={classes.controlIcons} aria-label="reqind">
 						<CloseIcon fontSize="inherit" />
 					</IconButton>
 				</Grid>
@@ -235,8 +243,8 @@ export default forwardRef(({
 
 					<Grid container direction="column-reverse">
 						{[0.5, 1, 1.5, 2].map((rate) => (
-						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text">
-							<Typography color={rate === playbackRate ? "secondary" : "default"}>{rate}</Typography>
+						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text" >
+							<Typography color={rate === playbackRate ? "secondary" : "primary"}>{rate}</Typography>
 						</Button>
 						))}
 					</Grid>

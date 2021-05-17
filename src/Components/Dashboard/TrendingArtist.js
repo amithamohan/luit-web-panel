@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class TrendingArtist extends Component {
 	options =
 		{
-			items: 4,
+			items: 5,
 			margin: 5,
 			nav: true,
 			loop: true,
@@ -24,10 +24,12 @@ class TrendingArtist extends Component {
 			if (actors !== undefined) {
 				cards.push(
 					<div key={i}>
-						<Link to={{ pathname: "/view_all", params: { item: this.props.trendingArtist[i] } }}>
-							<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
-						</Link>
-						<center><br /><span style={{ color: "white" }}>{actors["actor_name"]}</span></center>
+						<center>
+							<Link to={{ pathname: "/view_all", params: { item: this.props.trendingArtist[i] } }}>
+								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "170px", width: "170px", borderRadius: "300px", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+							</Link>
+							<br /><span style={{ color: "white" }}>{actors["actor_name"]}</span>
+						</center>
 					</div>
 				);
 			}
@@ -38,7 +40,7 @@ class TrendingArtist extends Component {
 				<div className="category-wrapper slide-wrapper">
 					<div className="container">
 						<div className="row">
-							<div className="col-sm-6 text-left mb-4 mt-1">
+							<div className="col-sm-6 text-left mb-4 mt-1" style={{fontFamily: "Montserrat"}}>
 								<h2>Trending Artist</h2>
 							</div>
 						</div>

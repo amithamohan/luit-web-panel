@@ -81,6 +81,8 @@ class Server
 			var bodyFormData = new FormData();
 
 			bodyFormData.append("login_phone_no", phoneNumber);
+			bodyFormData.append("device_id", "");
+			bodyFormData.append("token", "");
 
 
 			response = await axios({

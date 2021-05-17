@@ -16,8 +16,6 @@ import ViewAll from './Components/Dashboard/ViewAll';
 import MusicDetailedPage from './Components/Music/MusicDetailedPage';
 import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
-import History from './Components/History';
-import asd from './Components/asd';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 import SuccessPopup from './Components/Dashboard/SuccessPopup';
@@ -25,7 +23,7 @@ import PayPopup from './Components/Movies/PayPopup';
 
 function App() {
   return (
-    <Router>
+    <Router basename={'/demo/luitWeb/build'}>
       <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/asd" component={asd} exact />
@@ -49,7 +47,6 @@ function App() {
           <Route path="/popup" component={SuccessPopup} />
           <Route path="/pay" component={PayPopup} />
         <Route path="/" component={Home} exact />
-        <Route path="/asd" component={asd} exact />
         <Route path="/movies" component={MoviesPage} />
         <Route path="/music" component={MusicPage} />
         <Route path="/short_film" component={ShortFilm} />
@@ -64,11 +61,32 @@ function App() {
         <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
         <Route path="/view_all" component={ViewAll} />
         <Route path="/video_player" component={VideoPlayer} />
-        <Route path="/history" component={History} />
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
       </Switch>
     </Router>
+
+    // <Router basename={'/demo/luitWeb/build'}>
+    //   <Switch>
+    //     <Route path="/" component={Home} exact />
+    //     <Route path="/movies" component={MoviesPage} />
+    //     <Route path="/music" component={MusicPage} />
+    //     <Route path="/short_film" component={ShortFilm} />
+    //     <Route path="/web_series" component={WebSeries} />
+    //     <Route path="/profile" component={ProfileInfo} />
+    //     <Route path="/sign_in" component={SigninScreen} />
+    //     <Route path="/verifyotp" component={OTPScreen} />
+    //     <Route path="/terms" component={TermsScreen} />
+    //     <Route path="/privacy-policy" component={PrivacyScreen} />
+    //     <Route path="/wishlist" component={WishList} />
+    //     <Route path="/music_detailed_page" component={MusicDetailedPage} />
+    //     <Route path="/movies_detailed_page" component={MoviesDetailedPage} />
+    //     <Route path="/view_all" component={ViewAll} />
+    //     <Route path="/video_player" component={VideoPlayer} />
+    //     <Route path="/rating" component={StarRating} />
+    //     <Route path="/subscribe" component={Subscribe} />
+    //   </Switch>
+    // </Router>
   );
 }
 

@@ -17,12 +17,22 @@ import PayPopup from "./PayPopup";
 class MoviesDetailedPage extends Component {
 	options =
 	{
-		items: 5,
+		items: 4,
 		margin: 5,
+		// itemsDesktop: [1000, 5],
+		nav: true,
+		loop: true,
+		dots: false,
+		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
+		autoplay: true,
+	};
+	crewOption =
+	{
+		items: 5,
 		nav: true,
 		loop: false,
 		autoplay: false,
-	};
+	}
 
 	constructor(props)
 	{
@@ -188,7 +198,7 @@ class MoviesDetailedPage extends Component {
 
 		return(
 			<div>
-				{/* {console.log("amount1", data["amount"]==0)} */}
+				
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{backgroundColor: "transparent"}}>
 					<div className="container">
@@ -200,6 +210,7 @@ class MoviesDetailedPage extends Component {
 										<StarRating details={details}/>
 										
 									</span>
+									<span className="rnd">IMDb 6.7</span>
 									
 									
 									<h2>{data["movie_title"]}</h2>
@@ -228,7 +239,7 @@ class MoviesDetailedPage extends Component {
 							</div>
 						</div>
 
-						{crew === null ? null : <div className="container" style={{ backgroundColor: "#1A2236" }}>
+						{crew === null ? null : <div className="container slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2 style={{ color: "white" }}>Crew</h2>

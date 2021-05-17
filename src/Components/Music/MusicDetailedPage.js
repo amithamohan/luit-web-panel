@@ -23,22 +23,24 @@ const ratingChanged = (newRating) => {
 class MusicDetailedPage extends Component {
 
 	options =
-		{
-			items: 5,
-			margin: 5,
-			nav: true,
-			loop: false,
-			autoplay: false
-		};
+	{
+		items: 4,
+		margin: 5,
+		// itemsDesktop: [1000, 5],
+		nav: true,
+		loop: true,
+		dots: false,
+		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
+		autoplay: true,
+	};
 
-	cardOptions =
-		{
-			items: 5,
-			margin: 5,
-			nav: true,
-			loop: true,
-			autoplay: true
-		};
+	crewOption =
+	{
+		items: 5,
+		nav: true,
+		loop: false,
+		autoplay: false,
+	}
 
 	constructor(props) {
 		super(props);
@@ -110,10 +112,14 @@ class MusicDetailedPage extends Component {
 
 	render() {
 		const crew = [];
-		if (this.state.actors !== undefined) {
-			for (let j = 0; j < this.props.location.params["item"]["actors"].length; j++) {
-				for (let i = 0; i < this.state.actors.length; i++) {
-					if (this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"]) {
+		if (this.state.actors !== undefined) 
+		{
+			for (let j = 0; j < this.props.location.params["item"]["actors"].length; j++) 
+			{
+				for (let i = 0; i < this.state.actors.length; i++) 
+				{
+					if (this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"]) 
+					{
 						crew.push(
 							<div key={i}>
 								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
@@ -126,10 +132,16 @@ class MusicDetailedPage extends Component {
 		}
 
 		const moreLikeThis = [];
-		if (this.state.musicList !== undefined) {
-			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++) {
-				for (let i = 0; i < this.state.musicList.length; i++) {
-					if (this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) {
+		if (this.state.musicList !== undefined) 
+		{
+			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++) 
+			{
+				for (let i = 0; i < this.state.musicList.length; i++) 
+				{
+					let hour = this.state.musicList[i]["duration"].split('.');
+
+					if (this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) 
+					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
 								<Link className="slide-one" to={{ pathname: "/music_detailed_page", params: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
@@ -137,11 +149,11 @@ class MusicDetailedPage extends Component {
 										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
 									<div className="slide-content">
-										<h2>{this.state.musicList[i]["title"]}<img src="images/plus.png" className="add-wishlist" alt="" /></h2>
-										<p>{this.state.musicList[i]["description"]}</p>
-										<span className="tag">{this.state.musicList[i]["duration"]}</span>
-										<span className="tag">{this.state.musicList[i]["publish_year"]}</span>
-										<span className="tag"><b>{this.state.musicList[i]["maturity_rating"]}</b></span>
+										<h2>{this.state.musicList[i]["title"]}</h2>
+										<p style={{fontFamily: "Montserrat"}}>{this.state.musicList[i]["description"]}</p>
+										<span class="tag">{hour[0]} mins {hour[1]} sec</span>
+										<span class="tag">{this.state.musicList[i]["publish_year"]}</span>
+										<span class="tag"><b>{this.state.musicList[i]["maturity_rating"]}+</b></span>
 									</div>
 								</Link>
 							</div>
@@ -165,35 +177,32 @@ class MusicDetailedPage extends Component {
 		return (
 			<div>
 				<NavigationBar />
-				<div className="banner-wrapper">
+				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
-										<span className="r1nd">
+										<span className="rlnd">
 											<StarRating details={details} />
 										</span>
 										<h2>{data["title"]}</h2>
-
-										<span className="tag"><b>{data["audio_languages"]}</b></span>
 										<span className="tag">{data["publish_year"]}</span>
 										<span className="tag"><b>HD</b></span>
 										<span className="tag"><b>{data["maturity_rating"]}+</b></span>
-										<span className="tag">{hour[0]} mins {hour[1]} sec</span>
-										<span className="tag">{data["genre"]}</span>
-
+										<span className="tag">{hour[0]} mins {hour[1]} min</span>
 										<p>{data["description"]}</p>
-
-										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: this.props.location.params["item"] } }}><img src="images/play.png" alt="" />Watch now</Link>
-
-										<IconButton style={{ color: "white" }}>
-											<AddIcon fontSize="large"></AddIcon>
-										</IconButton>
-
+										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
+										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
 										<div className="icon-bttn">
-											<i className="ti-sharethis text-white mr-4" />
+											<i className="ti-sharethis text-white mr-4"></i>
+											<div className="share-icons">
+												<a href="#"><i className="ti-facebook"></i></a>
+												<a href="#"><i className="ti-twitter-alt"></i></a>
+												<a href="#"><i className="mr-0 ti-pinterest"></i></a>
+											</div>
 										</div>
+
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} />
 								</div>
@@ -210,7 +219,7 @@ class MusicDetailedPage extends Component {
 							</div>
 							{
 								crew.length && (
-									<OwlCarousel options={this.options}>
+									<OwlCarousel options={this.crewOptions}>
 										{
 											crew
 										}
