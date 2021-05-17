@@ -33,7 +33,7 @@ const SuccessPopup = () => {
                             <b>amitah@gmail.com</b>
                         </div>
                         <div className="col-6 text-center">
-                            <img src="http://localhost:3000/images/favicon.png" width={50} height={50}/>
+                            <img src="/images/favicon.png" width={50} height={50}/>
                             
                         </div>
                     </div>

@@ -188,7 +188,7 @@ class MoviesDetailedPage extends Component {
 
 		return(
 			<div>
-				{/* {console.log("amount1", data["amount"])} */}
+				{/* {console.log("amount1", data["amount"]==0)} */}
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{backgroundColor: "transparent"}}>
 					<div className="container">
@@ -211,7 +211,7 @@ class MoviesDetailedPage extends Component {
 									<span className="tag">{data["genre"]}</span>
 									<p>{data["description"]}</p>
 									{
-										data["amount"] === 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup />
+										data["amount"] == 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup />
 									}
 							
 						
@@ -245,7 +245,7 @@ class MoviesDetailedPage extends Component {
 							}
 						</div>}
 
-						<div className="container slide-wrapper" style={{ backgroundColor: "transparent" }}>
+						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>

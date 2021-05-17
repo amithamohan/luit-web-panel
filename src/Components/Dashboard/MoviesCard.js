@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Server from '../APIs/Server';
-import Modal from 'antd/lib/modal/Modal';
+// import Modal from 'antd/lib/modal/Modal';
 import { IconButton } from '@material-ui/core';
 import { message } from 'antd';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,7 +13,7 @@ import { Row, Col } from 'antd';
 import MoviesDetailedPage from '../Movies/MoviesDetailedPage';
 import { Modal, Button } from 'antd';
 
-const { Meta } = Card;
+// const { Meta } = Card;
 
 
 const { Meta } = Card;
@@ -40,12 +40,6 @@ function MoviesCard(props) {
 		autoplay: false,
 	};
 
-	const customCard =
-	{
-		width: 100,
-		height: 35,
-	}
-
 	const cardOptions =
 	{
 		heigth: 700,
@@ -63,16 +57,16 @@ function MoviesCard(props) {
 		height: 35,
 	}
 
-	const cardOptions =
-	{
-		heigth: 700,
-		items: 5,
-		nav: true,
-		margin: 1,
-		loop: true,
-		autoplay: false,
-		stagePadding: 1,
-	};
+	// const cardOptions =
+	// {
+	// 	heigth: 700,
+	// 	items: 5,
+	// 	nav: true,
+	// 	margin: 1,
+	// 	loop: true,
+	// 	autoplay: false,
+	// 	stagePadding: 1,
+	// };
 
 
 	const addToWishlist = async (i) => {
