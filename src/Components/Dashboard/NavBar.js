@@ -1,4 +1,4 @@
-import { Icon } from '@material-ui/core';
+import { Icon, Link } from '@material-ui/core';
 import { Menu, Row, Col, Dropdown} from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
@@ -158,13 +158,13 @@ class NavigationBar extends Component
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></a>
+                            <Link className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/demo/luitWeb/build/movies">Movies</a>
+                        <Link className="nav-link" href="/demo/luitWeb/build/movies">Movies</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/demo/luitWeb/build/music">Music</a>
+                            <Link className="nav-link" href="/demo/luitWeb/build/music">Music</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/demo/luitWeb/build/music">Short Films</a>
