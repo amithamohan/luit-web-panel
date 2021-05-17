@@ -81,11 +81,13 @@ class Server
 			var bodyFormData = new FormData();
 
 			bodyFormData.append("login_phone_no", phoneNumber);
+			bodyFormData.append("device_id", "");
+			bodyFormData.append("token", "");
 
 
 			response = await axios({
 				method: "POST",
-				url: "http://release.luit.co.in/api/login-first",
+				url: "https://release.luit.co.in/api/login-first",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData,
 			  });
@@ -103,6 +105,13 @@ class Server
 	{
 		try
 		{
+
+			console.log(name);
+			console.log(email);
+			console.log(phoneNumber);
+			console.log(dob);
+			console.log(image);
+			
 			let response;
 
 			var bodyFormData = new FormData();
@@ -113,10 +122,11 @@ class Server
 			bodyFormData.append("image", image);
 			bodyFormData.append("login_phone_no", phoneNumber);
 
+			console.log(bodyFormData);
 
 			response = await axios({
 				method: "POST",
-				url: "http://release.luit.co.in/api/profile-update",
+				url: "https://release.luit.co.in/api/profile-update",
 				data: bodyFormData,
 				headers: { "Content-Type": "multipart/form-data" },
 			  });
@@ -520,7 +530,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("valid_days", days);
 			bodyFormData.append("start_date", startDate);
@@ -530,7 +540,7 @@ class Server
 
 			response = await axios
 			({
-				method: "GET",
+				method: "POST",
 				url: "https://release.luit.co.in/api/monthly-payment",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
@@ -654,9 +664,6 @@ class Server
 	// add items to wishlist
 	static async addToWishlist(userId, type, videoId)
 	{
-		console.log(userId);
-		console.log(type);
-		console.log(videoId);
 		try
 		{
 			let response;
@@ -687,13 +694,13 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
 			({
 				method: "POST",
-				url: "https://release.luit.co.in/api/add_wishlist",
+				url: "https://release.luit.co.in/api/all_wishlist",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
 			});
@@ -713,7 +720,8 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
+			
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("whishlist_id", wishListId);
 
@@ -739,7 +747,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("video_id", contentId);
 			bodyFormData.append("video_type", contentType);
@@ -792,7 +800,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("video_id", contentId);
 			bodyFormData.append("video_type", contentType);
@@ -820,7 +828,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("video_id", videoId);
 			bodyFormData.append("video_type", videoType);

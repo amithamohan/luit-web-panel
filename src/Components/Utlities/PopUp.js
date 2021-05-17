@@ -1,14 +1,33 @@
-import React from "react";
- 
-const Popup = props => {
+import React, { useState } from 'react';
+import { Modal, Button } from 'antd';
+
+const PayPopup = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <div className="popup-box">
-      <div className="box">
-        <span className="close-icon" onClick={props.handleClose}>x</span>
-        {props.content}
-      </div>
-    </div>
+    <>
+      <Button type="danger" onClick={showModal}>
+        Watch Now
+      </Button>
+      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+    </>
   );
 };
- 
-export default Popup;
+
+export default PayPopup;

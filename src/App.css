@@ -7,10 +7,9 @@ input{
   color: rgb(255, 255, 255);
 }
 
-
-
 .App {
   text-align: center;
+  font-family: 'FontAwesome';
 
 }
 
@@ -272,7 +271,16 @@ input{
   border-radius: 50% !important;
 }
 
+.example {
+  background: blue;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
 
+.example:hover {
+  background: black;
+}
 /* ==================== Subscribe Page ============= */
 
 

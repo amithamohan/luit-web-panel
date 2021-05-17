@@ -1,15 +1,17 @@
 import React, {useState, useRef} from "react";
-import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player";
 import { makeStyles, } from "@material-ui/core/styles";
 import PlayerControls from "./PlayerControls";
 import screenfull from 'screenfull';
+import Container from '@material-ui/core/Container';
+
 
 const useStyles = makeStyles({
   	playerWrapper:
 	{
     	width: "100%",
     	position: "relative",
+		height:"100vh"
   	},
 });
 
@@ -48,18 +50,15 @@ function VideoPlayer (props)
 
 	let data = props.location.params["item"];
 	let title;
-	let url;
 	let x;
 
 	console.log(data);
 
 	if(data["type"] === "movie")
 	{
-		url = props.location.params["item"]["movie_upload"];
 		title = props.location.params["item"]["movie_title"];
 		let image = props.location.params["item"]["movie_upload"];
 		x = image.split(' ').join('%20');
-		console.log(x);
 	}
 	else
 	{
@@ -162,6 +161,12 @@ function VideoPlayer (props)
 		count = 0;
 	}
 
+	const handleBackPress = () =>
+	{
+		// var browserHistory = ReactRouter.browserHistory;
+		// browserHistory.goBack;
+	}
+
 	const currentTime = playerRef.current ? playerRef.current.getCurrentTime() : "00:00";
 	const duration = playerRef.current ?playerRef.current.getDuration() : "00:00";
 	const ellapsedTime = timeDisplayFormat === "normal" ? format(currentTime) : `-${format(duration - currentTime)}`;
@@ -179,7 +184,7 @@ function VideoPlayer (props)
           			<ReactPlayer
 					  	ref = {playerRef }
 						width={"100%"}
-						height="100%"
+						height="90%"
 						url={x}
 						// url="https://release.luit.co.in/uploads/movies/1610199429DEMPHOLOR%20COMPANYR%20%20SAKORI%20(%20JONBAI%205%20).mp4"
 						muted={muted}
@@ -210,9 +215,10 @@ function VideoPlayer (props)
 						ellapsedTime={ellapsedTime}
 						totalDuration={totalDuration}
 						onChangeDisplayFormat={handleChangeDisplayFormat}
+						onBackPress={handleBackPress}
 					/>
         		</div>
-      		</Container>
+				</Container>
 	  	</div>
   	);
 }

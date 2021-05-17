@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import MoviesCard from "../Dashboard/MoviesCard";
 import NavigationBar from "../Dashboard/NavBar";
 import Slider from "../Dashboard/Slider";
@@ -7,24 +7,22 @@ import MusicCard from "../Dashboard/MusicCard";
 import ShortFilmCard from "../Dashboard/ShortFilmsCard";
 
 
-class ShortFilm extends Component
-{
-	render()
-	{
-		return(
+class ShortFilm extends Component {
+	render() {
+		return (
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar/>
-					<Slider/>
-					<MoviesCard/>
-					<MusicCard/>
-					<ShortFilmCard/>
-					<MoviesCard/>
-					<Footer/>
+					<NavigationBar />
+					<Slider />
+					<MoviesCard />
+					<MusicCard />
+					<ShortFilmCard />
+					<MoviesCard />
+					<Footer />
 				</div>
 			</div>
 		);
 	}
 }
 
-export default ShortFilm;	
+export default ShortFilm;

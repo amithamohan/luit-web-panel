@@ -3,7 +3,7 @@ import React from 'react';
 
 function TermsScreen(){
     return(
-        <div className="container">
+        <div className="container" style={{fontFamily: "Montserrat"}}>
             <div className="heading">
                 <h2>Luit Terms of use</h2>
             </div>

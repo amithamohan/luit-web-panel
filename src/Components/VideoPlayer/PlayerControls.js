@@ -15,6 +15,7 @@ import FullScreenIcon from '@material-ui/icons/Fullscreen';
 import Button from '@material-ui/core/Button';
 import Popover from "@material-ui/core/Popover";
 import React, {forwardRef} from "react";
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
 
@@ -128,21 +129,38 @@ export default forwardRef(({
 		setAnchorEl(null);
 	};
 
+    let history = useHistory();
+
+	const close = () =>
+	{
+		history.push("/");
+	}
+
+
 	const open = Boolean(anchorEl);
 	const id = open ? "playbackrate-popover" : undefined;
+
+	const infoIcon = "https://images.pexels.com/photos/7421912/pexels-photo-7421912.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
 
 	return(
 
 		<div className={classes.controlsWrapper} ref={ref}>
-			<Grid container direction="row" alignItems="center" justify="space-between" style={{padding: "2"}}>
+			<Grid container direction="row" alignItems="center" justify="space-between" style={{padding: "12px"}}>
 				<Grid item>
-					<Typography className="h1"  variant="h5">
-						{title}
-					</Typography>
+					<img
+						src="images/favicon.png"
+						alt="Info"
+						style={
+						{
+							width: 60,
+							backgroundColor: "transparent",
+							verticalAlign: "center"
+						}}/>
+						<span style={{color: "white", fontSize: "30px"}}>{title}</span>
 				</Grid>
 
 				<Grid item> 
-					<IconButton onClick={onRewind} className={classes.controlIcons} aria-label="reqind">
+					<IconButton onClick={close} className={classes.controlIcons} aria-label="reqind">
 						<CloseIcon fontSize="inherit" />
 					</IconButton>
 				</Grid>
@@ -225,8 +243,8 @@ export default forwardRef(({
 
 					<Grid container direction="column-reverse">
 						{[0.5, 1, 1.5, 2].map((rate) => (
-						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text">
-							<Typography color={rate === playbackRate ? "secondary" : "default"}>{rate}</Typography>
+						<Button onClick={()=> onPlaybackRateChange(rate)} variant="text" >
+							<Typography color={rate === playbackRate ? "secondary" : "primary"}>{rate}</Typography>
 						</Button>
 						))}
 					</Grid>
