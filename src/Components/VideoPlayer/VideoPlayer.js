@@ -1,9 +1,10 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import ReactPlayer from "react-player";
 import { makeStyles, } from "@material-ui/core/styles";
 import PlayerControls from "./PlayerControls";
 import screenfull from 'screenfull';
 import Container from '@material-ui/core/Container';
+import { Redirect } from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -38,6 +39,28 @@ let count = 0;
 
 function VideoPlayer (props)
 {
+
+
+	const [loggedIn, setLoggedIn] = useState(true);
+
+	useEffect(()=>
+	{
+		getUserDetails();
+	})
+
+ 	const getUserDetails = async () => 
+	{
+	let user = localStorage.getItem("user");
+	
+	let data = JSON.parse(user);
+	console.log(data)
+
+	if(data === null){
+		setLoggedIn(false)
+	} 
+}
+
+
 	const classes = useStyles();
 	const [state, setState] = useState({
 		playing: true,
@@ -171,6 +194,10 @@ function VideoPlayer (props)
 	const duration = playerRef.current ?playerRef.current.getDuration() : "00:00";
 	const ellapsedTime = timeDisplayFormat === "normal" ? format(currentTime) : `-${format(duration - currentTime)}`;
 	const totalDuration = format(duration);
+
+	if(loggedIn === false){
+        return(<Redirect to="/sign_in" />)
+    }
 
   	return (
     	<div style={{background: "black"}}>
