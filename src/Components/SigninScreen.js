@@ -42,7 +42,7 @@ function SigninScreen()
 
         console.log(response);
 
-        if (response["response"] === "success") 
+        if (response["response"] === "success")
         {
             message.success("Login Success");
 
@@ -111,7 +111,7 @@ function SigninScreen()
             window.confirmationResult = confirmationResult;
             // console.log(confirmationResult);
             console.log("OTP is sent");
-            
+
             history.push({
                 pathname: '/verifyotp',
                 state: { detail: phoneNumber }
@@ -131,13 +131,13 @@ function SigninScreen()
         let otpInput = this.state.otp;
         let optConfirm = window.confirmationResult;
         // console.log(codee);
-        optConfirm.confirm(otpInput).then(function (result) 
+        optConfirm.confirm(otpInput).then(function (result)
         {
             // User signed in successfully.
             // console.log("Result" + result.verificationID);
             let user = result.user;
         })
-        .catch(function (error) 
+        .catch(function (error)
         {
             console.log(error);
             alert("Incorrect OTP");

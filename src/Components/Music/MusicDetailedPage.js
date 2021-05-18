@@ -61,14 +61,17 @@ class MusicDetailedPage extends Component {
 		this.getAllMusic();
 	}
 
-	async getActors() {
+	async getActors() 
+	{
 		let actorsList = [];
 		let response = await Server.fetchArtist()
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success") 
+		{
 			let data = response["data"];
 
-			for (let i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.length; i++) 
+			{
 				actorsList.push(data[i]);
 			}
 		}
@@ -79,14 +82,17 @@ class MusicDetailedPage extends Component {
 	}
 
 	// fetch all music
-	async getAllMusic() {
+	async getAllMusic() 
+	{
 		let result = [];
 		let response = await Server.fetchAllMusic();
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success") 
+		{
 			let movies = response["data"];
 
-			for (let i = 0; i < movies.length; i++) {
+			for (let i = 0; i < movies.length; i++) 
+			{
 				result.push(movies[i]);
 			}
 		}
@@ -100,13 +106,13 @@ class MusicDetailedPage extends Component {
 		let itemId = i;
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success") 
+		{
 			console.log("success");
 			message.success('Added to wishlist');
 		}
 		else {
 			message.info('Already added');
-			// alert("Already added to wishlist");
 		}
 	}
 
@@ -151,9 +157,9 @@ class MusicDetailedPage extends Component {
 									<div className="slide-content">
 										<h2>{this.state.musicList[i]["title"]}</h2>
 										<p style={{fontFamily: "Montserrat"}}>{this.state.musicList[i]["description"]}</p>
-										<span class="tag">{hour[0]} mins {hour[1]} sec</span>
-										<span class="tag">{this.state.musicList[i]["publish_year"]}</span>
-										<span class="tag"><b>{this.state.musicList[i]["maturity_rating"]}+</b></span>
+										<span className="tag">{hour[0]} mins {hour[1]} sec</span>
+										<span className="tag">{this.state.musicList[i]["publish_year"]}</span>
+										<span className="tag"><b>{this.state.musicList[i]["maturity_rating"]}+</b></span>
 									</div>
 								</Link>
 							</div>

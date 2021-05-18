@@ -501,20 +501,25 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
+
 			bodyFormData.append("content_type", contentType);
 			bodyFormData.append("content_id", contentId);
 			bodyFormData.append("user_id", userId);
 			bodyFormData.append("amount", amount);
 			bodyFormData.append("ref_no", refNo);
 
+			console.log(bodyFormData);
+			
 			response = await axios
 			({
-				method: "GET",
-				url: "https://release.luit.co.in/api/short-films-new-releases",
+				method: "POST",
+				url: "https://release.luit.co.in/api/video-payment",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
 			});
+
+			console.log(response.data);
 
 			return response.data;
 		}
@@ -695,6 +700,7 @@ class Server
 		{
 			let response;
 			var bodyFormData = new FormData();
+			
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
