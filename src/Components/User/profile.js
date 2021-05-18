@@ -50,8 +50,8 @@ class ProfileInfo extends React.Component {
 		this.submitForm = this.submitForm.bind(this);
 	}
 
-	async submitForm() {
-		console.log("console");
+	async submitForm() 
+	{
 
 		let age;
 

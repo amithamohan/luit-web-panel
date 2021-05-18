@@ -47,6 +47,7 @@ class MoviesDetailedPage extends Component
 		}
 
 		this.getActors = this.getActors.bind(this);
+		this.checkPayment = this.checkPayment.bind(this);
 	}
 
 	componentDidMount()
@@ -54,6 +55,29 @@ class MoviesDetailedPage extends Component
 		this.getActors();
 		this.getAllMovies();
 		this.isAddedToWishList();
+		this.checkPayment();
+	}
+
+	async checkPayment()
+	{
+		let contentType = this.props.location.params["item"]["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? this.props.location.params["item"]["movie_id"] : this.props.location.params["item"]["id"];
+		let data = JSON.parse(localStorage.getItem("user"));
+		let userId = data["id"];
+
+		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+
+		console.log(response);
+		console.log("response");
+
+		if(response["payment_status"] === 0)
+		{
+			this.setState({isPaid : false});
+		}
+		else
+		{
+			this.setState({isPaid : true});
+		}
 	}
 
 	async getActors()
@@ -82,10 +106,12 @@ class MoviesDetailedPage extends Component
 
 		let response = await Server.wishlistIsPresent(type, id, userId);
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success") 
+		{
 			this.setState({ isAdded: true });
 		}
-		else {
+		else 
+		{
 			this.setState({ isAdded: false });
 		}
 	}
@@ -100,10 +126,12 @@ class MoviesDetailedPage extends Component
 		console.log("success");
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success") 
+		{
 			message.success('Added to wishlist');
 		}
-		else {
+		else 
+		{
 			message.info('Already added');
 		}
 	}
@@ -218,7 +246,7 @@ class MoviesDetailedPage extends Component
 										<p>{data["description"]}</p>
 
 										{
-											data["amount"] == 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup data={data}/>
+											data["amount"] == 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : this.state.isPaid === true ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> :<PayPopup data={data}/>
 										}
 
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">

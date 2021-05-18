@@ -102,6 +102,11 @@ class NavigationBar extends Component
                                         Profile
                                     </a>
                                 </Menu.Item>
+                                <Menu.Item>
+                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribe">
+                                        Subscription
+                                    </a>
+                                </Menu.Item>
                             </Menu>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         <Avatar  src= {this.state.image ? this.state.image : "https://via.placeholder.com/50x50.png"}></Avatar><DownOutlined />
