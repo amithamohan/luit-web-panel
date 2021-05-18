@@ -80,33 +80,6 @@ function SigninScreen()
     {
         console.log(response);
     };
-<<<<<<< HEAD
-    
-    // const setUpRecaptcha = () => {
-    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-    //         'size': 'invisible',
-    //         'callback': (response) => {
-            
-    //         onSignInSubmit();
-    //         }
-    //     });
-    // }
-    
-    // const onSignInSubmit=(e)=>{
-    //     // e.preventDefault();
-    //     const phoneNumber = document.getElementById("number");
-    //     const appVerifier = window.recaptchaVerifier;
-    //     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    //         .then((confirmationResult) => {
-    //         window.confirmationResult = confirmationResult;
-    //         var coderesult=confirmationResult;
-    //         console.log("Code Result", coderesult);
-    //         alert("Message Sent");
-    //         }).catch((error) => {
-    //         console.log('Error' , error);
-    //         });
-    // }
-=======
 
     const setUpRecaptcha = () =>
     {
@@ -175,7 +148,6 @@ function SigninScreen()
     {
         checked = true;
     }
->>>>>>> 012b9bf32f47c1df909a288e4a2fd7d0dd1a10ef
 
     return (
         <div>
@@ -186,35 +158,6 @@ function SigninScreen()
                             <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
-<<<<<<< HEAD
-                                <form action="/verifyotp" >
-                                    <div className="row">
-                                    <div className="col-lg-7">
-                                        <FacebookLogin
-                                            className="col-lg-4"
-                                            size="small"
-                                            appId=""
-                                            textButton="Facebook"
-                                            fields="name,email,picture"
-                                            buttonText="abbb"
-                                            callback={responseFacebook}
-                                            cssClass="kep-login-facebook"
-                                            style={{  }}
-                                        />
-                                        </div>
-                                        <div className="col-lg-4">
-                                        <GoogleLogin
-                                            clientId={clientId}
-                                            buttonText="Google"
-                                            onSuccess={null}
-                                            onFailure={onFailure}
-                                            cookiePolicy={'single_host_origin'}
-                                            style={{ marginTop: '100px', width: 500 }}
-                                            isSignedIn={true}
-                                        />
-                                    </div>
-                                    </div>
-=======
                                 <form action="">
 
                                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -244,7 +187,6 @@ function SigninScreen()
                                             />
                                         </Col>
                                     </Row>
->>>>>>> 012b9bf32f47c1df909a288e4a2fd7d0dd1a10ef
 
                                     <h5>OR</h5>
                                     <div className="form-group mt-3">
@@ -257,11 +199,7 @@ function SigninScreen()
                                             className="form-control" />
                                     </div>
                                     <div className="form-group button-block text-center">
-<<<<<<< HEAD
-                                        <button className="form-btn">Login with OTP</button>
-=======
                                         <button onClick={onSignInSubmit} className="form-btn">Login with OTP</button>
->>>>>>> 012b9bf32f47c1df909a288e4a2fd7d0dd1a10ef
                                     </div>
                                     <div className="form-group form-check-label">
                                         <label htmlFor="tarms-check">
@@ -280,6 +218,7 @@ function SigninScreen()
             </section>
             <Footer />
         </div>
+        
     );
 }
 

@@ -257,11 +257,7 @@ class MoviesDetailedPage extends Component
 							}
 						</div>}
 
-<<<<<<< HEAD
-						<div className="container slide-wrapper slide-wrapper-shadow">
-=======
-						<div className="container slide-wrapper" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
->>>>>>> 012b9bf32f47c1df909a288e4a2fd7d0dd1a10ef
+						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>

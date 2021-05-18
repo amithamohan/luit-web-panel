@@ -35,14 +35,9 @@ function MoviesCard(props)
 		margin: 5,
 		itemsDesktop: [1000, 5],
 		nav: true,
-<<<<<<< HEAD
-		loop: false,
-		autoplay: false,
-=======
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: false,
 		autoplay: true,
->>>>>>> 012b9bf32f47c1df909a288e4a2fd7d0dd1a10ef
 	};
 
 	const customCard =
