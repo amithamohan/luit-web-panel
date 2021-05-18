@@ -61,39 +61,23 @@ class ProfileInfo extends React.Component {
 		//console.log(response);
 
 		if (updateResponse["response"] === "success") {
-			message.success("Profile Updated Successfully")
 			let profileResponse = await Server.userProfile(this.state.id);
-			//console.log(response.data[0])
 			let user =
             {
 				"id": this.state.id,
 				"name": profileResponse.data[0]["name"],
                 "email": profileResponse.data[0]["email"],
                 "phoneNumber": profileResponse.data[0]["mobile"],
+				"dob": profileResponse.data[0]["dob"],
 				"image": updateResponse["image"] ,
                 "isLoggedIn": true
             };
-		localStorage.setItem("user", JSON.stringify(user));
+			localStorage.setItem("user", JSON.stringify(user));
+			message.success("Profile Updated Successfully")
 		}
 		else {
 			message.error("Oops, something went wrong");
 		}
-		// console.log(this.state.username)
-		// console.log(this.state.email)
-		// console.log(this.state.phoneNumber)
-		// console.log(this.state.dob)
-		//console.log(this.state.image)
-		// let user =
-        //     {
-		// 		"id": this.state.id,
-		// 		"name": this.state.username,
-        //         "email": this.state.email,
-        //         "phoneNumber": this.state.phoneNumber,
-		// 		"image": this.state.image,
-        //         "isLoggedIn": true
-        //     };
-		// localStorage.setItem("user", JSON.stringify(user));
-
 	}
 
 
@@ -109,7 +93,7 @@ class ProfileInfo extends React.Component {
 			this.state.username = data["name"];
 			this.state.email = data["email"];
 			this.state.phoneNumber = data["phoneNumber"];
-			this.state.dob = null;
+			this.state.dob = data["dob"];
 			this.state.image = data["image"];
 	
 	
@@ -230,7 +214,7 @@ class ProfileInfo extends React.Component {
 														<div className="col-sm-6">
 															<div className="form-group mt-4">
 																<input className="form-control" disabled value={this.state.email} type="email" placeholder="Email address" onChange={this.onUpdateEmail} />
-																<input className="form-control" disabled value={this.state.dob} type="date" placeholder="D.O.B" onChange={this.onUpdateDob} />
+																<input className="form-control" value={this.state.dob} type="date" placeholder="D.O.B" onChange={this.onUpdateDob} />
 															</div>
 														</div>
 													</div>
