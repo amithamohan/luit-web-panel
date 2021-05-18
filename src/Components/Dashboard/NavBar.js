@@ -120,9 +120,8 @@ class NavigationBar extends Component
 
     async logOut()
     {
-        let user = localStorage.getItem("user");
-
-        let data = JSON.parse(user);
+        
+        localStorage.clear();
 
         this.setState({isLoggedIn : false});
     }
@@ -179,7 +178,7 @@ class NavigationBar extends Component
                         <Dropdown overlay = 
                             {<Menu>
                                 <Menu.Item>
-                                    {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
+                                    {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in" onClick={e => {this.logOut()}}>
                                         Logout
                                     </a> : <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
                                         Login
