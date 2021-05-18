@@ -206,10 +206,7 @@ class MoviesDetailedPage extends Component {
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 								<div className="left-wrap">
-									<span className="r1nd">
-										<StarRating details={details}/>
-										
-									</span>
+									
 									<span className="rnd">IMDb 6.7</span>
 									
 									
@@ -234,6 +231,10 @@ class MoviesDetailedPage extends Component {
 									<div className="icon-bttn">
 									<i className="ti-sharethis text-white mr-4" />
 									</div>
+									<div className="icon-bttn">
+										<StarRating details={details}/>
+									</div>
+									
 									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 								</div>
 							</div>

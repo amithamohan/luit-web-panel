@@ -26,7 +26,7 @@ function App() {
     <Router basename={'/demo/luitWeb/build'}>
       <Switch>
           <Route path="/" component={Home} exact />
-          <Route path="/asd" component={asd} exact />
+          {/* <Route path="/asd" component={asd} exact /> */}
           <Route path="/movies" component={MoviesPage}/>
           <Route path="/music" component={MusicPage}/>
           <Route path="/short_film" component={ShortFilm}/>

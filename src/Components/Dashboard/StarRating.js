@@ -87,7 +87,7 @@ class StarRating extends Component{
     {
         return(
             <div>
-                <Button style={{  backgroundColor:'transparent', border: 'none', padding: 10, margin: 5}} onClick={this.handleShow}>
+                <Button style={{  backgroundColor:'transparent', border: 'none', }} onClick={this.handleShow}>
                 <ReactStars
                     count={1}
                     onChange={ratingChanged}
