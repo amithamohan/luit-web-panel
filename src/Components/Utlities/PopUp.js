@@ -1,33 +1,44 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
+import { Redirect } from 'react-router';
+import { useHistory } from "react-router-dom";
 
-const PayPopup = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const PayPopup = (props) => 
+{
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+	const showModal = () => 
+	{
+		setIsModalVisible(true);
+	};
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+	const history=useHistory();
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+	const handleOk = () => 
+	{
+		console.log(props.data);
 
-  return (
-    <>
-      <Button type="danger" onClick={showModal}>
-        Watch Now
-      </Button>
-      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
-  );
+		history.push({
+			pathname: '/subscribe',
+			state: { detail: props.data }
+		  });
+  	};
+
+  	const handleCancel = () => 
+	{
+    	setIsModalVisible(false);
+  	};
+
+	return (
+    	<div>
+      		<Button className="btn btn-lg" onClick={showModal} style={{height: 50}}>
+        		Pay Now
+      		</Button>
+      		<Modal title="Subscribe" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        		<h3>Please Subscribe to Watch this Video</h3>
+      		</Modal>
+    	</div>
+  	);
 };
 
 export default PayPopup;

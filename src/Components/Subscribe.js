@@ -4,9 +4,7 @@ import { Radio, Card, Button, message } from 'antd';
 import { Row } from 'antd';
 import NavigationBar from './Dashboard/NavBar';
 import Server from './APIs/Server';
-
-
-
+import { withRouter } from 'react-router-dom';
 
 
 class Subscribe extends Component
@@ -20,8 +18,10 @@ class Subscribe extends Component
             subscriptionPlans: [],
             selectedOption: "0",
             days: 0,
+            payPerItemAmount: 0,
+            payPerItemDays: 0,
         }
-        
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -50,6 +50,7 @@ class Subscribe extends Component
     handleSubmit = async (refNumber, amount) =>
     {
         console.log("handle submit");
+        console.log(this.state.selectedOption);
 
         let userId = 4;
         // let days;
@@ -67,10 +68,42 @@ class Subscribe extends Component
         let x = new Date(date.setDate(date.getDate() + this.state.days));
         endDate = x.getFullYear() + "-" + x.getMonth() + "-" + x.getDate();
 
-        let response = await Server.monthlyPayment(userId, this.state.days, startDate, endDate, amount, refNumber);
+        if(this.state.selectedOption === "0")
+        {
+            this.singlePayment(refNumber, amount);
+        }
+        else
+        {
+            this.subscriptionPack(userId, this.state.days, startDate, endDate, amount, refNumber);
+        }
+    }
+
+    async singlePayment(refNumber, amount, userId)
+    {
+        let contentType = "1";
+        let contentId = "2";
+
+        let response = await Server.payForVideo(contentType, contentId, amount, refNumber, userId);
+
+            console.log(response);
+
+            if(response["response"] === "success")
+            {
+                message.success("Payment Sucess");
+            }
+            else
+            {
+                message.error("Payment Error");
+            }
+    }
+    async subscriptionPack(userId, days, startDate, endDate, amount, refNumber)
+    {
+        let response = await Server.monthlyPayment(userId, days, startDate, endDate, amount, refNumber);
+
+        console.log(response);
 
         if(response["response"] === "success")
-        {   
+        {
             message.success("Payment Sucess");
         }
         else
@@ -92,41 +125,37 @@ class Subscribe extends Component
         let status = false;
         let result;
         let ref_number;
-        let amount = this.state.selectedOption * 100;
+        let amount = this.state.selectedOption === "0" ? this.state.payPerItemAmount * 100 : this.state.selectedOption * 100;
 
         var self = this;
-
-        let response;
-        self.handleSubmit(response, amount);
-
 
 		let options =
 		{
 			"key": "rzp_test_dKDuSXlctyepdF",
 		  	"amount": amount, // 2000 paise = INR 20, amount in paisa
-		  	"name": "Merchant Name",
-		  	"description": "Purchase Description",
-		  	"image": "/images/favicon.png",
+		  	"name": "Luit",
+		  	// "description": "Purchase Description",
+		  	"image": "./images/favicon.png",
 
 		  	"handler": function (response)
 			{
                 result = response;
                 ref_number = response.razorpay_payment_id;
 
-                message.success("Payment Success " + response.razorpay_payment_id);
+                // message.success("Payment Success " + response.razorpay_payment_id);
                 status = true;
 
                 self.handleSubmit(ref_number, amount);
 		  	},
-		  	"prefill":
-			{
-				"name": "Amitha",
-				"email": "amitha@gmail.com"
-		  	},
-		  	"notes":
-			{
-				"address": "Hello World"
-		  	},
+		  	// "prefill":
+			// {
+			// 	"name": "Amitha",
+			// 	"email": "amitha@gmail.com"
+		  	// },
+		  	// "notes":
+			// {
+			// 	"address": "Hello World"
+		  	// },
 		  	"theme":
 			{
 				"color": "#0a6bfc"
@@ -142,10 +171,14 @@ class Subscribe extends Component
             status = false;
         });
 	}
-    
+
 
     render()
     {
+        const { history } = this.props;
+
+        this.state.payPerItemAmount = history.location.state.detail["amount"];
+
         const list = [];
         for(let i = 0; i < this.state.subscriptionPlans.length; i++)
         {
@@ -155,13 +188,13 @@ class Subscribe extends Component
 
             list.push
             (
-                <Radio.Group name="radiogroup" defaultValue={1}>
+                <Radio.Group name="radiogroup" defaultValue={1} key={i}>
                     <Row>
                         <div className="site-card-border-less-wrapper">
                         <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
                             <div>
-                                <input id={id} class="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === {id}} onChange={() => this.handleOnChanged(plans["amount"], plans["duration"])} />
-                                <label htmlFor={id} class="radio-custom-label">
+                                <input id={id} className="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === {id}} onChange={() => this.handleOnChanged(plans["amount"], plans["duration"])} />
+                                <label htmlFor={id} className="radio-custom-label">
                                     <b className="heading-font">&#x20B9; {plans["amount"]} for {plans["duration"]} Days</b>
                                 </label>
                             </div>
@@ -174,38 +207,39 @@ class Subscribe extends Component
                 </Radio.Group>
             );
         }
+
         return(
             <div className="container">
                 <NavigationBar />
                 <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px", paddingTop: "25px"}}>
                     <div>
-                    <Radio.Group name="radiogroup" defaultValue={1}>
-                    <h3 style={{color: 'white', textAlign:'center'}}>Pay & Watch</h3>
-                    <Row>
-                    <div className="site-card-border-less-wrapper">
-                        <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
-                        <div>
-                            <input id="0" class="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === "0"} onChange={() => this.handleOnChanged("100", 30)} />
-                            <label htmlFor="0" class="radio-custom-label">
-                                <b className="heading-font">&#x20B9; 50</b> </label>
-                        </div>
-                        <div className="border-top mt-3 pt-3">
-                            <p>Watch and Download the selected content for 365 days.</p>
-                        </div>
-                        </Card>
-                    </div>
-                    </Row>
-                    <h3 style={{color: 'white', textAlign:'center', marginTop:"2rem"}}>OR</h3>
-                    <h5 style={{color: 'white', textAlign:'center',  marginTop:"1rem", marginBottom: '2rem'}}>Select Subscription Pack</h5>
-                    <div>
-                    {
-                        list
-                    }
-                    </div>
-                    </Radio.Group>
+                        <Radio.Group name="radiogroup" defaultValue={1}>
+                            <h3 style={{color: 'white', textAlign:'center'}}>Pay & Watch</h3>
+                                <Row>
+                                    <div className="site-card-border-less-wrapper">
+                                    <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
+                                    <div>
+                                        <input id="0" className="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === "0"} onChange={() => this.handleOnChanged("100", 30)} />
+                                        <label htmlFor="0" className="radio-custom-label">
+                                            <b className="heading-font">&#x20B9; {this.state.payPerItemAmount}</b> </label>
+                                    </div>
+                                    <div className="border-top mt-3 pt-3">
+                                        <p>Watch and Download the selected content for 365 days.</p>
+                                    </div>
+                                    </Card>
+                                    </div>
+                                </Row>
+                            <h3 style={{color: 'white', textAlign:'center', marginTop:"2rem"}}>OR</h3>
+                            <h5 style={{color: 'white', textAlign:'center',  marginTop:"1rem", marginBottom: '2rem'}}>Select Subscription Pack</h5>
+                            <div>
+                            {
+                                list
+                            }
+                            </div>
+                        </Radio.Group>
                         <Row>
                             <Button onClick={this.openCheckout}  style={{width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 5, color:'white', height: 60, fontSize: 20, marginBottom: '2rem'}}>
-                            <i class="ti-credit-card pay-btn"></i>PAY NOW</Button>
+                            <i className="ti-credit-card pay-btn"></i>PAY NOW</Button>
                         </Row>
                     </div>
                 </div>

@@ -138,10 +138,10 @@ class Slider extends Component {
 									<div className="left-wrap">
 										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 										{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
-										<span class="tag"><b>Rating</b></span>
-                                        <span class="tag">{data["ratings"] === "" ? "0" : data["ratings"]}</span>
-                                        <span class="tag"><b>Duration</b></span>
-                                        {data["type"] === "movie" ? <span class="tag">{hour[0]} h {hour[1]} min</span> : <span class="tag">{hour[0]} min {hour[1]} sec</span>}
+										<span className="tag"><b>Rating</b></span>
+                                        <span className="tag">{data["ratings"] === "" ? "0" : data["ratings"]}</span>
+                                        <span className="tag"><b>Duration</b></span>
+                                        {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
                                         <p>{data["description"]}</p>
 
 										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>

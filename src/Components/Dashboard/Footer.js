@@ -1,3 +1,4 @@
+import { Link } from '@material-ui/core';
 import React, {Component} from 'react';
 
 class Footer extends Component
@@ -16,9 +17,9 @@ class Footer extends Component
 							</div>
 							<div className="col-sm-6 text-right">
 								<p className="float-right copyright-text">
-								<a style={{color:"white"}} href="/demo/luitWeb/build/privacy-policy">Privacy Policy</a> | 
-								<a style={{color:"white"}} href="/demo/luitWeb/build/terms">Terms of Use</a> | 
-								<a style={{color:"white"}} href="/">Help</a>
+								<Link style={{color:"white"}} href="/demo/luitWeb/build/privacy-policy">Privacy Policy</Link> | 
+								<Link style={{color:"white"}} href="/demo/luitWeb/build/terms">Terms of Use</Link> | 
+								<Link style={{color:"white"}} href="/">Help</Link>
 								</p>
 							</div>
 						</div>
