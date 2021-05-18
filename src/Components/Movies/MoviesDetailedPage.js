@@ -61,10 +61,12 @@ class MoviesDetailedPage extends Component
 		let actorsList = [];
 		let response = await Server.fetchArtist()
 
-		if (response["response"] === "success") {
+		if (response["response"] === "success")
+		{
 			let data = response["data"];
 
-			for (let i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.length; i++)
+			{
 				actorsList.push(data[i]);
 			}
 		}
@@ -151,15 +153,15 @@ class MoviesDetailedPage extends Component
 
 
 		const moreLikeThis = [];
-		if (this.state.moviesList !== undefined) 
+		if (this.state.moviesList !== undefined)
 		{
-			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++) 
+			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
 			{
-				for (let i = 0; i < this.state.moviesList.length; i++) 
+				for (let i = 0; i < this.state.moviesList.length; i++)
 				{
 					let hour = this.state.moviesList[i]["duration"].split('.');
 
-					if (this.props.location.params["item"]["genre"][j] === this.state.moviesList[i]["genre"][0]) 
+					if (this.props.location.params["item"]["genre"][j] === this.state.moviesList[i]["genre"][0])
 					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
@@ -170,9 +172,9 @@ class MoviesDetailedPage extends Component
 									<div className="slide-content">
 										<h2>{this.state.moviesList[i]["movie_title"]}</h2>
 										<p style={{fontFamily: "Montserrat"}}>{this.state.moviesList[i]["description"]}</p>
-										<span class="tag">{hour[0]} h {hour[1]} min</span>
-										<span class="tag">{this.state.moviesList[i]["publish_year"]}</span>
-										<span class="tag"><b>{this.state.moviesList[i]["maturity_rating"]}+</b></span>
+										<span className="tag">{hour[0]} h {hour[1]} min</span>
+										<span className="tag">{this.state.moviesList[i]["publish_year"]}</span>
+										<span className="tag"><b>{this.state.moviesList[i]["maturity_rating"]}+</b></span>
 									</div>
 								</Link>
 							</div>
@@ -207,7 +209,7 @@ class MoviesDetailedPage extends Component
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
-										<span className="rnd">IMDb 6.7</span>
+										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 										<h2>{data["movie_title"]}</h2>
 										<span className="tag">{data["publish_year"]}</span>
 										<span className="tag"><b>HD</b></span>
@@ -215,7 +217,9 @@ class MoviesDetailedPage extends Component
 										<span className="tag">{hour[0]} hours {hour[1]} min</span>
 										<p>{data["description"]}</p>
 
-										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: this.props.location.params["item"] } }}><img src="images/play.png" alt="" />Watch now</Link>
+										{
+											data["amount"] == 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup data={data}/>
+										}
 
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
@@ -235,7 +239,7 @@ class MoviesDetailedPage extends Component
 								</div>
 							</div>
 						</div>
-				
+
 						{crew === null ? null : <div className="container slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">

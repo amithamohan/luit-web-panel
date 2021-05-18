@@ -8,25 +8,24 @@ import { message } from 'antd';
 import AddIcon from '@material-ui/icons/Add';
 import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
-import Text from 'antd/lib/typography/Text';
 import { Row, Col } from 'antd';
-import MoviesDetailedPage from '../Movies/MoviesDetailedPage';
 import CheckIcon from '@material-ui/icons/Check';
 
-const { Meta } = Card;
 
-
-function MoviesCard(props) {
+function MoviesCard(props)
+{
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userId, setUserId] = useState(false);
 	const [visible, setVisible] = useState(false);
 
 
-	const handleOk = () => {
+	const handleOk = () =>
+	{
 		setIsModalVisible(false);
 	};
 
-	const handleCancel = () => {
+	const handleCancel = () =>
+	{
 		setIsModalVisible(false);
 	};
 
@@ -70,34 +69,34 @@ function MoviesCard(props) {
 
 	const checkWishList = async () =>
 	{
-		let type = 1;	
+		let type = 1;
 
-		for (let i = 0; i < props.moviesList.length; i++) 
+		for (let i = 0; i < props.moviesList.length; i++)
 		{
 			let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
 
 			if(response["response"] === "success")
 			{
-				props.moviesList[i]["free"] = "Added";	
-			}		
-		}	
+				props.moviesList[i]["free"] = "Added";
+			}
+		}
 		// After changing all value of "free" it is showing icon
-		setVisible(true);	 
+		setVisible(true);
 	};
 
-	const getUserDetails = () => 
+	const getUserDetails = () =>
 	{
         let user = localStorage.getItem("user");
         let data = JSON.parse(user);
 
-        if (data != null) 
+        if (data != null)
 		{
 			setUserId(data["id"])
         }
 		console.log(data);
     }
 
-	const addToWishlist = async (i) => 
+	const addToWishlist = async (i) =>
 	{
 		console.log("done");
 		let type = 1;
@@ -105,15 +104,15 @@ function MoviesCard(props) {
 
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if (response["response"] === "success") 
+		if (response["response"] === "success")
 		{
 			message.success('Added to wishlist');
 		}
-		else 
+		else
 		{
 			message.info('Already added');
 		}
-		// call again 
+		// call again
 		checkWishList();
 	    setVisible(false)
 	}
@@ -123,9 +122,9 @@ function MoviesCard(props) {
 
 	let list = props.moviesList.length;
 
-	if (list !== undefined) 
+	if (list !== undefined)
 	{
-		for (let i = 0; i < list; i++) 
+		for (let i = 0; i < list; i++)
 		{
 			const movie = props.moviesList[i];
 
@@ -171,13 +170,13 @@ function MoviesCard(props) {
 		}
 	}
 
-	for (let i = 0; i < props.moviesList.length; i++) 
+	for (let i = 0; i < props.moviesList.length; i++)
 	{
 		const movie = props.moviesList[i];
 
 		let hour = props.moviesList[i]["duration"].split('.');
 
-	
+
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
@@ -195,9 +194,9 @@ function MoviesCard(props) {
 								</IconButton> : null}
 							</h2>
 							<p>{movie["description"]}</p>
-							<span class="tag">{hour[0]} h {hour[1]} min</span>
-							<span class="tag">{movie["publish_year"]}</span>
-							<span class="tag"><b>{movie["maturity_rating"]} +</b></span>
+							<span className="tag">{hour[0]} h {hour[1]} min</span>
+							<span className="tag">{movie["publish_year"]}</span>
+							<span className="tag"><b>{movie["maturity_rating"]} +</b></span>
 						</div>
 					</div>
 				</div>
