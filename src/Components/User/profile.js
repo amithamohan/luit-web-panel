@@ -39,6 +39,7 @@ class ProfileInfo extends React.Component {
 		this.state =
 		{
 			selectedFile: null,
+			id: null,
 			username: null,
 			email: null,
 			phoneNumber: null,
@@ -55,43 +56,77 @@ class ProfileInfo extends React.Component {
 
 		let age;
 
-		let response = await Server.updateUserProfie(this.state.username, this.state.email, this.state.phoneNumber, this.state.dob, age, this.state.image);
+		let updateResponse = await Server.updateUserProfie(this.state.username, this.state.email, this.state.phoneNumber, this.state.dob, age, this.state.image);
+		
+		//console.log(response);
 
-		console.log(response);
-
-		if (response["response"] === "success") {
+		if (updateResponse["response"] === "success") {
 			message.success("Profile Updated Successfully")
+			let profileResponse = await Server.userProfile(this.state.id);
+			//console.log(response.data[0])
+			let user =
+            {
+				"id": this.state.id,
+				"name": profileResponse.data[0]["name"],
+                "email": profileResponse.data[0]["email"],
+                "phoneNumber": profileResponse.data[0]["mobile"],
+				"image": updateResponse["image"] ,
+                "isLoggedIn": true
+            };
+		localStorage.setItem("user", JSON.stringify(user));
 		}
 		else {
 			message.error("Oops, something went wrong");
 		}
+		// console.log(this.state.username)
+		// console.log(this.state.email)
+		// console.log(this.state.phoneNumber)
+		// console.log(this.state.dob)
+		//console.log(this.state.image)
+		// let user =
+        //     {
+		// 		"id": this.state.id,
+		// 		"name": this.state.username,
+        //         "email": this.state.email,
+        //         "phoneNumber": this.state.phoneNumber,
+		// 		"image": this.state.image,
+        //         "isLoggedIn": true
+        //     };
+		// localStorage.setItem("user", JSON.stringify(user));
+
 	}
 
 
-	componentDidMount() {
+	componentDidMount() 
+	{
 		let user = localStorage.getItem("user");
 
 		let data = JSON.parse(user);
 
-		console.log(data["image"]);
-
-		this.state.username = data["name"];
-		this.state.email = data["email"];
-		this.state.phoneNumber = data["phoneNumber"];
-		this.state.dob = null;
-		this.state.image = data["image"];
-
-
-		this.setState({ image: data["image"] });
-
-		console.log(this.state.image);
+		//console.log(data["image"]);
+		if(user !== null){
+			this.state.id = data["id"];
+			this.state.username = data["name"];
+			this.state.email = data["email"];
+			this.state.phoneNumber = data["phoneNumber"];
+			this.state.dob = null;
+			this.state.image = data["image"];
+	
+	
+			this.setState({ image: data["image"] });
+	
+			//console.log(this.state.image);
+		}
+		
 	}
 
-	onUpdateName = (event) => {
+	onUpdateName = (event) => 
+	{
 		this.setState({ username: event.target.value });
 	}
 
-	onUpdateEmail = (event) => {
+	onUpdateEmail = (event) => 
+	{
 		this.setState({ email: event.target.value });
 	}
 
@@ -111,17 +146,19 @@ class ProfileInfo extends React.Component {
 
 		console.log(info);
 
+		//beforeUpload(info.file);
+
 		if (info.file.status === 'uploading')
 		{
-			this.setState({ loading: true });
+			this.setState({ loading: true,  });
 			return;
 		}
 
 		if (info.file.status === 'done')
 		{
-			console.log(info.file.name);
-			console.log(info.file);
-			console.log(info.file.uid);
+			// console.log(info.file.name);
+			// console.log(info.file);
+			// console.log(info.file.uid);
 
 			getBase64(info.file.originFileObj, image =>
 
@@ -139,7 +176,7 @@ class ProfileInfo extends React.Component {
 	render()
 	{
 		let user = localStorage.getItem("user");
-		console.log(user);
+		//console.log(user);
 
 		const { loading, imageUrl } = this.state;
 
@@ -187,13 +224,13 @@ class ProfileInfo extends React.Component {
 														<div className="col-sm-6">
 															<div className="form-group mt-4">
 																<input className="form-control" value={this.state.username} type="text" placeholder="Name" onChange={this.onUpdateName} />
-																<input className="form-control" value={this.state.phoneNumber} type="tel" placeholder="Phone Number" onChange={this.onUpdatePhoneNumber} />
+																<input className="form-control" disabled value={this.state.phoneNumber} type="tel" placeholder="Phone Number" onChange={this.onUpdatePhoneNumber} />
 															</div>
 														</div>
 														<div className="col-sm-6">
 															<div className="form-group mt-4">
-																<input className="form-control" value={this.state.email} type="email" placeholder="Email address" onChange={this.onUpdateEmail} />
-																<input className="form-control" value={this.state.dob} type="date" placeholder="D.O.B" onChange={this.onUpdateDob} />
+																<input className="form-control" disabled value={this.state.email} type="email" placeholder="Email address" onChange={this.onUpdateEmail} />
+																<input className="form-control" disabled value={this.state.dob} type="date" placeholder="D.O.B" onChange={this.onUpdateDob} />
 															</div>
 														</div>
 													</div>
