@@ -4,11 +4,8 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
-<<<<<<< HEAD
 import SignInPopup from '../Utlities/SignInPopup';
-=======
 import { IconButton } from "@material-ui/core";
->>>>>>> ee95f9ef9c4900368e0025d81cbb94f5427ed664
 
 class NavigationBar extends Component
 {
@@ -100,13 +97,10 @@ class NavigationBar extends Component
                                     </a>}
                                 </Menu.Item>
                                 <Menu.Item>
-<<<<<<< HEAD
                                     {
-                                    this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/wishlist">
-=======
+                                    this.state.isLoggedIn ? 
                                     <a rel="noopener noreferrer" href="/wishlist">
                                     <i className="ti-heart text-black mr-4"></i>
->>>>>>> ee95f9ef9c4900368e0025d81cbb94f5427ed664
                                         My Wishlist
                                     </a> : <SignInPopup data={"fromNav"}/>
                                     }
