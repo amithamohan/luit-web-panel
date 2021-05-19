@@ -282,6 +282,9 @@ class MoviesDetailedPage extends Component
 												<a href="#"><i className="mr-0 ti-pinterest"></i></a>
 											</div>
 										</div>
+										<div className="icon-bttn">
+											<StarRating details={details} />
+										</div>
 
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
@@ -306,7 +309,7 @@ class MoviesDetailedPage extends Component
 							}
 						</div>}
 
-						<div className="container slide-wrapper" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
+						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>

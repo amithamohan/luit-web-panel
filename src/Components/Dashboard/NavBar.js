@@ -4,7 +4,11 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
+<<<<<<< HEAD
 import SignInPopup from '../Utlities/SignInPopup';
+=======
+import { IconButton } from "@material-ui/core";
+>>>>>>> ee95f9ef9c4900368e0025d81cbb94f5427ed664
 
 class NavigationBar extends Component
 {
@@ -84,32 +88,43 @@ class NavigationBar extends Component
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                         <Dropdown overlay = 
-                            {<Menu>
+                            {
+                                <div class="user-menu">
+                            <Menu> 
                                 <Menu.Item>
                                     {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in" onClick={e => {this.logOut()}}>
+                                    <i className="ti-power-off text-black mr-4"></i>
                                         Logout
                                     </a> : <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
                                         Login
                                     </a>}
                                 </Menu.Item>
                                 <Menu.Item>
+<<<<<<< HEAD
                                     {
                                     this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/wishlist">
+=======
+                                    <a rel="noopener noreferrer" href="/wishlist">
+                                    <i className="ti-heart text-black mr-4"></i>
+>>>>>>> ee95f9ef9c4900368e0025d81cbb94f5427ed664
                                         My Wishlist
                                     </a> : <SignInPopup data={"fromNav"}/>
                                     }
                                 </Menu.Item>
                                 <Menu.Item>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
+                                    <i className="ti-user text-black mr-4"></i>
                                         Profile
                                     </a>
                                 </Menu.Item>
                                 <Menu.Item>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribe">
+                                    <i className="ti-wallet text-black mr-4"></i>
                                         Subscription
                                     </a>
                                 </Menu.Item>
-                            </Menu>}>
+                            </Menu>
+                            </div>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         <Avatar  src= {this.state.image ? this.state.image : "https://via.placeholder.com/50x50.png"}></Avatar><DownOutlined />
                         </a>

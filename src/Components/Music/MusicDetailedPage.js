@@ -265,7 +265,7 @@ class MusicDetailedPage extends Component {
 							}
 						</div>
 
-						<div className="container slide-wrapper" style={{ backgroundColor: "transparent" }}>
+						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2>More Like This</h2>
