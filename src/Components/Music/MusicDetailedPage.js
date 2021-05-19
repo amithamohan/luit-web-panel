@@ -225,7 +225,11 @@ class MusicDetailedPage extends Component {
 										<span className="tag">{hour[0]} mins {hour[1]} min</span>
 										<p>{data["description"]}</p>
 										{
-											data["amount"] == 0  ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : this.state.isPaid === false? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : <PayPopup data={data}/>
+											data["amount"] == 0  
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												: this.state.isPaid === false
+													? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+													: <PayPopup data={data}/>
 										}
 										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
 										<div className="icon-bttn">

@@ -571,6 +571,8 @@ class Server
 			bodyFormData.append("content_id", contentId);
 			bodyFormData.append("user_id", userId);
 
+			console.log(bodyFormData);
+			
 			response = await axios
 			({
 				method: "POST",

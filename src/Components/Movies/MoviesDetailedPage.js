@@ -63,6 +63,10 @@ class MoviesDetailedPage extends Component
 		let contentType = this.props.location.params["item"]["type"] === "movie" ? 1 : 2;
 		let contentId = contentType === 1 ? this.props.location.params["item"]["movie_id"] : this.props.location.params["item"]["id"];
 		let data = JSON.parse(localStorage.getItem("user"));
+
+		console.log(data);
+		console.log("data");
+
 		let userId = data["id"];
 
 		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
@@ -226,8 +230,6 @@ class MoviesDetailedPage extends Component
 			"rating": this.props.location.params["item"]["ratings"],
 		}
 
-		console.log(details);
-
 		return (
 			<div>
 				<NavigationBar />
@@ -246,7 +248,11 @@ class MoviesDetailedPage extends Component
 										<p>{data["description"]}</p>
 
 										{
-											data["amount"] == 0 ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> : this.state.isPaid === true ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> :<PayPopup data={data}/>
+											data["amount"] == 0 
+											? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											: this.state.isPaid === true 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												:<PayPopup data={data}/>
 										}
 
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">

@@ -90,6 +90,12 @@ class Subscribe extends Component
     {
         let contentType = this.state.contentType;
         let contentId = this.state.contentId;
+        
+        console.log(contentType + "content type");
+        console.log(contentId + "content id");
+        console.log(this.state.userId + "user id");
+        console.log(amount);
+        console.log(refNumber);
 
         let response = await Server.payForVideo(contentType, contentId, amount, refNumber, this.state.userId);
 
@@ -205,9 +211,6 @@ class Subscribe extends Component
     {
         const { history } = this.props;
 
-        console.log(history.location.state);
-        console.log("history");
-
         if(history.location.state === undefined)
         {
             this.state.payPerItemAmount = null;
@@ -215,8 +218,11 @@ class Subscribe extends Component
         else
         {
             this.state.payPerItemAmount = history.location.state.detail["amount"];
-            this.state.contentType = history.location.state.detail["type"];
-            this.state.contentId = this.state.contentType === "movie" ? history.location.state.detail["movie_id"] : history.location.state.detail["id"];
+            this.state.contentType = history.location.state.detail["type"] === "movie" ? 1 : 2;
+            this.state.contentId = this.state.contentType === 1 ? history.location.state.detail["movie_id"] : history.location.state.detail["id"];
+
+            console.log(this.state.contentType);
+            console.log(this.state.contentId);
         }
 
         const list = [];
