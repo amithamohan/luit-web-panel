@@ -34,13 +34,16 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const list = [];
+// let list = [];
+
 
 function WishList()
 {
     const [status, setStatus] = useState(false);
     const [userId, setUserId] = useState('');
     const [loggedIn, setLoggedIn] = useState(true);
+    const [list, setList] = useState('');
+
 
     let history = useHistory();
 
@@ -56,12 +59,12 @@ function WishList()
         let user = localStorage.getItem("user");
 
 		let data = JSON.parse(user);
-        console.log(data)
+        // console.log(data)
 
         if(data !== null)
         {
             setUserId( data["id"]);
-            console.log(data["id"]);
+            // console.log(data["id"]);
         } else
         {
             setLoggedIn(false)
@@ -71,28 +74,24 @@ function WishList()
     const displayWishList = async () =>
     {
 
-        console.log(userId);
-        console.log("userId");
+        // console.log(userId);
+        // console.log("userId in wishlist");
 
         let response = await Server.displayWishlist(userId);
-
-        if (response["response"] === "success")
-        {
-            let data = response["data"];
-
-            for (let i = 0; i < data.length; i++)
-            {
-                list.push(data[i]);
-            }
-
-            setStatus(true);
-            message.success("Watch your favourites");
-
-        }
-        else
-        {
-            message.error("Add items to watchlist");
-        }
+        setList(response["data"])
+        // if(response["response"] === "success")
+        // {
+        //     console.log("object")
+        //     message.success("Watch your favourites");
+        // }else
+        // {
+        //     message.error("Add items to watchlist");
+        // }
+        
+        setTimeout(
+            () => setStatus(true),
+            3000
+          );
     }
 
     const deleteFromWishList = async (item) =>
@@ -135,7 +134,10 @@ function WishList()
             let movie = list[i]["video_details"][0];
             let id = list[i]["id"];
 
-            // let hour = "2500";
+            // // let hour = "2500";
+            // console.log(userId)
+            // console.log(list[i])
+            // //console.log(movie);
             let hour = movie["duration"].split('.');
 
             text.push(
@@ -208,7 +210,7 @@ function WishList()
 
     if(loggedIn === false)
     {
-        console.log(userId)
+        // console.log(userId)
         return(<Redirect to="/sign_in" />)
     }
 

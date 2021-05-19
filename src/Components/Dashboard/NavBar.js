@@ -4,6 +4,7 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import SignInPopup from '../Utlities/SignInPopup';
 
 class NavigationBar extends Component
 {
@@ -92,9 +93,11 @@ class NavigationBar extends Component
                                     </a>}
                                 </Menu.Item>
                                 <Menu.Item>
-                                    <a rel="noopener noreferrer" href="/wishlist">
+                                    {
+                                    this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/wishlist">
                                         My Wishlist
-                                    </a>
+                                    </a> : <SignInPopup data={"fromNav"}/>
+                                    }
                                 </Menu.Item>
                                 <Menu.Item>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">

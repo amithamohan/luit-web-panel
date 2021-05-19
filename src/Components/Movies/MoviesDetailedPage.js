@@ -10,7 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
 import PayPopup from "../Utlities/PopUp";
-
+import SignInPopup from "../Utlities/SignInPopup";
 
 class MoviesDetailedPage extends Component
 {
@@ -44,6 +44,7 @@ class MoviesDetailedPage extends Component
 			moviesList: [],
 			allVideos: [],
 			isAdded: false,
+			isLoggedIn: false,
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -67,8 +68,10 @@ class MoviesDetailedPage extends Component
 		console.log(data);
 		console.log("data");
 
-		let userId = data["id"];
-
+        if (data != null) 
+        {
+	    let userId = data["id"];
+        this.setState({ isLoggedIn: true })
 		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
 
 		console.log(response);
@@ -82,6 +85,9 @@ class MoviesDetailedPage extends Component
 		{
 			this.setState({isPaid : true});
 		}
+        }
+
+		
 	}
 
 	async getActors()
@@ -140,6 +146,13 @@ class MoviesDetailedPage extends Component
 		}
 	}
 
+	async getUserDetails()
+    {
+        let user = localStorage.getItem("user");
+
+        
+
+    }
 
 	// fetch all music
 	async getAllMovies()
@@ -249,7 +262,9 @@ class MoviesDetailedPage extends Component
 
 										{
 											data["amount"] == 0 
-											? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											? this.state.isLoggedIn 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    : <SignInPopup />
 											: this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												:<PayPopup data={data}/>
