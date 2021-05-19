@@ -18,7 +18,9 @@ import MoviesDetailedPage from './Components/Movies/MoviesDetailedPage';
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
-import SuccessPopup from './Components/Dashboard/SuccessPopup';
+import SuccessPopup from './Components/Utlities/SuccessPopup';
+
+
 
 function App() {
   return (
@@ -41,6 +43,7 @@ function App() {
         <Route path="/video_player" component={VideoPlayer} />
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
+        <Route path="/successPopup" component={SuccessPopup} />
       </Switch>
     </Router>
 

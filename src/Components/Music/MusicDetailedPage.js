@@ -13,6 +13,7 @@ import ReactStars from "react-rating-stars-component";
 // import Button from 'react-bootstrap/Button';
 import StarRating from '../Dashboard/StarRating';
 import star from "react-rating-stars-component/dist/star";
+import PayPopup from "../Utlities/PopUp";
 
 const { Meta } = Card;
 
@@ -50,15 +51,40 @@ class MusicDetailedPage extends Component {
 			actors: [],
 			allVideos: [],
 			musicList: [],
+			isPaid : false,
 		}
 
 		this.getActors = this.getActors.bind(this);
 		this.getAllMusic = this.getAllMusic.bind(this);
+		this.checkPayment = this.checkPayment.bind(this);
 	}
 
-	componentDidMount() {
+	componentDidMount() 
+	{
 		this.getActors();
 		this.getAllMusic();
+		this.checkPayment();
+	}
+
+	async checkPayment()
+	{
+		let contentType = this.props.location.params["item"]["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? this.props.location.params["item"]["movie_id"] : this.props.location.params["item"]["id"];
+		let data = JSON.parse(localStorage.getItem("user"));
+		let userId = data["id"];
+
+		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+
+		console.log(response);
+
+		if(response["payment_status"] === 0)
+		{
+			this.setState({isPaid : false});
+		}
+		else
+		{
+			this.setState({isPaid : true});
+		}
 	}
 
 	async getActors() 
@@ -198,7 +224,13 @@ class MusicDetailedPage extends Component {
 										<span className="tag"><b>{data["maturity_rating"]}+</b></span>
 										<span className="tag">{hour[0]} mins {hour[1]} min</span>
 										<p>{data["description"]}</p>
-										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
+										{
+											data["amount"] == 0  
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												: this.state.isPaid === false
+													? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+													: <PayPopup data={data}/>
+										}
 										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
 										<div className="icon-bttn">
 											<i className="ti-sharethis text-white mr-4"></i>

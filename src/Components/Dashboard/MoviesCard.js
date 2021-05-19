@@ -12,11 +12,13 @@ import { Row, Col } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
 
 
+
 function MoviesCard(props)
 {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userId, setUserId] = useState(false);
 	const [visible, setVisible] = useState(false);
+
 
 
 	const handleOk = () =>
@@ -56,6 +58,11 @@ function MoviesCard(props)
 		autoplay: false,
 		stagePadding: 1,
 	};
+	const modal =
+	<Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+		<p>Some contents...</p>
+		<p>Some contents...</p>
+	</Modal>
 
 	useEffect(()  => {
 		getUserDetails();
@@ -64,7 +71,10 @@ function MoviesCard(props)
 
 	const checkWishList = async () =>
 	{
-		let type = 1;
+		let type = 1;	
+
+		console.log(userId);
+		console.log("userId wishlist");
 
 		for (let i = 0; i < props.moviesList.length; i++)
 		{
@@ -84,11 +94,14 @@ function MoviesCard(props)
         let user = localStorage.getItem("user");
         let data = JSON.parse(user);
 
+		console.log(userId);
+		console.log("userId");
+		
         if (data != null)
 		{
 			setUserId(data["id"])
+		
         }
-		console.log(data);
     }
 
 	const addToWishlist = async (i) =>
@@ -117,53 +130,6 @@ function MoviesCard(props)
 
 	let list = props.moviesList.length;
 
-	if (list !== undefined)
-	{
-		for (let i = 0; i < list; i++)
-		{
-			const movie = props.moviesList[i];
-
-			let hour = props.moviesList[i]["duration"].split('.');
-
-			text.push(
-				<Row>
-					<Col key={i} xs={24} xl={8}>
-						<div className="owl-items" key={i} style={{ borderRadius: "25px" }}>
-							<Card className={customCard} hoverable
-								style={{ width: "240px", heigth: "600px" }}
-								cover={<div style={{ background: "white", height: "250px" }}>
-									<img src={movie["poster"]} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} style={{ background: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)" }} />
-								</div>}
-							>
-
-								<Grid container direction="row" alignItems="center" justify="space-between">
-									<Grid item>
-										<h6>{movie["movie_title"]}</h6>
-									</Grid>
-
-									<Grid item>
-										<IconButton onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
-											<AddIcon fontSize="inherit" />
-										</IconButton>
-									</Grid>
-								</Grid>
-								<span style={{ color: "grey" }}>{movie["publish_year"]}</span>
-								<Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey" }}>
-									<Grid item>
-										<span>{hour[0]} hrs {hour[1]} mins</span>
-									</Grid>
-
-									<Grid item>
-										<span>{movie["ratings"]}</span>
-									</Grid>
-								</Grid>
-							</Card>
-						</div>
-					</Col>
-				</Row>
-			);
-		}
-	}
 
 	for (let i = 0; i < props.moviesList.length; i++)
 	{
@@ -224,10 +190,6 @@ function MoviesCard(props)
 					}
 				</OwlCarousel>
 			</div> */}
-			<Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-			</Modal>
 		</div>
 	);
 }

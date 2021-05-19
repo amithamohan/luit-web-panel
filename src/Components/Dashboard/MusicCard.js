@@ -115,9 +115,9 @@ class MusicCard extends Component
 				cards.push(
 					<div className="owl-items" key={i}>
 						<div className="slide-one"  style={{ height: "430px" }}>
-							<div onClick={() => {this.redirectToHome(music)}} className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i]}}} style={{ display: "flex", justifyContent: "center" }}>
-								<img src={music["thumbnail"]} alt={music["title"]}style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-							</div>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+								<img src={music["thumbnail"]} alt={music["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}
 									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
