@@ -233,6 +233,9 @@ class MoviesDetailedPage extends Component
 												<a href="#"><i className="mr-0 ti-pinterest"></i></a>
 											</div>
 										</div>
+										<div className="icon-bttn">
+											<StarRating details={details} />
+										</div>
 
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />

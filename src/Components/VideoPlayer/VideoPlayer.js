@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 	{
     	width: "100%",
     	position: "relative",
-		height:"100vh"
+		height:"95vh"
   	},
 });
 
@@ -200,8 +200,10 @@ function VideoPlayer (props)
     }
 
   	return (
-    	<div style={{background: "black"}}>
-      		<Container maxWidth="lg" style={{background:"black", display: "table", width: "fit-content", height: "fit-content"
+		  <div>
+			<Container style={{height: "1rem"}}></Container>
+    		<div style={{background: "black"}}>
+      		<Container maxWidth="xl" style={{background:"black", display: "table"
 		}}>
         		<div 
 					ref={playerContainerRef} 
@@ -247,6 +249,7 @@ function VideoPlayer (props)
         		</div>
 				</Container>
 	  	</div>
+		  </div>
   	);
 }
 
