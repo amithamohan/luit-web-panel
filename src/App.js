@@ -19,6 +19,7 @@ import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 import SuccessPopup from './Components/Utlities/SuccessPopup';
+import ViewContents from './Components/Dashboard/ViewContents';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
         <Route path="/successPopup" component={SuccessPopup} />
+        <Route path="/view-content" component={ViewContents} />
       </Switch>
     </Router>
 
