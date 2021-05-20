@@ -3,12 +3,14 @@ import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-class TrendingArtist extends Component {
+class TrendingArtist extends Component 
+{
 	options =
 		{
 			items: 5,
 			margin: 5,
 			nav: true,
+			navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 			loop: true,
 			autoplay: true,
 			startPosition: 0,
@@ -25,7 +27,7 @@ class TrendingArtist extends Component {
 				cards.push(
 					<div key={i}>
 						<center>
-							<Link to={{ pathname: "/view_all", params: { item: this.props.trendingArtist[i] } }}>
+							<Link to={{ pathname: "/view_all", state: { item: this.props.trendingArtist[i] } }}>
 								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "170px", width: "170px", borderRadius: "300px", backgroundImage: `url(${actors['actor_image']})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
 							</Link>
 							<br /><span style={{ color: "white" }}>{actors["actor_name"]}</span>

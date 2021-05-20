@@ -140,7 +140,7 @@ class Slider extends Component {
                                         {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
                                         <p>{data["description"]}</p>
 
-										<Link className="btn btn-lg" to={{ pathname: "/video_player", params: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
+										<Link className="btn btn-lg" to={{ pathname: "/video_player", state: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
 
 										{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
