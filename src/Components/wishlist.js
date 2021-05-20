@@ -114,10 +114,15 @@ function WishList()
         }
     }
 
-    const handleClick = () =>
-    {
-        history.push("/movies_detailed_page");
-    }
+    //Another way
+    // const handleClick = (movie) =>
+    // {
+    //     history.push
+    //     ({
+    //         pathname:'/movies_detailed_page',
+    //         state : { item: movie}
+    //     })
+    // }
 
     const classes = useStyles()
 
@@ -134,15 +139,11 @@ function WishList()
             let movie = list[i]["video_details"][0];
             let id = list[i]["id"];
 
-            // // let hour = "2500";
-            // console.log(userId)
-            // console.log(list[i])
-            // //console.log(movie);
             let hour = movie["duration"].split('.');
 
             text.push(
                <div className="slide-wrapper" key={i} >
-                   <div className="owl-items" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
+                   <Link className="owl-items" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
                         <Card hoverable className="slide-one"
                             style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
                             cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
@@ -180,7 +181,7 @@ function WishList()
                                 </Grid>
                             </Grid>
                         </Card>
-                    </div>
+                    </Link>
                </div>
             );
         }

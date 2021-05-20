@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
 import Server from '../APIs/Server';
 import Modal from 'antd/lib/modal/Modal';
 import { IconButton } from '@material-ui/core';
@@ -19,7 +19,7 @@ function MoviesCard(props)
 	const [userId, setUserId] = useState(false);
 	const [visible, setVisible] = useState(false);
 
-
+	let history = useHistory();
 
 	const handleOk = () =>
 	{
@@ -125,11 +125,19 @@ function MoviesCard(props)
 	    setVisible(false)
 	}
 
+	// Another way 
+	// const handleClick = (movie) =>
+    // {
+    //     history.push
+    //     ({
+    //         pathname:'/movies_detailed_page',
+    //         state : { item: movie}
+    //     })
+    // }
+
 	const cards = [];
 	const text = [];
-
 	let list = props.moviesList.length;
-
 
 	for (let i = 0; i < props.moviesList.length; i++)
 	{
@@ -142,7 +150,8 @@ function MoviesCard(props)
 			cards.push(
 				<div className="" key={i}>
 					<div className="slide-one" style={{ height: "430px" }}>
-						<Link className="slide-image" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
+						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">

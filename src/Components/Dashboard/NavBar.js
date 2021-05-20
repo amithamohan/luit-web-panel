@@ -93,11 +93,14 @@ class NavigationBar extends Component
                                         Login
                                     </a>}
                                 </Menu.Item>
+
                                 <Menu.Item icon={<HeartOutlined />}>
-                                    <a rel="noopener noreferrer" href="/wishlist">
-                                        My Wishlist
-                                    </a> 
+                                    {this.state.isLoggedIn 
+                                        ? <a rel="noopener noreferrer" href="/wishlist"> 
+                                        My Wishlist </a>
+                                        : <SignInPopup data="fromNav" />}
                                 </Menu.Item>
+
                                 <Menu.Item icon={<UserOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
                                         Profile
