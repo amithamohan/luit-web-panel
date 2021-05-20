@@ -19,6 +19,8 @@ import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 import SuccessPopup from './Components/Utlities/SuccessPopup';
+import PaymentHistory from './Components/PaymentHistory';
+import SubscribedContents from './Components/SubscribedPlans';
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
         <Route path="/successPopup" component={SuccessPopup} />
+        <Route path="/payment-history" component={PaymentHistory} />
+        <Route path="/subscribed-contents" component={SubscribedContents} />
       </Switch>
     </Router>
 

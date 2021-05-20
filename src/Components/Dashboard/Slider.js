@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-// import 'antd/dist/antd.css';
 import 'antd/dist/antd.css';
-import { Carousel, Col, Row } from 'antd';
+import { Carousel } from 'antd';
 import { Link } from 'react-router-dom';
 import Server from '../APIs/Server';
-import { IconButton } from "@material-ui/core";
-import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
-import CheckIcon from '@material-ui/icons/Check';
 
 class Slider extends Component {
 	constructor(props) {

@@ -2,7 +2,7 @@ import { Icon, Link } from '@material-ui/core';
 import { Menu, Row, Col, Dropdown} from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, LoginOutlined, UserOutlined, HeartOutlined, BankOutlined } from '@ant-design/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 class NavigationBar extends Component
@@ -85,26 +85,36 @@ class NavigationBar extends Component
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                         <Dropdown overlay = 
                             {<Menu>
-                                <Menu.Item>
+                                <Menu.Item icon={<LoginOutlined/>}>
                                     {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
-                                        Logout
+                                     Logout
                                     </a> : <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
                                         Login
                                     </a>}
                                 </Menu.Item>
-                                <Menu.Item>
+                                <Menu.Item icon={<HeartOutlined />}>
                                     <a rel="noopener noreferrer" href="/wishlist">
                                         My Wishlist
                                     </a>
                                 </Menu.Item>
-                                <Menu.Item>
+                                <Menu.Item icon={<UserOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
                                         Profile
                                     </a>
                                 </Menu.Item>
-                                <Menu.Item>
+                                <Menu.Item icon={<BankOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribe">
                                         Subscription
+                                    </a>
+                                </Menu.Item>
+                                <Menu.Item icon={<BankOutlined/>}>
+                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/payment-history">
+                                        Payment History
+                                    </a>
+                                </Menu.Item>
+                                <Menu.Item icon={<BankOutlined/>}>
+                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribed-contents">
+                                        Subscribed Contents
                                     </a>
                                 </Menu.Item>
                             </Menu>}>

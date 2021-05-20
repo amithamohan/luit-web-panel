@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
 import PayPopup from "../Utlities/PopUp";
+import history from '../History';
 
 
 class MoviesDetailedPage extends Component
@@ -157,6 +158,16 @@ class MoviesDetailedPage extends Component
 	render()
 	{
 
+		if(history.location.state === undefined)
+		{
+			history.location.state = this.props.location.params;
+			console.log(history.location.state);
+			// history.replace("demo/luitWeb/build/");
+		}
+
+		console.log(history.location.state);
+
+
 		const crew = [];
 
 		if (this.state.actors !== undefined) {
@@ -183,6 +194,8 @@ class MoviesDetailedPage extends Component
 		const moreLikeThis = [];
 		if (this.state.moviesList !== undefined)
 		{
+			// history.replace("/demo/luitWeb/build/");
+
 			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
 			{
 				for (let i = 0; i < this.state.moviesList.length; i++)
@@ -226,7 +239,16 @@ class MoviesDetailedPage extends Component
 			"rating": this.props.location.params["item"]["ratings"],
 		}
 
-		console.log(details);
+		console.log(history.location.state);
+		// history.replace("/demo/luitWeb/build/");
+		// console.log("history");
+
+		if(history.location.state === undefined)
+		{
+			history.location.state = this.props.location.params;
+			console.log(history.location.state);
+			// history.replace("demo/luitWeb/build/");
+		}
 
 		return (
 			<div>

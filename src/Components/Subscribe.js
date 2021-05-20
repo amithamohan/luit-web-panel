@@ -7,6 +7,7 @@ import Server from './APIs/Server';
 import { withRouter } from 'react-router-dom';
 import history from './History';
 import SuccessPopup from './Utlities/SuccessPopup';
+import moment from "moment";
 
 
 class Subscribe extends Component
@@ -61,20 +62,22 @@ class Subscribe extends Component
         console.log(this.state.selectedOption);
 
         let userId = this.state.userId;
-        // let days;
         let startDate;
         let endDate;
+        let temp;
 
-        let newDate = new Date();
-        let day = newDate.getDate();
-        let month = newDate.getMonth();
-        let year = newDate.getFullYear();
 
-        startDate = year+ "-" + month + "-" + day;
+        startDate = moment().format("YYYY-MM-DD")
+        temp = moment(startDate, "YYYY-MM-DD").add(this.state.days, 'days');
 
-        const date = new Date();
-        let x = new Date(date.setDate(date.getDate() + this.state.days));
-        endDate = x.getFullYear() + "-" + x.getMonth() + "-" + x.getDate();
+        var day = temp.format('DD');
+        var month = temp.format('MM');
+        var year = temp.format('YYYY');
+
+        endDate = year + '-' + month + '-' + day;
+
+        console.log(startDate)
+        console.log(endDate)
 
         if(this.state.selectedOption === "0")
         {
@@ -108,6 +111,7 @@ class Subscribe extends Component
     }
     async subscriptionPack(userId, days, startDate, endDate, amount, refNumber)
     {
+
         let response = await Server.monthlyPayment(userId, days, startDate, endDate, amount, refNumber);
 
         console.log(response);

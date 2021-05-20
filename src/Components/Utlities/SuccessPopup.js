@@ -43,10 +43,10 @@ function SuccessPopup ()
   	return (
     	<div>
       		<Modal visible={isModalVisible} onOk={handleOk}>
-				<div id="popup1" class="overlay">
-	  				<div class="popup">
+				<div id="popup1" className="overlay">
+	  				<div className="popup">
 		  				<center><h4 style={{color:"green"}}>Thank you!</h4></center>
-		  				<div class="content">
+		  				<div className="content">
 			  				<div className="row mt-3">
 				  				<div className="col-6">
 					  				<span>Date </span><br />

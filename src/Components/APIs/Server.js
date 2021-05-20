@@ -593,7 +593,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
@@ -619,13 +619,13 @@ class Server
 		{
 			let response;
 
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
 			({
-				method: "GET",
+				method: "POST",
 				url: "https://release.luit.co.in/api/content-payment-history",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
@@ -646,13 +646,13 @@ class Server
 		{
 			let response;
 
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 
 			bodyFormData.append("user_id", userId);
 
 			response = await axios
 			({
-				method: "GET",
+				method: "POST",
 				url: "https://release.luit.co.in/api/subscription-payment-history",
 				headers: { "Content-Type": "multipart/form-data" },
 				data: bodyFormData
