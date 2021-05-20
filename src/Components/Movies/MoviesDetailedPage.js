@@ -174,6 +174,16 @@ class MoviesDetailedPage extends Component
 	render()
 	{
 
+		if(history.location.state === undefined)
+		{
+			history.location.state = this.props.location.params;
+			console.log(history.location.state);
+			// history.replace("demo/luitWeb/build/");
+		}
+
+		console.log(history.location.state);
+
+
 		const crew = [];
 
 		if (this.state.actors !== undefined) {
@@ -200,6 +210,8 @@ class MoviesDetailedPage extends Component
 		const moreLikeThis = [];
 		if (this.state.moviesList !== undefined)
 		{
+			// history.replace("/demo/luitWeb/build/");
+
 			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
 			{
 				for (let i = 0; i < this.state.moviesList.length; i++)

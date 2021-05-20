@@ -62,7 +62,7 @@ export default function ViewAll(params)
                 <div class="row">
                     <div class="col-sm-12 mt-4 ">
                         <Divider orientation="center" style={{color: "white"}}></Divider>
-                        <Row gutter={[8, 8]} justify="center">
+                        <Row gutter={[8, 8]} justify="left">
                             {row}
                         </Row>
                     </div>

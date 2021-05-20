@@ -22,6 +22,8 @@ import SuccessPopup from './Components/Utlities/SuccessPopup';
 // import ViewContents from './Components/Dashboard/ViewContents';
 
 
+import PaymentHistory from './Components/PaymentHistory';
+import SubscribedContents from './Components/SubscribedPlans';
 
 function App() {
   return (
@@ -45,7 +47,8 @@ function App() {
         <Route path="/rating" component={StarRating} />
         <Route path="/subscribe" component={Subscribe} />
         <Route path="/successPopup" component={SuccessPopup} />
-        {/* <Route path="/view-content" component={ViewContents} /> */}
+        <Route path="/payment-history" component={PaymentHistory} />
+        <Route path="/subscribed-contents" component={SubscribedContents} />
       </Switch>
     </Router>
 
