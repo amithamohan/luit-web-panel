@@ -110,7 +110,12 @@ class MoviesDetailedPage extends Component
 
 	async isAddedToWishList()
 	{
-		let userId = 4;
+		let user = localStorage.getItem("user");
+
+		let data = JSON.parse(user);
+
+		let userId = data["id"];
+
 		let type = 1;
 		let id = this.props.location.params["item"]["movie_id"];
 
@@ -149,9 +154,6 @@ class MoviesDetailedPage extends Component
 	async getUserDetails()
     {
         let user = localStorage.getItem("user");
-
-        
-
     }
 
 	// fetch all music
@@ -173,17 +175,6 @@ class MoviesDetailedPage extends Component
 
 	render()
 	{
-
-		if(history.location.state === undefined)
-		{
-			history.location.state = this.props.location.params;
-			console.log(history.location.state);
-			// history.replace("demo/luitWeb/build/");
-		}
-
-		console.log(history.location.state);
-
-
 		const crew = [];
 
 		if (this.state.actors !== undefined) {

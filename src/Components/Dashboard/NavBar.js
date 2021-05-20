@@ -95,20 +95,16 @@ class NavigationBar extends Component
                                 </Menu.Item>
                                 <Menu.Item icon={<HeartOutlined />}>
                                     <a rel="noopener noreferrer" href="/wishlist">
-                                    <i className="ti-heart text-black mr-4"></i>
                                         My Wishlist
-                                    </a> : <SignInPopup data={"fromNav"}/>
-                                    }
+                                    </a> 
                                 </Menu.Item>
                                 <Menu.Item icon={<UserOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
-                                    <i className="ti-user text-black mr-4"></i>
                                         Profile
                                     </a>
                                 </Menu.Item>
                                 <Menu.Item icon={<BankOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribe">
-                                    <i className="ti-wallet text-black mr-4"></i>
                                         Subscription
                                     </a>
                                 </Menu.Item>

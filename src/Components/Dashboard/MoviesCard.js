@@ -142,7 +142,7 @@ function MoviesCard(props)
 			cards.push(
 				<div className="" key={i}>
 					<div className="slide-one" style={{ height: "430px" }}>
-						<Link className="slide-image" to={{ pathname: "/view-content", params: { item: props.moviesList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+						<Link className="slide-image" to={{ pathname: "/movies_detailed_page", params: { item: props.moviesList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">

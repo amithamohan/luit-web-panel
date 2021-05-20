@@ -93,12 +93,6 @@ class Subscribe extends Component
     {
         let contentType = this.state.contentType;
         let contentId = this.state.contentId;
-        
-        console.log(contentType + "content type");
-        console.log(contentId + "content id");
-        console.log(this.state.userId + "user id");
-        console.log(amount);
-        console.log(refNumber);
 
         let response = await Server.payForVideo(contentType, contentId, amount, refNumber, this.state.userId);
 
