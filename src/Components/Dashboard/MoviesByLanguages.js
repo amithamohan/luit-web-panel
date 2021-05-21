@@ -11,6 +11,7 @@ class MoviesByLanguages extends Component
 			items: 4,
 			margin: 5,
 			nav: true,
+			navText: ["<img src='./images/left.png'/>", "<img src='./images/right.png'/>"],
 			loop: true,
 			autoplay: true,
 			startPosition: 2,

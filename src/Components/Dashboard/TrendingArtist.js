@@ -10,7 +10,7 @@ class TrendingArtist extends Component
 			items: 5,
 			margin: 5,
 			nav: true,
-			navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
+			navText: ["<img src='./images/left.png'/>", "<img src='./images/right.png'/>"],
 			loop: true,
 			autoplay: true,
 			startPosition: 0,
