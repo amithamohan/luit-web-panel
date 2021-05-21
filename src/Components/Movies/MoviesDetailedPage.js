@@ -49,6 +49,7 @@ class MoviesDetailedPage extends Component
 
 		this.getActors = this.getActors.bind(this);
 		this.checkPayment = this.checkPayment.bind(this);
+
 	}
 
 	componentDidMount()
@@ -61,33 +62,31 @@ class MoviesDetailedPage extends Component
 
 	async checkPayment()
 	{
-		let contentType = this.props.location.params["item"]["type"] === "movie" ? 1 : 2;
-		let contentId = contentType === 1 ? this.props.location.params["item"]["movie_id"] : this.props.location.params["item"]["id"];
+		let contentType = this.props.location.state.item["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? this.props.location.state.item["movie_id"] : this.props.location.state.item["id"];
 		let data = JSON.parse(localStorage.getItem("user"));
 
 		console.log(data);
 		console.log("data");
 
-        if (data != null) 
+        if (data != null)
         {
-	    let userId = data["id"];
-        this.setState({ isLoggedIn: true })
-		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+			let userId = data["id"];
+			this.setState({ isLoggedIn: true })
+			let response = await Server.checkPaymentStatus(contentType, contentId, userId);
 
-		console.log(response);
-		console.log("response");
+			console.log(response);
+			console.log("response");
 
-		if(response["payment_status"] === 0)
-		{
-			this.setState({isPaid : false});
-		}
-		else
-		{
-			this.setState({isPaid : true});
-		}
+			if(response["payment_status"] === 0)
+			{
+				this.setState({isPaid : false});
+			}
+			else
+			{
+				this.setState({isPaid : true});
+			}
         }
-
-		
 	}
 
 	async getActors()
@@ -117,15 +116,15 @@ class MoviesDetailedPage extends Component
 		let userId = data["id"];
 
 		let type = 1;
-		let id = this.props.location.params["item"]["movie_id"];
+		let id = this.props.location.state.item["movie_id"];
 
 		let response = await Server.wishlistIsPresent(type, id, userId);
 
-		if (response["response"] === "success") 
+		if (response["response"] === "success")
 		{
 			this.setState({ isAdded: true });
 		}
-		else 
+		else
 		{
 			this.setState({ isAdded: false });
 		}
@@ -141,11 +140,11 @@ class MoviesDetailedPage extends Component
 		console.log("success");
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if (response["response"] === "success") 
+		if (response["response"] === "success")
 		{
 			message.success('Added to wishlist');
 		}
-		else 
+		else
 		{
 			message.info('Already added');
 		}
@@ -173,14 +172,26 @@ class MoviesDetailedPage extends Component
 		this.setState({ moviesList: result });
 	}
 
+	// Another way
+	// handleClick(movie)
+    // {
+	// 	const { history } = this.props;
+    //     history.push
+    //     ({
+    //         pathname:'/movies_detailed_page',
+    //         state : { item: movie}
+    //     })
+    // }
+
 	render()
 	{
-		const crew = [];
 
+		const crew = [];
+		console.log(this.props.location.state)
 		if (this.state.actors !== undefined) {
-			for (let j = 0; j < this.props.location.params["item"]["actors"].length; j++) {
+			for (let j = 0; j < this.props.location.state.item["actors"].length; j++) {
 				for (let i = 0; i < this.state.actors.length; i++) {
-					if (this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"]) {
+					if (this.props.location.state.item["actors"][j] === this.state.actors[i]["name"]) {
 						crew.push(
 							<div key={i}>
 								<center>
@@ -203,17 +214,18 @@ class MoviesDetailedPage extends Component
 		{
 			// history.replace("/demo/luitWeb/build/");
 
-			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++)
+			for (let j = 0; j < this.props.location.state.item["genre"].length; j++)
 			{
 				for (let i = 0; i < this.state.moviesList.length; i++)
 				{
 					let hour = this.state.moviesList[i]["duration"].split('.');
 
-					if (this.props.location.params["item"]["genre"][j] === this.state.moviesList[i]["genre"][0])
+					if (this.props.location.state.item["genre"][j] === this.state.moviesList[i]["genre"][0])
 					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
-								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
+								{/* <div className="slide-one" onClick={()=>{this.handleClick(this.state.moviesList[i])}} style={{ height: "430px" }}> */}
+								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
 										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
@@ -232,18 +244,18 @@ class MoviesDetailedPage extends Component
 			}
 		}
 
-		let data = this.props.location.params["item"];
-		let image = this.props.location.params["item"]["thumbnail"];
+		let data = this.props.location.state.item;
+		let image = this.props.location.state.item["thumbnail"];
 		let x = image.split(' ').join('%20');
 
-		let hour = this.props.location.params["item"]["duration"].split('.');
+		let hour = this.props.location.state.item["duration"].split('.');
 
 
 		let details =
 		{
-			"id": this.props.location.params["item"]["movie_id"],
+			"id": this.props.location.state.item["movie_id"],
 			"type": 1,
-			"rating": this.props.location.params["item"]["ratings"],
+			"rating": this.props.location.state.item["ratings"],
 		}
 
 		return (
@@ -266,10 +278,10 @@ class MoviesDetailedPage extends Component
 										{
 											data["amount"] == 0 
 											? this.state.isLoggedIn 
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    : <SignInPopup />
 											: this.state.isPaid === true 
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												:<PayPopup data={data}/>
 										}
 

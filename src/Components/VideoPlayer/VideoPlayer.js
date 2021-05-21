@@ -71,7 +71,7 @@ function VideoPlayer (props)
 		seeking: false
 	})
 
-	let data = props.location.params["item"];
+	let data = props.location.state["item"];
 	let title;
 	let x;
 
@@ -79,14 +79,14 @@ function VideoPlayer (props)
 
 	if(data["type"] === "movie")
 	{
-		title = props.location.params["item"]["movie_title"];
-		let image = props.location.params["item"]["movie_upload"];
+		title = props.location.state["item"]["movie_title"];
+		let image = props.location.state["item"]["movie_upload"];
 		x = image.split(' ').join('%20');
 	}
 	else
 	{
-		title = props.location.params["item"]["title"];
-		x = props.location.params["item"]["upload_music"];
+		title = props.location.state["item"]["title"];
+		x = props.location.state["item"]["upload_music"];
 		console.log(x);
 	}
 

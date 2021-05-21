@@ -5,8 +5,6 @@ import { Row } from 'antd';
 import NavigationBar from './Dashboard/NavBar';
 import Server from './APIs/Server';
 import { withRouter } from 'react-router-dom';
-import history from './History';
-import SuccessPopup from './Utlities/SuccessPopup';
 import moment from "moment";
 
 
@@ -142,6 +140,7 @@ class Subscribe extends Component
         let ref_number;
         let amount = this.state.selectedOption === "0" ? this.state.payPerItemAmount * 100 : this.state.selectedOption * 100;
 
+
 	    console.log("open check out");
         var self = this;
 
@@ -218,9 +217,6 @@ class Subscribe extends Component
             this.state.payPerItemAmount = history.location.state.detail["amount"];
             this.state.contentType = history.location.state.detail["type"] === "movie" ? 1 : 2;
             this.state.contentId = this.state.contentType === 1 ? history.location.state.detail["movie_id"] : history.location.state.detail["id"];
-
-            console.log(this.state.contentType);
-            console.log(this.state.contentId);
         }
 
         const list = [];
@@ -253,7 +249,7 @@ class Subscribe extends Component
         }
 
         return(
-            <div className="container">
+            <div className="container" style={{fontFamily: "Montserrat"}}>
                 <NavigationBar />
                 <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px", paddingTop: "25px"}}>
                     <div>

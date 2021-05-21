@@ -34,8 +34,17 @@ function SubscribedContents()
 	return(
 		<div style={{paddingTop: "200px"}}>
 			<center>
-				<div style={{height: "200px", color: "white"}}>
-					{status === true ? <Progress type="circle" width={250} strokeWidth={3} percent={list["valid_days"]} format={() => `${list["valid_days"]} Days`} /> : null}
+				<div style={{height: "200px", color: "white", fontFamily: "Montserrat"}}>
+					{status === true 
+						? 	<div>
+								<Progress type="circle" width={250} strokeWidth={3} percent={list["valid_days"]} format={() => `${list["valid_days"]} Days`} />
+								<br/>
+								<h4 style={{color: "white"}}>INR {list["amount"]}</h4>
+								<h4 style={{color: "white"}}>Start date: {list["start_date"]}</h4>
+								<h4 style={{color: "white"}}>End date: {list["end_date"]}</h4>
+								<h4 style={{color: "white"}}>Payment Id: {list["ref_no"]}</h4>
+							</div> 
+						:  <div><h2 style={{color: "white"}}>No subscribition has been made</h2></div>}
 				</div>
 			</center>
 		</div>
