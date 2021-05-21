@@ -8,6 +8,7 @@ import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { message } from 'antd';
 import { Card } from 'antd';
+import CheckIcon from '@material-ui/icons/Check';
 import ReactStars from "react-rating-stars-component";
 // import Modal from 'react-bootstrap/Modal';
 // import Button from 'react-bootstrap/Button';
@@ -216,9 +217,7 @@ class MusicDetailedPage extends Component {
 							<div className="col-sm-12">
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
-										<span className="rlnd">
-											<StarRating details={details} />
-										</span>
+										
 										<h2>{data["title"]}</h2>
 										<span className="tag">{data["publish_year"]}</span>
 										<span className="tag"><b>HD</b></span>
@@ -232,15 +231,26 @@ class MusicDetailedPage extends Component {
 													? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 													: <PayPopup data={data}/>
 										}
-										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>
-										<div className="icon-bttn">
-											<i className="ti-sharethis text-white mr-4"></i>
+
+										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
+											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+										</IconButton>
+										<IconButton>
+										<div className="icon-bttn ">
+										<i className="ti-sharethis text-white "></i>
 											<div className="share-icons">
 												<a href="#"><i className="ti-facebook"></i></a>
 												<a href="#"><i className="ti-twitter-alt"></i></a>
 												<a href="#"><i className="mr-0 ti-pinterest"></i></a>
 											</div>
-										</div>
+											</div>
+										</IconButton>
+											
+										
+										<IconButton style={{ color: "#fff", fontSize: 30 }} aria-label="reqind">
+											<StarRating details={details} />
+										</IconButton>
+										
 
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} />
