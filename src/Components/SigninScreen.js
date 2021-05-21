@@ -21,6 +21,8 @@ function SigninScreen()
 
     let checked = false;
     const [value, setValue] = useState();
+    const [terms, setTerms]=useState('');
+    
 
     let sendOtp = false;
 
@@ -111,17 +113,21 @@ function SigninScreen()
             window.confirmationResult = confirmationResult;
             // console.log(confirmationResult);
             console.log("OTP is sent");
-
-            history.push({
-                pathname: '/verifyotp',
-                state: { detail: phoneNumber }
-              });
+        
+                history.push({
+                    pathname: '/verifyotp',
+                    state: { detail: phoneNumber }
+                  });
+                
+                
+            
             // history.push("/verifyotp")
         })
         .catch(function (error)
         {
             console.log(error);
         });
+        
     };
 
     const onSubmitOtp = (e) =>
@@ -142,12 +148,41 @@ function SigninScreen()
             console.log(error);
             alert("Incorrect OTP");
         });
+        
     };
 
     const isChecked = () =>
     {
+      
         checked = true;
     }
+    
+
+
+// function handleData(form_element){
+//     // e.preventDefault();
+//     console.log("Check Box ", terms);
+//     if(!this.form.terms.checked)
+// {
+//     alert('You must agree to the terms first.');
+//     return false;
+// }
+    
+
+// function checkCheckBoxes() {
+//     console.log("terms", terms);
+//     if (terms =="on") 
+//     {
+//         // alert ('You didn\'t choose any of the checkboxes!');
+//         onSignInSubmit()
+       
+//     }else{
+//         alert("Not Checked");
+//     }
+    
+// }
+
+
 
     return (
         <div>
@@ -158,7 +193,7 @@ function SigninScreen()
                             <div className="form-div text-center">
                                 <a href="/" className="logo float-none mt-4"><img src="images/logo.png" alt="" /></a>
                                 <h5 className="mt-3">Login with </h5>
-                                <form action="">
+                                <form >
 
                                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                                         <Col className="gutter-row" span={12}>
@@ -196,20 +231,25 @@ function SigninScreen()
                                             placeholder="Enter phone number"
                                             value={value}
                                             onChange={setValue}
-                                            className="form-control" />
-                                    </div>
-                                    <div className="form-group button-block text-center">
-                                        <button onClick={onSignInSubmit} className="form-btn">Login with OTP</button>
+                                            className="form-control" required/>
                                     </div>
                                     <div className="form-group form-check-label">
-                                        <label htmlFor="tarms-check">
-                                            <input type="checkbox" id="tarms-check" name="tarms-check" value="terms" className="mr-3" onClick={isChecked} />
-                                            <span className="checkmark"></span>
+                                        <label htmlFor="terms"> 
+                                        <input type="checkbox" id="terms" name="terms"  className="mr-3"    onChange={(e)=> setTerms(e.target.value)} />
+                                        <span className="checkmark"></span>
                                             <p style={{ color: "white" }}>I understand and accept the
                                                 <a href="/terms"> <span style={{ color: "#D04050" }}>Terms & Condition</span></a> &
                                                 <a href="/privacy-policy"><span style={{ color: "#D04050" }}> Privacy Policies</span></a></p>
                                         </label>
                                     </div>
+                                    <div>
+                                        <p id="message"></p>
+                                    </div>
+
+                                    <div className="form-group button-block text-center">
+                                        {terms=="on" ? (<button onClick={onSignInSubmit}className="form-btn" id='myButton'>Login with OTP</button>) : (<button disabled={true}className="form-btn" id='myButton1'>Login with OTP</button>) }
+                                    </div>
+                                    
                                 </form>
                             </div>
                         </div>
