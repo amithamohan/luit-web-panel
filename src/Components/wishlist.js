@@ -108,7 +108,6 @@ function WishList()
         }
     }
 
-<<<<<<< HEAD
     //Another way
     // const handleClick = (movie) =>
     // {
@@ -118,16 +117,6 @@ function WishList()
     //         state : { item: movie}
     //     })
     // }
-=======
-    const handleClick = () =>
-    {
-        // history.push("/movies_detailed_page");
-        history.push({
-            pathname: '/movies_detailed_page',
-            state: { detail: list[0]["video_details"][0] }
-          });
-    }
->>>>>>> bugs/designIssues
 
     const classes = useStyles()
 
@@ -145,11 +134,7 @@ function WishList()
 
             text.push(
                <div className="slide-wrapper" key={i} >
-<<<<<<< HEAD
                    <Link className="owl-items" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
-=======
-                   <div className="owl-items" onClick={() => {handleClick()}}>
->>>>>>> bugs/designIssues
                         <Card hoverable className="slide-one"
                             style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
                             cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
