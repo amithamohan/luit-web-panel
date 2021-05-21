@@ -23,36 +23,32 @@ export default function ViewAll(params)
     const classes = useStyles() 
     const row = [];
 
-    for(let i = 0; i < params.location.params["item"]["data"].length; i++)
+    for(let i = 0; i < params.location.state["item"]["data"].length; i++)
     {
-        let movie = params.location.params["item"]["data"][i];
+        let movie = params.location.state["item"]["data"][i];
 
-        console.log(movie);
-
-       row.push(
+        row.push(
         <div class="owl-items">
-        <div className="slide-one mx-1" key={i} style={{ height: "430px", width: "270px", }}>
-           {/* <Col   key={i}> */}
-                <Link className="slide-image" to={{pathname: "/movies_detailed_page", params:{item: movie}}} style={{ display: "flex", justifyContent: "center" }}>
-                       <div className={classes.div}>
-                            <img src={`${movie["thumbnail"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{  minWidth: "270px", height: "100%"}} />
-                       </div>
-                </Link>
-                <div class="slide-content">
-                    <h2>{movie["movie_title"]} 
-                        <img src="images/plus.png" alt="icon" />
-                    </h2>
-                    <p>{movie["description"]}</p>
-                    <span class="tag">2 h 20 min</span>
-                    <span class="tag">{movie["publish_year"]}</span>
-                    <span class="tag"><b>HD</b></span>
-                    <span class="tag"><b>{movie["maturity_rating"]}+</b></span>
-                </div>
-           {/* </Col> */}
-           </div>
-           </div>
-           
-           
+            <div className="slide-one mx-1" key={i} style={{ height: "430px", width: "270px", }}>
+            {/* <Col   key={i}> */}
+                    <Link className="slide-image" to={{pathname: "/movies_detailed_page", state:{item: movie}}} style={{ display: "flex", justifyContent: "center" }}>
+                        <div className={classes.div}>
+                                <img src={`${movie["thumbnail"]}`} alt={movie["movie_title"]} onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{  minWidth: "270px", height: "100%"}} />
+                        </div>
+                    </Link>
+                    <div class="slide-content">
+                        <h2>{movie["movie_title"]} 
+                            <img src="images/plus.png" alt="icon" />
+                        </h2>
+                        <p>{movie["description"]}</p>
+                        <span class="tag">2 h 20 min</span>
+                        <span class="tag">{movie["publish_year"]}</span>
+                        <span class="tag"><b>HD</b></span>
+                        <span class="tag"><b>{movie["maturity_rating"]}+</b></span>
+                    </div>
+            {/* </Col> */}
+            </div>
+        </div>
        );
     }
 

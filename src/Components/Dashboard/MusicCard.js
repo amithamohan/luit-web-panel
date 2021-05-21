@@ -20,7 +20,7 @@ class MusicCard extends Component
 			visible:false,
 			userId:'',
 		}
-
+        this.redirectToHome = this.redirectToHome.bind(this);
 	}
 
 	options =
@@ -39,6 +39,7 @@ class MusicCard extends Component
 	{
 		this.getUserDetails();
 		this.checkWishList();
+		
 	}
 
 	async checkWishList ()
@@ -111,11 +112,13 @@ class MusicCard extends Component
 
 			let hour = this.props.musicList[i]["duration"].split('.');
 
+			localStorage.setItem("music", JSON.stringify(this.props.musicList[i]));
+
 			if (music !== undefined) {
 				cards.push(
 					<div className="owl-items" key={i}>
 						<div className="slide-one"  style={{ height: "430px" }}>
-							<Link className="slide-image" to={{ pathname: "/music_detailed_page", params: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
 								<img src={music["thumbnail"]} alt={music["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
@@ -140,7 +143,7 @@ class MusicCard extends Component
 		return (
 			<div>
 				<div className="slide-wrapper">
-					<div className="container">
+					<div className="container" style={{fontFamily: "Montserrat"}}>
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-4">
 								<h2>{this.props.title}</h2>

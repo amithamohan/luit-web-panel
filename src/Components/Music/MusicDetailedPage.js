@@ -68,8 +68,8 @@ class MusicDetailedPage extends Component {
 
 	async checkPayment()
 	{
-		let contentType = this.props.location.params["item"]["type"] === "movie" ? 1 : 2;
-		let contentId = contentType === 1 ? this.props.location.params["item"]["movie_id"] : this.props.location.params["item"]["id"];
+		let contentType = this.props.location.state["item"]["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? this.props.location.state["item"]["movie_id"] : this.props.location.state["item"]["id"];
 		let data = JSON.parse(localStorage.getItem("user"));
 		let userId = data["id"];
 
@@ -142,15 +142,16 @@ class MusicDetailedPage extends Component {
 		}
 	}
 
-	render() {
+	render() 
+	{
 		const crew = [];
 		if (this.state.actors !== undefined) 
 		{
-			for (let j = 0; j < this.props.location.params["item"]["actors"].length; j++) 
+			for (let j = 0; j < this.props.location.state["item"]["actors"].length; j++) 
 			{
 				for (let i = 0; i < this.state.actors.length; i++) 
 				{
-					if (this.props.location.params["item"]["actors"][j] === this.state.actors[i]["name"]) 
+					if (this.props.location.state["item"]["actors"][j] === this.state.actors[i]["name"]) 
 					{
 						crew.push(
 							<div key={i}>
@@ -166,17 +167,17 @@ class MusicDetailedPage extends Component {
 		const moreLikeThis = [];
 		if (this.state.musicList !== undefined) 
 		{
-			for (let j = 0; j < this.props.location.params["item"]["genre"].length; j++) 
+			for (let j = 0; j < this.props.location.state["item"]["genre"].length; j++) 
 			{
 				for (let i = 0; i < this.state.musicList.length; i++) 
 				{
 					let hour = this.state.musicList[i]["duration"].split('.');
 
-					if (this.props.location.params["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) 
+					if (this.props.location.state["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) 
 					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
-								<Link className="slide-one" to={{ pathname: "/music_detailed_page", params: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
+								<Link className="slide-one" to={{ pathname: "/music_detailed_page", state: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
 										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
@@ -196,14 +197,14 @@ class MusicDetailedPage extends Component {
 		}
 
 
-		let data = this.props.location.params["item"];
+		let data = this.props.location.state["item"];
 
-		let hour = this.props.location.params["item"]["duration"].split('.');
+		let hour = this.props.location.state["item"]["duration"].split('.');
 
 		let details = {
-			"id": this.props.location.params["item"]["id"],
+			"id": this.props.location.state["item"]["id"],
 			"type": 2,
-			"rating": this.props.location.params["item"]["ratings"],
+			"rating": this.props.location.state["item"]["ratings"],
 		}
 
 		return (
@@ -226,9 +227,9 @@ class MusicDetailedPage extends Component {
 										<p>{data["description"]}</p>
 										{
 											data["amount"] == 0  
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: this.state.isPaid === false
-													? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+													? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 													: <PayPopup data={data}/>
 										}
 										<a href="#" className="icon-bttn"><i className="ti-plus text-white"></i></a>

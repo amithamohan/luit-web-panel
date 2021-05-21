@@ -28,7 +28,7 @@ class MoviesByLanguages extends Component
 				cards.push(
 					<div key={i}>
 						<center>
-							<Link to={{ pathname: "/view_all", params: { item: this.props.languages[i] } }}>
+							<Link to={{ pathname: "/view_all", state: { item: this.props.languages[i] } }}>
 								<div className="owl-items" style={{ border: "4px solid yellow", backgroundColor: "#222", width: "200px", height: "200px", borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
 							</Link>
 						</center>
