@@ -5,7 +5,6 @@ import { Row } from 'antd';
 import NavigationBar from './Dashboard/NavBar';
 import Server from './APIs/Server';
 import { withRouter } from 'react-router-dom';
-import SuccessPopup from './Utlities/SuccessPopup';
 import moment from "moment";
 
 
@@ -141,53 +140,52 @@ class Subscribe extends Component
         let ref_number;
         let amount = this.state.selectedOption === "0" ? this.state.payPerItemAmount * 100 : this.state.selectedOption * 100;
 
-        this.redirectToHome("54tewfsdfdss", 200);
 
-	    // console.log("open check out");
-        // var self = this;
+	    console.log("open check out");
+        var self = this;
 
-		// let options =
-		// {
-		// 	"key": "rzp_test_dKDuSXlctyepdF",
-		//   	"amount": amount, // 2000 paise = INR 20, amount in paisa
-		//   	"name": "Luit",
-		//   	// "description": "Purchase Description",
-		//   	"image": "./images/favicon.png",
+		let options =
+		{
+			"key": "rzp_test_dKDuSXlctyepdF",
+		  	"amount": amount, // 2000 paise = INR 20, amount in paisa
+		  	"name": "Luit",
+		  	// "description": "Purchase Description",
+		  	"image": "./images/favicon.png",
 
-		//   	"handler": function (response)
-		// 	{
-        //         result = response;
-        //         ref_number = response.razorpay_payment_id;
+		  	"handler": function (response)
+			{
+                result = response;
+                ref_number = response.razorpay_payment_id;
 
-        //         // message.success("Payment Success " + response.razorpay_payment_id);
-        //         status = true;
+                // message.success("Payment Success " + response.razorpay_payment_id);
+                status = true;
 
-        //         self.handleSubmit(ref_number, amount);
-		//   	},
-		//   	"prefill":
-		// 	{
-		// 		"name": "Amitha",
-		// 		"email": "",
-        //         "phone": "",
-		//   	},
-		//   	"notes":
-		// 	{
-		// 		"address": "Hello World"
-		//   	},
-		//   	"theme":
-		// 	{
-		// 		"color": "#0a6bfc"
-		//   	}
-		// };
+                self.handleSubmit(ref_number, amount);
+		  	},
+		  	"prefill":
+			{
+				"name": "Amitha",
+				"email": "",
+                "phone": "",
+		  	},
+		  	"notes":
+			{
+				"address": "Hello World"
+		  	},
+		  	"theme":
+			{
+				"color": "#0a6bfc"
+		  	}
+		};
 
-		// let rzp = new window.Razorpay(options);
-		// rzp.open();
+		let rzp = new window.Razorpay(options);
+		rzp.open();
 
-        // rzp.on('payment.failed', function (response)
-        // {
-        //     message.error("Payment Error, try again later" + response.error.description);
-        //     status = false;
-        // });
+        rzp.on('payment.failed', function (response)
+        {
+            message.error("Payment Error, try again later" + response.error.description);
+            status = false;
+        });
 	}
 
     redirectToHome = (refNumber, amount) =>
@@ -251,7 +249,7 @@ class Subscribe extends Component
         }
 
         return(
-            <div className="container">
+            <div className="container" style={{fontFamily: "Montserrat"}}>
                 <NavigationBar />
                 <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px", paddingTop: "25px"}}>
                     <div>

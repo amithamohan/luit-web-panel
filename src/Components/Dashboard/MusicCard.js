@@ -143,7 +143,7 @@ class MusicCard extends Component
 		return (
 			<div>
 				<div className="slide-wrapper">
-					<div className="container">
+					<div className="container" style={{fontFamily: "Montserrat"}}>
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-4">
 								<h2>{this.props.title}</h2>
