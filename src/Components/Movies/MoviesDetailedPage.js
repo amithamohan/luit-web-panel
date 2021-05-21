@@ -188,10 +188,14 @@ class MoviesDetailedPage extends Component
 
 		const crew = [];
 		console.log(this.props.location.state)
-		if (this.state.actors !== undefined) {
-			for (let j = 0; j < this.props.location.state.item["actors"].length; j++) {
-				for (let i = 0; i < this.state.actors.length; i++) {
-					if (this.props.location.state.item["actors"][j] === this.state.actors[i]["name"]) {
+		if (this.state.actors !== undefined) 
+		{
+			for (let j = 0; j < this.props.location.state.item["actors"].length; j++) 
+			{
+				for (let i = 0; i < this.state.actors.length; i++) 
+				{
+					if (this.props.location.state.item["actors"][j] === this.state.actors[i]["name"]) 
+					{
 						crew.push(
 							<div key={i}>
 								<center>
@@ -258,6 +262,9 @@ class MoviesDetailedPage extends Component
 			"rating": this.props.location.state.item["ratings"],
 		}
 
+		console.log(crew.length);
+		console.log("crew");
+
 		return (
 			<div>
 				<NavigationBar />
@@ -307,7 +314,7 @@ class MoviesDetailedPage extends Component
 							</div>
 						</div>
 
-						{crew === null ? null : <div className="container slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
+						{crew === null || crew.length === 0 ? null : <div className="container slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
 							<div className="row">
 								<div className="col-sm-6 text-left mb-4 mt-1">
 									<h2 style={{ color: "white" }}>The Crew</h2>
