@@ -276,21 +276,12 @@ class MoviesDetailedPage extends Component
 										<p>{data["description"]}</p>
 
 										{
-<<<<<<< HEAD
 											data["amount"] == 0 
 											? this.state.isLoggedIn 
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    : <SignInPopup />
 											: this.state.isPaid === true 
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-=======
-											data["amount"] == 0
-											? this.state.isLoggedIn
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
-											    : <SignInPopup />
-											: this.state.isPaid === true
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
->>>>>>> bugs/designIssues
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												:<PayPopup data={data}/>
 										}
 
