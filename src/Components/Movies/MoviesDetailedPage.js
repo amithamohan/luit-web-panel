@@ -278,10 +278,10 @@ class MoviesDetailedPage extends Component
 										{
 											data["amount"] == 0 
 											? this.state.isLoggedIn 
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    : <SignInPopup />
 											: this.state.isPaid === true 
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												:<PayPopup data={data}/>
 										}
 
