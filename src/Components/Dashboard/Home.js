@@ -8,6 +8,8 @@ import TrendingArtist from './TrendingArtist';
 import ShortFilm from './ShortFilmsCard';
 import Footer from './Footer';
 import Server from '../APIs/Server';
+import { withRouter } from 'react-router-dom';
+
 
 
 class Home extends Component
@@ -40,6 +42,7 @@ class Home extends Component
 
 	componentDidMount()
 	{
+		this.props.history.replace("/");
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();
@@ -203,4 +206,4 @@ class Home extends Component
     }
 }
 
-export default Home;
+export default withRouter(Home);

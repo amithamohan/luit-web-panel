@@ -49,6 +49,7 @@ class MoviesDetailedPage extends Component
 
 		this.getActors = this.getActors.bind(this);
 		this.checkPayment = this.checkPayment.bind(this);
+
 	}
 
 	componentDidMount()
@@ -68,26 +69,24 @@ class MoviesDetailedPage extends Component
 		console.log(data);
 		console.log("data");
 
-        if (data != null) 
+        if (data != null)
         {
-	    let userId = data["id"];
-        this.setState({ isLoggedIn: true })
-		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+			let userId = data["id"];
+			this.setState({ isLoggedIn: true })
+			let response = await Server.checkPaymentStatus(contentType, contentId, userId);
 
-		console.log(response);
-		console.log("response");
+			console.log(response);
+			console.log("response");
 
-		if(response["payment_status"] === 0)
-		{
-			this.setState({isPaid : false});
-		}
-		else
-		{
-			this.setState({isPaid : true});
-		}
+			if(response["payment_status"] === 0)
+			{
+				this.setState({isPaid : false});
+			}
+			else
+			{
+				this.setState({isPaid : true});
+			}
         }
-
-		
 	}
 
 	async getActors()
@@ -121,11 +120,11 @@ class MoviesDetailedPage extends Component
 
 		let response = await Server.wishlistIsPresent(type, id, userId);
 
-		if (response["response"] === "success") 
+		if (response["response"] === "success")
 		{
 			this.setState({ isAdded: true });
 		}
-		else 
+		else
 		{
 			this.setState({ isAdded: false });
 		}
@@ -141,11 +140,11 @@ class MoviesDetailedPage extends Component
 		console.log("success");
 		let response = await Server.addToWishlist(userId, type, itemId);
 
-		if (response["response"] === "success") 
+		if (response["response"] === "success")
 		{
 			message.success('Added to wishlist');
 		}
-		else 
+		else
 		{
 			message.info('Already added');
 		}
@@ -186,6 +185,7 @@ class MoviesDetailedPage extends Component
 
 	render()
 	{
+
 		const crew = [];
 		console.log(this.props.location.state)
 		if (this.state.actors !== undefined) {
@@ -276,12 +276,21 @@ class MoviesDetailedPage extends Component
 										<p>{data["description"]}</p>
 
 										{
+<<<<<<< HEAD
 											data["amount"] == 0 
 											? this.state.isLoggedIn 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    : <SignInPopup />
 											: this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+=======
+											data["amount"] == 0
+											? this.state.isLoggedIn
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
+											    : <SignInPopup />
+											: this.state.isPaid === true
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", params:{item: this.props.location.params["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link>
+>>>>>>> bugs/designIssues
 												:<PayPopup data={data}/>
 										}
 

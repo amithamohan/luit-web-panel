@@ -74,9 +74,6 @@ function WishList()
     const displayWishList = async () =>
     {
 
-        // console.log(userId);
-        // console.log("userId in wishlist");
-
         let response = await Server.displayWishlist(userId);
         setList(response["data"])
         // if(response["response"] === "success")
@@ -87,7 +84,6 @@ function WishList()
         // {
         //     message.error("Add items to watchlist");
         // }
-        
         setTimeout(
             () => setStatus(true),
             3000
@@ -96,8 +92,6 @@ function WishList()
 
     const deleteFromWishList = async (item) =>
     {
-        //setStatus(false);
-       // setVisible(false);
         let response = await Server.deleteWishlist(userId, item);
 
         console.log(response);
@@ -114,6 +108,7 @@ function WishList()
         }
     }
 
+<<<<<<< HEAD
     //Another way
     // const handleClick = (movie) =>
     // {
@@ -123,6 +118,16 @@ function WishList()
     //         state : { item: movie}
     //     })
     // }
+=======
+    const handleClick = () =>
+    {
+        // history.push("/movies_detailed_page");
+        history.push({
+            pathname: '/movies_detailed_page',
+            state: { detail: list[0]["video_details"][0] }
+          });
+    }
+>>>>>>> bugs/designIssues
 
     const classes = useStyles()
 
@@ -131,9 +136,6 @@ function WishList()
 
     if (status === true)
     {
-        console.log(list);
-        console.log("list");
-
         for (let i = 0; i < list.length; i++) 
         {
             let movie = list[i]["video_details"][0];
@@ -143,7 +145,11 @@ function WishList()
 
             text.push(
                <div className="slide-wrapper" key={i} >
+<<<<<<< HEAD
                    <Link className="owl-items" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
+=======
+                   <div className="owl-items" onClick={() => {handleClick()}}>
+>>>>>>> bugs/designIssues
                         <Card hoverable className="slide-one"
                             style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
                             cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
