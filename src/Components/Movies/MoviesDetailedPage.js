@@ -284,22 +284,26 @@ class MoviesDetailedPage extends Component
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												:<PayPopup data={data}/>
 										}
-
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton>
 
-										<div className="icon-bttn">
-											<i className="ti-sharethis text-white mr-4"></i>
+										
+										<IconButton>
+										<div className="icon-bttn ">
+										<i className="ti-sharethis text-white "></i>
 											<div className="share-icons">
 												<a href="#"><i className="ti-facebook"></i></a>
 												<a href="#"><i className="ti-twitter-alt"></i></a>
 												<a href="#"><i className="mr-0 ti-pinterest"></i></a>
 											</div>
-										</div>
-										<div className="icon-bttn">
+											</div>
+										</IconButton>
+											
+										
+										<IconButton style={{ color: "#fff", fontSize: 30 }} aria-label="reqind">
 											<StarRating details={details} />
-										</div>
+										</IconButton>
 
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />

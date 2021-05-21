@@ -167,20 +167,11 @@ function SigninScreen()
 //     alert('You must agree to the terms first.');
 //     return false;
 // }
+function AlertError(){
+    alert("Please");
+}
     
 
-// function checkCheckBoxes() {
-//     console.log("terms", terms);
-//     if (terms =="on") 
-//     {
-//         // alert ('You didn\'t choose any of the checkboxes!');
-//         onSignInSubmit()
-       
-//     }else{
-//         alert("Not Checked");
-//     }
-    
-// }
 
 
 
@@ -247,7 +238,7 @@ function SigninScreen()
                                     </div>
 
                                     <div className="form-group button-block text-center">
-                                        {terms=="on" ? (<button onClick={onSignInSubmit}className="form-btn" id='myButton'>Login with OTP</button>) : (<button disabled={true}className="form-btn" id='myButton1'>Login with OTP</button>) }
+                                        {terms=="on" ? (<button onClick={onSignInSubmit}className="form-btn" id='myButton'>Login with OTP</button>) : (<button disabled={true}className="form-btn" id='myButton1' >Login with OTP</button>) }
                                     </div>
                                     
                                 </form>
