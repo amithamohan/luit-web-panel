@@ -12244,7 +12244,7 @@ label.error {
   display: inline-block;
 }
 .banner-wrapper .left-wrap .icon-bttn {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   line-height: 58px;
   display: inline-block;
   position: relative;
@@ -12274,6 +12274,7 @@ label.error {
   top: 0;
   height: 58px;
   padding: 5px 10px;
+  z-index: 1
 }
 .banner-wrapper .left-wrap .icon-bttn .share-icons i {
   color: #999;
