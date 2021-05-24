@@ -72,7 +72,7 @@ class NavigationBar extends Component
                 <a className="navbar-brand" href="/demo/luitWeb/build/"><img src="https://release.luit.co.in/app-assets/images/logo/logo.png" alt="logo" className="light" /></a> 
 
                 <ToggleButton className="navbar-toggler" value="module" aria-label="module" onClick={e => {this.ToggleButton()}}>
-                <FormatAlignJustifyIcon fontSize="medium" style={{color:"white"}} />
+                <FormatAlignJustifyIcon fontSize="medium" style={{color:"white"}} className="navbar-toggle"/>
                 </ToggleButton>
 
                 {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +91,10 @@ class NavigationBar extends Component
                             <Link className="nav-link" href="/demo/luitWeb/build/music">Music</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/demo/luitWeb/build/music">Short Films</a>
+                            <Link className="nav-link" href="/demo/luitWeb/build/music">Short Films</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/demo/luitWeb/build/music">Web Series</a>
+                            <Link className="nav-link" href="/demo/luitWeb/build/music">Web Series</Link>
                         </li>
                     </ul>
                 </div>
