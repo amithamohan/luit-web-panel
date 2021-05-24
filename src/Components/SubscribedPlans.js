@@ -2,11 +2,15 @@ import NavigationBar from './Dashboard/NavBar';
 import { Progress } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Server from './APIs/Server';
+import { Divider, Card, Col, Row} from 'antd';
+import { ClockCircleOutlined, HistoryOutlined } from '@ant-design/icons';
+
 
 let list;
 
 function SubscribedContents()
 {
+	
 	const [status, setStatus] = useState(false);
 
 	useEffect(() =>
@@ -32,21 +36,73 @@ function SubscribedContents()
 		}
 	}
 	return(
-		<div style={{paddingTop: "200px"}}>
+		<div style={{}} >
+			<div className="  site-card-border-less-wrapper">
 			<center>
-				<div style={{height: "200px", color: "white", fontFamily: "Montserrat"}}>
+				<div style={{height: "200px", width: "40%", color: "white", fontFamily: "Montserrat", marginTop: 60}}>
 					{status === true 
-						? 	<div>
-								<Progress type="circle" width={250} strokeWidth={3} percent={list["valid_days"]} format={() => `${list["valid_days"]} Days`} />
+						? 	
+						<Card title="Subscribed Contents" bordered={false} style={{ width: "auto", marginTop: 16  }} >
+							
+							<div>	
+								<Progress type="circle" width={100} strokeWidth={3} percent={list["valid_days"]} format={() => `${list["valid_days"]} Days`} />
 								<br/>
-								<h4 style={{color: "white"}}>INR {list["amount"]}</h4>
-								<h4 style={{color: "white"}}>Start date: {list["start_date"]}</h4>
-								<h4 style={{color: "white"}}>End date: {list["end_date"]}</h4>
-								<h4 style={{color: "white"}}>Payment Id: {list["ref_no"]}</h4>
+								<Divider />
+								<Row >
+								<Col >
+								
+								<h6 style={{color: "black"}}>Payment Id: </h6>
+								</Col>
+								<Col span={15}>
+								<h6 style={{color: "black"}}> {list["ref_no"]}</h6>
+								</Col>
+
+								</Row>
+								<Divider />
+								<Row justify="space-around">
+									<Col span={7} >
+										<Row >
+										&#x20B9;
+										</Row>
+										<Divider />
+										<Row >
+										<h6 style={{color: "black"}}> {list["amount"]}</h6>
+										</Row>
+									</Col>
+									<Col span={7} >
+										<Row >
+										<ClockCircleOutlined  style={{marginBottom: 8}}/>
+										</Row>
+										<Divider />
+										<Row>
+										<h6 style={{color: "black"}}> {list["start_date"]}</h6>
+										</Row>
+										
+									</Col>
+									<Col span={7}>
+										<Row className="">
+										<HistoryOutlined style={{marginBottom: 8}}/>
+										</Row>
+										<Divider />
+										<Row className="">
+											<h6 style={{color: "black"}}> {list["end_date"]}</h6>
+										</Row>
+										
+									</Col>
+									
+								</Row>
+								
+								
+								
+								
+								
+								
 							</div> 
-						:  <div><h2 style={{color: "white"}}>No subscribition has been made</h2></div>}
+							</Card>
+						:  <div><h2 style={{color: "white", marginTop: 300}}>No subscribition has been made</h2></div>}
 				</div>
 			</center>
+			</div>
 		</div>
 	);
 }
