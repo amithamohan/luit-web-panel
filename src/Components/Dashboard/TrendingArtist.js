@@ -3,22 +3,23 @@ import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
+// let s;
 class TrendingArtist extends Component 
 {
-
-	constructor(props)
-	{
-		super(props)
-		this.state = 
-		{
-			sideNav: true,
-		}
-	}
+	// constructor(props){
+	// 	super(props)
+	// 	s = true;
+	// 	if(window.innerWidth < 580)
+	// 		{
+	// 			s = false
+	// 		}
+	// 		console.log(s)
+	// }
 	options =
 		{
 			items: 5,
 			margin: 5,
-			nav: this.sideNav,
+			//nav: true,
 			navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 			loop: true,
 			autoplay: true,
@@ -41,17 +42,20 @@ class TrendingArtist extends Component
 			}
 		};
 
-		componentDidMount()
-		{
-			if(window.innerWidth < 580)
-			{
-				this.setState({ sideNav: true})
-			}
-		}
+		// componentDidMount()
+		// {
+		// 	// this.state.s = true
+		// 	// console.log(s)
+		// 	// if(window.innerWidth < 580)
+		// 	// {
+		// 	// 	// this.setState({ sideNav: true})
+		// 	// 	s = false
+		// 	// }
+		// 	// console.log(s)
+		// }
 
 	render() {
 		const cards = [];
-
 		for (let i = 0; i < this.props.trendingArtist.length; i++) {
 			const actors = this.props.trendingArtist[i];
 

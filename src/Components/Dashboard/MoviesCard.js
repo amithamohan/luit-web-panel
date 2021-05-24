@@ -206,8 +206,8 @@ function MoviesCard(props)
 						</div>
 					</div>
 					
-					<div class="row">
-                    <div class="col-lg-12">
+					<div className="row">
+                    <div className="col-lg-12">
 					{cards.length && (
 						<OwlCarousel options={options}>
 							{
