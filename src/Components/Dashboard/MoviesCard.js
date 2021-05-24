@@ -18,6 +18,8 @@ function MoviesCard(props)
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userId, setUserId] = useState(false);
 	const [visible, setVisible] = useState(false);
+	const [ styleRemover , setStyleRemover ] = useState(true);
+	const [ nav, setNav ] = useState(true);
 
 	let history = useHistory();
 
@@ -36,10 +38,25 @@ function MoviesCard(props)
 		items: 4,
 		margin: 5,
 		itemsDesktop: [1000, 5],
-		nav: true,
+		nav: nav,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: false,
 		autoplay: true,
+		dots: false,
+		responsive:{
+			0:{
+				items:1
+			},
+			340:{
+				items:2
+			},
+			700:{
+				items:3
+			},
+			1000:{
+				items:4
+			}
+		}
 	};
 
 	const customCard =
@@ -67,6 +84,11 @@ function MoviesCard(props)
 	useEffect(()  => {
 		getUserDetails();
 		checkWishList();
+		if(window.innerWidth < 580)
+		{
+			setStyleRemover(false)
+			setNav(false)
+		}
 	},[])
 
 	const checkWishList = async () =>
@@ -149,10 +171,10 @@ function MoviesCard(props)
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
-					<div className="slide-one" style={{ height: "430px" }}>
+					<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
 						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
 						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
-							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}
@@ -183,13 +205,17 @@ function MoviesCard(props)
 							<h2>{props.title}</h2>
 						</div>
 					</div>
+					
+					<div class="row">
+                    <div class="col-lg-12">
 					{cards.length && (
 						<OwlCarousel options={options}>
 							{
 								cards
 							}
 						</OwlCarousel>
-					)}
+					)}</div></div>
+
 				</div>
 			</div>
 		</div>

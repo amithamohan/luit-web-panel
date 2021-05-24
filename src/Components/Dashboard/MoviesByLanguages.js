@@ -6,16 +6,46 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class MoviesByLanguages extends Component 
 {
+	constructor(props)
+	{
+		super(props)
+		this.state = 
+		{
+			sideNav: true,
+		}
+	}
 	options =
 		{
 			items: 4,
 			margin: 5,
-			nav: true,
-			loop: true,
+			nav: this.sideNav,
+			//loop: true,
 			autoplay: true,
 			startPosition: 2,
-			rewind: false
+			rewind: false,
+			dots: false,
+			responsive:{
+				0:{
+					items:1
+				},
+				500:{
+					items:2
+				},
+				700:{
+					items:3
+				},
+				1000:{
+					items:4
+				}
+			}
 		};
+		componentDidMount()
+		{
+			if(window.innerWidth < 580)
+			{
+				this.setState({ sideNav: true})
+			}
+		}
 
 	render() 
 	{

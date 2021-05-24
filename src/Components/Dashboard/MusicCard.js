@@ -19,27 +19,46 @@ class MusicCard extends Component
 		{
 			visible:false,
 			userId:'',
+			styleRemover: true,
+			sideNav: true,
 		}
         this.redirectToHome = this.redirectToHome.bind(this);
 	}
-
 	options =
 	{
 		items: 4,
 		margin: 5,
 		itemsDesktop: [1000, 5],
-		nav: true,
+		nav: this.sideNav,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: true,
 		autoplay: true,
+		dots: false,
+		responsive:{
+			0:{
+				items:1
+			},
+			340:{
+				items:2
+			},
+			700:{
+				items:3
+			},
+			1000:{
+				items:4
+			}
+		}
 	};
 
-	
 	componentDidMount()
 	{
 		this.getUserDetails();
 		this.checkWishList();
-		
+		if(window.innerWidth < 580)
+		{
+			this.setState({styleRemover: false})  
+			this.setState({sideNav: false}) 
+		}
 	}
 
 	async checkWishList ()
@@ -117,9 +136,9 @@ class MusicCard extends Component
 			if (music !== undefined) {
 				cards.push(
 					<div className="owl-items" key={i}>
-						<div className="slide-one"  style={{ height: "430px" }}>
+						<div className="slide-one" style={ this.state.styleRemover ? {height: "430px"} : null }>
 							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
-								<img src={music["thumbnail"]} alt={music["movie_title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+								<img src={music["thumbnail"]} alt={music["movie_title"]} style={ this.state.styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}

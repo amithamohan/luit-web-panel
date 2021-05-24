@@ -5,17 +5,49 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class TrendingArtist extends Component 
 {
+
+	constructor(props)
+	{
+		super(props)
+		this.state = 
+		{
+			sideNav: true,
+		}
+	}
 	options =
 		{
 			items: 5,
 			margin: 5,
-			nav: true,
+			nav: this.sideNav,
 			navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 			loop: true,
 			autoplay: true,
 			startPosition: 0,
-			rewind: true
+			rewind: true,
+			dots: false,
+			responsive:{
+				0:{
+					items:1
+				},
+				340:{
+					items:2
+				},
+				700:{
+					items:3
+				},
+				1000:{
+					items:4
+				}
+			}
 		};
+
+		componentDidMount()
+		{
+			if(window.innerWidth < 580)
+			{
+				this.setState({ sideNav: true})
+			}
+		}
 
 	render() {
 		const cards = [];

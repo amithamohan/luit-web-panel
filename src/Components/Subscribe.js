@@ -146,7 +146,7 @@ class Subscribe extends Component
 
 		let options =
 		{
-			"key": "rzp_test_dKDuSXlctyepdF",
+			"key": "rzp_test_dKDuSXlctyepdF", //this is a  test key, when deploying you have to add the live key.
 		  	"amount": amount, // 2000 paise = INR 20, amount in paisa
 		  	"name": "Luit",
 		  	// "description": "Purchase Description",
