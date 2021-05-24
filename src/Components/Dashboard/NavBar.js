@@ -6,6 +6,8 @@ import { DownOutlined, LoginOutlined, UserOutlined, HeartOutlined, BankOutlined 
 import { makeStyles } from '@material-ui/core/styles';
 import SignInPopup from '../Utlities/SignInPopup';
 import { IconButton } from "@material-ui/core";
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 
 class NavigationBar extends Component
 {
@@ -17,14 +19,20 @@ class NavigationBar extends Component
         {
             image: null,
             isLoggedIn: false,
+            menu: false,
+            flag: true
         }
 
         this.getUserDetails = this.getUserDetails.bind(this);
+        this.ToggleButton = this.ToggleButton.bind(this)
     }
 
     componentDidMount()
     {
         this.getUserDetails();
+        if(window.innerWidth < 770){
+            this.setState({flag:false})
+        }
     }
 
     async logOut()
@@ -53,18 +61,26 @@ class NavigationBar extends Component
 
     }
 
+    ToggleButton(){
+        this.setState({ menu: !this.state.menu })
+    }
+
     render()
     {
         return(
             <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: "#1A2236", fontFamily: "Montserrat"}}>
-                <a className="navbar-brand" href="/demo/luitWeb/build/"><img src="https://release.luit.co.in/app-assets/images/logo/logo.png" alt="logo" className="light" /></a>
+                <a className="navbar-brand" href="/demo/luitWeb/build/"><img src="https://release.luit.co.in/app-assets/images/logo/logo.png" alt="logo" className="light" /></a> 
 
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                <ToggleButton className="navbar-toggler" value="module" aria-label="module" onClick={e => {this.ToggleButton()}}>
+                <FormatAlignJustifyIcon fontSize="medium" style={{color:"white"}} />
+                </ToggleButton>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
+                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button> */}
+
+                <div className="collapse navbar-collapse" id="navbarSupportedContent" style={this.state.menu ? {display:"block"} : {display:"none"}}>
+                    <ul className="navbar-nav mr-auto nav-menu float-none text-center" >
                         <li className="nav-item">
                             <Link className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></Link>
                         </li>
@@ -81,8 +97,10 @@ class NavigationBar extends Component
                             <a className="nav-link" href="/demo/luitWeb/build/music">Web Series</a>
                         </li>
                     </ul>
+                </div>
 
-                    <form className="form-inline my-2 my-lg-0">
+                <div className="searchBar">
+                    <form className="form-inline my-2 my-lg-0" >
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                         <Dropdown overlay = 
                             {<Menu>
@@ -128,6 +146,7 @@ class NavigationBar extends Component
                       </Dropdown>,
                     </form>
                 </div>
+
             </nav>
         );
     }

@@ -20,7 +20,7 @@ class MusicCard extends Component
 			visible:false,
 			userId:'',
 			styleRemover: true,
-			sideNav: true,
+			//sideNav: true,
 		}
         this.redirectToHome = this.redirectToHome.bind(this);
 	}
@@ -29,7 +29,7 @@ class MusicCard extends Component
 		items: 4,
 		margin: 5,
 		itemsDesktop: [1000, 5],
-		nav: this.sideNav,
+		//nav: true,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: true,
 		autoplay: true,
@@ -52,12 +52,13 @@ class MusicCard extends Component
 
 	componentDidMount()
 	{
+		console.log(this.visible)
 		this.getUserDetails();
 		this.checkWishList();
 		if(window.innerWidth < 580)
 		{
 			this.setState({styleRemover: false})  
-			this.setState({sideNav: false}) 
+			//this.setState({sideNav: false}) 
 		}
 	}
 
