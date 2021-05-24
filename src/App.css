@@ -291,7 +291,7 @@ input{
 
 @media only screen and (max-width: 600px) {
   .subscribe-main{
-    margin: 2rem 0rem;
+    margin: 1rem 0rem;
   
   }
 }
@@ -322,7 +322,7 @@ input{
   width: 30px;
   height: 30px;
   padding: 2px;
-  margin-right: 10rem;
+  margin-right: 8rem;
   text-align: center;
 }
 
@@ -352,7 +352,20 @@ input{
 .heading-font{
   font-size: 15px;
   color: #61dafb;
+  
 }
+@media only screen and (max-width: 600px) {
+  .heading-font{
+    font-size: 13px;
+  
+  }
+  .checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+    
+    margin-right: 2rem;
+    
+  }
+}
+
 
 .pay-btn{
   justify-content: space-between;

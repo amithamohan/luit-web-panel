@@ -231,7 +231,7 @@ class Subscribe extends Component
                 <Radio.Group name="radiogroup" defaultValue={1} key={i}>
                     <Row>
                         <div className="site-card-border-less-wrapper">
-                        <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
+                        <Card bordered={false} style={{ width: "100%", marginTop: 10, backgroundColor: "#031031", borderRadius: 10,  }}>
                             <div>
                                 <input id={id} className="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === {id}} onChange={() => this.handleOnChanged(plans["amount"], plans["duration"])} />
                                 <label htmlFor={id} className="radio-custom-label">
@@ -281,7 +281,7 @@ class Subscribe extends Component
                             </div>
                         </Radio.Group>
                         <Row>
-                            <Button onClick={this.openCheckout}  style={{width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 5, color:'white', height: 60, fontSize: 20, marginBottom: '2rem'}}>
+                            <Button onClick={this.openCheckout}  style={{width: 380, marginTop: 10, backgroundColor: "#031031", borderRadius: 5, color:'white', height: 60, fontSize: 20, marginBottom: '2rem'}}>
                             <i className="ti-credit-card pay-btn"></i>PAY NOW</Button>
                         </Row>
                     </div>
