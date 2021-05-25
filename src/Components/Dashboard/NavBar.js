@@ -99,7 +99,7 @@ class NavigationBar extends Component
                     </ul>
                 </div>
 
-                <div className="searchBar">
+                <div className="searchBar" style={{marginRight:"-10px"}}>
                     <form className="form-inline my-2 my-lg-0" >
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                         <Dropdown overlay = 
@@ -112,12 +112,12 @@ class NavigationBar extends Component
                                     </a>}
                                 </Menu.Item>
 
-                                <Menu.Item icon={<HeartOutlined />}>
+                                
                                     {this.state.isLoggedIn 
-                                        ? <a rel="noopener noreferrer" href="/wishlist"> 
-                                        My Wishlist </a>
-                                        : <SignInPopup data="fromNav" />}
-                                </Menu.Item>
+                                        ? <Menu.Item icon={<HeartOutlined />}> <a rel="noopener noreferrer" href="/wishlist"> 
+                                        My Wishlist </a> </Menu.Item>
+                                        : <SignInPopup data="fromNav" /> }
+                               
 
                                 <Menu.Item icon={<UserOutlined/>}>
                                     <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
@@ -141,7 +141,7 @@ class NavigationBar extends Component
                                 </Menu.Item>
                             </Menu>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                        <Avatar  src= {this.state.image ? this.state.image : "https://via.placeholder.com/50x50.png"}></Avatar><DownOutlined />
+                        <Avatar src= {this.state.image} style={{width:"50px", height:"50px"}}></Avatar><DownOutlined />
                         </a>
                       </Dropdown>,
                     </form>

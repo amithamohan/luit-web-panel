@@ -16,7 +16,7 @@ import CheckIcon from '@material-ui/icons/Check';
 function MoviesCard(props)
 {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [userId, setUserId] = useState(false);
+	const [userId, setUserId] = useState('');
 	const [visible, setVisible] = useState(false);
 	const [ styleRemover , setStyleRemover ] = useState(true);
 	const [ nav, setNav ] = useState(true);
@@ -89,6 +89,7 @@ function MoviesCard(props)
 			setStyleRemover(false)
 			setNav(false)
 		}
+		setVisible(false);
 	},[])
 
 	const checkWishList = async () =>
@@ -109,21 +110,22 @@ function MoviesCard(props)
 		}
 		// After changing all value of "free" it is showing icon
 		setVisible(true);
+		console.log(visible);
 	};
 
 	const getUserDetails = () =>
 	{
         let user = localStorage.getItem("user");
         let data = JSON.parse(user);
-
-		console.log(userId);
-		console.log("userId");
 		
         if (data != null)
 		{
 			setUserId(data["id"])
-		
+			
         }
+		console.log(userId);
+		console.log("userId");
+		
     }
 
 	const addToWishlist = async (i) =>

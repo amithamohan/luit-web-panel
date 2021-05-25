@@ -129,8 +129,8 @@ class Slider extends Component {
 
 					rows.push(
 						<div className="row" key={i}>
-							<div className="col-sm-12" style={{backgroundColor: "red", width: "100%"}}>
-								<div className="banner-wrap justify-content-between align-items-center">
+							<div className="col-sm-12" style={{backgroundColor: "red"}}>
+								<div className="banner-wrap justify-content-between align-items-center" style={{width:"100vw",borderRadius:"0px"}}>
 									<div className="left-wrap">
 										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 										{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
@@ -147,7 +147,7 @@ class Slider extends Component {
 										</IconButton> */}
 
 									</div>
-									<div className="right-wrap" style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+									<div className="right-wrap"  style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 								</div>
 							</div>
 						</div>
@@ -157,7 +157,7 @@ class Slider extends Component {
 		}
 
 		return (
-			<div className="banner-wrapper">
+			<div className="banner-wrapper" >
 				<div className="container" style={{fontFamily: "Montserrat"}}>
 					<Carousel autoplay draggable>
 						{rows}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import { Redirect } from 'react-router';
 import { useHistory } from "react-router-dom";
+import { Menu, Row, Col, Dropdown} from 'antd';
+import { DownOutlined, LoginOutlined, UserOutlined, HeartOutlined, BankOutlined } from '@ant-design/icons';
 
 const SignInPopup = (props) => 
 {
@@ -33,7 +35,7 @@ const SignInPopup = (props) =>
 	return (
     	<div>
             {props.data === "fromNav" 
-                ? <a onClick={showModal} style={{color: 'black'}}>My Wishlist</a>
+                ? <Menu.Item icon={<HeartOutlined style={{marginLeft:'-4px'}}/>} ><a onClick={showModal} style={{color: 'black', marginLeft:'6px'}}>My Wishlist</a></Menu.Item>
                 : <Button className="btn btn-lg" onClick={showModal} style={{height: 50}}>
                 Watch now
                 </Button>}
