@@ -1,4 +1,4 @@
-import { Icon, Link } from '@material-ui/core';
+//import { Icon, Link } from '@material-ui/core';
 import { Menu, Row, Col, Dropdown} from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { Component } from 'react';
@@ -8,6 +8,7 @@ import SignInPopup from '../Utlities/SignInPopup';
 import { IconButton } from "@material-ui/core";
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
+import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
 
 class NavigationBar extends Component
 {
@@ -85,16 +86,16 @@ class NavigationBar extends Component
                             <Link className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link" href="/demo/luitWeb/build/movies">Movies</Link>
+                        <Link className="nav-link" to={{ pathname: "/movies" }} >Movies</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href="/demo/luitWeb/build/music">Music</Link>
+                            <Link className="nav-link" to={{ pathname: "/music" }}>Music</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href="/demo/luitWeb/build/music">Short Films</Link>
+                            <Link className="nav-link" to={{ pathname: "/music" }}>Short Films</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href="/demo/luitWeb/build/music">Web Series</Link>
+                            <Link className="nav-link" to={{ pathname: "/music" }}>Web Series</Link>
                         </li>
                     </ul>
                 </div>
@@ -105,39 +106,39 @@ class NavigationBar extends Component
                         <Dropdown overlay = 
                             {<Menu>
                                 <Menu.Item icon={<LoginOutlined/>}>
-                                    {this.state.isLoggedIn ? <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
+                                    {this.state.isLoggedIn ? <Link rel="noopener noreferrer" to={{ pathname: "/sign_in" }}>
                                      Logout
-                                    </a> : <a rel="noopener noreferrer" href="/demo/luitWeb/build/sign_in">
+                                    </Link> : <Link rel="noopener noreferrer" to={{ pathname: "/sign_in" }}>
                                         Login
-                                    </a>}
+                                    </Link>}
                                 </Menu.Item>
 
                                 
                                     {this.state.isLoggedIn 
-                                        ? <Menu.Item icon={<HeartOutlined />}> <a rel="noopener noreferrer" href="/wishlist"> 
-                                        My Wishlist </a> </Menu.Item>
+                                        ? <Menu.Item icon={<HeartOutlined />}> <Link rel="noopener noreferrer" to={{ pathname: "/wishlist" }}> 
+                                        My Wishlist </Link> </Menu.Item>
                                         : <SignInPopup data="fromNav" /> }
                                
 
                                 <Menu.Item icon={<UserOutlined/>}>
-                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/profile">
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/profile" }}>
                                         Profile
-                                    </a>
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item icon={<BankOutlined/>}>
-                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribe">
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/subscribe" }}>
                                         Subscription
-                                    </a>
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item icon={<BankOutlined/>}>
-                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/payment-history">
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/payment-history" }}>
                                         Payment History
-                                    </a>
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item icon={<BankOutlined/>}>
-                                    <a rel="noopener noreferrer" href="/demo/luitWeb/build/subscribed-contents">
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/subscribed-contents" }}>
                                         Subscribed Contents
-                                    </a>
+                                    </Link>
                                 </Menu.Item>
                             </Menu>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
