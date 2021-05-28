@@ -17,10 +17,11 @@ class MusicCard extends Component
 		super(props);
 		this.state =
 		{
-			visible:false,
+			visible:true,
 			userId:'',
 			styleRemover: true,
 			//sideNav: true,
+			musicWishlist:[]
 		}
         this.redirectToHome = this.redirectToHome.bind(this);
 	}
@@ -52,32 +53,38 @@ class MusicCard extends Component
 
 	componentDidMount()
 	{
-		console.log(this.visible)
 		this.getUserDetails();
-		this.checkWishList();
+		//this.checkWishList();
 		if(window.innerWidth < 580)
 		{
 			this.setState({styleRemover: false})  
 			//this.setState({sideNav: false}) 
 		}
+		this.setState({visible:false});
 	}
 
-	async checkWishList ()
-	{
-		let type = 1;
-
-		for (let i = 0; i < this.props.musicList.length; i++)
-		{
-			let response = await Server.wishlistIsPresent(type, this.props.musicList[i]["id"], this.userId);
-
-			if(response["response"] === "success")
-			{
-				this.props.musicList[i]["status"] = "Added";
-			}
-		}
-		// After changing all value of "free" it is showing icon
+	async displayWishList(id)
+    {
+        let response = await Server.displayWishlist(id);
+		this.setState({musicWishlist: response["data"]})
 		this.setState({visible:true});
-	};
+    }
+	// async checkWishList ()
+	// {
+	// 	let type = 1;
+
+	// 	for (let i = 0; i < this.props.musicList.length; i++)
+	// 	{
+	// 		let response = await Server.wishlistIsPresent(type, this.props.musicList[i]["id"], this.userId);
+
+	// 		if(response["response"] === "success")
+	// 		{
+	// 			this.props.musicList[i]["status"] = "Added";
+	// 		}
+	// 	}
+	// 	// After changing all value of "free" it is showing icon
+	// 	this.setState({visible:true});
+	// };
 
 	async getUserDetails()
 	{
@@ -87,17 +94,20 @@ class MusicCard extends Component
         if (data != null)
 		{
 			this.setState({userId:data["id"]});
+			this.displayWishList(data["id"]);
         }
 		console.log(data);
     }
 
 	async addToWishlist (i)
 	{
-		console.log("done");
-		let type = 1;
+	
+		let type = 2;
 		let itemId = i;
 
-		let response = await Server.addToWishlist(this.userId, type, itemId);
+		console.log(this.state.userId, type, itemId)
+
+		let response = await Server.addToWishlist(this.state.userId, type, itemId);
 
 		if (response["response"] === "success")
 		{
@@ -108,8 +118,8 @@ class MusicCard extends Component
 			message.info('Already added');
 		}
 		// call again
-		this.checkWishList();
 		this.setState({visible:false});
+		this.displayWishList(this.state.userId);
 	}
 
 	redirectToHome = () => 
@@ -128,11 +138,19 @@ class MusicCard extends Component
 
 		for (let i = 0; i < this.props.musicList.length; i++) {
 			const music = this.props.musicList[i];
-			//console.log(music)
-
+			
 			let hour = this.props.musicList[i]["duration"].split('.');
+			let flag1 = false;
 
 			localStorage.setItem("music", JSON.stringify(this.props.musicList[i]));
+			if(this.state.musicWishlist !== undefined)
+			{
+				for ( let j=0; j<this.state.musicWishlist.length ; j++)
+				{
+					if(music["id"] === this.state.musicWishlist[j]["video_id"] && this.state.musicWishlist[j]["video_type"] === "2") { flag1 = true; break } else { flag1 = false }
+				}
+			}
+			
 
 			if (music !== undefined) {
 				cards.push(
@@ -143,11 +161,20 @@ class MusicCard extends Component
 							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}
+
+									{/* Adding "visible" to refresh icon */}
+
 									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
+									{flag1 ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+									</IconButton> : null }
+
+									{/* {this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
 									{
 										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
 									}
-									</IconButton> : null}
+									</IconButton> : null} */}
+
+
 									</h2>
 									<p>{music["description"]}</p>
 									<span className="tag">{hour[0]} min {hour[1]} sec</span>

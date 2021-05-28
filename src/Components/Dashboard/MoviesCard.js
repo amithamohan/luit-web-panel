@@ -17,9 +17,10 @@ function MoviesCard(props)
 {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userId, setUserId] = useState('');
-	const [visible, setVisible] = useState(false);
+	const [visible, setVisible] = useState(true);
 	const [ styleRemover , setStyleRemover ] = useState(true);
 	const [ nav, setNav ] = useState(true);
+	const [wishlist, setWishlist] = useState([])
 
 	let history = useHistory();
 
@@ -83,37 +84,42 @@ function MoviesCard(props)
 
 	useEffect(()  => {
 		getUserDetails();
-		checkWishList();
 		if(window.innerWidth < 580)
 		{
 			setStyleRemover(false)
 			setNav(false)
 		}
-		setVisible(false);
+		setVisible(false)
 	},[])
 
-	const checkWishList = async () =>
-	{
-		let type = 1;	
+	const displayWishList = async (id) =>
+    {
+        let response = await Server.displayWishlist(id);
+        setWishlist(response["data"])
+		setVisible(true)
+    }
+	// const checkWishList = async () =>
+	// {
+	// 	let type = 1;	
 
-		console.log(userId);
-		console.log("userId wishlist");
+	// 	console.log(userId);
+	// 	console.log("userId wishlist");
 
-		for (let i = 0; i < props.moviesList.length; i++)
-		{
-			let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
+	// 	for (let i = 0; i < props.moviesList.length; i++)
+	// 	{
+	// 		let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
 
-			if(response["response"] === "success")
-			{
-				props.moviesList[i]["free"] = "Added";
-			}
-		}
-		// After changing all value of "free" it is showing icon
-		setVisible(true);
-		console.log(visible);
-	};
+	// 		if(response["response"] === "success")
+	// 		{
+	// 			props.moviesList[i]["free"] = "Added";
+	// 		}
+	// 	}
+	// 	// After changing all value of "free" it is showing icon
+	// 	setVisible(true);
+	// 	console.log(visible);
+	// };
 
-	const getUserDetails = () =>
+	const getUserDetails = async () =>
 	{
         let user = localStorage.getItem("user");
         let data = JSON.parse(user);
@@ -121,13 +127,10 @@ function MoviesCard(props)
         if (data != null)
 		{
 			setUserId(data["id"])
-			
+			displayWishList(data["id"]);
         }
-		console.log(userId);
-		console.log("userId");
-		
     }
-
+ 
 	const addToWishlist = async (i) =>
 	{
 		console.log("done");
@@ -145,8 +148,8 @@ function MoviesCard(props)
 			message.info('Already added');
 		}
 		// call again
-		checkWishList();
-	    setVisible(false)
+		setVisible(false)
+		displayWishList(userId);
 	}
 
 	// Another way 
@@ -162,6 +165,7 @@ function MoviesCard(props)
 	const cards = [];
 	const text = [];
 	let list = props.moviesList.length;
+	let flag = false;
 
 	for (let i = 0; i < props.moviesList.length; i++)
 	{
@@ -169,6 +173,14 @@ function MoviesCard(props)
 
 		let hour = props.moviesList[i]["duration"].split('.');
 
+		if(wishlist !== undefined)
+		{
+			for ( let j=0; j<wishlist.length ; j++)
+			{
+				if(movie["movie_id"] === wishlist[j]["video_id"] && wishlist[j]["video_type"] === "1") { flag = true; break } else { flag = false }
+			}
+		}
+		
 
 		if (movie !== undefined) {
 			cards.push(
@@ -181,11 +193,23 @@ function MoviesCard(props)
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}
 							{/* Adding "visible" to refresh icon */}
+
 							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+							{flag ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+							</IconButton> : null }
+
+							{/* <IconButton style={{ color: "#fff", font Size: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
+							{userId ? flag ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+							</IconButton> */}
+
+							{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
 									{
 										movie["free"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
 									}
-								</IconButton> : null}
+								</IconButton> : null} */}
+
+
+
 							</h2>
 							<p>{movie["description"]}</p>
 							<span className="tag">{hour[0]} h {hour[1]} min</span>

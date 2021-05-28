@@ -83,7 +83,7 @@ class NavigationBar extends Component
                 <div className="collapse navbar-collapse" id="navbarSupportedContent" style={this.state.menu ? {display:"block"} : {display:"none"}}>
                     <ul className="navbar-nav mr-auto nav-menu float-none text-center" >
                         <li className="nav-item">
-                            <Link className="nav-link" href="/demo/luitWeb/build/">Home <span className="sr-only">(current)</span></Link>
+                            <Link className="nav-link" to={{ pathname: "/" }} >Home <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
                         <Link className="nav-link" to={{ pathname: "/movies" }} >Movies</Link>
@@ -106,7 +106,7 @@ class NavigationBar extends Component
                         <Dropdown overlay = 
                             {<Menu>
                                 <Menu.Item icon={<LoginOutlined/>}>
-                                    {this.state.isLoggedIn ? <Link rel="noopener noreferrer" to={{ pathname: "/sign_in" }}>
+                                    {this.state.isLoggedIn ? <Link rel="noopener noreferrer" to={{ pathname: "/sign_in" }} onClick={e=>{this.logOut()}}>
                                      Logout
                                     </Link> : <Link rel="noopener noreferrer" to={{ pathname: "/sign_in" }}>
                                         Login
