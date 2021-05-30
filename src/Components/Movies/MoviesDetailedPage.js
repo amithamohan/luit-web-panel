@@ -19,10 +19,10 @@ class MoviesDetailedPage extends Component
 		items: 4,
 		margin: 5,
 		// itemsDesktop: [1000, 5],
-		nav: true,
+		//nav: true,
 		loop: true,
 		dots: false,
-		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
+		//navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
 		autoplay: true,
 	};
 
@@ -45,6 +45,7 @@ class MoviesDetailedPage extends Component
 			allVideos: [],
 			isAdded: false,
 			isLoggedIn: false,
+			userId:''
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -54,26 +55,36 @@ class MoviesDetailedPage extends Component
 
 	componentDidMount()
 	{
+		this.getUserDetails();
 		this.getActors();
 		this.getAllMovies();
 		this.isAddedToWishList();
 		this.checkPayment();
 	}
 
+	async getUserDetails()
+    {
+		let data = JSON.parse(localStorage.getItem("user"));
+		if(data != null){
+			this.setState({userId:data["id"]})
+			this.setState({ isLoggedIn: true })
+		}
+    }
+
 	async checkPayment()
 	{
 		let contentType = this.props.location.state.item["type"] === "movie" ? 1 : 2;
 		let contentId = contentType === 1 ? this.props.location.state.item["movie_id"] : this.props.location.state.item["id"];
-		let data = JSON.parse(localStorage.getItem("user"));
+		//let data = JSON.parse(localStorage.getItem("user"));
 
-		console.log(data);
-		console.log("data");
+		//console.log(data);
+		//console.log("data");
 
-        if (data != null)
-        {
-			let userId = data["id"];
-			this.setState({ isLoggedIn: true })
-			let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+        //if (data != null)
+        //{
+			//let userId = data["id"];
+			//this.setState({ isLoggedIn: true })
+			let response = await Server.checkPaymentStatus(contentType, contentId, this.state.userId);
 
 			console.log(response);
 			console.log("response");
@@ -86,7 +97,7 @@ class MoviesDetailedPage extends Component
 			{
 				this.setState({isPaid : true});
 			}
-        }
+        //}
 	}
 
 	async getActors()
@@ -109,16 +120,16 @@ class MoviesDetailedPage extends Component
 
 	async isAddedToWishList()
 	{
-		let user = localStorage.getItem("user");
+		//let user = localStorage.getItem("user");
 
-		let data = JSON.parse(user);
+		//let data = JSON.parse(user);
 
-		let userId = data["id"];
+		//let userId = data["id"];
 
 		let type = 1;
 		let id = this.props.location.state.item["movie_id"];
 
-		let response = await Server.wishlistIsPresent(type, id, userId);
+		let response = await Server.wishlistIsPresent(type, id, this.state.userId);
 
 		if (response["response"] === "success")
 		{
@@ -132,13 +143,13 @@ class MoviesDetailedPage extends Component
 
 	async addToWishlist(i)
 	{
-		console.log("done");
-		let userId = 4;
+		//console.log("done");
+		//let userId = 4;
 		let type = 1;
 		let itemId = i;
 
 		console.log("success");
-		let response = await Server.addToWishlist(userId, type, itemId);
+		let response = await Server.addToWishlist(this.state.userId, type, itemId);
 
 		if (response["response"] === "success")
 		{
@@ -150,10 +161,6 @@ class MoviesDetailedPage extends Component
 		}
 	}
 
-	async getUserDetails()
-    {
-        let user = localStorage.getItem("user");
-    }
 
 	// fetch all music
 	async getAllMovies()
@@ -260,7 +267,7 @@ class MoviesDetailedPage extends Component
 
 		return (
 			<div>
-				<NavigationBar />
+				<NavigationBar/>
 				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
 					<div className="container">
 						<div className="row">
@@ -276,13 +283,13 @@ class MoviesDetailedPage extends Component
 										<p>{data["description"]}</p>
 
 										{
-											data["amount"] == 0 
-											? this.state.isLoggedIn 
+											this.state.isLoggedIn 
+											? data["amount"] == 0 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-											    : <SignInPopup />
-											: this.state.isPaid === true 
+											    :  this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-												:<PayPopup data={data}/>
+												: <PayPopup data={data}/>
+											: <SignInPopup />
 										}
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
@@ -347,7 +354,6 @@ class MoviesDetailedPage extends Component
 						</div>
 					</div>
 				</div>
-				<Footer />
 			</div>
 		);
 	}

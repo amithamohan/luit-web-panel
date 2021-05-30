@@ -131,7 +131,7 @@ class MusicPage extends Component {
 		return (
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar />
+					<NavigationBar/>
 					<Slider data={this.state.musicSlider} allVideos={this.state.allVideos} />
 					<MusicCard title={"New Released Music"} musicList={this.state.newReleasedMusic} />
 					<MusicCard title={"Top Music"} musicList={this.state.musicList} />
@@ -140,7 +140,6 @@ class MusicPage extends Component {
 							languageList
 						}
 					</div>
-					<Footer />
 				</div>
 			</div>
 		);

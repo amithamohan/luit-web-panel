@@ -4,6 +4,8 @@ import { Carousel } from 'antd';
 import { Link } from 'react-router-dom';
 import Server from '../APIs/Server';
 import { message } from 'antd';
+import PayPopup from "../Utlities/PopUp";
+import SignInPopup from "../Utlities/SignInPopup";
 
 class Slider extends Component {
 	constructor(props) {
@@ -16,6 +18,8 @@ class Slider extends Component {
 			shortFilmList: [],
 			allVideos: [],
 			isAdded: false,
+			isLoggedIn: false,
+			userId:''
 		}
 
 		this.getAllMovies = this.getAllMovies.bind(this);
@@ -24,10 +28,20 @@ class Slider extends Component {
 	}
 
 	componentDidMount() {
+		this.getUserDetails();
 		this.getAllMovies();
 		this.getAllMusic();
 		this.getAllShortFilms();
 	}
+
+	async getUserDetails()
+    {
+		let data = JSON.parse(localStorage.getItem("user"));
+		if(data != null){
+			this.setState({userId:data["id"]})
+			this.setState({ isLoggedIn: true })
+		}
+    }
 
 
 	async getAllMovies() {
@@ -80,13 +94,13 @@ class Slider extends Component {
 	}
 
 	async isAddedToWishList() {
-		let userId = 4;
+		
 		let type = 1;
 		let id = this.props.location.params["item"]["movie_id"];
 
 		console.log("wish list");
 
-		let response = await Server.wishlistIsPresent(type, id, userId);
+		let response = await Server.wishlistIsPresent(type, id, this.state.userId);
 
 		if (response["response"] === "success") {
 			this.setState({ isAdded: true });
@@ -98,12 +112,12 @@ class Slider extends Component {
 
 	async addToWishlist(i) {
 		console.log("done");
-		let userId = 4;
+		
 		let type = 1;
 		let itemId = i;
 
 		console.log("success");
-		let response = await Server.addToWishlist(userId, type, itemId);
+		let response = await Server.addToWishlist(this.state.userId, type, itemId);
 
 		if (response["response"] === "success") {
 			console.log("success");
@@ -140,8 +154,24 @@ class Slider extends Component {
                                         {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
                                         <p>{data["description"]}</p>
 
-										<Link className="btn btn-lg" to={{ pathname: "/video_player", state: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link>
+										{/* <Link className="btn btn-lg" to={{ pathname: "/video_player", state: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link> */}
 
+										{/* {
+											this.state.isLoggedIn 
+											? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											: <SignInPopup />
+										} */}
+
+										{
+											this.state.isLoggedIn 
+											? data["amount"] == 0 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    :  this.state.isPaid === true 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												: <PayPopup data={data}/>
+											: <SignInPopup />
+										}
+										
 										{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton> */}

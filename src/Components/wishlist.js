@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
-
+import NavigationBar from "./Dashboard/NavBar";
 
 const useStyles = makeStyles(theme => ({
     root:
@@ -209,6 +209,7 @@ function WishList()
     return (
         <div>
             <div>
+            <NavigationBar/>
                 <Divider orientation="center">
                 <div style={{width: "86vw", height:"35vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
                     <h2 style={{ color: "black", fontSize:"50px", paddingTop:"6%" }}><b>Watchlist</b></h2>

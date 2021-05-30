@@ -199,7 +199,7 @@ class Home extends Component
 					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>
 					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
 					{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}
-)					<Footer/>
+{/* )					<Footer/> */}
 				</div>
 			</div>
 	     );

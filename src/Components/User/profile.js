@@ -173,7 +173,7 @@ class ProfileInfo extends React.Component {
 
 		return (
 			<div>
-				<NavigationBar />
+				<NavigationBar/>
 				<div style={{ backgroundColor: "white" }}>
 					<div className="page-nav">
 						<div className="container">
@@ -238,7 +238,6 @@ class ProfileInfo extends React.Component {
 						</div>
 					</div>
 				</div>
-				<Footer />
 			</div>
 		);
 	}

@@ -151,7 +151,7 @@ class MoviesPage extends Component {
 		return (
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
-					<NavigationBar />
+					<NavigationBar/>
 					<Slider data={this.state.moviesSlider} allVideos={this.state.allVideos} />
 					<MoviesCard title={"New Released Movies"} moviesList={this.state.newReleasedMovies} />
 					<MoviesCard title={"Latest Movies"} moviesList={this.state.moviesList} />
@@ -161,7 +161,6 @@ class MoviesPage extends Component {
 							languageList
 						}
 					</div>
-					<Footer />
 				</div>
 			</div>
 		);

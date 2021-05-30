@@ -34,8 +34,8 @@ class Subscribe extends Component
     componentDidMount()
     {
 		this.state.user = JSON.parse(localStorage.getItem("user"));
-
-        this.state.userId = this.state.user["id"];
+        if(this.state.user != null) this.state.userId = this.state.user["id"];
+        
         this.getSubscriptionPlans();
     }
 
@@ -146,8 +146,8 @@ class Subscribe extends Component
 
 		let options =
 		{
-			// "key": "rzp_test_dKDuSXlctyepdF", this is a  test key, when deploying you have to add the live key.
-            "key": "rzp_live_w5lknDA3gkDYMk" ,
+			"key": "rzp_test_dKDuSXlctyepdF", //this is a  test key, when deploying you have to add the live key.
+            //"key": "rzp_live_w5lknDA3gkDYMk" ,
 		  	"amount": amount, // 2000 paise = INR 20, amount in paisa
 		  	"name": "Luit",
 		  	// "description": "Purchase Description",
@@ -251,7 +251,7 @@ class Subscribe extends Component
 
         return(
             <div className="container" style={{fontFamily: "Montserrat"}}>
-                <NavigationBar />
+                <NavigationBar/>
                 <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px", paddingTop: "25px"}}>
                     <div>
                         <Radio.Group name="radiogroup" defaultValue={1}>

@@ -19,6 +19,8 @@ import VideoPlayer from './Components/VideoPlayer/VideoPlayer';
 import StarRating from './Components/Dashboard/StarRating';
 import Subscribe from './Components/Subscribe';
 import SuccessPopup from './Components/Utlities/SuccessPopup';
+import Footer from './Components/Dashboard/Footer';
+import NavigationBar from './Components/Dashboard/NavBar';
 // import ViewContents from './Components/Dashboard/ViewContents';
 
 
@@ -27,7 +29,9 @@ import SubscribedContents from './Components/SubscribedPlans';
 
 function App() {
   return (
+    
     <Router basename={'/demo/luitWeb/build'}>
+      {/* <NavigationBar/> */}
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/movies" component={MoviesPage} />
@@ -50,6 +54,7 @@ function App() {
         <Route path="/payment-history" component={PaymentHistory} />
         <Route path="/subscribed-contents" component={SubscribedContents} />
       </Switch>
+      <Footer/>
     </Router>
 
     // <Router basename={'/demo/luitWeb/build'}>

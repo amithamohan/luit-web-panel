@@ -11,7 +11,7 @@ import { Alert, Col, message, Row } from 'antd';
 import 'firebase/database';
 import 'firebase/auth';
 import firebase from '../config/firebase';
-
+import NavigationBar from "./Dashboard/NavBar";
 
 const clientId = "1043266914152-ao4hgut18q0esah1la68oopva6njib3k.apps.googleusercontent.com";
 
@@ -177,6 +177,7 @@ function AlertError(){
 
     return (
         <div>
+            <NavigationBar/>
             <section className="form-wrapper" >
                 <div className="container">
                     <div className="row justify-content-center">
@@ -247,7 +248,6 @@ function AlertError(){
                     </div>
                 </div>
             </section>
-            <Footer />
         </div>
         
     );

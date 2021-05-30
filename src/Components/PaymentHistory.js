@@ -40,21 +40,24 @@ export default function PaymentHistory()
 
 		let data = JSON.parse(user);
 
-		let userId = data["id"];
+		if(data != null){
+			let userId = data["id"];
 
-		let response = await Server.fetchPaymentHistory(userId);
-
-		if(response["response"] === "success")
-		{
-			for(let i = 0; i < response["data"].length; i++)
+			let response = await Server.fetchPaymentHistory(userId);
+	
+			if(response["response"] === "success")
 			{
-				if(response["data"][i]["array"][0] !== undefined)
+				for(let i = 0; i < response["data"].length; i++)
 				{
-					list.push(response["data"][i]);
+					if(response["data"][i]["array"][0] !== undefined)
+					{
+						list.push(response["data"][i]);
+					}
 				}
+				setStatus(true);
 			}
-			setStatus(true);
 		}
+		
 	}
 
     const classes = useStyles()
@@ -90,9 +93,9 @@ export default function PaymentHistory()
 
 	return(
 		<div>
-			<NavigationBar/>
 			<div className="slide-wrapper ">
-				{status === true ? <div className="container" style={{fontFamily: "Montserrat"}}>
+			<NavigationBar/>
+				{status === true ? <div className="container" style={{fontFamily: "Montserrat", height:"55vh"}}>
 					<center><h4 style={{color: "white"}}>Payment History</h4></center>
 					<div className="row">
 						<div className="col-sm-12 mt-4 ">
@@ -103,7 +106,7 @@ export default function PaymentHistory()
 						</div>
 					</div>
 				</div>
-				: 	<div style={{paddingTop: "150px"}}>
+				: 	<div style={{paddingTop: "150px", height:"55vh"}}>
 						<center>
 							<h4 style={{color: "white", fontFamily: "Montserrat"}}><IconButton style={{color: "white", fontSize: 50}}>
 							<ErrorOutlineIcon/>

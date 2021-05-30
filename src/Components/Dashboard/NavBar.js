@@ -94,9 +94,9 @@ class NavigationBar extends Component
                         <li className="nav-item">
                             <Link className="nav-link" to={{ pathname: "/music" }}>Short Films</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to={{ pathname: "/music" }}>Web Series</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 
@@ -136,10 +136,20 @@ class NavigationBar extends Component
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item icon={<BankOutlined/>}>
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/" }}>
+                                        Notification
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item icon={<BankOutlined/>}>
+                                    <Link rel="noopener noreferrer" to={{ pathname: "/" }}>
+                                        Terms and Conditions
+                                    </Link>
+                                </Menu.Item>
+                                {/* <Menu.Item icon={<BankOutlined/>}>
                                     <Link rel="noopener noreferrer" to={{ pathname: "/subscribed-contents" }}>
                                         Subscribed Contents
                                     </Link>
-                                </Menu.Item>
+                                </Menu.Item> */}
                             </Menu>}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         <Avatar src= {this.state.image} style={{width:"50px", height:"50px"}}></Avatar><DownOutlined />

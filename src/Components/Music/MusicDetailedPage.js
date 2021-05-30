@@ -29,10 +29,10 @@ class MusicDetailedPage extends Component {
 		items: 4,
 		margin: 5,
 		// itemsDesktop: [1000, 5],
-		nav: true,
+		//nav: true,
 		loop: true,
 		dots: false,
-		navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
+		//navText:["<img src='images/left.png'/>","<img src='images/right.png'/>"],
 		autoplay: true,
 	};
 
@@ -53,6 +53,7 @@ class MusicDetailedPage extends Component {
 			allVideos: [],
 			musicList: [],
 			isPaid : false,
+			userId:''
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -62,19 +63,29 @@ class MusicDetailedPage extends Component {
 
 	componentDidMount() 
 	{
+		this.getUserDetails();
 		this.getActors();
 		this.getAllMusic();
 		this.checkPayment();
 	}
 
+	async getUserDetails()
+    {
+		let data = JSON.parse(localStorage.getItem("user"));
+		if(data != null){
+			this.setState({userId:data["id"]})
+			this.setState({ isLoggedIn: true })
+		}
+    }
+
 	async checkPayment()
 	{
 		let contentType = this.props.location.state["item"]["type"] === "movie" ? 1 : 2;
 		let contentId = contentType === 1 ? this.props.location.state["item"]["movie_id"] : this.props.location.state["item"]["id"];
-		let data = JSON.parse(localStorage.getItem("user"));
-		let userId = data["id"];
+		// let data = JSON.parse(localStorage.getItem("user"));
+		// let userId = data["id"];
 
-		let response = await Server.checkPaymentStatus(contentType, contentId, userId);
+		let response = await Server.checkPaymentStatus(contentType, contentId, this.state.userId);
 
 		console.log(response);
 
@@ -128,10 +139,10 @@ class MusicDetailedPage extends Component {
 	}
 
 	async addToWishlist(i) {
-		let userId = 4;
+		//let userId = 4;
 		let type = 2;
 		let itemId = i;
-		let response = await Server.addToWishlist(userId, type, itemId);
+		let response = await Server.addToWishlist(this.state.userId, type, itemId);
 
 		if (response["response"] === "success") 
 		{
@@ -210,7 +221,7 @@ class MusicDetailedPage extends Component {
 
 		return (
 			<div>
-				<NavigationBar />
+				<NavigationBar/>
 				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
 					<div className="container">
 						<div className="row">
@@ -295,7 +306,6 @@ class MusicDetailedPage extends Component {
 
 					</div>
 				</div>
-				<Footer />
 			</div>
 		);
 	}
