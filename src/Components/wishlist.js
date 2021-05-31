@@ -108,6 +108,7 @@ function WishList()
         }
     }
 
+
     //Another way
     // const handleClick = (movie) =>
     // {
@@ -133,48 +134,29 @@ function WishList()
             let hour = movie["duration"].split('.');
 
             text.push(
-               <div className="slide-wrapper" key={i} >
-                   <Link className="owl-items" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
-                        <Card hoverable className="slide-one"
-                            style={{ width: "270px", borderRadius: "7px", marginLeft:"23px" }}
-                            cover={<div className="slide-image" style={{ background: "white",  borderRadius: "7px" }}>
-                                <img className={classes.img} style={{width: "100%",height: "210px", borderRadius: "7px"}} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-                            </div>}>
+                <div className="slide-wrapper container" key={i} >
+                    <div className="row">
+                        <div className=" slide-one col-lg-3">
+						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
+							<img src={movie["thumbnail"]} alt={movie["movie_title"]}  onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+						</Link>
+						<div className="slide-content">
+							<h2>{movie["movie_title"]}
 
-                            <Grid container direction="row" alignItems="center" justify="space-between">
-                                <Grid item>
-                                    <b>{movie["type"] === "music" ? movie["title"] : movie["movie_title"]}</b>
-                                </Grid>
+							<IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
+							<AddIcon fontSize="inherit"></AddIcon>
+							</IconButton>
 
-                                <Grid item>
-                                    <IconButton style={{color: "grey", fontSize: 30}} onClick={()=> { deleteFromWishList(id)}} aria-label="reqind">
-                                    {/* {status ? <CheckIcon fontSize="inherit"></CheckIcon> :	<AddIcon fontSize="inherit"></AddIcon>} */}
-                                    <AddIcon fontSize="inherit"></AddIcon>
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-                            <span style={{ color: "grey" }}>{movie["description"]}</span>
-                            <Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey", marginTop:"15px"  }}>
-                                <Grid item>
-                                    <span>{hour[0]} hrs {hour[1]} mins</span>
-                                </Grid>
-
-                                <Grid item>
-                                <span>{movie["publish_year"]}</span>
-                                </Grid>
-
-                                <Grid item>
-                                <span><b>HD</b></span>
-                                </Grid>
-
-                                <Grid item>
-                                    <span>{movie["ratings"]}+</span>  <i className="ti-star"></i>
-                                </Grid>
-                            </Grid>
-                        </Card>
-                    </Link>
-               </div>
-            );
+							</h2>
+							<p>{movie["description"]}</p>
+							<span className="tag">{hour[0]} h {hour[1]} min</span>
+							<span className="tag">{movie["publish_year"]}</span>
+							<span className="tag"><b>{movie["maturity_rating"]} +</b></span>
+						</div>
+                        </div>
+                     </div>
+                </div>
+             );
         }
     }
 

@@ -8,7 +8,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import { message } from 'antd';
 import Server from '../APIs/Server';
 import { withRouter } from 'react-router-dom';
-
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 class MusicCard extends Component
 {
 	
@@ -160,7 +160,7 @@ class MusicCard extends Component
 								<img src={music["thumbnail"]} alt={music["movie_title"]} style={ this.state.styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
-								<h2>{music["title"]}
+								<h2>{music["title"]}{music["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
 
 									{/* Adding "visible" to refresh icon */}
 

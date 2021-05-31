@@ -10,7 +10,7 @@ import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { Row, Col } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
-
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 
 function MoviesCard(props)
@@ -98,26 +98,6 @@ function MoviesCard(props)
         setWishlist(response["data"])
 		setVisible(true)
     }
-	// const checkWishList = async () =>
-	// {
-	// 	let type = 1;	
-
-	// 	console.log(userId);
-	// 	console.log("userId wishlist");
-
-	// 	for (let i = 0; i < props.moviesList.length; i++)
-	// 	{
-	// 		let response = await Server.wishlistIsPresent(type, props.moviesList[i]["movie_id"], userId);
-
-	// 		if(response["response"] === "success")
-	// 		{
-	// 			props.moviesList[i]["free"] = "Added";
-	// 		}
-	// 	}
-	// 	// After changing all value of "free" it is showing icon
-	// 	setVisible(true);
-	// 	console.log(visible);
-	// };
 
 	const getUserDetails = async () =>
 	{
@@ -133,6 +113,7 @@ function MoviesCard(props)
  
 	const addToWishlist = async (i) =>
 	{
+		console.log(i)
 		console.log("done");
 		let type = 1;
 		let itemId = i;
@@ -151,6 +132,25 @@ function MoviesCard(props)
 		setVisible(false)
 		displayWishList(userId);
 	}
+
+	const deleteFromWishList = async (item) =>
+    {
+		console.log(item)
+        let response = await Server.deleteWishlist(userId, item);
+		console.log(response)
+
+        if (response["response"] === "success")
+        {
+            message.success("Removed from wishlist");
+        }
+        else
+        {
+            message.error("Oops something went wrong");
+        }
+		// call again
+		setVisible(false)
+		displayWishList(userId);
+    }
 
 	// Another way 
 	// const handleClick = (movie) =>
@@ -188,14 +188,15 @@ function MoviesCard(props)
 					<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
 						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
 						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
+							
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">
-							<h2>{movie["movie_title"]}
+							<h2>{movie["movie_title"]}{movie["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
 							{/* Adding "visible" to refresh icon */}
 
-							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
-							{flag ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
+							{flag ? <CheckIcon fontSize="inherit" onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
 							</IconButton> : null }
 
 							{/* <IconButton style={{ color: "#fff", font Size: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">

@@ -21,23 +21,24 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-let list = [];
+//let list = [];
 
 
 export default function PaymentHistory()
 {
 
     const [status, setStatus] = useState(false);
+	const [historyData, setHistoryData] = useState([]);
 
 	useEffect(() =>
 	{
 		getPaymentHistory();
-	});
+	},[]);
 
 	const getPaymentHistory = async () =>
     {
 		let user = localStorage.getItem("user");
-
+		console.log("object")
 		let data = JSON.parse(user);
 
 		if(data != null){
@@ -47,13 +48,15 @@ export default function PaymentHistory()
 	
 			if(response["response"] === "success")
 			{
-				for(let i = 0; i < response["data"].length; i++)
-				{
-					if(response["data"][i]["array"][0] !== undefined)
-					{
-						list.push(response["data"][i]);
-					}
-				}
+				setHistoryData(response["data"]);
+				// for(let i = 0; i < response["data"].length; i++)
+				// {
+				// 	if(response["data"][i]["array"][0] !== undefined)
+				// 	{
+				// 		//list.push(response["data"][i]);
+				// 		setHistoryData(response["data"][i]);
+				// 	}
+				// }
 				setStatus(true);
 			}
 		}
@@ -65,24 +68,24 @@ export default function PaymentHistory()
 
    if(status === true)
    {
-		for(let i = 0; i < list.length; i++)
+		for(let i = 0; i < historyData.length; i++)
 		{
-			let movie = list[i]["array"][0];
+			let data = historyData[i]["array"][0];
 
 			row.push(
 			<div className="owl-items" key={i}>
-				<div className="slide-one mx-1" key={i} style={{ height: "430px", width: "270px", }}>
+				<div className="slide-one mx-1" key={i} style={{ height: "230px", width: "270px", }}>
 				{/* <Col   key={i}> */}
-					<Link className="slide-image" to={{pathname: "/movies_detailed_page", params:{item: movie}}} style={{ display: "flex", justifyContent: "center" }}>
+					{/* <Link className="slide-image" to={{pathname: "/movies_detailed_page", params:{item: movie}}} style={{ display: "flex", justifyContent: "center" }}>
 							<div className={classes.div}>
 								<img src={movie["thumbnail"]} alt="movie" onError={(e)=>{e.target.onerror = null; e.target.src="https://release.luit.co.in/uploads/music_thumbnail/default.jpg"}} style={{  minWidth: "270px", height: "100%"}} />
 							</div>
-					</Link>
+					</Link> */}
 					<div className="slide-content">
-						<h2>{movie["type"] === "movie" ? movie["movie_title"] : movie["title"]} </h2>
-						<p>INR {list[i]["amount"]}</p>
-						<span className="tag">Payment Id: {list[i]["ref_no"]}</span>
-						<span className="tag">Date: {list[i]["datetime"]}</span>
+						<h2>{historyData[i]["array"][0]["type"] === "movie" ? historyData[i]["array"][0]["movie_title"] : historyData[i]["array"][0]["title"]} </h2>
+						<p>INR {historyData[i]["amount"]}</p>
+						<span className="tag">Payment Id: {historyData[i]["ref_no"]}</span>
+						<span className="tag">Date: {historyData[i]["datetime"]}</span>
 					</div>
 				{/* </Col> */}
 				</div>
