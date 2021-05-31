@@ -124,7 +124,7 @@ function WishList()
     const text = [];
     const row = [];
 
-    if (status === true)
+    if (status === true && list !== undefined)
     {
         for (let i = 0; i < list.length; i++) 
         {
@@ -160,26 +160,26 @@ function WishList()
         }
     }
 
-    if (status === true)
-    {
-        for (let i = 0; i < list.length; i++)
-        {
-            let movie = list[i];
+    // if (status === true)
+    // {
+    //     for (let i = 0; i < list.length; i++)
+    //     {
+    //         let movie = list[i];
 
-            row.push(
-                <Col className="gutter-row" span={6} key={i}>
-                    <Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
-                        <div className={classes.div}>
-                            <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-                            <Container style={{ backgroundColor: "white" }}>
-                                <Row>{movie["movie_title"]}</Row>
-                            </Container>
-                        </div>
-                    </Link>
-                </Col>
-            );
-        }
-    }
+    //         row.push(
+    //             <Col className="gutter-row" span={6} key={i}>
+    //                 <Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
+    //                     <div className={classes.div}>
+    //                         <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+    //                         <Container style={{ backgroundColor: "white" }}>
+    //                             <Row>{movie["movie_title"]}</Row>
+    //                         </Container>
+    //                     </div>
+    //                 </Link>
+    //             </Col>
+    //         );
+    //     }
+    // }
 
 
     if(loggedIn === false)
@@ -192,6 +192,7 @@ function WishList()
         <div>
             <div>
             <NavigationBar/>
+                <div style={{minHeight:"52vh"}}>
                 <Divider orientation="center">
                 <div style={{width: "86vw", height:"35vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
                     <h2 style={{ color: "black", fontSize:"50px", paddingTop:"6%" }}><b>Watchlist</b></h2>
@@ -202,7 +203,7 @@ function WishList()
                 <Row gutter={[0, 35]} justify="left" style={{marginLeft:"5.4%"}}>
                     {text}
                 </Row>
-
+                </div>
             </div>
         </div>
     );
