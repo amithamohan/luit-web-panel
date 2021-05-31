@@ -69,22 +69,6 @@ class MusicCard extends Component
 		this.setState({musicWishlist: response["data"]})
 		this.setState({visible:true});
     }
-	// async checkWishList ()
-	// {
-	// 	let type = 1;
-
-	// 	for (let i = 0; i < this.props.musicList.length; i++)
-	// 	{
-	// 		let response = await Server.wishlistIsPresent(type, this.props.musicList[i]["id"], this.userId);
-
-	// 		if(response["response"] === "success")
-	// 		{
-	// 			this.props.musicList[i]["status"] = "Added";
-	// 		}
-	// 	}
-	// 	// After changing all value of "free" it is showing icon
-	// 	this.setState({visible:true});
-	// };
 
 	async getUserDetails()
 	{
@@ -121,6 +105,28 @@ class MusicCard extends Component
 		this.setState({visible:false});
 		this.displayWishList(this.state.userId);
 	}
+
+	async deleteFromWishList (item)
+    {
+		
+		let wish = this.state.musicWishlist.filter((i) => {
+			return i.video_id == item
+		})
+		
+        let response = await Server.deleteWishlist(this.state.userId, wish[0]["id"]);
+
+        if (response["response"] === "success")
+        {
+            message.success("Removed from wishlist");
+        }
+        else
+        {
+            message.error("Oops something went wrong");
+        }
+		// call again
+		this.setState({visible:false});
+		this.displayWishList(this.state.userId);
+    }
 
 	redirectToHome = () => 
 	{
@@ -164,15 +170,9 @@ class MusicCard extends Component
 
 									{/* Adding "visible" to refresh icon */}
 
-									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
-									{flag1 ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
+									{flag1 ? <CheckIcon fontSize="inherit" onClick={e => {this.deleteFromWishList(music["id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={e => {this.addToWishlist(music["id"]) }}></AddIcon>}
 									</IconButton> : null }
-
-									{/* {this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={e => {this.addToWishlist(music["id"]) }} aria-label="reqind">
-									{
-										music["status"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
-									}
-									</IconButton> : null} */}
 
 
 									</h2>

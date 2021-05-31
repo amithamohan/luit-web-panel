@@ -96,6 +96,7 @@ function MoviesCard(props)
     {
         let response = await Server.displayWishlist(id);
         setWishlist(response["data"])
+		console.log(wishlist)
 		setVisible(true)
     }
 
@@ -135,9 +136,12 @@ function MoviesCard(props)
 
 	const deleteFromWishList = async (item) =>
     {
-		console.log(item)
-        let response = await Server.deleteWishlist(userId, item);
-		console.log(response)
+		
+		let wish = wishlist.filter((i) => {
+			return i.video_id == item
+		})
+		
+        let response = await Server.deleteWishlist(userId, wish[0]["id"]);
 
         if (response["response"] === "success")
         {
@@ -167,6 +171,7 @@ function MoviesCard(props)
 	let list = props.moviesList.length;
 	let flag = false;
 
+	console.log(props.moviesList)
 	for (let i = 0; i < props.moviesList.length; i++)
 	{
 		const movie = props.moviesList[i];
@@ -198,20 +203,8 @@ function MoviesCard(props)
 							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
 							{flag ? <CheckIcon fontSize="inherit" onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
 							</IconButton> : null }
-
-							{/* <IconButton style={{ color: "#fff", font Size: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
-							{userId ? flag ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon> : <AddIcon fontSize="inherit"></AddIcon>}
-							</IconButton> */}
-
-							{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { addToWishlist(movie["movie_id"]) }} aria-label="reqind">
-									{
-										movie["free"] === "Added" ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>
-									}
-								</IconButton> : null} */}
-
-
-
 							</h2>
+							
 							<p>{movie["description"]}</p>
 							<span className="tag">{hour[0]} h {hour[1]} min</span>
 							<span className="tag">{movie["publish_year"]}</span>
