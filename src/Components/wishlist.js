@@ -108,7 +108,6 @@ function WishList()
         }
     }
 
-
     //Another way
     // const handleClick = (movie) =>
     // {
@@ -134,53 +133,74 @@ function WishList()
             let hour = movie["duration"].split('.');
 
             text.push(
-                <div className="slide-wrapper container" key={i} >
-                    <div className="row">
-                        <div className=" slide-one col-lg-3">
-						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
-							<img src={movie["thumbnail"]} alt={movie["movie_title"]}  onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
-						</Link>
-						<div className="slide-content">
-							<h2>{movie["movie_title"]}
+               <div className="slide-wrapper" key={i} >
+                   <div className="owl-items">
+                        <Card hoverable className="slide-one"
+                            style={{ width: "270px", borderRadius: "7px", margin:"15px", height: "430px" }}
+                            cover={
+                                <Link className="slide-image" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
+                                <img  style={{width: "100%",height: "250px", borderRadius: "7px"}} src={movie["thumbnail"]} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+                            </Link>}>
 
-							<IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
-							<AddIcon fontSize="inherit"></AddIcon>
-							</IconButton>
+                            <Grid container 
+                            className="slide-content" alignItems="center" justify="space-between">
+                                <Grid item>
+                                    <b style={{ color: "white"  }}>{movie["type"] === "music" ? movie["title"] : movie["movie_title"]}</b>
+                                </Grid>
 
-							</h2>
-							<p>{movie["description"]}</p>
-							<span className="tag">{hour[0]} h {hour[1]} min</span>
-							<span className="tag">{movie["publish_year"]}</span>
-							<span className="tag"><b>{movie["maturity_rating"]} +</b></span>
-						</div>
-                        </div>
-                     </div>
-                </div>
-             );
+                                <Grid item>
+                                    <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
+                                    <AddIcon fontSize="inherit"></AddIcon>
+                                    </IconButton>
+                                </Grid>
+                            </Grid> 
+                             <span style={{ color: "grey" }}>{movie["description"]}</span>
+                            <Grid container direction="row" alignItems="center" justify="space-between" style={{ color: "grey", marginTop:"15px"  }}>
+                                <Grid item>
+                                    <span>{hour[0]} hrs {hour[1]} mins</span>
+                                </Grid>
+
+                                <Grid item>
+                                    <span>{movie["publish_year"]}</span>
+                                </Grid>
+
+                                <Grid item>
+                                <span><b>HD</b></span>
+                                </Grid>
+
+                                <Grid item>
+                                    <span>{movie["ratings"]}+</span>  <i className="ti-star"></i>
+                                </Grid>
+                            </Grid> 
+                            
+                        </Card>
+                    </div>
+               </div>
+            );
         }
     }
+/*
+    if (status === true)
+    {
+        for (let i = 0; i < list.length; i++)
+        {
+            let movie = list[i];
 
-    // if (status === true)
-    // {
-    //     for (let i = 0; i < list.length; i++)
-    //     {
-    //         let movie = list[i];
-
-    //         row.push(
-    //             <Col className="gutter-row" span={6} key={i}>
-    //                 <Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
-    //                     <div className={classes.div}>
-    //                         <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-    //                         <Container style={{ backgroundColor: "white" }}>
-    //                             <Row>{movie["movie_title"]}</Row>
-    //                         </Container>
-    //                     </div>
-    //                 </Link>
-    //             </Col>
-    //         );
-    //     }
-    // }
-
+            row.push(
+                <Col className="gutter-row" span={6} key={i}>
+                    <Link className="slide-one" to={{ pathname: "/movies_detailed_page", params: { item: movie } }}>
+                        <div className={classes.div}>
+                            <img className={classes.img} src={`${list[i]["video_details"][0]["poster"]}` === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : `${list[i]["video_details"][0]["poster"]}`} alt={movie["movie_title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+                            <Container style={{ backgroundColor: "white" }}>
+                                <Row>{movie["movie_title"]}</Row>
+                            </Container>
+                        </div>
+                    </Link>
+                </Col>
+            );
+        }
+    }
+*/
 
     if(loggedIn === false)
     {
@@ -190,20 +210,18 @@ function WishList()
 
     return (
         <div>
-            <div>
             <NavigationBar/>
-                <div style={{minHeight:"52vh"}}>
+            <div style={{minHeight:"52vh"}}>
                 <Divider orientation="center">
                 <div style={{width: "86vw", height:"35vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
                     <h2 style={{ color: "black", fontSize:"50px", paddingTop:"6%" }}><b>Watchlist</b></h2>
-                    <p>Watch your favourites.</p>
+                    <p style={{ color: "black"}}>Watch your favourites.</p>
                     </div>
                 </Divider>
 
-                <Row gutter={[0, 35]} justify="left" style={{marginLeft:"5.4%"}}>
+                <Row justify="left" style={{marginLeft:"5.4%"}}>
                     {text}
                 </Row>
-                </div>
             </div>
         </div>
     );
