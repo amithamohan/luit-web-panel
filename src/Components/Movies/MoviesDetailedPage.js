@@ -11,6 +11,7 @@ import { message } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
 import PayPopup from "../Utlities/PopUp";
 import SignInPopup from "../Utlities/SignInPopup";
+import { ThreeSixty } from "@material-ui/icons";
 
 class MoviesDetailedPage extends Component
 {
@@ -58,33 +59,29 @@ class MoviesDetailedPage extends Component
 		this.getUserDetails();
 		this.getActors();
 		this.getAllMovies();
-		this.isAddedToWishList();
-		this.checkPayment();
 	}
 
 	async getUserDetails()
     {
 		let data = JSON.parse(localStorage.getItem("user"));
+		console.log("object")
 		if(data != null){
 			this.setState({userId:data["id"]})
 			this.setState({ isLoggedIn: true })
+			this.isAddedToWishList(data["id"]);
+		    this.checkPayment(data["id"]);
 		}
     }
+	refreshWathButton (){
+		window.location.reload();
+	}
 
-	async checkPayment()
+	async checkPayment(id)
 	{
 		let contentType = this.props.location.state.item["type"] === "movie" ? 1 : 2;
 		let contentId = contentType === 1 ? this.props.location.state.item["movie_id"] : this.props.location.state.item["id"];
-		//let data = JSON.parse(localStorage.getItem("user"));
-
-		//console.log(data);
-		//console.log("data");
-
-        //if (data != null)
-        //{
-			//let userId = data["id"];
-			//this.setState({ isLoggedIn: true })
-			let response = await Server.checkPaymentStatus(contentType, contentId, this.state.userId);
+		
+			let response = await Server.checkPaymentStatus(contentType, contentId, id);
 
 			console.log(response);
 			console.log("response");
@@ -97,7 +94,7 @@ class MoviesDetailedPage extends Component
 			{
 				this.setState({isPaid : true});
 			}
-        //}
+        
 	}
 
 	async getActors()
@@ -118,19 +115,14 @@ class MoviesDetailedPage extends Component
 		this.setState({ actors: actorsList });
 	}
 
-	async isAddedToWishList()
+	async isAddedToWishList(userId)
 	{
-		//let user = localStorage.getItem("user");
-
-		//let data = JSON.parse(user);
-
-		//let userId = data["id"];
 
 		let type = 1;
 		let id = this.props.location.state.item["movie_id"];
-
-		let response = await Server.wishlistIsPresent(type, id, this.state.userId);
-
+        console.log(this.state.userId)
+		let response = await Server.wishlistIsPresent(type, id, userId);
+		console.log(response)
 		if (response["response"] === "success")
 		{
 			this.setState({ isAdded: true });
@@ -143,8 +135,7 @@ class MoviesDetailedPage extends Component
 
 	async addToWishlist(i)
 	{
-		//console.log("done");
-		//let userId = 4;
+	
 		let type = 1;
 		let itemId = i;
 
@@ -179,6 +170,7 @@ class MoviesDetailedPage extends Component
 		this.setState({ moviesList: result });
 	}
 
+	
 	// Another way
 	// handleClick(movie)
     // {
@@ -231,7 +223,7 @@ class MoviesDetailedPage extends Component
 					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
-								{/* <div className="slide-one" onClick={()=>{this.handleClick(this.state.moviesList[i])}} style={{ height: "430px" }}> */}
+								<div onClick={()=>{this.refreshWathButton()}}>
 								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
 										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
@@ -244,6 +236,7 @@ class MoviesDetailedPage extends Component
 										<span className="tag"><b>{this.state.moviesList[i]["maturity_rating"]}+</b></span>
 									</div>
 								</Link>
+								</div>
 							</div>
 						);
 					}
@@ -282,15 +275,16 @@ class MoviesDetailedPage extends Component
 										<span className="tag">{hour[0]} hours {hour[1]} min</span>
 										<p>{data["description"]}</p>
 
-										{
+										{   
 											this.state.isLoggedIn 
 											? data["amount"] == 0 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    :  this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: <PayPopup data={data}/>
-											: <SignInPopup />
+											: <SignInPopup /> 
 										}
+
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton>

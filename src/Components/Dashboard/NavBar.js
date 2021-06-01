@@ -9,6 +9,7 @@ import { IconButton } from "@material-ui/core";
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
+import Modal from '@material-ui/core/Modal';
 
 class NavigationBar extends Component
 {
@@ -34,6 +35,7 @@ class NavigationBar extends Component
         if(window.innerWidth < 770){
             this.setState({flag:false})
         }
+        console.log(this.props.data)
     }
 
     async logOut()
@@ -65,6 +67,14 @@ class NavigationBar extends Component
     ToggleButton(){
         this.setState({ menu: !this.state.menu })
     }
+
+    handleOpen () {
+        //setOpen(true);
+      };
+    
+      handleClose() {
+        //setOpen(false);
+      };
 
     render()
     {
@@ -102,7 +112,9 @@ class NavigationBar extends Component
 
                 <div className="searchBar" style={{marginRight:"-10px"}}>
                     <form className="form-inline my-2 my-lg-0" >
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+
+
+                        <Link to={{ pathname: "/search" }} ><input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/></Link>
                         <Dropdown overlay = 
                             {<Menu>
                                 <Menu.Item icon={<LoginOutlined/>}>

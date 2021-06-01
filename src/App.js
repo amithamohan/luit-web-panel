@@ -22,7 +22,7 @@ import SuccessPopup from './Components/Utlities/SuccessPopup';
 import Footer from './Components/Dashboard/Footer';
 import NavigationBar from './Components/Dashboard/NavBar';
 // import ViewContents from './Components/Dashboard/ViewContents';
-
+import SearchBar from './Components/Utlities/SearchBar';
 
 import PaymentHistory from './Components/PaymentHistory';
 import SubscribedContents from './Components/SubscribedPlans';
@@ -53,6 +53,7 @@ function App() {
         <Route path="/successPopup" component={SuccessPopup} />
         <Route path="/payment-history" component={PaymentHistory} />
         <Route path="/subscribed-contents" component={SubscribedContents} />
+        <Route path="/search" component={SearchBar} />
       </Switch>
       <Footer/>
     </Router>

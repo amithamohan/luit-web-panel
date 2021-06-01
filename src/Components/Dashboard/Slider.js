@@ -19,7 +19,9 @@ class Slider extends Component {
 			allVideos: [],
 			isAdded: false,
 			isLoggedIn: false,
-			userId:''
+			userId:'',
+			status:false,
+			historyData:[],
 		}
 
 		this.getAllMovies = this.getAllMovies.bind(this);
@@ -40,9 +42,19 @@ class Slider extends Component {
 		if(data != null){
 			this.setState({userId:data["id"]})
 			this.setState({ isLoggedIn: true })
+			this.getPaymentHistory(data["id"]);
 		}
     }
-
+	async getPaymentHistory(id)
+    {
+			let response = await Server.fetchPaymentHistory(id);
+	
+			if(response["response"] === "success")
+			{
+				this.setState({historyData:response["data"]});
+				this.setState({status:true});
+			}
+	}
 
 	async getAllMovies() {
 		let movieList = [];
@@ -93,6 +105,7 @@ class Slider extends Component {
 		}
 	}
 
+
 	async isAddedToWishList() {
 		
 		let type = 1;
@@ -131,6 +144,8 @@ class Slider extends Component {
 
 	render() {
 		const rows = [];
+        let isPaid = false
+        
 
 		for (let i = 0; i < this.state.allVideos.length; i++) 
 		{
@@ -140,6 +155,17 @@ class Slider extends Component {
 				{
 					let data = this.state.allVideos[i];
 					let hour = this.state.allVideos[i]["duration"].split('.');
+
+                    if(this.state.historyData.length > 0) isPaid = this.state.historyData.filter((i)=> { 
+						 if(i.content_type === "1"){
+							 if(i.content_id === data["movie_id"]){
+								 return true
+							 }
+						 } else if (i.content_id === data["id"]){
+							return true
+						 }		 
+	                   
+					})
 
 					rows.push(
 						<div className="row" key={i}>
@@ -154,22 +180,14 @@ class Slider extends Component {
                                         {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
                                         <p>{data["description"]}</p>
 
-										{/* <Link className="btn btn-lg" to={{ pathname: "/video_player", state: { item: data } }}><img src="images/play.png" alt="" />Watch now</Link> */}
-
-										{/* {
-											this.state.isLoggedIn 
-											? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-											: <SignInPopup />
-										} */}
-
-										{
+										{   
 											this.state.isLoggedIn 
 											? data["amount"] == 0 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-											    :  this.state.isPaid === true 
+											    :  isPaid.length === 1
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: <PayPopup data={data}/>
-											: <SignInPopup />
+											: <SignInPopup /> 
 										}
 										
 										{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
