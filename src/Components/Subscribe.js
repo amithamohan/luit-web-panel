@@ -230,9 +230,9 @@ class Subscribe extends Component
             list.push
             (
                 <Radio.Group name="radiogroup" defaultValue={1} key={i}>
-                    <Row>
+                    <Row justify="center">
                         <div className="site-card-border-less-wrapper">
-                        <Card bordered={false} style={{ width: "100%", marginTop: 10, backgroundColor: "#031031", borderRadius: 10,  }}>
+                        <Card className="subscribe-card" bordered={false} style={{margin: 10, backgroundColor: "#031031", borderRadius: 10,  }}>
                             <div>
                                 <input id={id} className="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === {id}} onChange={() => this.handleOnChanged(plans["amount"], plans["duration"])} />
                                 <label htmlFor={id} className="radio-custom-label">
@@ -251,16 +251,16 @@ class Subscribe extends Component
 
         return(
             <div className="container" style={{fontFamily: "Montserrat"}}>
-                <NavigationBar/>
-                <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px", paddingTop: "25px"}}>
+                <NavigationBar />
+                <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px"}}>
                     <div>
                         <Radio.Group name="radiogroup" defaultValue={1}>
                             {this.state.payPerItemAmount === null ? null :
                                 <div>
                                     <h3 style={{color: 'white', textAlign:'center'}}>Pay & Watch</h3>
-                                    <Row>
+                                    <Row justify="center">
                                         <div className="site-card-border-less-wrapper">
-                                            <Card  bordered={false} style={{ width: 400, marginTop: 10, backgroundColor: "#031031", borderRadius: 10 }}>
+                                            <Card  bordered={false} style={{ width: 300, margin: 10, backgroundColor: "#031031", borderRadius: 10 }}>
                                                 <div>
                                                     <input id="0" className="radio-custom" name="radio-group" type="radio" defaultChecked={this.state.selectedOption === "0"} onChange={() => this.handleOnChanged("100", 30)} />
                                                     <label htmlFor="0" className="radio-custom-label">
@@ -281,8 +281,8 @@ class Subscribe extends Component
                             }
                             </div>
                         </Radio.Group>
-                        <Row>
-                            <Button onClick={this.openCheckout}  style={{width: 380, marginTop: 10, backgroundColor: "#031031", borderRadius: 5, color:'white', height: 60, fontSize: 20, marginBottom: '2rem'}}>
+                        <Row justify="center">
+                            <Button onClick={this.openCheckout}  style={{width: 300, margin: 10, backgroundColor: "#031031", borderRadius: 5, color:'white', height: 60, fontSize: 20,  textAlign: "center"}}>
                             <i className="ti-credit-card pay-btn"></i>PAY NOW</Button>
                         </Row>
                     </div>
