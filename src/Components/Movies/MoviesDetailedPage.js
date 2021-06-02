@@ -46,7 +46,8 @@ class MoviesDetailedPage extends Component
 			allVideos: [],
 			isAdded: false,
 			isLoggedIn: false,
-			userId:''
+			userId:'',
+			firstPage: true
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -64,7 +65,7 @@ class MoviesDetailedPage extends Component
 	async getUserDetails()
     {
 		let data = JSON.parse(localStorage.getItem("user"));
-		console.log("object")
+		
 		if(data != null){
 			this.setState({userId:data["id"]})
 			this.setState({ isLoggedIn: true })
@@ -72,8 +73,10 @@ class MoviesDetailedPage extends Component
 		    this.checkPayment(data["id"]);
 		}
     }
-	refreshWathButton (){
-		window.location.reload();
+	refreshWatchButton (id){
+		this.setState({firstPage:false})
+		this.checkPayment(id);
+		setTimeout(()=>this.isAddedToWishList(this.state.userId, id),1000);
 	}
 
 	async checkPayment(id)
@@ -115,12 +118,13 @@ class MoviesDetailedPage extends Component
 		this.setState({ actors: actorsList });
 	}
 
-	async isAddedToWishList(userId)
+	async isAddedToWishList(userId, selectedId)
 	{
-
+		
 		let type = 1;
-		let id = this.props.location.state.item["movie_id"];
-        console.log(this.state.userId)
+		
+		let id = this.state.firstPage ? this.props.location.state.item["movie_id"] : selectedId;
+		
 		let response = await Server.wishlistIsPresent(type, id, userId);
 		console.log(response)
 		if (response["response"] === "success")
@@ -223,7 +227,7 @@ class MoviesDetailedPage extends Component
 					{
 						moreLikeThis.push(
 							<div className="owl-items" key={i} >
-								<div onClick={()=>{this.refreshWathButton()}}>
+								<div onClick={()=>{this.refreshWatchButton(this.state.moviesList[i]["movie_id"])}}>
 								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
 									<div className="slide-image">
 										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
