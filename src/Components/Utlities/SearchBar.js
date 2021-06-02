@@ -21,10 +21,11 @@ const SearchBar = (props) =>
 
     const [ moviesList, setMoviesList ] = useState([])
 	const [ status, setStatus ] = useState(false)
+    const [ value, setValue ] = useState('')
 
 	useEffect(()=>{
 		getAllMovies();
-	})
+	},[])
 
 	const getAllMovies = async () =>
 	{
@@ -33,7 +34,6 @@ const SearchBar = (props) =>
 		if (response["response"] === "success")
 		{
 			setMoviesList(response["data"]);
-			console.log(response["data"])
 			setTimeout(
 				() => setStatus(true),
 				3000
@@ -42,17 +42,25 @@ const SearchBar = (props) =>
 		
 	}
 
-	const text = [];
+	const content = [];
 
+    let copy = [...moviesList]
+    let filtered = copy.filter((element) => 
+    {
+        return element["movie_title"].toLowerCase().includes(value.toLocaleLowerCase()) ? element : null
+
+    })
+    
      if(status === true){
-		for (let i = 0; i < moviesList.length; i++) 
+        
+		for (let i = 0; i < filtered.length; i++) 
         {
-            let movie = moviesList[i];
-            let id = moviesList[i]["id"];
+            let movie = filtered[i];
+            let id = filtered[i]["id"];
 
             let hour = movie["duration"].split('.');
 
-            text.push(
+            content.push(
                <div className="slide-wrapper" key={i} >
                    <div className="owl-items">
                         <Card hoverable className="slide-one"
@@ -105,9 +113,9 @@ const SearchBar = (props) =>
 
   	return (
 		<div style={{minHeight:"71vh"}}>
-    	<input style={BarStyling} key="random1" value="Search" placeholder={"search country"}/>
+    	<input style={BarStyling} placeholder={"Search your favourite movie.."} autoFocus onChange={e => setValue(e.target.value)} />
 		<Row justify="left" style={{marginLeft:"5.4%"}}>
-                    {text}
+                    {content}
         </Row>
 		</div>
   	);

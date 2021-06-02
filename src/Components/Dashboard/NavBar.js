@@ -114,7 +114,10 @@ class NavigationBar extends Component
                     <form className="form-inline my-2 my-lg-0" >
 
 
-                        <Link to={{ pathname: "/search" }} ><input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/></Link>
+                        <Link to={{ pathname: "/search" }} style={{textDecoration:"none"}}>
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        </Link>
+                        
                         <Dropdown overlay = 
                             {<Menu>
                                 <Menu.Item icon={<LoginOutlined/>}>
