@@ -285,7 +285,7 @@ class MoviesDetailedPage extends Component
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    :  this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-												: <PayPopup data={data}/>
+												: <PayPopup data={data} />
 											: <SignInPopup /> 
 										}
 
@@ -305,10 +305,11 @@ class MoviesDetailedPage extends Component
 											</div>
 										</IconButton>
 											
-										
+										<div>
 										<IconButton style={{ color: "#fff", fontSize: 30 }} aria-label="reqind">
 											<StarRating details={details} />
 										</IconButton>
+										</div>
 
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />

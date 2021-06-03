@@ -22,13 +22,14 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-let list = [];
+//const list = [];
 
 
 export default function PaymentHistory()
 {
 
     const [status, setStatus] = useState(false);
+	const [list, setList] = useState([])
 
 	useEffect(() =>
 	{
@@ -48,13 +49,7 @@ export default function PaymentHistory()
 	
 			if(response["response"] === "success")
 			{
-				for(let i = 0; i < response["data"].length; i++)
-				{
-					if(response["data"][i]["array"][0] !== undefined)
-					{
-						list.push(response["data"][i]);
-					}
-				}
+				setList(response["data"]);
 				setStatus(true);
 			}
 		}
@@ -118,7 +113,6 @@ export default function PaymentHistory()
 						</center>
 					</div>}
 			</div>
-			<Footer />
 		</div>
 	);
 }

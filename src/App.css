@@ -489,4 +489,15 @@ h1 {
   background:none !important;
 }
 
+.premium-icon{
+  position: absolute; 
+  top:1%;
+  left: 1%;
+  background-color: #354670;
+  z-index: 11;
+  border-radius: 50%;
+  padding: 5px 9px;
+  height: 40px;
+  width: 40px;
+}
 

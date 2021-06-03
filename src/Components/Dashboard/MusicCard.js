@@ -1,5 +1,4 @@
-// import { Button } from 'antd';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import OwlCarousel from 'react-owl-carousel2';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AddIcon from '@material-ui/icons/Add';
@@ -9,23 +8,15 @@ import { message } from 'antd';
 import Server from '../APIs/Server';
 import { withRouter } from 'react-router-dom';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-class MusicCard extends Component
-{
-	
-	constructor(props)
-	{
-		super(props);
-		this.state =
-		{
-			visible:true,
-			userId:'',
-			styleRemover: true,
-			//sideNav: true,
-			musicWishlist:[]
-		}
-        this.redirectToHome = this.redirectToHome.bind(this);
-	}
-	options =
+
+function MusicCard(props) {
+
+	const [userId, setUserId] = useState('');
+	const [visible, setVisible] = useState(true);
+	const [ styleRemover , setStyleRemover ] = useState(true);
+	const [musicWishlist, setMusicWishlist] = useState([]);
+
+    const options =
 	{
 		items: 4,
 		margin: 5,
@@ -33,7 +24,7 @@ class MusicCard extends Component
 		//nav: true,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: true,
-		autoplay: true,
+		//autoplay: true,
 		dots: false,
 		responsive:{
 			0:{
@@ -51,47 +42,45 @@ class MusicCard extends Component
 		}
 	};
 
-	componentDidMount()
-	{
-		this.getUserDetails();
-		//this.checkWishList();
+	useEffect(()  => {
+		getUserDetails();
 		if(window.innerWidth < 580)
 		{
-			this.setState({styleRemover: false})  
-			//this.setState({sideNav: false}) 
+			setStyleRemover(false)
+			//setNav(false)
 		}
-		this.setState({visible:false});
-	}
+		setVisible(false)
+	},[])
 
-	async displayWishList(id)
+	const displayWishList = async (id) =>
     {
         let response = await Server.displayWishlist(id);
-		this.setState({musicWishlist: response["data"]})
-		this.setState({visible:true});
+		setMusicWishlist(response["data"])
+		setVisible(true);
     }
 
-	async getUserDetails()
+	const getUserDetails = async () =>
 	{
         let user = localStorage.getItem("user");
         let data = JSON.parse(user);
 
         if (data != null)
 		{
-			this.setState({userId:data["id"]});
-			this.displayWishList(data["id"]);
+			setUserId(data["id"]);
+			displayWishList(data["id"]);
         }
 		console.log(data);
     }
 
-	async addToWishlist (i)
+	const addToWishlist = async (i) =>
 	{
 	
 		let type = 2;
 		let itemId = i;
+        console.log(itemId)
+		//console.log(userId, type, itemId)
 
-		console.log(this.state.userId, type, itemId)
-
-		let response = await Server.addToWishlist(this.state.userId, type, itemId);
+		let response = await Server.addToWishlist(userId, type, itemId);
 
 		if (response["response"] === "success")
 		{
@@ -102,58 +91,43 @@ class MusicCard extends Component
 			message.info('Already added');
 		}
 		// call again
-		this.setState({visible:false});
-		this.displayWishList(this.state.userId);
+		// setState({visible:false});
+		//displayWishList(userId);
+		
+		document.getElementById(itemId+"a").style.color = "red"
+		document.getElementById(itemId+"c").style.display = "inline-block"
+		//console.log(document.getElementById(itemId+"a").style.display)
+		//console.log(document.getElementById(itemId+"c").style.display)
+		//console.log(itemId+"a")
+		//clickedItem.current.style.display = "none"
+		//console.log(clickedItem.current.style);
 	}
 
-	async deleteFromWishList (item)
-    {
-		
-		let wish = this.state.musicWishlist.filter((i) => {
-			return i.video_id == item
-		})
-		
-        let response = await Server.deleteWishlist(this.state.userId, wish[0]["id"]);
 
-        if (response["response"] === "success")
-        {
-            message.success("Removed from wishlist");
-        }
-        else
-        {
-            message.error("Oops something went wrong");
-        }
-		// call again
-		this.setState({visible:false});
-		this.displayWishList(this.state.userId);
-    }
+	// const redirectToHome = () => 
+	// {
+	// 	console.log("on click");
+	// 	// const { history } = props;
+	// 	props.history.push("/music_detailed_page");
 
-	redirectToHome = () => 
-	{
-		console.log("on click");
-		// const { history } = this.props;
-		this.props.history.push("/music_detailed_page");
-
-		// history.push('/music_detailed_page');
-	}
+	// 	// history.push('/music_detailed_page');
+	// }
 		//   });
 
-	render()
-	{
 		const cards = [];
 
-		for (let i = 0; i < this.props.musicList.length; i++) {
-			const music = this.props.musicList[i];
+		for (let i = 0; i < props.musicList.length; i++) {
+			const music = props.musicList[i];
 			
-			let hour = this.props.musicList[i]["duration"].split('.');
+			let hour = props.musicList[i]["duration"].split('.');
 			let flag1 = false;
 
-			localStorage.setItem("music", JSON.stringify(this.props.musicList[i]));
-			if(this.state.musicWishlist !== undefined)
+			localStorage.setItem("music", JSON.stringify(props.musicList[i]));
+			if(musicWishlist !== undefined)
 			{
-				for ( let j=0; j<this.state.musicWishlist.length ; j++)
+				for ( let j=0; j<musicWishlist.length ; j++)
 				{
-					if(music["id"] === this.state.musicWishlist[j]["video_id"] && this.state.musicWishlist[j]["video_type"] === "2") { flag1 = true; break } else { flag1 = false }
+					if(music["id"] === musicWishlist[j]["video_id"] && musicWishlist[j]["video_type"] === "2") { flag1 = true; break } else { flag1 = false }
 				}
 			}
 			
@@ -161,19 +135,27 @@ class MusicCard extends Component
 			if (music !== undefined) {
 				cards.push(
 					<div className="owl-items" key={i}>
-						<div className="slide-one" style={ this.state.styleRemover ? {height: "430px"} : null }>
-							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: this.props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
-								<img src={music["thumbnail"]} alt={music["movie_title"]} style={ this.state.styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+						<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+								<img src={music["thumbnail"]} alt={music["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
 								<h2>{music["title"]}{music["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
 
 									{/* Adding "visible" to refresh icon */}
 
-									{this.state.visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
-									{flag1 ? <CheckIcon fontSize="inherit" onClick={e => {this.deleteFromWishList(music["id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={e => {this.addToWishlist(music["id"]) }}></AddIcon>}
-									</IconButton> : null }
+									{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
+									{flag1 ? <CheckIcon fontSize="inherit" onClick={e => {deleteFromWishList(music["id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={e => {addToWishlist(music["id"]) }}></AddIcon>}
+									</IconButton> : null } */}
 
+									<IconButton style={{ color: "#fff", fontSize: 30  }}  aria-label="reqind" id={music["id"]+"a"} >
+							        {flag1 ? <CheckIcon fontSize="inherit" id={music["id"]+"c"} ></CheckIcon> : <AddIcon fontSize="inherit" onClick={() => { addToWishlist(music["id"]) }}></AddIcon>}
+							        </IconButton>
+                                    
+							        <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" >
+							           <CheckIcon fontSize="inherit" id={music["id"]+"c"} style={{display:"none"}}></CheckIcon>
+							        </IconButton>
+                                    
 
 									</h2>
 									<p>{music["description"]}</p>
@@ -187,17 +169,17 @@ class MusicCard extends Component
 			}
 		}
 
-		return (
-			<div>
+	return (
+			<>
 				<div className="slide-wrapper">
 					<div className="container" style={{fontFamily: "Montserrat"}}>
 						<div className="row">
 							<div className="col-sm-6 text-left mb-4 mt-4">
-								<h2>{this.props.title}</h2>
+								<h2>{props.title}</h2>
 							</div>
 						</div>
 						{cards.length && (
-							<OwlCarousel options={this.options}>
+							<OwlCarousel options={options}>
 								{
 									cards
 								}
@@ -205,9 +187,8 @@ class MusicCard extends Component
 						)}
 					</div>
 				</div>
-			</div>
-		);
-	}
+			</>
+	)
 }
 
 export default MusicCard;

@@ -9,8 +9,7 @@ import ShortFilm from './ShortFilmsCard';
 import Footer from './Footer';
 import Server from '../APIs/Server';
 import { withRouter } from 'react-router-dom';
-
-
+import Spinner from '../Utlities/Spinner';
 
 class Home extends Component
 {
@@ -30,6 +29,7 @@ class Home extends Component
 			movieLanguages: [],
 			trendingArtist: [],
 			allVideos: [],
+			dataFetched: 0,
 		}
 
 		this.getSlider = this.getSlider.bind(this);
@@ -86,12 +86,14 @@ class Home extends Component
 			}
 		}
 		this.setState({homeSlider: home, moviesSlider: movie, musicSlider: music, shortFilmSlider: shortFilm});
+		//this.setState({dataFetched: dataFetched+1})
 	}
 
 	async getAllMovies()
 	{
 		let movieList = [];
 		let response = await Server.fetchAllMovies();
+		console.log(this.state.moviesList)
 
 		if (response["response"] === "success")
 		{
@@ -194,11 +196,17 @@ class Home extends Component
 				<div className="main-wrapper">
 					<NavigationBar data={this.state.allVideos}/>
 					<Slider data={this.state.homeSlider} allVideos = {this.state.allVideos}/>
-					<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
-					<MoviesByLanguages languages={this.state.movieLanguages} />
-					<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>
-					<TrendingArtist trendingArtist={this.state.trendingArtist}/>
-					{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}
+					{
+						this.state.homeSlider.length > 0 && this.state.allVideos.length > 0 && this.state.moviesList.length > 0 && this.state.movieLanguages.length > 0 &&
+						this.state.trendingArtist.length > 0 && this.state.musicList.length > 0 ?
+						<div>
+						<MoviesCard title = {"Latest Movies"} moviesList={this.state.moviesList}/>
+						<MoviesByLanguages languages={this.state.movieLanguages} />
+						<MusicCard title = {"Latest Music"} musicList={this.state.musicList}/>
+						<TrendingArtist trendingArtist={this.state.trendingArtist}/>
+						{this.state.shortFilmList === null ? null : <ShortFilm shortFilmList={this.state.shortFilmList}/>}</div> :
+						<Spinner />
+					}	
 				</div>
 			</div>
 	     );

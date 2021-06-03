@@ -10,7 +10,7 @@ import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { Row, Col } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { CrownTwoTone } from '@ant-design/icons';
 
 
 function MoviesCard(props)
@@ -114,8 +114,7 @@ function MoviesCard(props)
  
 	const addToWishlist = async (i) =>
 	{
-		console.log(i)
-		console.log("done");
+		
 		let type = 1;
 		let itemId = i;
 
@@ -129,32 +128,39 @@ function MoviesCard(props)
 		{
 			message.info('Already added');
 		}
+
 		// call again
-		setVisible(false)
-		displayWishList(userId);
+		//setVisible(false)
+		//displayWishList(userId);
+		console.log(document.getElementById(itemId+"c"))
+		document.getElementById(itemId+"a").style.display = "none"
+		document.getElementById(itemId+"c").style.display = "inline-block"
 	}
 
-	const deleteFromWishList = async (item) =>
-    {
-		
-		let wish = wishlist.filter((i) => {
-			return i.video_id == item
-		})
-		
-        let response = await Server.deleteWishlist(userId, wish[0]["id"]);
+	// const deleteFromWishList = async (item) =>
+    // {
+	// 	//displayWishList(userId);
 
-        if (response["response"] === "success")
-        {
-            message.success("Removed from wishlist");
-        }
-        else
-        {
-            message.error("Oops something went wrong");
-        }
-		// call again
-		setVisible(false)
-		displayWishList(userId);
-    }
+	// 	let wish = wishlist.filter((i) => {
+	// 		return i.video_id == item
+	// 	})
+		
+    //     let response = await Server.deleteWishlist(userId, wish[0]["id"]);
+
+    //     if (response["response"] === "success")
+    //     {
+    //         message.success("Removed from wishlist");
+    //     }
+    //     else
+    //     {
+    //         message.error("Oops something went wrong");
+    //     }
+	// 	// call again
+	// 	// setVisible(false)
+	// 	// displayWishList(userId);
+	// 	document.getElementById(item+"a").style.display = "inline-block"
+	// 	document.getElementById(item+"c").style.display = "none"
+    // }
 
 	// Another way 
 	// const handleClick = (movie) =>
@@ -191,18 +197,33 @@ function MoviesCard(props)
 			cards.push(
 				<div className="" key={i}>
 					<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
+					{movie["amount"] === "0" ? null : <span className="premium-icon"><CrownTwoTone twoToneColor="#E8FF00" style={{ fontSize: '22px', color: '#E8FF00' }} /></span>}
 						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
 						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
-							
 							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">
-							<h2>{movie["movie_title"]}{movie["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
+							<h2>{movie["movie_title"]}
 							{/* Adding "visible" to refresh icon */}
 
-							{visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
-							{flag ? <CheckIcon fontSize="inherit" onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
-							</IconButton> : null }
+							{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
+							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
+							</IconButton> : null } */}
+
+							<IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" id={movie["movie_id"]+"a"}>
+							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} ></CheckIcon> : <AddIcon fontSize="inherit"  onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
+							</IconButton>
+
+							<IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" >
+							<CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} style={{display:"none"}}></CheckIcon>
+							</IconButton>
+
+							{/* <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
+							{flag ? document.getElementById(movie["movie_id"]+"c").style.display = "inline-block" : document.getElementById(movie["movie_id"]+"a").style.display = "inline-block"}
+							<CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} style={{display:"none"}} onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon>
+							<AddIcon fontSize="inherit" id={movie["movie_id"]+"a"} style={{display:"none"}} onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>
+							</IconButton> */}
+
 							</h2>
 							
 							<p>{movie["description"]}</p>

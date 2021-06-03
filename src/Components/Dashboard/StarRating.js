@@ -19,12 +19,22 @@ class StarRating extends Component{
 
     componentDidMount()
     {
-        this.checkRating();
+        this.getUserDetails();
+    }
+    getUserDetails()
+    {
+		let data = JSON.parse(localStorage.getItem("user"));
+		
+		if(data != null){
+			this.setState({userId:data["id"]})
+            this.checkRating(data["id"]);
+		}
     }
     state=
     {
         show: false,
         isRated: false,
+        
     };
 
     handleClose = () =>
@@ -46,11 +56,11 @@ class StarRating extends Component{
 
     handleSubmit = async () =>
     {
-        let userId = 2;
+        //let userId = 2;
         let id = this.props.details["id"];
         let type = this.props.details["type"];
 
-        let response = await Server.rateContent(userId, id, type, remarks);
+        let response = await Server.rateContent(this.state.userId, id, type, remarks);
 
         console.log(response);
 
@@ -66,9 +76,9 @@ class StarRating extends Component{
         }
     }
 
-    checkRating = async () =>
+    checkRating = async (userId) =>
     {
-        let userId = 2;
+        //let userId = 2;
         let id = this.props.details["id"];
         let type = this.props.details["type"];
 
@@ -79,6 +89,7 @@ class StarRating extends Component{
         if(response["response"] === "success")
         {
             this.setState({isRated: true});
+            
         }
     }
 
@@ -89,14 +100,14 @@ class StarRating extends Component{
             <div>
                 <Button style={{  backgroundColor:'transparent', border: 'none',}} onClick={this.handleShow}>
                 <ReactStars
-                    count={1}
+                    count={5}
                     onChange={ratingChanged}
                     size={30}
                     isHalf={false}
                     color={"white"}
-                    activeColor= {this.state.isRated === true ? "#F7B932" : "#8095C2"}
-
-                />
+                    activeColor= {this.state.isRated === true ? "#F7B932" : "#8095C2"}  /> 
+                
+                
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

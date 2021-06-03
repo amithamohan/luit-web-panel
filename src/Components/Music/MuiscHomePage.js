@@ -4,6 +4,7 @@ import Slider from "../Dashboard/Slider";
 import Footer from '../Dashboard/Footer';
 import Server from "../APIs/Server";
 import MusicCard from "../Dashboard/MusicCard";
+import Spinner from "../Utlities/Spinner";
 
 
 class MusicPage extends Component {
@@ -133,8 +134,14 @@ class MusicPage extends Component {
 				<div className="main-wrapper">
 					<NavigationBar/>
 					<Slider data={this.state.musicSlider} allVideos={this.state.allVideos} />
-					<MusicCard title={"New Released Music"} musicList={this.state.newReleasedMusic} />
-					<MusicCard title={"Top Music"} musicList={this.state.musicList} />
+					{
+						this.state.newReleasedMusic.length > 0 && this.state.musicList.length > 0 ?
+						<div>
+							<MusicCard title={"New Released Music"} musicList={this.state.newReleasedMusic} />
+							<MusicCard title={"Top Music"} musicList={this.state.musicList} />
+						</div> :
+						<Spinner />
+					}
 					<div>
 						{
 							languageList

@@ -4,7 +4,7 @@ import NavigationBar from "../Dashboard/NavBar";
 import Slider from "../Dashboard/Slider";
 import Footer from '../Dashboard/Footer';
 import Server from "../APIs/Server";
-
+import Spinner from '../Utlities/Spinner';
 
 class MoviesPage extends Component {
 	constructor(props) {
@@ -33,6 +33,11 @@ class MoviesPage extends Component {
 		this.getTopMovies();
 		this.getAllMoviesByLanguage();
 		this.getNewReleasedMovies();
+		const { history } = this.props;
+        history.push
+        ({
+            pathname:'/movies',
+        })
 	}
 
 	async getSlider() {
@@ -152,10 +157,19 @@ class MoviesPage extends Component {
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
 					<NavigationBar/>
-					<Slider data={this.state.moviesSlider} allVideos={this.state.allVideos} />
-					<MoviesCard title={"New Released Movies"} moviesList={this.state.newReleasedMovies} />
-					<MoviesCard title={"Latest Movies"} moviesList={this.state.moviesList} />
-					<MoviesCard title={"Top Movies"} moviesList={this.state.topMovies} />
+					<Slider data={this.state.moviesSlider}  allVideos={this.state.allVideos}/>
+					{
+						this.state.moviesSlider.length > 0 &&  
+						this.state.newReleasedMovies.length > 0 && 
+						this.state.moviesList.length > 0 && 
+						this.state.topMovies.length > 0 ? 
+						<div>
+							<MoviesCard title={"New Released Movies"} moviesList={this.state.newReleasedMovies} />
+							<MoviesCard title={"Latest Movies"} moviesList={this.state.moviesList} />
+							<MoviesCard title={"Top Movies"} moviesList={this.state.topMovies} />
+						</div> :
+						<Spinner />
+					}
 					<div>
 						{
 							languageList
