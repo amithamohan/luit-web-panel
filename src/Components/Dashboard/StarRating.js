@@ -20,6 +20,7 @@ class StarRating extends Component{
     componentDidMount()
     {
         this.getUserDetails();
+        this.fetchRatings();
     }
     getUserDetails()
     {
@@ -34,7 +35,7 @@ class StarRating extends Component{
     {
         show: false,
         isRated: false,
-        
+        rating: ''
     };
 
     handleClose = () =>
@@ -50,7 +51,7 @@ class StarRating extends Component{
         }
         else
         {
-            message.warning("Rating Done");
+            message.warning("Rating Already Done");
         }
     }
 
@@ -59,7 +60,7 @@ class StarRating extends Component{
         //let userId = 2;
         let id = this.props.details["id"];
         let type = this.props.details["type"];
-
+        console.log(this.state.userId)
         let response = await Server.rateContent(this.state.userId, id, type, remarks);
 
         console.log(response);
@@ -89,7 +90,19 @@ class StarRating extends Component{
         if(response["response"] === "success")
         {
             this.setState({isRated: true});
+        }
+    }
+
+    fetchRatings = async () =>
+    {
+        let id = this.props.details["id"];
+        let type = this.props.details["type"];
+        
+        let response = await Server.overallRating(id, type);
             
+        if(response["response"] === "success")
+        {
+            this.setState({rating: response["data"]});
         }
     }
 
@@ -99,14 +112,21 @@ class StarRating extends Component{
         return(
             <div>
                 <Button style={{  backgroundColor:'transparent', border: 'none',}} onClick={this.handleShow}>
-                <ReactStars
-                    count={5}
+                {
+                    this.state.rating != '' ?
+                    <ReactStars
+                    count={this.state.rating}
                     onChange={ratingChanged}
                     size={30}
                     isHalf={false}
                     color={"white"}
-                    activeColor= {this.state.isRated === true ? "#F7B932" : "#8095C2"}  /> 
+                    activeColor= {this.state.isRated === true ? "#F7B932 " : "#8095C2"}  /> : null
+                }
+                    
+                    
+                 
                 
+                {console.log(this.state.rating)}
                 
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>

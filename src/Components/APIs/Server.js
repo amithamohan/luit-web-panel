@@ -782,7 +782,7 @@ class Server
 		try
 		{
 			let response;
-			var bodyFormData = FormData();
+			var bodyFormData = new FormData();
 			bodyFormData.append("video_id", contentId);
 			bodyFormData.append("video_type", contentType);
 
