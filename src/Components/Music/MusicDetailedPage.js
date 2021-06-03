@@ -166,9 +166,11 @@ class MusicDetailedPage extends Component {
 					if (this.props.location.state["item"]["actors"][j] === this.state.actors[i]["name"]) 
 					{
 						crew.push(
-							<div key={i}>
-								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
-								<center><br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span></center>
+							<div key={i} >
+								<center>
+								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundPosition: "center" }}></div><br />
+								<span style={{ color: "white", }}>{this.state.actors[i]["name"]}</span>
+								</center>
 							</div>
 						);
 					}
@@ -293,6 +295,7 @@ class MusicDetailedPage extends Component {
 									<h2>More Like This</h2>
 								</div>
 							</div>
+							
 							{
 								moreLikeThis.length && (
 									<OwlCarousel options={this.options}>
