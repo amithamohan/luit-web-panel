@@ -2,7 +2,7 @@ import Footer from "../Dashboard/Footer";
 import NavigationBar from "../Dashboard/NavBar";
 import React, { Component } from "react";
 import Server from "../APIs/Server";
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined, CloseCircleFilled } from '@ant-design/icons';
 
@@ -174,15 +174,21 @@ class ProfileInfo extends React.Component {
 		return (
 			<div>
 				<NavigationBar/>
-				<div style={{ backgroundColor: "white" }}>
-					<div className="page-nav">
-					</div>
+				<Divider orientation="center">
+                <div style={{width: "86vw", height:"15vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
+                    <h2 style={{ color: "black", fontSize:"30px", paddingTop:"1%" }}><b>My Profile</b></h2>
+                    <p style={{ color: "black"}}>Edit Your Profile</p>
+                    </div>
+                </Divider>
+				<div style={{ backgroundColor: "#1A2236" }}>
+					{/* <div className="page-nav">
+					</div> */}
 
 					{/* <div className="page-nav"> */}
 						<div className="container">
 							<div className="row justify-content-center">		
 								<div className="col-lg-3 text-center">
-									<div id="accordion" className="accordion ">
+									{/* <div id="accordion" className=" "> */}
 										<div  className="form-div profile-container">
 										<h6 style={{color: "white", marginBottom: "2rem"}}> Profile Picture</h6> 
 											
@@ -200,10 +206,10 @@ class ProfileInfo extends React.Component {
 											</div>
 											
 										</div>
-									</div>
+									{/* </div> */}
 								</div>
 								<div className="col-lg-9">
-									<div id="accordion" className="accordion ">
+									{/* <div id="accordion" className="accordion "> */}
 										<div  className="form-div profile-container">
 											
 											<div className="row">
@@ -249,70 +255,11 @@ class ProfileInfo extends React.Component {
 												
 											</div>
 										</div>
-									</div>
+									{/* </div> */}
 								</div>
 							</div>
 						</div>
-					{/*	<div className="container ">
-							<div className="row justify-content-center">		
-								<div className="col-sm-12">
-									<div id="accordion" className="accordion ">
-										<div  className="form-div profile-container">
-											
-											<div className="row">
-											<div className="col-lg-2 text-center">
-											<Upload
-												name="avatar"
-												listType="picture-card"
-												className="avatar-uploader"
-												showUploadList={false}
-												action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-												onChange={this.handleChange}>
-												{this.state.image ? <img src={this.state.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-											</Upload>
-											</div>
-											<div className="col-lg-10">
-											<form action="#">
-													<div className="row">
-														
-														<div className="col-sm-10">
-															<div className="form-group ">
-																<input className="form-control" value={this.state.username} type="text" placeholder="Name" onChange={this.onUpdateName} />
-																<input className="form-control" disabled value={this.state.phoneNumber} type="tel" placeholder="Phone Number" onChange={this.onUpdatePhoneNumber} />
-															</div>
-														</div>
-														<div className="col-sm-10">
-															<div className="form-group ">
-																<input className="form-control" disabled value={this.state.email} type="email" placeholder="Email address" onChange={this.onUpdateEmail} />
-																<input className="form-control" value={this.state.dob} type="date" placeholder="D.O.B" onChange={this.onUpdateDob} />
-															</div>
-														</div>
-													</div>
-
-													<div className="text-center">
-														<div className="row">
-															<div className="col-lg-2">
-																<Button style={{ height: "60px", borderRadius:10,backgroundColor: "transparent" }} 
-																type="default"
-																block={true} size="large" danger>CANCEL</Button>
-															</div>
-															<div className="col-lg-3">
-																<Button style={{ height: "60px", borderRadius:10 }} type="primary" 
-																block={true} 
-																
-																onClick={this.submitForm} size="large" danger> UPDATE PROFILE </Button>
-															</div>
-														</div>
-													</div>
-												</form>
-											</div>
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							</div> */ }
+					
 					{/* </div> */}
 				</div>
 			</div>

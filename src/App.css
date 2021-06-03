@@ -220,7 +220,8 @@ input{
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .profile-container{
-  box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+  background-color: rgb(3, 16, 49);
 }
 /* ================== */
 
@@ -489,15 +490,15 @@ h1 {
   background:none !important;
 }
 
+
 .premium-icon{
   position: absolute; 
   top:1%;
   left: 1%;
-  background-color: #354670;
+  background-color: #1A2236;
   z-index: 11;
   border-radius: 50%;
   padding: 5px 9px;
   height: 40px;
   width: 40px;
 }
-

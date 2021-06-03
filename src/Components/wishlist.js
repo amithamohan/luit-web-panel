@@ -210,11 +210,11 @@ function WishList()
 
     return (
         <div>
+            <div>
             <NavigationBar/>
-            <div style={{minHeight:"52vh"}}>
                 <Divider orientation="center">
-                <div style={{width: "86vw", height:"35vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
-                    <h2 style={{ color: "black", fontSize:"50px", paddingTop:"6%" }}><b>Watchlist</b></h2>
+                <div style={{width: "86vw", height:"15vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
+                    <h2 style={{ color: "black", fontSize:"40px", paddingTop:"1%" }}><b>Watchlist</b></h2>
                     <p style={{ color: "black"}}>Watch your favourites.</p>
                     </div>
                 </Divider>
@@ -222,6 +222,7 @@ function WishList()
                 <Row justify="left" style={{marginLeft:"5.4%"}}>
                     {text}
                 </Row>
+
             </div>
         </div>
     );
