@@ -42,7 +42,7 @@ class Home extends Component
 
 	componentDidMount()
 	{
-		this.props.history.replace("/movies");
+		this.props.history.replace("/");
 		this.getSlider();
 		this.getAllMovies();
 		this.getAllMusic();

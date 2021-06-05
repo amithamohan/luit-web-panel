@@ -34,7 +34,7 @@ function App() {
       {/* <NavigationBar/> */}
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/movies" component={MoviesPage} />
+        <Route path="/movies" component={MoviesPage} exact/>
         <Route path="/music" component={MusicPage} />
         <Route path="/short_film" component={ShortFilm} />
         <Route path="/web_series" component={WebSeries} />
