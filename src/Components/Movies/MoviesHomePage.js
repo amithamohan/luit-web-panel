@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import MoviesCard from "../Dashboard/MoviesCard";
 import NavigationBar from "../Dashboard/NavBar";
 import Slider from "../Dashboard/Slider";
-import Footer from '../Dashboard/Footer';
 import Server from "../APIs/Server";
 import Spinner from '../Utlities/Spinner';
+import { withRouter } from 'react-router-dom';
 
 class MoviesPage extends Component {
 	constructor(props) {
@@ -33,11 +33,6 @@ class MoviesPage extends Component {
 		this.getTopMovies();
 		this.getAllMoviesByLanguage();
 		this.getNewReleasedMovies();
-		const { history } = this.props;
-        history.push
-        ({
-            pathname:'/movies',
-        })
 	}
 
 	async getSlider() {
@@ -181,4 +176,4 @@ class MoviesPage extends Component {
 	}
 }
 
-export default MoviesPage;
+export default withRouter(MoviesPage);

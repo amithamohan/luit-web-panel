@@ -24,7 +24,7 @@ function MusicCard(props) {
 		//nav: true,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: true,
-		//autoplay: true,
+		autoplay: true,
 		dots: false,
 		responsive:{
 			0:{
