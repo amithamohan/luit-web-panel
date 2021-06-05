@@ -28,6 +28,7 @@ class MoviesPage extends Component {
 	}
 
 	componentDidMount() {
+		this.props.history.replace("/movies");
 		this.getSlider();
 		this.getAllMovies();
 		this.getTopMovies();
