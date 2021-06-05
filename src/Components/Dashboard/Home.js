@@ -10,7 +10,8 @@ import Footer from './Footer';
 import Server from '../APIs/Server';
 import { withRouter } from 'react-router-dom';
 import Spinner from '../Utlities/Spinner';
-
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import MoviesPage from '../Movies/MoviesHomePage';
 class Home extends Component
 {
 	constructor(props)
@@ -191,6 +192,12 @@ class Home extends Component
 	render()
 	{
 		return(
+			<>
+			<Router>
+			<Switch>
+        	<Route path="/movies" component={MoviesPage} />
+			</Switch>
+			</Router>
 
 			<div className="medium-12 columns">
 				<div className="main-wrapper">
@@ -209,6 +216,7 @@ class Home extends Component
 					}	
 				</div>
 			</div>
+			</>
 	     );
     }
 }
