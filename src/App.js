@@ -30,10 +30,10 @@ import SubscribedContents from './Components/SubscribedPlans';
 function App() {
   return (
     
-    <Router basename={'/demo/luitWeb/build/'}>
+    <Router basename={'/demo/luitWeb/build'}>
       {/* <NavigationBar/> */}
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route path="/" component={Home} exact/>
         <Route path="/movies" component={MoviesPage} />
         <Route path="/music" component={MusicPage} />
         <Route path="/short_film" component={ShortFilm} />
