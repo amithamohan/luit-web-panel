@@ -210,7 +210,7 @@ function WishList()
 
     return (
         <div>
-            <div>
+            <div style={{minHeight:"71vh"}}>
             <NavigationBar/>
                 <Divider orientation="center">
                 <div style={{width: "86vw", height:"15vh", backgroundColor:"rgb(3, 16, 49)", borderRadius:"7px", lineHeight:"14px", minHeight: "90%"}}>
