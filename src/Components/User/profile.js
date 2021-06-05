@@ -175,9 +175,9 @@ class ProfileInfo extends React.Component {
 			<div>
 				<NavigationBar/>
 				<Divider orientation="center">
-                <div style={{width: "86vw", height:"15vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
-                    <h2 style={{ color: "black", fontSize:"30px", paddingTop:"1%" }}><b>My Profile</b></h2>
-                    <p style={{ color: "black"}}>Edit Your Profile</p>
+                <div style={{width: "86vw", height:"15vh", backgroundColor:"rgb(3, 16, 49)", borderRadius:"7px", lineHeight:"14px"}}>
+                    <h2 style={{ color: "white", fontSize:"30px", paddingTop:"1%" }}><b>My Profile</b></h2>
+                    <p style={{ color: "white"}}>Edit Your Profile</p>
                     </div>
                 </Divider>
 				<div style={{ backgroundColor: "#1A2236" }}>

@@ -213,9 +213,9 @@ function WishList()
             <div>
             <NavigationBar/>
                 <Divider orientation="center">
-                <div style={{width: "86vw", height:"15vh", backgroundColor:"whitesmoke", borderRadius:"7px", lineHeight:"14px"}}>
-                    <h2 style={{ color: "black", fontSize:"40px", paddingTop:"1%" }}><b>Watchlist</b></h2>
-                    <p style={{ color: "black"}}>Watch your favourites.</p>
+                <div style={{width: "86vw", height:"15vh", backgroundColor:"rgb(3, 16, 49)", borderRadius:"7px", lineHeight:"14px", minHeight: "90%"}}>
+                    <h2 style={{ color: "white", fontSize:"40px", paddingTop:"1%" }}><b>Watchlist</b></h2>
+                    <p style={{ color: "white"}}>Watch your favourites.</p>
                     </div>
                 </Divider>
 
