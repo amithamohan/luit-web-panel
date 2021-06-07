@@ -42,7 +42,6 @@ class Home extends Component
 
 	componentDidMount()
 	{
-		console.log(window.location.href)
 		this.props.history.replace("/");
 		this.getSlider();
 		this.getAllMovies();

@@ -28,7 +28,6 @@ class MoviesPage extends Component {
 	}
 
 	componentDidMount() {
-		console.log(window.location.href)
 		this.getSlider();
 		this.getAllMovies();
 		this.getTopMovies();
