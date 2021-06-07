@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, HashRouter as Router } from 'react-router-dom';
 import Home from './Components/Dashboard/Home';
 import MoviesPage from './Components/Movies/MoviesHomePage';
 import MusicPage from './Components/Music/MuiscHomePage';
@@ -30,7 +30,7 @@ import SubscribedContents from './Components/SubscribedPlans';
 function App() {
   return (
     
-    <Router basename={'/demo/luitWeb/build'}>
+    <Router basename={'/'}>
       {/* <NavigationBar/> */}
       <Switch>
         <Route path="/" component={Home} exact/>
