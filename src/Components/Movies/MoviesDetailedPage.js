@@ -149,6 +149,7 @@ class MoviesDetailedPage extends Component
 		if (response["response"] === "success")
 		{
 			message.success('Added to wishlist');
+			this.isAddedToWishList(this.state.userId, itemId)
 		}
 		else
 		{

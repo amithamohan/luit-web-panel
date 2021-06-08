@@ -250,8 +250,9 @@ class Subscribe extends Component
         }
 
         return(
+            <div style = {{minHeight:"71vh"}}>
+            <NavigationBar />
             <div className="container" style={{fontFamily: "Montserrat"}}>
-                <NavigationBar />
                 <div className="subscribe-main" style={{backgroundColor: "#2A314D",paddingRight: "25px", paddingLeft: "25px"}}>
                     <div>
                         <Radio.Group name="radiogroup" defaultValue={1}>
@@ -287,6 +288,7 @@ class Subscribe extends Component
                         </Row>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

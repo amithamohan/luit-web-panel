@@ -22,6 +22,7 @@ class Slider extends Component {
 			userId:'',
 			status:false,
 			historyData:[],
+			paid: false,
 		}
 
 		this.getAllMovies = this.getAllMovies.bind(this);
@@ -54,6 +55,19 @@ class Slider extends Component {
 				this.setState({historyData:response["data"]});
 				this.setState({status:true});
 			}
+
+			let response1 = await Server.displayMonthlySubscription(id);
+	
+			if(response1["response"] === "success")
+			{
+				let today = new Date()
+				let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+				console.log(response1["data"][0]["end_date"])
+				console.log(date)
+				if(response1["data"][0]["end_date"] < date) this.setState({paid:true})
+			}
+			
+			console.log(this.state.paid)
 	}
 
 	async getAllMovies() {
@@ -184,7 +198,7 @@ class Slider extends Component {
 											this.state.isLoggedIn 
 											? data["amount"] == 0 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-											    :  isPaid.length === 1
+											    :  isPaid.length === 1 || this.state.paid === true
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: <PayPopup data={data}/>
 											: <SignInPopup /> 

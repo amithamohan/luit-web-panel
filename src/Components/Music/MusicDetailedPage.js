@@ -53,7 +53,8 @@ class MusicDetailedPage extends Component {
 			allVideos: [],
 			musicList: [],
 			isPaid : false,
-			userId:''
+			userId:'',
+			firstPage: true
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -75,6 +76,7 @@ class MusicDetailedPage extends Component {
 		if(data != null){
 			this.setState({userId:data["id"]})
 			this.setState({ isLoggedIn: true })
+			this.isAddedToWishList(data["id"]);
 		}
     }
 
@@ -138,6 +140,24 @@ class MusicDetailedPage extends Component {
 		this.setState({ musicList: result, allVideos: result });
 	}
 
+	async isAddedToWishList(userId, selectedId)
+	{
+		
+		let type = 2;
+		
+		let id = this.state.firstPage ? this.props.location.state.item["id"] : selectedId;
+		
+		let response = await Server.wishlistIsPresent(type, id, userId);
+		console.log(response)
+		if (response["response"] === "success")
+		{
+			this.setState({ isAdded: true });
+		}
+		else
+		{
+			this.setState({ isAdded: false });
+		}
+	}
 	async addToWishlist(i) {
 		//let userId = 4;
 		let type = 2;
@@ -146,8 +166,8 @@ class MusicDetailedPage extends Component {
 
 		if (response["response"] === "success") 
 		{
-			console.log("success");
 			message.success('Added to wishlist');
+			this.isAddedToWishList(this.state.userId, itemId)
 		}
 		else {
 			message.info('Already added');

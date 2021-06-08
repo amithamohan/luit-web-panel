@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import React from 'react';
 import { Row, Col, Divider } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
-import Footer from "./Footer";
+import NavigationBar from '../Dashboard/NavBar';
 
 const useStyles = makeStyles(theme => ({
     root:
@@ -54,6 +54,7 @@ export default function ViewAll(params)
 
     return(
         <div class="slide-wrapper ">
+            <NavigationBar/>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 mt-4 ">

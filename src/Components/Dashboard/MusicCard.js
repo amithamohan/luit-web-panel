@@ -6,24 +6,22 @@ import { IconButton } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import { message } from 'antd';
 import Server from '../APIs/Server';
-import { withRouter } from 'react-router-dom';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 function MusicCard(props) {
 
 	const [userId, setUserId] = useState('');
-	const [visible, setVisible] = useState(true);
 	const [ styleRemover , setStyleRemover ] = useState(true);
 	const [musicWishlist, setMusicWishlist] = useState([]);
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const options =
 	{
 		items: 4,
 		margin: 5,
 		itemsDesktop: [1000, 5],
-		//nav: true,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
-		loop: true,
+		loop: false,
 		autoplay: true,
 		dots: false,
 		responsive:{
@@ -47,16 +45,13 @@ function MusicCard(props) {
 		if(window.innerWidth < 580)
 		{
 			setStyleRemover(false)
-			//setNav(false)
 		}
-		setVisible(false)
 	},[])
 
 	const displayWishList = async (id) =>
     {
         let response = await Server.displayWishlist(id);
 		setMusicWishlist(response["data"])
-		setVisible(true);
     }
 
 	const getUserDetails = async () =>
@@ -68,6 +63,7 @@ function MusicCard(props) {
 		{
 			setUserId(data["id"]);
 			displayWishList(data["id"]);
+			setIsLoggedIn(true);
         }
 		console.log(data);
     }
@@ -77,8 +73,6 @@ function MusicCard(props) {
 	
 		let type = 2;
 		let itemId = i;
-        console.log(itemId)
-		//console.log(userId, type, itemId)
 
 		let response = await Server.addToWishlist(userId, type, itemId);
 
@@ -91,36 +85,18 @@ function MusicCard(props) {
 			message.info('Already added');
 		}
 		// call again
-		// setState({visible:false});
-		//displayWishList(userId);
-		
-		document.getElementById(itemId+"a").style.color = "red"
-		document.getElementById(itemId+"c").style.display = "inline-block"
-		//console.log(document.getElementById(itemId+"a").style.display)
-		//console.log(document.getElementById(itemId+"c").style.display)
-		//console.log(itemId+"a")
-		//clickedItem.current.style.display = "none"
-		//console.log(clickedItem.current.style);
+		displayWishList(userId);
 	}
 
 
-	// const redirectToHome = () => 
-	// {
-	// 	console.log("on click");
-	// 	// const { history } = props;
-	// 	props.history.push("/music_detailed_page");
-
-	// 	// history.push('/music_detailed_page');
-	// }
-		//   });
-
 		const cards = [];
+		let flag1 = false;
 
 		for (let i = 0; i < props.musicList.length; i++) {
 			const music = props.musicList[i];
 			
 			let hour = props.musicList[i]["duration"].split('.');
-			let flag1 = false;
+			
 
 			localStorage.setItem("music", JSON.stringify(props.musicList[i]));
 			if(musicWishlist !== undefined)
@@ -136,27 +112,22 @@ function MusicCard(props) {
 				cards.push(
 					<div className="owl-items" key={i}>
 						<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
-							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: props.musicList[i] } }} style={{ display: "flex", justifyContent: "center" }}>
+							<Link className="slide-image" to={{ pathname: "/music_detailed_page", state: { item: music } }} style={{ display: "flex", justifyContent: "center" }}>
 								<img src={music["thumbnail"]} alt={music["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 							</Link>
 							<div className="slide-content">
-								<h2>{music["title"]}{music["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
-
+								<h2>{music["title"]}
+								{music["amount"] === "0" ? null : <span style={{ margin: "0px 0px 10px 16px"}}><AttachMoneyIcon /></span>}
 									{/* Adding "visible" to refresh icon */}
 
-									{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
-									{flag1 ? <CheckIcon fontSize="inherit" onClick={e => {deleteFromWishList(music["id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" onClick={e => {addToWishlist(music["id"]) }}></AddIcon>}
-									</IconButton> : null } */}
-
-									<IconButton style={{ color: "#fff", fontSize: 30  }}  aria-label="reqind" id={music["id"]+"a"} >
-							        {flag1 ? <CheckIcon fontSize="inherit" id={music["id"]+"c"} ></CheckIcon> : <AddIcon fontSize="inherit" onClick={() => { addToWishlist(music["id"]) }}></AddIcon>}
-							        </IconButton>
+									{
+										isLoggedIn ? <IconButton style={{ color: "#fff", fontSize: 30  }}  
+										onClick={() => { addToWishlist(music["id"]) }}aria-label="reqind"  >
+										{flag1 ? <CheckIcon fontSize="inherit"  ></CheckIcon> : <AddIcon fontSize="inherit" ></AddIcon>}
+										</IconButton> : null
+									}
+									
                                     
-							        <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" >
-							           <CheckIcon fontSize="inherit" id={music["id"]+"c"} style={{display:"none"}}></CheckIcon>
-							        </IconButton>
-                                    
-
 									</h2>
 									<p>{music["description"]}</p>
 									<span className="tag">{hour[0]} min {hour[1]} sec</span>

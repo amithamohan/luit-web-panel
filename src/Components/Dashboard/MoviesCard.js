@@ -6,9 +6,6 @@ import Modal from 'antd/lib/modal/Modal';
 import { IconButton } from '@material-ui/core';
 import { message } from 'antd';
 import AddIcon from '@material-ui/icons/Add';
-import { Card } from 'antd';
-import Grid from '@material-ui/core/Grid';
-import { Row, Col } from 'antd';
 import CheckIcon from '@material-ui/icons/Check';
 import { CrownTwoTone } from '@ant-design/icons';
 
@@ -17,10 +14,9 @@ function MoviesCard(props)
 {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userId, setUserId] = useState('');
-	const [visible, setVisible] = useState(true);
 	const [ styleRemover , setStyleRemover ] = useState(true);
-	const [ nav, setNav ] = useState(true);
 	const [wishlist, setWishlist] = useState([])
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	let history = useHistory();
 
@@ -39,7 +35,6 @@ function MoviesCard(props)
 		items: 4,
 		margin: 5,
 		itemsDesktop: [1000, 5],
-		//nav: nav,
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: false,
 		autoplay: true,
@@ -87,17 +82,13 @@ function MoviesCard(props)
 		if(window.innerWidth < 580)
 		{
 			setStyleRemover(false)
-			setNav(false)
 		}
-		setVisible(false)
 	},[])
 
 	const displayWishList = async (id) =>
     {
         let response = await Server.displayWishlist(id);
         setWishlist(response["data"])
-		console.log(wishlist)
-		setVisible(true)
     }
 
 	const getUserDetails = async () =>
@@ -109,6 +100,7 @@ function MoviesCard(props)
 		{
 			setUserId(data["id"])
 			displayWishList(data["id"]);
+			setIsLoggedIn(true);
         }
     }
  
@@ -130,11 +122,10 @@ function MoviesCard(props)
 		}
 
 		// call again
-		//setVisible(false)
-		//displayWishList(userId);
-		console.log(document.getElementById(itemId+"c"))
-		document.getElementById(itemId+"a").style.display = "none"
-		document.getElementById(itemId+"c").style.display = "inline-block"
+		displayWishList(userId);
+		// console.log(document.getElementById(itemId+"c"))
+		// document.getElementById(itemId+"a").style.display = "none"
+		// document.getElementById(itemId+"c").style.display = "inline-block"
 	}
 
 	// const deleteFromWishList = async (item) =>
@@ -210,13 +201,23 @@ function MoviesCard(props)
 							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
 							</IconButton> : null } */}
 
-							<IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" id={movie["movie_id"]+"a"}>
+							{/* <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" id={movie["movie_id"]+"a"}>
 							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} ></CheckIcon> : <AddIcon fontSize="inherit"  onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
 							</IconButton>
 
 							<IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" >
 							<CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} style={{display:"none"}}></CheckIcon>
-							</IconButton>
+							</IconButton> */}
+
+							{
+								isLoggedIn ? <IconButton 
+								style={{ color: "#fff", fontSize: 30  }}  
+								onClick={() => { addToWishlist(movie["movie_id"]) }}
+								aria-label="reqind">
+							        {flag ? <CheckIcon fontSize="inherit"  ></CheckIcon> : <AddIcon fontSize="inherit" ></AddIcon>}
+								</IconButton> : null
+							}
+							
 
 							{/* <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
 							{flag ? document.getElementById(movie["movie_id"]+"c").style.display = "inline-block" : document.getElementById(movie["movie_id"]+"a").style.display = "inline-block"}

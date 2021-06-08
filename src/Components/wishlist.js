@@ -10,6 +10,7 @@ import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
 import NavigationBar from "./Dashboard/NavBar";
+import  Spinner  from './Utlities/Spinner';
 
 const useStyles = makeStyles(theme => ({
     root:
@@ -209,21 +210,23 @@ function WishList()
     }
 
     return (
-        <div>
-            <div style={{minHeight:"71vh"}}>
+        <div style={{minHeight:"71vh"}}>
             <NavigationBar/>
-                <Divider orientation="center">
-                <div style={{width: "86vw", height:"15vh", backgroundColor:"rgb(3, 16, 49)", borderRadius:"7px", lineHeight:"14px", minHeight: "90%"}}>
-                    <h2 style={{ color: "white", fontSize:"40px", paddingTop:"1%" }}><b>Watchlist</b></h2>
-                    <p style={{ color: "white"}}>Watch your favourites.</p>
-                    </div>
-                </Divider>
+                {
+                    text.length > 0 ? 
+                    <div>
+                        <Divider orientation="center">
+                            <div style={{width: "86vw", height:"15vh", backgroundColor:"rgb(3, 16, 49)", borderRadius:"7px", lineHeight:"14px", minHeight: "90%"}}>
+                                <h2 style={{ color: "white", fontSize:"40px", paddingTop:"1%" }}><b>Watchlist</b></h2>
+                                <p style={{ color: "white"}}>Watch your favourites.</p>
+                            </div>
+                        </Divider>
 
-                <Row justify="left" style={{marginLeft:"5.4%"}}>
-                    {text}
-                </Row>
-
-            </div>
+                         <Row justify="left" style={{marginLeft:"5.4%"}}>
+                            {text}
+                        </Row>
+                    </div>: <Spinner />
+                }
         </div>
     );
 }
