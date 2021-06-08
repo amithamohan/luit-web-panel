@@ -128,7 +128,7 @@ export default function PaymentHistory()
 		}
    }
 
-   if(status === true && statusMonthly === true){
+   if(status === true || statusMonthly === true){
 	   allHistory = [...row, ...row2]
    }
 
