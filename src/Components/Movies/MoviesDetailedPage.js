@@ -47,7 +47,8 @@ class MoviesDetailedPage extends Component
 			isAdded: false,
 			isLoggedIn: false,
 			userId:'',
-			firstPage: true
+			firstPage: true,
+			item: ''
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -55,11 +56,22 @@ class MoviesDetailedPage extends Component
 
 	}
 
+	
 	componentDidMount()
 	{
+		if(this.props.location.state === undefined)
+		{
+			this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		} else 
+		{
+			localStorage.setItem("item", JSON.stringify(this.props.location.state.item))
+			this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		}
+		
 		this.getUserDetails();
 		this.getActors();
 		this.getAllMovies();
+		
 	}
 
 	async getUserDetails()
@@ -73,21 +85,30 @@ class MoviesDetailedPage extends Component
 		    this.checkPayment(data["id"]);
 		}
     }
-	refreshWatchButton (id){
+	refreshWatchButton (movie){
 		this.setState({firstPage:false})
-		this.checkPayment(id);
-		setTimeout(()=>this.isAddedToWishList(this.state.userId, id),1000);
+		localStorage.setItem("item", JSON.stringify(movie))
+		this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		
+		setTimeout(()=>
+		{
+			this.isAddedToWishList(this.state.userId, movie["movie_id"]);
+			this.checkPayment(this.state.userId);
+		},1000)
 	}
 
 	async checkPayment(id)
 	{
-		let contentType = this.props.location.state.item["type"] === "movie" ? 1 : 2;
-		let contentId = contentType === 1 ? this.props.location.state.item["movie_id"] : this.props.location.state.item["id"];
-		
+		let movie = JSON.parse(localStorage.getItem("item"));
+		let contentType = movie["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? movie["movie_id"] : movie["id"];
+
+
 			let response = await Server.checkPaymentStatus(contentType, contentId, id);
 
 			console.log(response);
 			console.log("response");
+			
 
 			if(response["payment_status"] === 0)
 			{
@@ -122,8 +143,8 @@ class MoviesDetailedPage extends Component
 	{
 		
 		let type = 1;
-		
-		let id = this.state.firstPage ? this.props.location.state.item["movie_id"] : selectedId;
+		let movie = JSON.parse(localStorage.getItem("item"));
+		let id = this.state.firstPage ? movie["movie_id"] : selectedId;
 		
 		let response = await Server.wishlistIsPresent(type, id, userId);
 		console.log(response)
@@ -173,6 +194,7 @@ class MoviesDetailedPage extends Component
 		}
 
 		this.setState({ moviesList: result });
+		
 	}
 
 	
@@ -191,77 +213,91 @@ class MoviesDetailedPage extends Component
 	{
 
 		const crew = [];
-		console.log(this.props.location.state)
-		if (this.state.actors !== undefined) {
-			for (let j = 0; j < this.props.location.state.item["actors"].length; j++) {
-				for (let i = 0; i < this.state.actors.length; i++) {
-					if (this.props.location.state.item["actors"][j] === this.state.actors[i]["name"]) {
-						crew.push(
-							<div key={i}>
-								<center>
-									<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
-									<br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span>
-								</center>
-							</div>
-						);
-					}
-					else {
-						this.state.crew = null;
-					}
-				}
-			}
-		}
-
-
 		const moreLikeThis = [];
-		if (this.state.moviesList !== undefined)
+		let data
+		let x
+		let hour
+		let details
+
+		if(this.state.item !== '') 
 		{
-			// history.replace("/demo/luitWeb/build/");
+			
+			console.log(this.props.location.state)
+			
 
-			for (let j = 0; j < this.props.location.state.item["genre"].length; j++)
-			{
-				for (let i = 0; i < this.state.moviesList.length; i++)
-				{
-					let hour = this.state.moviesList[i]["duration"].split('.');
-
-					if (this.props.location.state.item["genre"][j] === this.state.moviesList[i]["genre"][0])
-					{
-						moreLikeThis.push(
-							<div className="owl-items" key={i} >
-								<div onClick={()=>{this.refreshWatchButton(this.state.moviesList[i]["movie_id"])}}>
-								<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
-									<div className="slide-image">
-										<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-									</div>
-									<div className="slide-content">
-										<h2>{this.state.moviesList[i]["movie_title"]}</h2>
-										<p style={{fontFamily: "Montserrat"}}>{this.state.moviesList[i]["description"]}</p>
-										<span className="tag">{hour[0]} h {hour[1]} min</span>
-										<span className="tag">{this.state.moviesList[i]["publish_year"]}</span>
-										<span className="tag"><b>{this.state.moviesList[i]["maturity_rating"]}+</b></span>
-									</div>
-								</Link>
+			if (this.state.actors !== undefined) {
+				for (let j = 0; j < this.state.item["actors"].length; j++) {
+					for (let i = 0; i < this.state.actors.length; i++) {
+						if (this.state.item["actors"][j] === this.state.actors[i]["name"]) {
+							crew.push(
+								<div key={i}>
+									<center>
+										<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+										<br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span>
+									</center>
 								</div>
-							</div>
-						);
+							);
+						}
+						else {
+							this.state.crew = null;
+						}
 					}
 				}
 			}
+
+
+			
+			if (this.state.moviesList !== undefined)
+			{
+				// history.replace("/demo/luitWeb/build/");
+
+				for (let j = 0; j < this.state.item["genre"].length; j++)
+				{
+					for (let i = 0; i < this.state.moviesList.length; i++)
+					{
+						let hour = this.state.moviesList[i]["duration"].split('.');
+
+						if (this.state.item["genre"][j] === this.state.moviesList[i]["genre"][0])
+						{
+							moreLikeThis.push(
+								<div className="owl-items" key={i} >
+									<div onClick={()=>{this.refreshWatchButton(this.state.moviesList[i])}}>
+									<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
+										<div className="slide-image">
+											<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+										</div>
+										<div className="slide-content">
+											<h2>{this.state.moviesList[i]["movie_title"]}</h2>
+											<p style={{fontFamily: "Montserrat"}}>{this.state.moviesList[i]["description"]}</p>
+											<span className="tag">{hour[0]} h {hour[1]} min</span>
+											<span className="tag">{this.state.moviesList[i]["publish_year"]}</span>
+											<span className="tag"><b>{this.state.moviesList[i]["maturity_rating"]}+</b></span>
+										</div>
+									</Link>
+									</div>
+								</div>
+							);
+						}
+					}
+				}
+			}
+
+			data = this.state.item;
+			let image = this.state.item["thumbnail"];
+			x = image.split(' ').join('%20');
+
+			hour = this.state.item["duration"].split('.');
+
+
+			details =
+			{
+				"id": this.state.item["movie_id"],
+				"type": 1,
+				"rating": this.state.item["ratings"],
+			}
+
 		}
 
-		let data = this.props.location.state.item;
-		let image = this.props.location.state.item["thumbnail"];
-		let x = image.split(' ').join('%20');
-
-		let hour = this.props.location.state.item["duration"].split('.');
-
-
-		let details =
-		{
-			"id": this.props.location.state.item["movie_id"],
-			"type": 1,
-			"rating": this.props.location.state.item["ratings"],
-		}
 
 		return (
 			<div>
@@ -270,7 +306,9 @@ class MoviesDetailedPage extends Component
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
-								<div className="banner-wrap justify-content-between align-items-center">
+								{
+									data === undefined ? null :
+									<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 										<h2>{data["movie_title"]}</h2>
@@ -283,9 +321,9 @@ class MoviesDetailedPage extends Component
 										{   
 											this.state.isLoggedIn 
 											? data["amount"] == 0 
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    :  this.state.isPaid === true 
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: <PayPopup data={data} />
 											: <SignInPopup /> 
 										}
@@ -312,9 +350,10 @@ class MoviesDetailedPage extends Component
 										</IconButton>
 										</div>
 
+										</div>
+										<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
-									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-								</div>
+								}
 							</div>
 						</div>
 
