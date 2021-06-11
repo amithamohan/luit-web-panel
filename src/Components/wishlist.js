@@ -130,13 +130,15 @@ function WishList()
         {
             let movie = list[i]["video_details"][0];
             let id = list[i]["id"];
-
-            let hour = movie["duration"].split('.');
+            let hour
+            if(movie !== undefined) hour = movie["duration"].split('.');
 
             text.push(
                <div className="slide-wrapper" key={i} >
                    <div className="owl-items">
-                        <Card hoverable className="slide-one"
+                        {
+                           movie !== undefined ?
+                           <Card hoverable className="slide-one"
                             style={{ width: "270px", borderRadius: "7px", margin:"15px", height: "430px" }}
                             cover={
                                 <Link className="slide-image" to={{ pathname: "/movies_detailed_page", state: { item: movie } }}>
@@ -173,8 +175,22 @@ function WishList()
                                     <span>{movie["ratings"]}+</span>  <i className="ti-star"></i>
                                 </Grid>
                             </Grid> 
-                            
-                        </Card>
+                            </Card> :
+                            <Card hoverable className="slide-one"
+                            style={{ width: "270px", borderRadius: "7px", margin:"15px", height: "430px" }}>
+                                <Grid container className="slide-content" alignItems="center" justify="space-between">
+                                    <Grid item>
+                                        <b style={{ color: "white"  }}>Music has no name</b>
+                                    </Grid>
+                                    <Grid item>
+                                        <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
+                                        <AddIcon fontSize="inherit"></AddIcon>
+                                        </IconButton>
+                                    </Grid>
+                                </Grid> 
+                            </Card>
+                        }
+                        
                     </div>
                </div>
             );

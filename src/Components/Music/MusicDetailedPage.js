@@ -54,7 +54,8 @@ class MusicDetailedPage extends Component {
 			musicList: [],
 			isPaid : false,
 			userId:'',
-			firstPage: true
+			firstPage: true,
+			item: ''
 		}
 
 		this.getActors = this.getActors.bind(this);
@@ -64,6 +65,15 @@ class MusicDetailedPage extends Component {
 
 	componentDidMount() 
 	{
+		if(this.props.location.state === undefined)
+		{
+			this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		} else 
+		{
+			localStorage.setItem("item", JSON.stringify(this.props.location.state["item"]))
+			this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		}
+		
 		this.getUserDetails();
 		this.getActors();
 		this.getAllMusic();
@@ -77,13 +87,26 @@ class MusicDetailedPage extends Component {
 			this.setState({userId:data["id"]})
 			this.setState({ isLoggedIn: true })
 			this.isAddedToWishList(data["id"]);
+			this.checkPayment(data["id"]);
 		}
     }
+	refreshWatchButton (music){
+		this.setState({firstPage:false})
+		localStorage.setItem("item", JSON.stringify(music))
+		this.setState({item:(JSON.parse(localStorage.getItem("item")))})
+		
+		setTimeout(()=>
+		{
+			this.isAddedToWishList(this.state.userId, music["id"]);
+			this.checkPayment(this.state.userId);
+		},1000)
+	}
 
-	async checkPayment()
+	async checkPayment(id)
 	{
-		let contentType = this.props.location.state["item"]["type"] === "movie" ? 1 : 2;
-		let contentId = contentType === 1 ? this.props.location.state["item"]["movie_id"] : this.props.location.state["item"]["id"];
+		let music = JSON.parse(localStorage.getItem("item"));
+		let contentType = music["type"] === "movie" ? 1 : 2;
+		let contentId = contentType === 1 ? music["movie_id"] : music["id"];
 		// let data = JSON.parse(localStorage.getItem("user"));
 		// let userId = data["id"];
 
@@ -145,7 +168,7 @@ class MusicDetailedPage extends Component {
 		
 		let type = 2;
 		
-		let id = this.state.firstPage ? this.props.location.state.item["id"] : selectedId;
+		let id = this.state.firstPage ? this.state.item["id"] : selectedId;
 		
 		let response = await Server.wishlistIsPresent(type, id, userId);
 		console.log(response)
@@ -177,68 +200,80 @@ class MusicDetailedPage extends Component {
 	render() 
 	{
 		const crew = [];
-		if (this.state.actors !== undefined) 
-		{
-			for (let j = 0; j < this.props.location.state["item"]["actors"].length; j++) 
-			{
-				for (let i = 0; i < this.state.actors.length; i++) 
-				{
-					if (this.props.location.state["item"]["actors"][j] === this.state.actors[i]["name"]) 
-					{
-						crew.push(
-							<div key={i} >
-								<center>
-								<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundPosition: "center" }}></div><br />
-								<span style={{ color: "white", }}>{this.state.actors[i]["name"]}</span>
-								</center>
-							</div>
-						);
-					}
-				}
-			}
-		}
-
 		const moreLikeThis = [];
-		if (this.state.musicList !== undefined) 
-		{
-			for (let j = 0; j < this.props.location.state["item"]["genre"].length; j++) 
-			{
-				for (let i = 0; i < this.state.musicList.length; i++) 
-				{
-					let hour = this.state.musicList[i]["duration"].split('.');
+		let data
+		let x
+		let hour
+		let details
 
-					if (this.props.location.state["item"]["genre"][j] === this.state.musicList[i]["genre"][0]) 
+		if(this.state.item !== '') 
+		{
+
+			if (this.state.actors !== undefined) 
+			{
+				for (let j = 0; j < this.state.item["actors"].length; j++) 
+				{
+					for (let i = 0; i < this.state.actors.length; i++) 
 					{
-						moreLikeThis.push(
-							<div className="owl-items" key={i} >
-								<Link className="slide-one" to={{ pathname: "/music_detailed_page", state: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
-									<div className="slide-image">
-										<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-									</div>
-									<div className="slide-content">
-										<h2>{this.state.musicList[i]["title"]}</h2>
-										<p style={{fontFamily: "Montserrat"}}>{this.state.musicList[i]["description"]}</p>
-										<span className="tag">{hour[0]} mins {hour[1]} sec</span>
-										<span className="tag">{this.state.musicList[i]["publish_year"]}</span>
-										<span className="tag"><b>{this.state.musicList[i]["maturity_rating"]}+</b></span>
-									</div>
-								</Link>
-							</div>
-						);
+						if (this.state.item["actors"][j] === this.state.actors[i]["name"]) 
+						{
+							crew.push(
+								<div key={i} >
+									<center>
+									<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundPosition: "center" }}></div><br />
+									<span style={{ color: "white", }}>{this.state.actors[i]["name"]}</span>
+									</center>
+								</div>
+							);
+						}
 					}
 				}
 			}
-		}
+
+			
+			if (this.state.musicList !== undefined) 
+			{
+				for (let j = 0; j < this.state.item["genre"].length; j++) 
+				{
+					for (let i = 0; i < this.state.musicList.length; i++) 
+					{
+						let hour = this.state.musicList[i]["duration"].split('.');
+
+						if (this.state.item["genre"][j] === this.state.musicList[i]["genre"][0]) 
+						{
+							moreLikeThis.push(
+								<div className="owl-items" key={i} >
+									<div onClick={()=>{this.refreshWatchButton(this.state.musicList[i])}}>
+									<Link className="slide-one" to={{ pathname: "/music_detailed_page", state: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
+										<div className="slide-image">
+											<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+										</div>
+										<div className="slide-content">
+											<h2>{this.state.musicList[i]["title"]}</h2>
+											<p style={{fontFamily: "Montserrat"}}>{this.state.musicList[i]["description"]}</p>
+											<span className="tag">{hour[0]} mins {hour[1]} sec</span>
+											<span className="tag">{this.state.musicList[i]["publish_year"]}</span>
+											<span className="tag"><b>{this.state.musicList[i]["maturity_rating"]}+</b></span>
+										</div>
+									</Link>
+									</div>
+								</div>
+							);
+						}
+					}
+				}
+			}
 
 
-		let data = this.props.location.state["item"];
+			data = this.state.item;
 
-		let hour = this.props.location.state["item"]["duration"].split('.');
+			hour = this.state.item["duration"].split('.');
 
-		let details = {
-			"id": this.props.location.state["item"]["id"],
-			"type": 2,
-			"rating": this.props.location.state["item"]["ratings"],
+			details = {
+				"id": this.state.item["id"],
+				"type": 2,
+				"rating": this.state.item["ratings"],
+			}
 		}
 
 		return (
@@ -248,6 +283,9 @@ class MusicDetailedPage extends Component {
 					<div className="container">
 						<div className="row">
 							<div className="col-sm-12">
+							{
+								data === undefined ? null :
+
 								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										
@@ -259,9 +297,9 @@ class MusicDetailedPage extends Component {
 										<p>{data["description"]}</p>
 										{
 											data["amount"] == 0  
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 												: this.state.isPaid === false
-													? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.props.location.state["item"]}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+													? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 													: <PayPopup data={data}/>
 										}
 
@@ -288,6 +326,8 @@ class MusicDetailedPage extends Component {
 									</div>
 									<div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} />
 								</div>
+							}
+								
 							</div>
 						</div>
 
