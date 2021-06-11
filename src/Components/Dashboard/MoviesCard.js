@@ -33,7 +33,7 @@ function MoviesCard(props)
 	const options =
 	{
 		items: 4,
-		margin: 5,
+		margin: 12,
 		itemsDesktop: [1000, 5],
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: false,
@@ -187,7 +187,7 @@ function MoviesCard(props)
 		if (movie !== undefined) {
 			cards.push(
 				<div className="" key={i}>
-					<div className="slide-one" style={ styleRemover ? {height: "430px"} : null }>
+					<div className="slide-one" style={ styleRemover ? {height: "440px"} : null }>
 					{movie["amount"] === "0" ? null : <span className="premium-icon"><CrownTwoTone twoToneColor="#E8FF00" style={{ fontSize: '22px', color: '#E8FF00' }} /></span>}
 						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
 						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
@@ -241,23 +241,24 @@ function MoviesCard(props)
 	return (
 		<div>
 			<div className="slide-wrapper">
-				<div className="container" style={{fontFamily: "Montserrat"}}>
+				<div className="content" style={{fontFamily: "Montserrat"}}>
 					<div className="row">
-						<div className="col-sm-6 text-left mb-4 mt-4">
+						<div className="col-sm-6 text-left mb-4 mt-4" style={{marginLeft: "-1vw"}}>
 							<h2>{props.title}</h2>
 						</div>
 					</div>
 					
+					
 					<div className="row">
-                    <div className="col-lg-12">
+                    <div style={{width: "93%"}}>
 					{cards.length && (
 						<OwlCarousel options={options}>
 							{
 								cards
 							}
 						</OwlCarousel>
-					)}</div></div>
-
+					)}</div>
+					</div>
 				</div>
 			</div>
 		</div>

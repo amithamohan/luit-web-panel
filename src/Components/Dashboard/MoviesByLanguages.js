@@ -17,7 +17,7 @@ class MoviesByLanguages extends Component
 	options =
 		{
 			items: 4,
-			margin: 5,
+			margin: 1,
 			nav: this.sideNav,
 			//loop: true,
 			autoplay: true,
@@ -57,12 +57,13 @@ class MoviesByLanguages extends Component
 			if (language !== undefined) {
 				cards.push(
 					<div key={i}>
-						<center>
-							<Link to={{ pathname: "/view_all", state: { item: this.props.languages[i] } }}>
-								<div className="owl-items" style={{ border: "4px solid yellow", backgroundColor: "#222", width: "200px", height: "200px", borderRadius: "50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
-							</Link>
-						</center>
-						<center><br /><span style={{ color: "white" }}>{language["lang_name"]}</span></center>
+						
+						<Link to={{ pathname: "/view_all", state: { item: this.props.languages[i] } }} style={{textDecoration:"none"}}>
+							<div style={{ background: "linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)", width: "220px", height: "120px", borderRadius: "9px", }}>
+							<center><span style={{ color: "black", lineHeight:"19vh" }}>{language["lang_name"]}</span></center>
+							</div>
+						</Link>
+					
 					</div>
 				);
 			}
@@ -71,19 +72,23 @@ class MoviesByLanguages extends Component
 		return (
 			<div>
 				<div className="category-wrapper slide-wrapper" style={{fontFamily: "Montserrat"}}>
-					<div className="container">
+					<div className="content">
 						<div className="row">
-							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6 mt-1" style={{fontFamily: "Montserrat"}}>
+							<div className="col-sm-6 col-lg-12 col-md-6 col-sm-6 mb-4 mt-4" style={{fontFamily: "Montserrat", marginLeft: "-1vw"}}>
 								<h2>Watch in Your Language</h2>
 							</div>
 						</div>
+
+						<div className="row">
+                    	<div style={{width: "93%"}}>
 						{cards.length && (
 							<OwlCarousel options={this.options}>
 								{
 									cards
 								}
 							</OwlCarousel>
-						)}
+						)}</div></div>
+
 					</div>
 				</div>
 			</div>

@@ -18,7 +18,7 @@ function MusicCard(props) {
     const options =
 	{
 		items: 4,
-		margin: 5,
+		margin: 12,
 		itemsDesktop: [1000, 5],
 		navText: ["<img src='images/left.png'/>", "<img src='images/right.png'/>"],
 		loop: false,
@@ -143,19 +143,23 @@ function MusicCard(props) {
 	return (
 			<>
 				<div className="slide-wrapper">
-					<div className="container" style={{fontFamily: "Montserrat"}}>
+					<div className="content" style={{fontFamily: "Montserrat"}}>
 						<div className="row">
-							<div className="col-sm-6 text-left mb-4 mt-4">
+							<div className="col-sm-6 text-left mb-4 mt-4" style={{marginLeft: "-1vw"}}>
 								<h2>{props.title}</h2>
 							</div>
 						</div>
+
+						<div className="row">
+                    	<div style={{width: "93%"}}>
 						{cards.length && (
 							<OwlCarousel options={options}>
 								{
 									cards
 								}
 							</OwlCarousel>
-						)}
+						)}</div></div>
+
 					</div>
 				</div>
 			</>
