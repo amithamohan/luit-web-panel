@@ -16,8 +16,6 @@ class MoviesByLanguages extends Component
 	}
 	options =
 		{
-			items: 4,
-			margin: 1,
 			nav: this.sideNav,
 			//loop: true,
 			autoplay: true,
@@ -34,8 +32,11 @@ class MoviesByLanguages extends Component
 				700:{
 					items:3
 				},
-				1000:{
+				900:{
 					items:4
+				},
+				1025:{
+					items:5
 				}
 			}
 		};
@@ -56,17 +57,17 @@ class MoviesByLanguages extends Component
 
 			if (language !== undefined) {
 				cards.push(
-					<div key={i}>
-						
-						<Link to={{ pathname: "/view_all", state: { item: this.props.languages[i] } }} style={{textDecoration:"none"}}>
-							<div style={{ background: "linear-gradient(to top left, #33ccff 0%, #ff99cc 100%)", width: "220px", height: "120px", borderRadius: "9px", }}>
-							<center><span style={{ color: "black", lineHeight:"19vh" }}>{language["lang_name"]}</span></center>
-							</div>
+					<div key={i} >
+						<center>
+						<Link to={{ pathname: "/view_all", state: { item: this.props.languages[i] } }}>
+							<div  style={{ border: "4px solid yellow", backgroundColor: "#222", width: "200px", height: "200px", borderRadius:"50%", backgroundImage: `url(${language['thumbnail_link']})`, backgroundSize: "150px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
 						</Link>
-					
+						</center>
+						<center><br /><span style={{ color: "white" }}>{language["lang_name"]}</span></center>
 					</div>
 				);
 			}
+
 		}
 
 		return (
@@ -80,7 +81,7 @@ class MoviesByLanguages extends Component
 						</div>
 
 						<div className="row">
-                    	<div style={{width: "93%"}}>
+                    	<div style={{width: "91%"}}>
 						{cards.length && (
 							<OwlCarousel options={this.options}>
 								{

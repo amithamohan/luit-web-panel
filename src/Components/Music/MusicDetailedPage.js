@@ -167,8 +167,8 @@ class MusicDetailedPage extends Component {
 	{
 		
 		let type = 2;
-		
-		let id = this.state.firstPage ? this.state.item["id"] : selectedId;
+		let music = JSON.parse(localStorage.getItem("item"));
+		let id = this.state.firstPage ? music["id"] : selectedId;
 		
 		let response = await Server.wishlistIsPresent(type, id, userId);
 		console.log(response)
@@ -303,10 +303,11 @@ class MusicDetailedPage extends Component {
 													: <PayPopup data={data}/>
 										}
 
-										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
+										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton>
 										<IconButton>
+
 										<div className="icon-bttn ">
 										<i className="ti-sharethis text-white "></i>
 											<div className="share-icons">

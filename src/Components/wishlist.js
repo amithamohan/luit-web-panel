@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { Container } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import CheckIcon from '@material-ui/icons/Check';
 import { Card } from 'antd';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from "react-router-dom";
@@ -153,7 +153,7 @@ function WishList()
 
                                 <Grid item>
                                     <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
-                                    <AddIcon fontSize="inherit"></AddIcon>
+                                    <CheckIcon fontSize="inherit"></CheckIcon>
                                     </IconButton>
                                 </Grid>
                             </Grid> 
@@ -175,7 +175,8 @@ function WishList()
                                     <span>{movie["ratings"]}+</span>  <i className="ti-star"></i>
                                 </Grid>
                             </Grid> 
-                            </Card> :
+                            </Card> 
+                            :
                             <Card hoverable className="slide-one"
                             style={{ width: "270px", borderRadius: "7px", margin:"15px", height: "430px" }}>
                                 <Grid container className="slide-content" alignItems="center" justify="space-between">
@@ -184,7 +185,7 @@ function WishList()
                                     </Grid>
                                     <Grid item>
                                         <IconButton style={{ color: "#fff", fontSize: 30,  }} onClick={() => { deleteFromWishList(id) }} aria-label="reqind">
-                                        <AddIcon fontSize="inherit"></AddIcon>
+                                        <CheckIcon fontSize="inherit"></CheckIcon>
                                         </IconButton>
                                     </Grid>
                                 </Grid> 
