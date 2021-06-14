@@ -13956,5 +13956,19 @@ body {
   margin-left: 6.5vw;
 }
 
+.div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 455px;
+  width: 100%;
+  background-color: rgb(29, 24, 24);
+  color: #fff;
+  margin: 0 15px;
+}
+
+.rec.rec-slider-container {
+  overflow: visible;
+}
 
 /*# sourceMappingURL=style.css.map */

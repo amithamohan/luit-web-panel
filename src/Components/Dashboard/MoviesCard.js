@@ -243,7 +243,7 @@ function MoviesCard(props)
 			<div className="slide-wrapper">
 				<div className="content" style={{fontFamily: "Montserrat"}}>
 					<div className="row">
-						<div className="col-sm-6 text-left mb-4 mt-4" style={{marginLeft: "-1vw"}}>
+						<div className="col-sm-6 text-left mb-4 mt-2" style={{marginLeft: "-1vw"}}>
 							<h2>{props.title}</h2>
 						</div>
 					</div>

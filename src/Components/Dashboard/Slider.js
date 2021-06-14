@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Carousel } from 'antd';
 import { Link } from 'react-router-dom';
 import Server from '../APIs/Server';
 import { message } from 'antd';
 import PayPopup from "../Utlities/PopUp";
 import SignInPopup from "../Utlities/SignInPopup";
+import Carousel from "react-elastic-carousel";
 
 class Slider extends Component {
 	constructor(props) {
@@ -181,51 +181,124 @@ class Slider extends Component {
 	                   
 					})
 
-					rows.push(
-						<div className="row" key={i}>
-							<div className="col-sm-12" style={{backgroundColor: "red"}}>
-								<div className="banner-wrap justify-content-between align-items-center" style={{width:"100vw",borderRadius:"0px"}}>
-									<div className="left-wrap">
-										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
-										{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
-										<span className="tag"><b>Rating</b></span>
-                                        <span className="tag">{data["ratings"] === "" ? "0" : data["ratings"]}</span>
-                                        <span className="tag"><b>Duration</b></span>
-                                        {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
-                                        <p>{data["description"]}</p>
+					// rows.push(
+					// 	<div className="row" key={i}>
+					// 		<div className="col-sm-12" style={{backgroundColor: "red"}}>
+					// 			<div className="banner-wrap justify-content-between align-items-center" style={{width:"100vw",borderRadius:"0px"}}>
+					// 				<div className="left-wrap">
+					// 					{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
+					// 					{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
+					// 					<span className="tag"><b>Rating</b></span>
+                    //                     <span className="tag">{data["ratings"] === "" ? "0" : data["ratings"]}</span>
+                    //                     <span className="tag"><b>Duration</b></span>
+                    //                     {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
+                    //                     <p>{data["description"]}</p>
 
-										{   
-											this.state.isLoggedIn 
-											? data["amount"] == 0 
-											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-											    :  isPaid.length === 1 || this.state.paid === true
-												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-												: <PayPopup data={data}/>
-											: <SignInPopup /> 
-										}
+					// 					{   
+					// 						this.state.isLoggedIn 
+					// 						? data["amount"] == 0 
+					// 						    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+					// 						    :  isPaid.length === 1 || this.state.paid === true
+					// 							? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+					// 							: <PayPopup data={data}/>
+					// 						: <SignInPopup /> 
+					// 					}
 										
-										{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
-											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
-										</IconButton> */}
+					// 					{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
+					// 						{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+					// 					</IconButton> */}
 
+					// 				</div>
+					// 				<div className="right-wrap"  style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+					// 			</div>
+					// 		</div>
+					// 	</div>
+					// );
+
+					rows.push(
+								<div className="div" key={i}>
+										<div className="left-wrap" >
+											{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
+											{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
+											<span className="tag"><b>Rating</b></span>
+						                    <span className="tag">{data["ratings"] === "" ? "0" : data["ratings"]}</span>
+						                    <span className="tag"><b>Duration</b></span>
+						                    {data["type"] === "movie" ? <span className="tag">{hour[0]} h {hour[1]} min</span> : <span className="tag">{hour[0]} min {hour[1]} sec</span>}
+						                    <p>{data["description"]}</p>
+	
+											{   
+												this.state.isLoggedIn 
+												? data["amount"] == 0 
+												    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+												    :  isPaid.length === 1 || this.state.paid === true
+													? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: data}}}><img src="images/play.png" alt=""  />Watch now</Link> 
+													: <PayPopup data={data}/>
+												: <SignInPopup /> 
+											}
+											
+											{/* <IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(this.state.allVideos[i]["movie_id"])} aria-label="reqind">
+												{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
+											</IconButton> */}
+	
+										</div>
+										<div className="right-wrap"  style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
-									<div className="right-wrap"  style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
-								</div>
-							</div>
-						</div>
-					);
+							);
 				}
 			}
 		}
 
 		return (
-			<div className="banner-wrapper" >
-				<div className="container" style={{fontFamily: "Montserrat"}}>
-					<Carousel autoplay draggable>
-						{rows}
-					</Carousel>
-				</div>
-			</div>
+	
+			// <div className="banner-wrapper">
+			// 	{console.log(rows)}
+            // 	<div className="container">
+            //     	<div className="row">
+            //         	<div className="col-sm-12">
+            //             	<div className="banner-slider owl-carousel owl-theme">
+			// 					{/* <Carousel autoplay draggable> */}
+					
+			// 					{rows}
+						
+			// 					{/* </Carousel> */}
+			// 				</div>
+			// 			</div>
+			// 		</div>
+			// 	</div>
+			// </div>
+			// <div className="banner-wrapper" >
+			// 	<div className="container" style={{fontFamily: "Montserrat"}}>
+			// 		<div className="row">
+			// 			<div className="col-sm-12">
+			// 				{/* {
+			// 					rows.length && (
+			// 						<div className="banner-slider owl-carousel owl-theme">
+			// 							{rows}
+			// 						</div>
+			// 					)
+			// 				} */}
+			// 				<div className="banner-slider">
+			// 				<div className="owl-carousel owl-theme">
+			// 				  {rows}
+			// 				</div>
+			// 				</div>
+			// 			</div>
+			// 		</div>
+			// 	</div>
+			// </div>
+			<>
+			{
+				rows.length && (
+					<div className="banner-wrapper" >
+						<Carousel itemsToShow={1} enableAutoPlay={true} initialActiveIndex={0} autoPlaySpeed={8000} >
+							{rows}
+						</Carousel>
+					</div>
+				)
+			}
+			</>
+			
+					
 		);
 	}
 }
