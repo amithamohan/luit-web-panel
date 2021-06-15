@@ -502,3 +502,19 @@ h1 {
   height: 40px;
   width: 40px;
 }
+
+.social-list{
+  width: 100%;
+}
+.social-link {
+  margin: 1rem 0px;
+  width: 100%;
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+}
+.pages-link {
+  color: white;
+  font-size: 15px;
+  margin: 1rem 0px;
+}
