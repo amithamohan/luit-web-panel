@@ -29,7 +29,7 @@ class MoviesDetailedPage extends Component
 
 	crewOption =
 	{
-		items: 5,
+		items: 8,
 		nav: true,
 		loop: false,
 		autoplay: false,
@@ -232,7 +232,7 @@ class MoviesDetailedPage extends Component
 							crew.push(
 								<div key={i}>
 									<center>
-										<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "210px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+										<div className="owl-items" style={{ border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
 										<br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span>
 									</center>
 								</div>
@@ -303,8 +303,8 @@ class MoviesDetailedPage extends Component
 			<div>
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
-					<div className="container">
-						<div className="row">
+					<div className="content" >
+						<div className="row" style={{width: "90vw", marginLeft: "-2vw"}}>
 							<div className="col-sm-12">
 								{
 									data === undefined ? null :
@@ -357,22 +357,29 @@ class MoviesDetailedPage extends Component
 							</div>
 						</div>
 
-						{crew === null ? null : <div className="container slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
-							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2 style={{ color: "white" }}>The Crew</h2>
+						{
+							crew === null ? null :
+							<div className="content slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
+								<div className="row" >
+									<div className="col-sm-6 text-left mb-4 mt-1" style={{marginLeft: "-2vw"}}>
+										<h2 style={{ color: "white" }}>The Crew</h2>
+									</div>
 								</div>
+
+								<div className="row">
+								<div style={{width: "91%"}}>
+								{
+									crew.length && (
+										<OwlCarousel options={this.crewOptions}>
+											{
+												crew
+											}
+										</OwlCarousel>
+									)
+								}
+								</div></div>
 							</div>
-							{
-								crew.length && (
-									<OwlCarousel options={this.crewOptions}>
-										{
-											crew
-										}
-									</OwlCarousel>
-								)
-							}
-						</div>}
+						}
 
 						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
 							<div className="row">

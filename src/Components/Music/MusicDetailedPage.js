@@ -280,8 +280,8 @@ class MusicDetailedPage extends Component {
 			<div>
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
-					<div className="container">
-						<div className="row">
+					<div className="content">
+						<div className="row" style={{width: "90vw", marginLeft: "-2vw"}}>
 							<div className="col-sm-12">
 							{
 								data === undefined ? null :
