@@ -10,9 +10,8 @@ class Footer extends Component
 			<footer className="footer" style={{fontFamily: "Montserrat"}}>
 				<div className="footer-wrapper" style={{backgroundColor: "black"}}>
 					<div className="container">
-					<div className="row"><Divider style={{ backgroundColor: "#737373"}}/></div>
 						<div className="row">
-							<div className="col-sm-6 col-lg-2 mt-3">
+							<div className="col-sm-6 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>SOCIAL LINKS</h6>
 								</div>
@@ -39,7 +38,7 @@ class Footer extends Component
 									</a>
 								</div>
 							</div>
-							<div className="col-sm-6 col-lg-2 mt-3">
+							<div className="col-sm-6 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>ONLINE</h6>
 								</div>
@@ -59,7 +58,7 @@ class Footer extends Component
 									<a href="#" style={{color: "white"}}>Action</a>
 								</div>
 							</div>
-							<div className="col-sm-6 col-lg-2 mt-3">
+							<div className="col-sm-6 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>LANGUAGE</h6>
 								</div>
@@ -79,7 +78,7 @@ class Footer extends Component
 									<a href="#" style={{color: "white"}}>Spanish</a>
 								</div>
 							</div>
-							<div className="col-sm-6 col-lg-2 mt-3">
+							<div className="col-sm-6 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>CHANNEL</h6>
 								</div>
@@ -96,7 +95,7 @@ class Footer extends Component
 									<a href="#" style={{color: "white"}}>Headphones</a>
 								</div>
 							</div>
-							<div className="col-sm-6 col-lg-2 mt-3">
+							<div className="col-sm-6 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>PAGES</h6>
 								</div>
@@ -113,7 +112,7 @@ class Footer extends Component
 									<a href="#" style={{color: "white"}}>Help</a>
 								</div>
 							</div>
-							<div className="col-sm-12 col-lg-2 mt-3">
+							<div className="col-sm-12 col-lg-2 mt-4">
 								<div>
 									<h6 style={{color:'white', fontSize:15}}>OFFICE</h6>
 								</div>

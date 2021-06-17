@@ -191,23 +191,10 @@ function MoviesCard(props)
 					{movie["amount"] === "0" ? null : <span className="premium-icon"><CrownTwoTone twoToneColor="#E8FF00" style={{ fontSize: '22px', color: '#E8FF00' }} /></span>}
 						<Link className="slide-image"  to={{ pathname: "/movies_detailed_page", state: { item: movie } }} style={{ display: "flex", justifyContent: "center" }}>
 						{/* <div className="slide-image"  onClick={()=>{handleClick(movie)}} style={{ display: "flex", justifyContent: "center" }}> */}
-							<img src={movie["thumbnail"]} alt={movie["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
+							<img src={movie["poster"]} alt={movie["movie_title"]} style={ styleRemover ? {height: "270px"} : null } onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/movie_thumbnail/default.jpg" }} />
 						</Link>
 						<div className="slide-content">
 							<h2>{movie["movie_title"]}
-							{/* Adding "visible" to refresh icon */}
-
-							{/* {visible ? <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind">
-							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { deleteFromWishList(movie["movie_id"]) }}></CheckIcon> : <AddIcon fontSize="inherit" id={movie["movie_id"]} onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
-							</IconButton> : null } */}
-
-							{/* <IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" id={movie["movie_id"]+"a"}>
-							{flag ? <CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} ></CheckIcon> : <AddIcon fontSize="inherit"  onClick={() => { addToWishlist(movie["movie_id"]) }}></AddIcon>}
-							</IconButton>
-
-							<IconButton style={{ color: "#fff", fontSize: 30,  }}  aria-label="reqind" >
-							<CheckIcon fontSize="inherit" id={movie["movie_id"]+"c"} style={{display:"none"}}></CheckIcon>
-							</IconButton> */}
 
 							{
 								isLoggedIn ? <IconButton 

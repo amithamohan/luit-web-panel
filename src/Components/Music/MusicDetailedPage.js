@@ -27,7 +27,7 @@ class MusicDetailedPage extends Component {
 	options =
 	{
 		items: 4,
-		margin: 5,
+		margin: 12,
 		// itemsDesktop: [1000, 5],
 		//nav: true,
 		loop: true,
@@ -220,12 +220,13 @@ class MusicDetailedPage extends Component {
 							crew.push(
 								<div key={i} >
 									<center>
-									<div className="owl-items" style={{ display: "block", border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundPosition: "center" }}></div><br />
+									<div style={{ border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundPosition: "center" }}></div><br />
 									<span style={{ color: "white", }}>{this.state.actors[i]["name"]}</span>
 									</center>
 								</div>
 							);
 						}
+
 					}
 				}
 			}
@@ -332,44 +333,44 @@ class MusicDetailedPage extends Component {
 							</div>
 						</div>
 
-						<br />
+					</div>
+				</div>
 
-						<div className="container slide-wrapper" style={{ backgroundColor: "transparent" }}>
-							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2>Crew</h2>
-								</div>
+				<div className="category-wrapper slide-wrapper" style={{fontFamily: "Montserrat", marginTop: "10vh"}}>
+					<div className="content">
+							<div className="col-sm-6 col-lg-11 col-md-6 col-sm-6 mb-4 mt-4" style={{fontFamily: "Montserrat", marginLeft: "-1vw"}}>
+								<h2>Watch in Your Language</h2>
 							</div>
-							{
-								crew.length && (
-									<OwlCarousel options={this.crewOptions}>
-										{
-											crew
-										}
-									</OwlCarousel>)
-							}
-						</div>
-
-						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent" }}>
-							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2>More Like This</h2>
-								</div>
-							</div>
-							
-							{
-								moreLikeThis.length && (
-									<OwlCarousel options={this.options}>
-										{
-											moreLikeThis
-										}
-									</OwlCarousel>)
-
-							}
-						</div>
+			
+                    	<div style={{width: "41%"}}>
+						{crew.length && (
+							<OwlCarousel options={this.crewOptions}>
+								{
+									crew
+								}
+							</OwlCarousel>
+						)}</div>
 
 					</div>
 				</div>
+
+				<div className="slide-wrapper" style={{ backgroundColor: "transparent", marginTop: "10vh" }}>
+					<div className="content" >
+							<div className="col-sm-6 text-left mb-4 mt-2" style={{marginLeft: "-1vw"}}>
+								<h2>More Like This</h2>
+							</div>
+						<div style={{width: "92%"}}>
+						{moreLikeThis.length && (
+							<OwlCarousel options={this.options}>
+								{
+									moreLikeThis
+								}
+							</OwlCarousel>
+						)}</div>
+
+					</div>
+				</div>
+
 			</div>
 		);
 	}

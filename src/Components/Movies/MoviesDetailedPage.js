@@ -13,6 +13,7 @@ import PayPopup from "../Utlities/PopUp";
 import SignInPopup from "../Utlities/SignInPopup";
 import { ThreeSixty } from "@material-ui/icons";
 
+
 class MoviesDetailedPage extends Component
 {
 	options =
@@ -232,7 +233,7 @@ class MoviesDetailedPage extends Component
 							crew.push(
 								<div key={i}>
 									<center>
-										<div className="owl-items" style={{ border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+										<div style={{ border: "2px solid yellow", backgroundColor: "#222", height: "190px", width: "190px", borderRadius: "50%", backgroundImage: `url(${this.state.actors[i]["image"]})`, backgroundSize: "250px", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
 										<br /><span style={{ color: "white" }}>{this.state.actors[i]["name"]}</span>
 									</center>
 								</div>
@@ -283,8 +284,13 @@ class MoviesDetailedPage extends Component
 			}
 
 			data = this.state.item;
-			let image = this.state.item["thumbnail"];
+			// let image;
+			let image = this.state.item["banner"];
 			x = image.split(' ').join('%20');
+			//x = "https://release.luit.co.in/uploads/movie_poster/1623934473Lefafa 1 (banner).jpg"
+			
+			console.log(image)
+			console.log(x)
 
 			hour = this.state.item["duration"].split('.');
 
@@ -303,12 +309,12 @@ class MoviesDetailedPage extends Component
 			<div>
 				<NavigationBar/>
 				<div className="banner-wrapper" style={{fontFamily: "Montserrat"}}>
-					<div className="content" >
+					<div className="content">
 						<div className="row" style={{width: "90vw", marginLeft: "-2vw"}}>
 							<div className="col-sm-12">
 								{
 									data === undefined ? null :
-									<div className="banner-wrap justify-content-between align-items-center">
+								<div className="banner-wrap justify-content-between align-items-center">
 									<div className="left-wrap">
 										{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 										<h2>{data["movie_title"]}</h2>
@@ -318,16 +324,15 @@ class MoviesDetailedPage extends Component
 										<span className="tag">{hour[0]} hours {hour[1]} min</span>
 										<p>{data["description"]}</p>
 
-										{   
+										{
 											this.state.isLoggedIn 
 											? data["amount"] == 0 
 											    ? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
 											    :  this.state.isPaid === true 
 												? <Link className="btn btn-lg" to={{pathname: "/video_player", state:{item: this.state.item}}}><img src="images/play.png" alt=""  />Watch now</Link> 
-												: <PayPopup data={data} />
-											: <SignInPopup /> 
+												: <PayPopup data={data}/>
+											: <SignInPopup />
 										}
-
 										<IconButton style={{ color: "#fff", fontSize: 30 }} onClick={e => this.addToWishlist(data["movie_id"])} aria-label="reqind">
 											{this.state.isAdded ? <CheckIcon fontSize="inherit"></CheckIcon> : <AddIcon fontSize="inherit"></AddIcon>}
 										</IconButton>
@@ -344,62 +349,57 @@ class MoviesDetailedPage extends Component
 											</div>
 										</IconButton>
 											
-										<div>
+										
 										<IconButton style={{ color: "#fff", fontSize: 30 }} aria-label="reqind">
 											<StarRating details={details} />
 										</IconButton>
-										</div>
 
-										</div>
-										<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
-								}
-							</div>
-						</div>
-
-						{
-							crew === null ? null :
-							<div className="content slide-wrapper" style={{ backgroundColor: "#1A2236", paddingTop: "50px" }}>
-								<div className="row" >
-									<div className="col-sm-6 text-left mb-4 mt-1" style={{marginLeft: "-2vw"}}>
-										<h2 style={{ color: "white" }}>The Crew</h2>
-									</div>
+									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 								</div>
-
-								<div className="row">
-								<div style={{width: "91%"}}>
-								{
-									crew.length && (
-										<OwlCarousel options={this.crewOptions}>
-											{
-												crew
-											}
-										</OwlCarousel>
-									)
 								}
-								</div></div>
-							</div>
-						}
-
-						<div className="container slide-wrapper slide-wrapper-shadow" style={{ backgroundColor: "transparent", paddingTop: "50px" }}>
-							<div className="row">
-								<div className="col-sm-6 text-left mb-4 mt-1">
-									<h2>More Like This</h2>
-								</div>
-							</div>
-							{
-								crew === null ? null :
-									moreLikeThis.length && (
-										<OwlCarousel options={this.options}>
-											{
-												moreLikeThis
-											}
-										</OwlCarousel>
-									)
-							}
+							</div>	
 						</div>
-					</div>
+						</div>
 				</div>
+
+						{crew === null ? null : <div className="category-wrapper slide-wrapper" style={{fontFamily: "Montserrat", marginTop: "10vh"}}>
+					<div className="content">
+							<div className="col-sm-6 col-lg-11 col-md-6 col-sm-6 mb-4 mt-4" style={{fontFamily: "Montserrat", marginLeft: "-1vw"}}>
+								<h2>Watch in Your Language</h2>
+							</div>
+			
+                    	<div style={{width: "51%"}}>
+						{crew.length && (
+							<OwlCarousel options={this.crewOptions}>
+								{
+									crew
+								}
+							</OwlCarousel>
+						)}</div>
+
+					</div>
+				</div>}
+
+						<div className="slide-wrapper" style={{ backgroundColor: "transparent", marginTop: "10vh" }}>
+							<div className="content" >
+							<div className="col-sm-6 text-left mb-4 mt-2" style={{marginLeft: "-1vw"}}>
+								<h2>More Like This</h2>
+							</div>
+							<div style={{width: "92%"}}>
+							{ crew === null ? null :
+								moreLikeThis.length && (
+								<OwlCarousel options={this.options}>
+									{
+										moreLikeThis
+									}
+								</OwlCarousel>
+							)}
+							</div>
+							</div>
+
+						</div>
+
 			</div>
 		);
 	}
