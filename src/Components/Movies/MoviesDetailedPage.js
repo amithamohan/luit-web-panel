@@ -355,7 +355,10 @@ class MoviesDetailedPage extends Component
 										</IconButton>
 
 									</div>
-									<div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+									{/* <div className="right-wrap" style={{ backgroundImage: `url(${x})` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} /> */}
+									<div className="right-wrap">
+										<img src={this.state.item["banner"]} alt={this.state.item["title"]} />
+									</div>
 								</div>
 								}
 							</div>	
