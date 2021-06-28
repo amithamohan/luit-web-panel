@@ -241,7 +241,7 @@ class Slider extends Component {
 											</IconButton> */}
 	
 										</div>
-										<div className="right-wrap"  style={{ backgroundImage: `url('${data["poster"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["poster"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+										<div className="right-wrap"  style={{ backgroundImage: `url('${data["banner"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["banner"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
 							);
 				}

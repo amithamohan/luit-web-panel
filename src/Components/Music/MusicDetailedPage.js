@@ -247,7 +247,7 @@ class MusicDetailedPage extends Component {
 									<div onClick={()=>{this.refreshWatchButton(this.state.musicList[i])}}>
 									<Link className="slide-one" to={{ pathname: "/music_detailed_page", state: { item: this.state.musicList[i] } }} style={{ height: "430px" }}>
 										<div className="slide-image">
-											<img src={this.state.musicList[i]["thumbnail"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+											<img src={this.state.musicList[i]["poster"]} alt={this.state.musicList[i]["title"]} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 										</div>
 										<div className="slide-content">
 											<h2>{this.state.musicList[i]["title"]}</h2>
@@ -323,10 +323,14 @@ class MusicDetailedPage extends Component {
 										<IconButton style={{ color: "#fff", fontSize: 30 }} aria-label="reqind">
 											<StarRating details={details} />
 										</IconButton>
-										
-
+									
 									</div>
-									<div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} />
+
+									{/* <div className="right-wrap" style={{ backgroundImage: `url(${data['thumbnail']})` }} /> */}
+									<div className="right-wrap">
+										<img src={this.state.item["banner"]} alt={this.state.item["title"]} />
+									</div>
+
 								</div>
 							}
 								

@@ -265,7 +265,7 @@ class MoviesDetailedPage extends Component
 									<div onClick={()=>{this.refreshWatchButton(this.state.moviesList[i])}}>
 									<Link className="slide-one" to={{ pathname: "/movies_detailed_page", state: { item: this.state.moviesList[i] } }} style={{ height: "430px" }}>
 										<div className="slide-image">
-											<img src={this.state.moviesList[i]["thumbnail"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
+											<img src={this.state.moviesList[i]["poster"]} alt={this.state.moviesList[i]["title"]} style={{ height: "270px" }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 										</div>
 										<div className="slide-content">
 											<h2>{this.state.moviesList[i]["movie_title"]}</h2>
