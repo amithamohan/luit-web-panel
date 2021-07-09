@@ -215,9 +215,11 @@ class Slider extends Component {
 					// 	</div>
 					// );
 
-					rows.push(
-								<div className="div" key={i}>
-										<div className="left-wrap" >
+					rows.push
+							(
+								<>
+									<div className="div" key={i}>
+										<div className="left-wrap" style={{ maxWidth:"45%"}}>
 											{data["amount"] === "0" ? null : <span className="rnd">PREMIUM</span>}
 											{data["type"] === "music" ? <h2>{data["title"]}</h2> : <h2>{data["movie_title"]}</h2>}
 											<span className="tag"><b>Rating</b></span>
@@ -243,6 +245,7 @@ class Slider extends Component {
 										</div>
 										<div className="right-wrap"  style={{ backgroundImage: `url('${data["banner"] === "" ? "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" : data["banner"]}')` }} onError={(e) => { e.target.onerror = null; e.target.src = "https://release.luit.co.in/uploads/music_thumbnail/default.jpg" }} />
 									</div>
+								</>
 							);
 				}
 			}
